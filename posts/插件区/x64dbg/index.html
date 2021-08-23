@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>x64Dbg插件开发 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="x64Dbg插件开发" />
+<meta property="og:description" content="x64Dbg插件开发 Windows下开发环境配置 建立一个空的Visual Studio项目,添加pluginmain.cpp. 进行如下配置 配置" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/%E6%8F%92%E4%BB%B6%E5%8C%BA/x64dbg/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-23T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="x64Dbg插件开发"/>
+<meta name="twitter:description" content="x64Dbg插件开发 Windows下开发环境配置 建立一个空的Visual Studio项目,添加pluginmain.cpp. 进行如下配置 配置"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/%E6%8F%92%E4%BB%B6%E5%8C%BA/x64dbg/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/c&#43;&#43;%E9%80%86%E5%90%91/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/%E6%8F%92%E4%BB%B6%E5%8C%BA/ida/ida%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "x64Dbg插件开发",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/%E6%8F%92%E4%BB%B6%E5%8C%BA\/x64dbg\/"
+        },"genre": "posts","keywords": "x64Dbg","wordcount":  421 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/%E6%8F%92%E4%BB%B6%E5%8C%BA\/x64dbg\/","datePublished": "2021-08-23T00:00:00+00:00","dateModified": "2021-08-23T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">x64Dbg插件开发</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8F%92%E4%BB%B6%E5%8C%BA/"><i class="far fa-folder fa-fw"></i>插件区</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-23">2021-08-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 421 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#x64dbg插件开发">x64Dbg插件开发</a>
+      <ul>
+        <li><a href="#windows下开发环境配置">Windows下开发环境配置</a>
+          <ul>
+            <li><a href="#插件模板下载">插件模板下载</a></li>
+          </ul>
+        </li>
+        <li><a href="#相关函数介绍">相关函数介绍</a></li>
+        <li><a href="#插件sdk中关心的接口">插件SDK中关心的接口</a></li>
+        <li><a href="#x64dbg中的命令">x64Dbg中的命令</a>
+          <ul>
+            <li><a href="#命令查询网址">命令查询网址</a></li>
+          </ul>
+        </li>
+        <li><a href="#相关插件源码下载">相关插件源码下载</a>
+          <ul>
+            <li><a href="#字符串比较">字符串比较</a></li>
+            <li><a href="#内存窗口和反汇编窗口选择">内存窗口和反汇编窗口选择</a></li>
+            <li><a href="#花指令去除">花指令去除</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="x64dbg插件开发">x64Dbg插件开发</h1>
+<h2 id="windows下开发环境配置">Windows下开发环境配置</h2>
+<ol>
+<li>建立一个空的Visual Studio项目,添加pluginmain.cpp.</li>
+<li>进行如下配置
+<ol>
+<li>配置属性-&gt;常规:更改&quot;配置类型&quot;为<strong>动态库(.dll)</strong>.</li>
+<li>在VS工程中新建一个筛选器,将x64dbg的pluginsdk拖进去</li>
+<li>配置属性-&gt;高级:目标文件扩展名,32位就写**.dp32**,64位就写**.dp64**</li>
+</ol>
+</li>
+</ol>
+<p>这样一个x64Dbg插件开发环境就搭建好了.</p>
+<h3 id="插件模板下载">插件模板下载</h3>
+<p><a href="/posts/%E6%8F%92%E4%BB%B6%E5%8C%BA/x64dbg/LuoX64DbgPlugin.7z" rel="">LuoX64DbgPlugin.7z</a></p>
+<h2 id="相关函数介绍">相关函数介绍</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">//插件初始化函数,设置插件名称
+</span><span class="c1"></span><span class="n">PLUG_EXPORT</span> <span class="kt">bool</span> <span class="nf">pluginit</span><span class="p">(</span><span class="n">PLUG_INITSTRUCT</span><span class="o">*</span> <span class="n">initStruct</span><span class="p">);</span>
+<span class="c1">//设置插件菜单,图标,注册回调函数
+</span><span class="c1"></span><span class="n">PLUG_EXPORT</span> <span class="kt">void</span> <span class="nf">plugsetup</span><span class="p">(</span><span class="n">PLUG_SETUPSTRUCT</span><span class="o">*</span> <span class="n">setupStruct</span><span class="p">);</span>
+<span class="c1">//菜单点击后的响应
+</span><span class="c1"></span><span class="n">PLUG_EXPORT</span> <span class="kt">void</span> <span class="nf">CBMENUENTRY</span><span class="p">(</span><span class="n">CBTYPE</span> <span class="n">cbType</span><span class="p">,</span> <span class="n">PLUG_CB_MENUENTRY</span><span class="o">*</span> <span class="n">info</span><span class="p">);</span>
+
+<span class="c1">//回调函数的注册
+</span><span class="c1"></span><span class="n">PLUG_IMPEXP</span> <span class="kt">void</span> <span class="nf">_plugin_registercallback</span><span class="p">(</span><span class="kt">int</span> <span class="n">pluginHandle</span><span class="p">,</span> <span class="n">CBTYPE</span> <span class="n">cbType</span><span class="p">,</span> <span class="n">CBPLUGIN</span> <span class="n">cbPlugin</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="插件sdk中关心的接口">插件SDK中关心的接口</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8f%92%e4%bb%b6SDK%e5%85%b3%e5%bf%83%e7%9a%84%e6%8e%a5%e5%8f%a3.png"
+        data-srcset="/posts/%E6%8F%92%E4%BB%B6%E5%8C%BA/x64dbg/images/%E6%8F%92%E4%BB%B6SDK%E5%85%B3%E5%BF%83%E7%9A%84%E6%8E%A5%E5%8F%A3.png, images/%e6%8f%92%e4%bb%b6SDK%e5%85%b3%e5%bf%83%e7%9a%84%e6%8e%a5%e5%8f%a3.png 1.5x, /posts/%E6%8F%92%E4%BB%B6%E5%8C%BA/x64dbg/images/%E6%8F%92%E4%BB%B6SDK%E5%85%B3%E5%BF%83%E7%9A%84%E6%8E%A5%E5%8F%A3.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%8F%92%E4%BB%B6%E5%8C%BA/x64dbg/images/%E6%8F%92%E4%BB%B6SDK%E5%85%B3%E5%BF%83%E7%9A%84%E6%8E%A5%E5%8F%A3.png"
+        title="插件SDK关心的接口" /></p>
+<h2 id="x64dbg中的命令">x64Dbg中的命令</h2>
+<p>有时候插件提供的API不能满足我们的需要,我们通常会用到插件的命令.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="n">BRIDGE_IMPEXP</span> <span class="kt">bool</span> <span class="nf">DbgCmdExec</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">cmd</span><span class="p">);</span>
+<span class="c1">//调用示例
+</span><span class="c1"></span><span class="n">DbgCmdExec</span><span class="p">(</span><span class="s">&#34;StepOver&#34;</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="命令查询网址">命令查询网址</h3>
+<p><a href="https://help.x64dbg.com/en/latest/commands/breakpoint-control/index.html#" target="_blank" rel="noopener noreffer">https://help.x64dbg.com/en/latest/commands/breakpoint-control/index.html#</a></p>
+<h2 id="相关插件源码下载">相关插件源码下载</h2>
+<h3 id="字符串比较">字符串比较</h3>
+<p><a href="/posts/%E6%8F%92%E4%BB%B6%E5%8C%BA/x64dbg/cndsteroids-master.7z" rel="">cndsteroids-master.7z</a></p>
+<h3 id="内存窗口和反汇编窗口选择">内存窗口和反汇编窗口选择</h3>
+<p><a href="/posts/%E6%8F%92%E4%BB%B6%E5%8C%BA/x64dbg/xSelectBlock-master.7z" rel="">xSelectBlock-master.7z</a></p>
+<h3 id="花指令去除">花指令去除</h3>
+<p><a href="/posts/%E6%8F%92%E4%BB%B6%E5%8C%BA/x64dbg/LuoClearJunkCode.7z" rel="">LuoClearJunkCode.7z</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-08-23</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/x64dbg/">x64Dbg</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/c&#43;&#43;%E9%80%86%E5%90%91/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" class="prev" rel="prev" title="STL库学习"><i class="fas fa-angle-left fa-fw"></i>STL库学习</a>
+            <a href="/posts/%E6%8F%92%E4%BB%B6%E5%8C%BA/ida/ida%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" class="next" rel="next" title="IDA插件开发">IDA插件开发<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
