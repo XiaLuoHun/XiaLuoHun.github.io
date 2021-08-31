@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Github Api调用 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="Github Api调用" />
+<meta property="og:description" content="Github Api调用 概述 v3版Api的文档链接 https://docs.github.com/en/rest v3版Api的官方教程 https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api 基本访问路径 只是读取的话,完全不用任何授权,可以在命令行、Insomnia、" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/%E5%B9%B3%E5%8F%B0api/github/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-31T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-31T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Github Api调用"/>
+<meta name="twitter:description" content="Github Api调用 概述 v3版Api的文档链接 https://docs.github.com/en/rest v3版Api的官方教程 https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api 基本访问路径 只是读取的话,完全不用任何授权,可以在命令行、Insomnia、"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/%E5%B9%B3%E5%8F%B0api/github/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android%E9%80%86%E5%90%91/arm/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Github Api调用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/%E5%B9%B3%E5%8F%B0api\/github\/"
+        },"genre": "posts","keywords": "Github","wordcount":  3728 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/%E5%B9%B3%E5%8F%B0api\/github\/","datePublished": "2021-08-31T00:00:00+00:00","dateModified": "2021-08-31T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Github Api调用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%B9%B3%E5%8F%B0api/"><i class="far fa-folder fa-fw"></i>平台API</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3728 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#github-api调用">Github Api调用</a>
+      <ul>
+        <li><a href="#概述">概述</a>
+          <ul>
+            <li><a href="#v3版api的文档链接">v3版Api的文档链接</a></li>
+            <li><a href="#v3版api的官方教程">v3版Api的官方教程</a></li>
+          </ul>
+        </li>
+        <li><a href="#基本访问路径">基本访问路径</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#个人主要信息">个人主要信息</a></li>
+              </ul>
+            </li>
+            <li><a href="#个人所有repo">个人所有repo</a></li>
+            <li><a href="#repo详细信息">repo详细信息</a></li>
+            <li><a href="#获取某个repo的内容列表">获取某个repo的内容列表</a></li>
+            <li><a href="#获取repo中子目录的内容列表">获取repo中子目录的内容列表</a>
+              <ul>
+                <li><a href="#获取repo中某文件信息">获取repo中某文件信息</a></li>
+              </ul>
+            </li>
+            <li><a href="#获取某文件的原始内容raw">获取某文件的原始内容(Raw)</a></li>
+            <li><a href="#repo中所有的commits列表">repo中所有的commits列表</a></li>
+            <li><a href="#某一条commit详情">某一条commit详情</a></li>
+            <li><a href="#issues列表">issues列表</a></li>
+            <li><a href="#某条issue详情">某条issue详情</a></li>
+            <li><a href="#某issue中的comments列表">某issue中的comments列表</a></li>
+            <li><a href="#某comment详情">某comment详情</a></li>
+            <li><a href="#注意点">注意点</a></li>
+          </ul>
+        </li>
+        <li><a href="#查询参数">查询参数</a></li>
+        <li><a href="#权限认证">权限认证</a>
+          <ul>
+            <li><a href="#认证方法">认证方法</a>
+              <ul>
+                <li><a href="#basic-authentication">Basic authentication</a></li>
+                <li><a href="#oauth2-token">OAuth2 token</a>
+                  <ul>
+                    <li><a href="#token">token</a></li>
+                    <li><a href="#设置token方法">设置token方法</a></li>
+                    <li><a href="#用token通过权限认证">用token通过权限认证</a></li>
+                  </ul>
+                </li>
+                <li><a href="#oauth2-keysecret">OAuth2 key/secret</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#增改删contents">增改删contents</a>
+          <ul>
+            <li><a href="#官方文档">官方文档</a>
+              <ul>
+                <li><a href="#注意点-1">注意点</a></li>
+              </ul>
+            </li>
+            <li><a href="#增">增</a>
+              <ul>
+                <li><a href="#示例">示例</a></li>
+              </ul>
+            </li>
+            <li><a href="#改">改</a>
+              <ul>
+                <li><a href="#示例-1">示例</a></li>
+              </ul>
+            </li>
+            <li><a href="#删">删</a>
+              <ul>
+                <li><a href="#示例-2">示例</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#增删改issues">增删改issues</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#官方文档-1">官方文档</a></li>
+                <li><a href="#增-1">增</a></li>
+                <li><a href="#改-1">改</a></li>
+                <li><a href="#锁住某条issue">锁住某条issue</a></li>
+                <li><a href="#解锁某条issue">解锁某条issue</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#增删改comments">增删改comments</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#增-2">增</a>
+                  <ul>
+                    <li><a href="#示例-3">示例</a></li>
+                  </ul>
+                </li>
+                <li><a href="#改-2">改</a>
+                  <ul>
+                    <li><a href="#示例-4">示例</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#删-1">删</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="github-api调用">Github Api调用</h1>
+<h2 id="概述">概述</h2>
+<h3 id="v3版api的文档链接">v3版Api的文档链接</h3>
+<p><a href="https://docs.github.com/en/rest" target="_blank" rel="noopener noreffer">https://docs.github.com/en/rest</a></p>
+<h3 id="v3版api的官方教程">v3版Api的官方教程</h3>
+<p><a href="https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api" target="_blank" rel="noopener noreffer">https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api</a></p>
+<h2 id="基本访问路径">基本访问路径</h2>
+<p>只是读取的话,完全不用任何授权,可以在命令行、Insomnia、网页等各种情况下直接输入链接访问任何人的所有公开信息.</p>
+<h4 id="个人主要信息">个人主要信息</h4>
+<p><a href="https://api.github.com/users/" target="_blank" rel="noopener noreffer">https://api.github.com/users/</a>用户名</p>
+<p>得到的数据如下图:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%9f%ba%e6%9c%ac%e8%b7%af%e5%be%841.png"
+        data-srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E5%9F%BA%E6%9C%AC%E8%B7%AF%E5%BE%841.png, images/%e5%9f%ba%e6%9c%ac%e8%b7%af%e5%be%841.png 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/%E5%9F%BA%E6%9C%AC%E8%B7%AF%E5%BE%841.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E5%9F%BA%E6%9C%AC%E8%B7%AF%E5%BE%841.png"
+        title="基本路径1" /></p>
+<h3 id="个人所有repo">个人所有repo</h3>
+<p><a href="https://api.github.com/users/" target="_blank" rel="noopener noreffer">https://api.github.com/users/</a>用户名/repos</p>
+<p>会得到一个repo的JSON格式列表.</p>
+<h3 id="repo详细信息">repo详细信息</h3>
+<p><a href="https://api.github.com/repos/" target="_blank" rel="noopener noreffer">https://api.github.com/repos/</a>用户名/仓库名</p>
+<h3 id="获取某个repo的内容列表">获取某个repo的内容列表</h3>
+<p><a href="https://api.github.com/repos/" target="_blank" rel="noopener noreffer">https://api.github.com/repos/</a>用户名/仓库名/contents</p>
+<p>注意这只会返回根目录的内容.</p>
+<h3 id="获取repo中子目录的内容列表">获取repo中子目录的内容列表</h3>
+<p><a href="https://api.github.com/repos/" target="_blank" rel="noopener noreffer">https://api.github.com/repos/</a>用户名/仓库名/contents/目录名</p>
+<p>一定要注意这里一定要完全遵循原文件名的大小写,否则无法获得信息.如果是更深层的内容,则在链接列按照顺序逐级写上目录名称.</p>
+<h4 id="获取repo中某文件信息">获取repo中某文件信息</h4>
+<p><a href="https://api.github.com/repos/" target="_blank" rel="noopener noreffer">https://api.github.com/repos/</a>用户名/仓库名/contents/文件路径</p>
+<p>文件路径是文件的完整路径,区分大小写,只会返回文件基本信息.</p>
+<h3 id="获取某文件的原始内容raw">获取某文件的原始内容(Raw)</h3>
+<ul>
+<li>通过上面的文件信息中提取<strong>download_url</strong>这条链接,就能获取它的原始内容了.</li>
+<li>直接访问:https://raw.githubusercontent.com/用户名/仓库名/分支名/文件路径</li>
+</ul>
+<h3 id="repo中所有的commits列表">repo中所有的commits列表</h3>
+<p><a href="https://api.github.com/repos/" target="_blank" rel="noopener noreffer">https://api.github.com/repos/</a>用户名/仓库名/commits</p>
+<h3 id="某一条commit详情">某一条commit详情</h3>
+<p><a href="https://api.github.com/repos/" target="_blank" rel="noopener noreffer">https://api.github.com/repos/</a>用户名/仓库名/commits/某一条commit的SHA</p>
+<h3 id="issues列表">issues列表</h3>
+<p><a href="https://api.github.com/repos/" target="_blank" rel="noopener noreffer">https://api.github.com/repos/</a>用户名/仓库名/issues</p>
+<h3 id="某条issue详情">某条issue详情</h3>
+<p><a href="https://api.github.com/repos/" target="_blank" rel="noopener noreffer">https://api.github.com/repos/</a>用户名/仓库名/issues/序号</p>
+<p>issues都是以1,2,3这样的序列排号的.</p>
+<h3 id="某issue中的comments列表">某issue中的comments列表</h3>
+<p><a href="https://api.github.com/repos/" target="_blank" rel="noopener noreffer">https://api.github.com/repos/</a>用户名/仓库名/issues/序号/comments</p>
+<h3 id="某comment详情">某comment详情</h3>
+<p><a href="https://api.github.com/repos/" target="_blank" rel="noopener noreffer">https://api.github.com/repos/</a>用户名/仓库名/issues/comments/评论详情的ID</p>
+<p>其中评论ID是从issues列表中获得的.</p>
+<h3 id="注意点">注意点</h3>
+<ul>
+<li>访问的链接最后不能有/,如https://api.github.com/users/XiaLuoHun是可以访问到个人信息的,但是https://api.github.com/users/XiaLuoHun/就不行了,唯一不同是多了一个/.</li>
+<li>Github的API访问链接是区分大小写的.</li>
+</ul>
+<h2 id="查询参数">查询参数</h2>
+<p>如果在上面基本链接中加入查询条件,那么返回的数据就是filtered,过滤了的.比如要求让列表数据分页显示,或者只返回正在开放的issues.常用如下:</p>
+<ul>
+<li>
+<p>分页功能.格式是?page=页数&amp;per_page=每页包含数量.</p>
+<p>如:https://api.github.com/users/dnspy/repos?page=1&amp;per_page=2</p>
+</li>
+<li>
+<p>issues状态.格式是?state=状态. 状态:open、closed.</p>
+<p>如:https://api.github.com/repos/x64dbg/x64dbg/issues?state=open</p>
+</li>
+</ul>
+<h2 id="权限认证">权限认证</h2>
+<p>首先需要知道都是,到此为止之前所有的查询都是不需要任何权限的,给个地址就返回数据,全公开.
+但是创建文件、更新、删除等就是必须用自己的账号&quot;登录&quot;才能实现的.所以为了下面的增删改做准备,需要先看一下权限问题.</p>
+<h3 id="认证方法">认证方法</h3>
+<h4 id="basic-authentication">Basic authentication</h4>
+<p>这种最简单,如果是用curl的话.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">curl</span> <span class="o">-</span><span class="n">u</span> <span class="s">&#34;用户名:密码&#34;</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//api.github.com
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果是用Insomnia等调试工具的话,直接在Auth选项栏里选Basic Auth,然后填上用户名密码即可.</p>
+<h4 id="oauth2-token">OAuth2 token</h4>
+<h5 id="token">token</h5>
+<p>说白了就是第二个密码,你既可以不用到处泄露自己的用户名和密码,又可以专门给这个&quot;第二密码&quot;设置不同的权限,如有的只可读,有的还可以写等.除此之外,你还可以设置很多个token,也就是第三、第四、第五&hellip;密码.</p>
+<h5 id="设置token方法">设置token方法</h5>
+<p>位于github个人账号设置-&gt;开发者设置-&gt;个人token.创建一个新token时,可以选择具体的权限,创建成功时一定要复制到本地保存,只会让你看见一次,如果忘记的话就需要重新生成(其实丢了也不算麻烦).</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%ae%be%e7%bd%aetoken.png"
+        data-srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E8%AE%BE%E7%BD%AEtoken.png, images/%e8%ae%be%e7%bd%aetoken.png 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/%E8%AE%BE%E7%BD%AEtoken.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E8%AE%BE%E7%BD%AEtoken.png"
+        title="设置token" /></p>
+<p><strong>需要注意的是</strong>,token字符串不能存储在github的repo中,经过测试,一旦提交的文件中包含这个token字符串,那么github就会自动删除这个token.</p>
+<h5 id="用token通过权限认证">用token通过权限认证</h5>
+<ol>
+<li>作为url中的参数明文传输.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="n">curl</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//api.github.com/?access_token=OAUTH-TOKEN
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>作为header中的参数传输.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s">&#34;Authorization: token OAUTH-TOKEN&#34;</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//api.github.com
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果不是用curl而是Insomnia测试的话,和上面basic auth是大同小异的,很容易操作就不复述了.</p>
+<h4 id="oauth2-keysecret">OAuth2 key/secret</h4>
+<p>这个是除了Personal Access Token之外的另一种好用的方法,即创建自己的OAuth app,然后得到一对client_id和client_secret.如下:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/OAuthApps1.png"
+        data-srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/OAuthApps1.png, images/OAuthApps1.png 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/OAuthApps1.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E5%B9%B3%E5%8F%B0api/github/images/OAuthApps1.png"
+        title="OAuthApps1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/OAuthApps2.png"
+        data-srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/OAuthApps2.png, images/OAuthApps2.png 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/OAuthApps2.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E5%B9%B3%E5%8F%B0api/github/images/OAuthApps2.png"
+        title="OAuthApps2" /></p>
+<p>得到这两个值之后,直接在访问任何api的url连接后面显性加上这两个参数即可完成认证,如:
+<a href="https://api.github.com/users/YOUR-USERR-NAME?client_id=YOUR-CLIENT-ID&amp;client_secret=YOUR-CLIENT-SECRET" target="_blank" rel="noopener noreffer">https://api.github.com/users/YOUR-USERR-NAME?client_id=YOUR-CLIENT-ID&client_secret=YOUR-CLIENT-SECRET</a></p>
+<p><strong>需要注意的是</strong>,目前这种认证方式不支持查询以外的操作,也就是只能GET获取某些api信息,不能执行request里的任何put/PATCH/delete操作.</p>
+<h2 id="增改删contents">增改删contents</h2>
+<h3 id="官方文档">官方文档</h3>
+<p><a href="https://docs.github.com/en/rest/reference/repos#contents" target="_blank" rel="noopener noreffer">https://docs.github.com/en/rest/reference/repos#contents</a></p>
+<h4 id="注意点-1">注意点</h4>
+<ul>
+<li>必须添加权限验证(上面有写).</li>
+<li>数据传送格式选择json.</li>
+<li>文件内容必须是把内容转为Base64字符串再存到json变量中.</li>
+<li>文件路径中如果有不存在的文件夹,则会自动创建.</li>
+</ul>
+<h3 id="增">增</h3>
+<ul>
+<li>传输方法:put</li>
+<li>访问路径:https://api.github.com/repos/用户名/仓库名/contents/文件路径</li>
+<li>json格式:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;commit&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;content&#34;</span><span class="p">:</span> <span class="s2">&#34;VGVzdCBmaWxl&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="示例">示例</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%88%9b%e5%bb%ba%e6%96%87%e4%bb%b6.png"
+        data-srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6.png, images/%e5%88%9b%e5%bb%ba%e6%96%87%e4%bb%b6.png 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6.png"
+        title="创建文件" /></p>
+<h3 id="改">改</h3>
+<ul>
+<li>
+<p>传输方法:put</p>
+</li>
+<li>
+<p>访问路径:https://api.github.com/repos/用户名/仓库名/contents/文件路径</p>
+</li>
+<li>
+<p>json格式:</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;update file&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;content&#34;</span><span class="p">:</span> <span class="s2">&#34;dXBkYXRlIFRlc3QgZmlsZQ==&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;sha&#34;</span><span class="p">:</span> <span class="s2">&#34;84362ca046b156d71d84fa5356ae9afbcb282919&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意</strong>:</p>
+<ul>
+<li>
+<p>必须指定该文件的sha码,相当于文件的ID.</p>
+</li>
+<li>
+<p>文件的sha码会随着文件内容变化而变化,所以必须每次都重新获取才行.</p>
+<p>如何获取的话,参考前面的<strong>获取repo中某文件信息</strong>.</p>
+</li>
+</ul>
+<h4 id="示例-1">示例</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9b%b4%e6%96%b0%e6%96%87%e4%bb%b6.png"
+        data-srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E6%9B%B4%E6%96%B0%E6%96%87%E4%BB%B6.png, images/%e6%9b%b4%e6%96%b0%e6%96%87%e4%bb%b6.png 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/%E6%9B%B4%E6%96%B0%E6%96%87%E4%BB%B6.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E6%9B%B4%E6%96%B0%E6%96%87%E4%BB%B6.png"
+        title="更新文件" /></p>
+<h3 id="删">删</h3>
+<ul>
+<li>传输方法:delete</li>
+<li>访问路径:https://api.github.com/repos/用户名/仓库名/contents/文件路径</li>
+<li>json格式:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;delete file&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;sha&#34;</span><span class="p">:</span> <span class="s2">&#34;115132afb3f1dfcfc0ce11263f944f2d8ac956f2&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="示例-2">示例</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%88%a0%e9%99%a4%e6%96%87%e4%bb%b6.png"
+        data-srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6.png, images/%e5%88%a0%e9%99%a4%e6%96%87%e4%bb%b6.png 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6.png"
+        title="删除文件" /></p>
+<h2 id="增删改issues">增删改issues</h2>
+<h4 id="官方文档-1">官方文档</h4>
+<p><a href="https://docs.github.com/en/rest/reference/issues#create-an-issue" target="_blank" rel="noopener noreffer">https://docs.github.com/en/rest/reference/issues#create-an-issue</a></p>
+<p>和上面contents的增删改差不多,唯一不同的是,issues是不用把内容转为Base64码的.</p>
+<h4 id="增-1">增</h4>
+<ul>
+<li>传输方法:post</li>
+<li>访问路径:https://api.github.com/repos/用户名/仓库名/issues</li>
+<li>json格式:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Creating issue&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;body&#34;</span><span class="p">:</span> <span class="s2">&#34;Posting a issue&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>需要注意的是,issue的数据里面是可以加label,milestone和assignees的.但是必须注意milestone和assignees必须是与已有的名次完全对应才行,否则无法完成创建.</p>
+<h4 id="改-1">改</h4>
+<ul>
+<li>传输方法:patch</li>
+<li>访问路径:https://api.github.com/repos/用户名/仓库名/issues/序号</li>
+<li>json格式：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Creating issue updated&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;body&#34;</span><span class="p">:</span> <span class="s2">&#34;Posting a issue\n\n Updated from insomnia.&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;state&#34;</span><span class="p">:</span> <span class="s2">&#34;open&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>需要注意的是,如果json中加入空白的labels或assignees,如&quot;labels&quot;: [],作用就是清空所有的标签和相关人.</p>
+<h4 id="锁住某条issue">锁住某条issue</h4>
+<p>不允许别人评论(自己可以).</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%94%81%e4%bd%8f%e6%9f%90%e6%9d%a1issue.png"
+        data-srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E9%94%81%E4%BD%8F%E6%9F%90%E6%9D%A1issue.png, images/%e9%94%81%e4%bd%8f%e6%9f%90%e6%9d%a1issue.png 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/%E9%94%81%E4%BD%8F%E6%9F%90%E6%9D%A1issue.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E9%94%81%E4%BD%8F%E6%9F%90%E6%9D%A1issue.png"
+        title="锁住某条issue" /></p>
+<ul>
+<li>传输方法:put</li>
+<li>访问路径:https://api.github.com/repos/用户名/仓库名/issues/序号/lock</li>
+<li>json格式:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;locked&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&#34;active_lock_reason&#34;</span><span class="p">:</span> <span class="s2">&#34;too heated&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="解锁某条issue">解锁某条issue</h4>
+<ul>
+<li>传输方法:delete</li>
+<li>访问路径:https://api.github.com/repos/用户名/仓库名/issues/序号/lock</li>
+<li>无json传输</li>
+</ul>
+<h2 id="增删改comments">增删改comments</h2>
+<h4 id="增-2">增</h4>
+<ul>
+<li>传输方法:post</li>
+<li>访问路径:https://api.github.com/repos/用户名/仓库名/issues/序号/comments</li>
+<li>json格式:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;body&#34;</span><span class="p">:</span> <span class="s2">&#34;Create a comment&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="示例-3">示例</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/comments%e5%a2%9e.png"
+        data-srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/comments%E5%A2%9E.png, images/comments%e5%a2%9e.png 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/comments%E5%A2%9E.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E5%B9%B3%E5%8F%B0api/github/images/comments%E5%A2%9E.png"
+        title="comments增" /></p>
+<h4 id="改-2">改</h4>
+<ul>
+<li>传输方法:patch</li>
+<li>访问路径:https://api.github.com/repos/用户名/仓库名/issues/comments/评论ID</li>
+<li>json格式:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;body&#34;</span><span class="p">:</span> <span class="s2">&#34;Create a comment \n\n--Updated&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>需要注意的是</strong>,地址中,issues后不用序号了,因为可以通过唯一的评论ID追查到.查看评论ID的方法,可参考上面的<strong>某issue中的comments列表</strong>.</p>
+<h5 id="示例-4">示例</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/comments%e6%94%b9.png"
+        data-srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/comments%E6%94%B9.png, images/comments%e6%94%b9.png 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/comments%E6%94%B9.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E5%B9%B3%E5%8F%B0api/github/images/comments%E6%94%B9.png"
+        title="comments改" /></p>
+<h3 id="删-1">删</h3>
+<ul>
+<li>传输方法:delete</li>
+<li>访问路径:https://api.github.com/repos/用户名/仓库名/issues/comments/评论ID</li>
+<li>无json传输</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-08-31</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/github/">Github</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android%E9%80%86%E5%90%91/arm/" class="prev" rel="prev" title="Arm指令"><i class="fas fa-angle-left fa-fw"></i>Arm指令</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
