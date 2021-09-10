@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>CobaltStrike使用 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="CobaltStrike使用" />
+<meta property="og:description" content="CobaltStrike 前置定义 C2: Command&amp;Control Server的简称,也就是命令与控制服务器. Listener: 攻击者在C2上运行的服务,可以监听Beacon的请求(check in). Beacon: 植入到受感染" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-09-10T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CobaltStrike使用"/>
+<meta name="twitter:description" content="CobaltStrike 前置定义 C2: Command&amp;Control Server的简称,也就是命令与控制服务器. Listener: 攻击者在C2上运行的服务,可以监听Beacon的请求(check in). Beacon: 植入到受感染"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android%E9%80%86%E5%90%91/smali/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CobaltStrike使用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95\/cobaltstrike\/"
+        },"genre": "posts","keywords": "CobaltStrike","wordcount":  4296 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95\/cobaltstrike\/","datePublished": "2021-09-10T00:00:00+00:00","dateModified": "2021-09-10T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">CobaltStrike使用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"><i class="far fa-folder fa-fw"></i>渗透测试</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-10">2021-09-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4296 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#cobaltstrike">CobaltStrike</a>
+      <ul>
+        <li><a href="#前置定义">前置定义</a></li>
+        <li><a href="#安装">安装</a>
+          <ul>
+            <li><a href="#windows环境配置示例">Windows环境配置示例</a></li>
+            <li><a href="#linux环境配置示例">Linux环境配置示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#cobaltstrike-listener与payload生成">CobaltStrike Listener与Payload生成</a>
+          <ul>
+            <li><a href="#listener介绍">Listener介绍</a></li>
+            <li><a href="#listener创建">Listener创建</a></li>
+            <li><a href="#listener配置">Listener配置</a>
+              <ul>
+                <li><a href="#生成常规后门">生成常规后门</a></li>
+                <li><a href="#无状态木马">无状态木马</a>
+                  <ul>
+                    <li><a href="#场景">场景</a></li>
+                    <li><a href="#生成">生成</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#beacon详解">Beacon详解</a>
+          <ul>
+            <li><a href="#http-beacontcp-beacon">HTTP Beacon&amp;TCP Beacon</a></li>
+            <li><a href="#smb-beacon">SMB Beacon</a>
+              <ul>
+                <li><a href="#简介">简介</a></li>
+                <li><a href="#使用">使用</a></li>
+              </ul>
+            </li>
+            <li><a href="#ssh-beacon">SSH Beacon</a></li>
+          </ul>
+        </li>
+        <li><a href="#凭据导出与存储">凭据导出与存储</a>
+          <ul>
+            <li><a href="#hashdump导出">hashdump导出</a></li>
+            <li><a href="#mimikatz导出">Mimikatz导出</a></li>
+            <li><a href="#凭据存储">凭据存储</a></li>
+          </ul>
+        </li>
+        <li><a href="#文件管理">文件管理</a>
+          <ul>
+            <li><a href="#下载文件">下载文件</a></li>
+          </ul>
+        </li>
+        <li><a href="#进程管理">进程管理</a></li>
+        <li><a href="#端口扫描">端口扫描</a></li>
+        <li><a href="#net-view">Net View</a></li>
+        <li><a href="#屏幕截图">屏幕截图</a></li>
+        <li><a href="#浏览器代理">浏览器代理</a></li>
+        <li><a href="#web-delivery">Web Delivery</a></li>
+        <li><a href="#socks">Socks</a></li>
+        <li><a href="#安装扩展">安装扩展</a></li>
+        <li><a href="#权限提升">权限提升</a></li>
+        <li><a href="#横向移动">横向移动</a></li>
+        <li><a href="#控制持久化">控制持久化</a>
+          <ul>
+            <li><a href="#windows-service维持权限">Windows Service维持权限</a></li>
+          </ul>
+        </li>
+        <li><a href="#网站克隆">网站克隆</a></li>
+        <li><a href="#用户手册">用户手册</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="cobaltstrike">CobaltStrike</h1>
+<h2 id="前置定义">前置定义</h2>
+<p><strong>C2</strong>: Command&amp;Control Server的简称,也就是命令与控制服务器.</p>
+<p><strong>Listener</strong>: 攻击者在C2上运行的服务,可以监听Beacon的请求(check in).</p>
+<p><strong>Beacon</strong>: 植入到受感染系统中的恶意程序,可以请求C2服务器并在受感染系统中执行命令.</p>
+<p><strong>TeamServer</strong>: CobaltStrike的服务器组件,是配置和启动Listener的地方.</p>
+<h2 id="安装">安装</h2>
+<h3 id="windows环境配置示例">Windows环境配置示例</h3>
+<p>提前安装好jdk,将jdk中的bin目录添加到环境变量中.</p>
+<ol>
+<li>切换到Cobaltstrike目录执行如下命令.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">//若目录下存在cobaltstrike.store文件,删除
+</span><span class="c1">//Keytool.exe 这个文件位于jdk的bin目录中
+</span><span class="c1"></span><span class="n">Keytool</span><span class="p">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">keystore</span> <span class="p">.</span><span class="o">/</span><span class="n">cobaltstrike</span><span class="p">.</span><span class="n">store</span> <span class="o">-</span><span class="n">storepass</span> <span class="mi">123456</span> <span class="o">-</span><span class="n">keypass</span> <span class="mi">123456</span> <span class="o">-</span><span class="n">genkey</span> <span class="o">-</span><span class="n">keyalg</span> <span class="n">RSA</span> <span class="o">-</span><span class="n">alias</span> <span class="n">cobaltstrike</span> <span class="o">-</span><span class="n">dname</span> <span class="s">&#34;CN=Major Cobalt Strike, OU=AdvancedPenTesting, O=cobaltstrike, L=Somewhere, S=Cyberspace, C=Earth&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>执行命令.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="n">teamserver</span><span class="p">.</span><span class="n">bat</span> <span class="mf">8.8.8.8</span> <span class="mi">123456</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>8.8.8.8为你的服务器外网IP,123456为Coabltstrike的客户端密码.</p>
+<ol start="3">
+<li>客户端双击cobaltstrike.bat,填写服务器外网IP和teamserver密码,即可登入.</li>
+</ol>
+<p><strong>需要注意的是</strong>,如果连不上,需要关掉teamserver所在的服务端的防火墙.</p>
+<h3 id="linux环境配置示例">Linux环境配置示例</h3>
+<ol>
+<li>CD切换到Cobaltstrike目录.</li>
+<li>执行命令</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">teamserver.bat 8.8.8.8 123456
+</code></pre></td></tr></table>
+</div>
+</div><p>8.8.8.8为你的服务器外网IP,123456为Coabltstrike的客户端密码.</p>
+<ol start="3">
+<li>客户端运行命令.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="n">Javaw</span> <span class="o">-</span><span class="n">Dfile</span><span class="p">.</span><span class="n">encoding</span><span class="o">=</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span> <span class="o">-</span><span class="nl">XX</span><span class="p">:</span><span class="n">ParallelGCThreads</span><span class="o">=</span><span class="mi">4</span> <span class="o">-</span><span class="nl">XX</span><span class="p">:</span><span class="o">+</span><span class="n">AggressiveHeap</span> <span class="o">-</span><span class="nl">XX</span><span class="p">:</span><span class="o">+</span><span class="n">UseParallelGC</span> <span class="o">-</span><span class="n">jar</span> <span class="n">cobaltstrike</span><span class="p">.</span><span class="n">jar</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>填写服务器外网IP和teamserver密码,即可登入.</p>
+<h2 id="cobaltstrike-listener与payload生成">CobaltStrike Listener与Payload生成</h2>
+<h3 id="listener介绍">Listener介绍</h3>
+<p>Listener(监听器):专门用于对其他对象身上发生的事件或状态改变进行监听和相应处理的对象,当被监视的对象发生情况时,立即采取相应的行动.</p>
+<p>在许多的渗透测试工具中,例如empire,metasploit,cobaltstrike中都有Listener的存在.大家可以简单地理解为Listener就是用来<strong>接收目标主机权限的模块</strong>.</p>
+<h3 id="listener创建">Listener创建</h3>
+<p><strong>创建Listener的步骤</strong>：Cobaltstrike&ndash;&gt;Listeners.</p>
+<p>目前我使用的是CobaltStrike4.2版本,其中内置了 8个Listener.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Beacon DNS
+Beacon HTTP
+Beacon HTTPS
+Beacon SMB
+Beacon TCP
+External C2
+Foreign HTTP
+Foreign HTTPS
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>Beacon</strong>:为cs内置监听器,也就是说,当我们在目标系统成功执行Payload以后,会弹回一个Beacon的shell给cs.
+<strong>Foreign</strong>:主要是提供给外部使用的一些监听器,比如你想利用cs派生一个meterpreter或者 armitage的shell回来,来继续后面的内网渗透,这时就选择使用外部监听器.</p>
+<h3 id="listener配置">Listener配置</h3>
+<p>选择Cobaltstrike&ndash;&gt;Listeners,会打开一个标签页,选择Add并选择你要使用的Listener类型,配置好外网IP和端口(不能冲突)点击save即可保存.在以后生成Payload的过程中即可使用该监听器.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Listener%e9%85%8d%e7%bd%ae1.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/Listener%E9%85%8D%E7%BD%AE1.png, images/Listener%e9%85%8d%e7%bd%ae1.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/Listener%E9%85%8D%E7%BD%AE1.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/Listener%E9%85%8D%E7%BD%AE1.png"
+        title="Listener配置1" /></p>
+<p><strong>HTTP Host(Stager)</strong>: 控制HTTP Beacon的HTTP Stager的主机.仅当你将此payload与需要显式stager的攻击配对时,才使用此值.</p>
+<p><strong>Profile</strong>: 你可以选择一个C2拓展文件变体.通过一个C2文件变体,你可以在一个文件中指定多个配置文件的变量.使用变体文件之后,你设置的每个HTTP或HTTPS监听器会有不同的网络流量指标.</p>
+<p><strong>HTTP Port(C2)</strong>: 设置你的HTTP Beacon回连的端口.</p>
+<p><strong>HTTP Port(Bind)</strong>: 指定你的HTTP Beacon payload web服务器绑定的端口.如果你要设置端口弯曲重定向器(例如,接受来自80或443端口的连接但将连接路由到团队服务器开在另一个端口上的连接,这样的重定向器),那么这些选项会很有用.</p>
+<p><strong>HTTP Host Header</strong>: 如果被指定了,会影响你的HTTP stagers,并通过你的HTTP通信.这个选项
+使得通过Cobalt Strike利用域名前置变得更加容易.</p>
+<p><strong>HTTP Proxy</strong>: 为此payload指定一个显式的代理配置.</p>
+<h4 id="生成常规后门">生成常规后门</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Listener%e9%85%8d%e7%bd%ae2.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/Listener%E9%85%8D%E7%BD%AE2.png, images/Listener%e9%85%8d%e7%bd%ae2.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/Listener%E9%85%8D%E7%BD%AE2.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/Listener%E9%85%8D%E7%BD%AE2.png"
+        title="Listener配置2" /></p>
+<h4 id="无状态木马">无状态木马</h4>
+<h5 id="场景">场景</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%97%a0%e7%8a%b6%e6%80%81%e6%9c%a8%e9%a9%ac%e5%9c%ba%e6%99%af.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%97%A0%E7%8A%B6%E6%80%81%E6%9C%A8%E9%A9%AC%E5%9C%BA%E6%99%AF.png, images/%e6%97%a0%e7%8a%b6%e6%80%81%e6%9c%a8%e9%a9%ac%e5%9c%ba%e6%99%af.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%97%A0%E7%8A%B6%E6%80%81%E6%9C%A8%E9%A9%AC%E5%9C%BA%E6%99%AF.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%97%A0%E7%8A%B6%E6%80%81%E6%9C%A8%E9%A9%AC%E5%9C%BA%E6%99%AF.png"
+        title="无状态木马场景" /></p>
+<h5 id="生成">生成</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%97%a0%e7%8a%b6%e6%80%81%e6%9c%a8%e9%a9%ac%e7%94%9f%e6%88%90.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%97%A0%E7%8A%B6%E6%80%81%E6%9C%A8%E9%A9%AC%E7%94%9F%E6%88%90.png, images/%e6%97%a0%e7%8a%b6%e6%80%81%e6%9c%a8%e9%a9%ac%e7%94%9f%e6%88%90.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%97%A0%E7%8A%B6%E6%80%81%E6%9C%A8%E9%A9%AC%E7%94%9F%E6%88%90.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%97%A0%E7%8A%B6%E6%80%81%E6%9C%A8%E9%A9%AC%E7%94%9F%E6%88%90.png"
+        title="无状态木马生成" /></p>
+<p><strong>需要注意的是</strong>:如果开启了防火墙会产生一个Windows安全警报.因此最好提前用cmd添加一个防火墙放行规则或关闭防火墙,随后便可将无状态的木马上传到内网的其他机器,运行后返回一个会话.</p>
+<h2 id="beacon详解">Beacon详解</h2>
+<p>右键目标interact来使用Beacon,我们用它来执行各种命令.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bd%bf%e7%94%a8Beacon.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E4%BD%BF%E7%94%A8Beacon.png, images/%e4%bd%bf%e7%94%a8Beacon.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E4%BD%BF%E7%94%A8Beacon.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E4%BD%BF%E7%94%A8Beacon.png"
+        title="使用Beacon" /></p>
+<p>需要注意一下两点:</p>
+<ul>
+<li>CobaltStrike默认是60s和teamserver通信一次,这会让我们执行命令或进行其他操作响应很慢,可以通过sleep命令进行修改(如sleep 5, 5s和teamserver通信一次).</li>
+<li>执行cmd命令的时候前面要加shell(如shell dir).</li>
+</ul>
+<h3 id="http-beacontcp-beacon">HTTP Beacon&amp;TCP Beacon</h3>
+<p>这两种beacon都是比较普通的,只不过是主机与teamserver的通信协议不同而已.</p>
+<h3 id="smb-beacon">SMB Beacon</h3>
+<h4 id="简介">简介</h4>
+<p>SMB Beacon通过管道(pipe)进行进程间的数据传递.管道通信的进程可以是本地主机上的两个进
+程,也可以和远程主机上的进程通过网络进行通信.Windows将命名管道通信封装在SMB协议中.因此得名 SMB Beacon.</p>
+<h4 id="使用">使用</h4>
+<p>这种Beacon要求具有SMB Beacon的主机必须接受端口445上的连接.
+派生一个SMB Beacon方法:在Listner生成SMB Beacon.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/SMBBeacon1.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/SMBBeacon1.png, images/SMBBeacon1.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/SMBBeacon1.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/SMBBeacon1.png"
+        title="SMBBeacon1" /></p>
+<p>在目标主机右键,Access-&gt;Spawn AS,弹窗后Lintener选择上面创建的SMB Beacon,或者直接在Beacon中使用命令spawn smb(smb为上面创建的Smb lintener的名字).</p>
+<p>运行成功后外部可以看到∞∞这个字符，这就是派生的SMB Beacon.
+当前是连接状态,你可以在Beacon上用link <ip>命令连接他或者unlink <ip>命令断开它。</p>
+<h3 id="ssh-beacon">SSH Beacon</h3>
+<p>当内网有Linux时,CobaltStrike也是考虑到的,提供了sh连接,大家可以通metasploit爆破内网的sh账号密码,然后用目标机的Beaco去连接就可以了.
+目前有两种SSH Beacon连接方法:</p>
+<ul>
+<li>
+<p>Beacon命令：ssh [target:port] [user] [password]</p>
+</li>
+<li>
+<p>SSH密匙连接: ssh [target:port] [user] [/path/to/key.pem]</p>
+</li>
+</ul>
+<h2 id="凭据导出与存储">凭据导出与存储</h2>
+<p>凭据说的通俗易懂一点,可以理解为目标机的账号,密码.</p>
+<h3 id="hashdump导出">hashdump导出</h3>
+<p><strong>右键目标机-&gt;Access-&gt;Dump Hashes</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/hashdump.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/hashdump.png, images/hashdump.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/hashdump.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/hashdump.png"
+        title="hashdump" /></p>
+<p>以本次导出的凭据为例:</p>
+<p>DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:d2e84884968fe5d39b0066bb66e60c20:::</p>
+<p><strong>31d6cfe0d16ae931b73c59d7e0c089c0</strong>,为Guest用户的NTLM hash.</p>
+<p>我们可以去cmd5等平台破解该NTLM密文.</p>
+<h3 id="mimikatz导出">Mimikatz导出</h3>
+<p><strong>右键目标机-&gt;Access-&gt;Run Mimikatz</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Mimikatz%e5%af%bc%e5%87%ba%e5%87%ad%e6%8d%ae.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/Mimikatz%E5%AF%BC%E5%87%BA%E5%87%AD%E6%8D%AE.png, images/Mimikatz%e5%af%bc%e5%87%ba%e5%87%ad%e6%8d%ae.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/Mimikatz%E5%AF%BC%E5%87%BA%E5%87%AD%E6%8D%AE.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/Mimikatz%E5%AF%BC%E5%87%BA%E5%87%AD%E6%8D%AE.png"
+        title="Mimikatz导出凭据" /></p>
+<p>当会话为管理员权限时,才能dump成功,如果权限很低,请先提权.</p>
+<p>如上图所示,成功导出了某用户的明文密码.</p>
+<h3 id="凭据存储">凭据存储</h3>
+<p>点击下图中的图标,即可查看曾经导出的凭据.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%87%ad%e6%8d%ae%e5%ad%98%e5%82%a8.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E5%87%AD%E6%8D%AE%E5%AD%98%E5%82%A8.png, images/%e5%87%ad%e6%8d%ae%e5%ad%98%e5%82%a8.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E5%87%AD%E6%8D%AE%E5%AD%98%E5%82%A8.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E5%87%AD%E6%8D%AE%E5%AD%98%E5%82%A8.png"
+        title="凭据存储" /></p>
+<h2 id="文件管理">文件管理</h2>
+<p><strong>右键目标机-&gt;Explore-&gt;File Browser</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%96%87%e4%bb%b6%e7%ae%a1%e7%90%86.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86.png, images/%e6%96%87%e4%bb%b6%e7%ae%a1%e7%90%86.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86.png"
+        title="文件管理" /></p>
+<h3 id="下载文件">下载文件</h3>
+<ol>
+<li><strong>右键目标文件-&gt;Download</strong></li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%b8%8b%e8%bd%bd%e6%96%87%e4%bb%b61.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B61.png, images/%e4%b8%8b%e8%bd%bd%e6%96%87%e4%bb%b61.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B61.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B61.png"
+        title="下载文件1" /></p>
+<ol start="2">
+<li>上述操作之后,还需点击下方的图标,选中要下载的文件,点击Sync Files才可将文件下载到本机.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%b8%8b%e8%bd%bd%e6%96%87%e4%bb%b62.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B62.png, images/%e4%b8%8b%e8%bd%bd%e6%96%87%e4%bb%b62.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B62.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B62.png"
+        title="下载文件2" /></p>
+<h2 id="进程管理">进程管理</h2>
+<p><strong>右键目标机-&gt;Explore-&gt;Process List</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%bf%9b%e7%a8%8b%e7%ae%a1%e7%90%86.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86.png, images/%e8%bf%9b%e7%a8%8b%e7%ae%a1%e7%90%86.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86.png"
+        title="进程管理" /></p>
+<p>点击下方的图标,可以看到键盘记录的结果.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%94%ae%e7%9b%98%e8%ae%b0%e5%bd%95.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E9%94%AE%E7%9B%98%E8%AE%B0%E5%BD%95.png, images/%e9%94%ae%e7%9b%98%e8%ae%b0%e5%bd%95.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E9%94%AE%E7%9B%98%E8%AE%B0%E5%BD%95.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E9%94%AE%E7%9B%98%E8%AE%B0%E5%BD%95.png"
+        title="键盘记录" /></p>
+<h2 id="端口扫描">端口扫描</h2>
+<p><strong>右键目标机-&gt;Explore-&gt;Port Scan</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%ab%af%e5%8f%a3%e6%89%ab%e6%8f%8f1.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F1.png, images/%e7%ab%af%e5%8f%a3%e6%89%ab%e6%8f%8f1.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F1.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F1.png"
+        title="端口扫描1" /></p>
+<p>点击下方图标,可查看端口扫描的结果.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%ab%af%e5%8f%a3%e6%89%ab%e6%8f%8f2.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F2.png, images/%e7%ab%af%e5%8f%a3%e6%89%ab%e6%8f%8f2.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F2.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F2.png"
+        title="端口扫描2" /></p>
+<h2 id="net-view">Net View</h2>
+<p>该功能会显示当前域的计算机列表.</p>
+<p><strong>右键目标机-&gt;Explore-&gt;Net View</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/NetView.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/NetView.png, images/NetView.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/NetView.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/NetView.png"
+        title="NetView" /></p>
+<h2 id="屏幕截图">屏幕截图</h2>
+<ol>
+<li><strong>右键目标机-&gt;Explore-&gt;Screenshot</strong></li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%b1%8f%e5%b9%95%e6%88%aa%e5%9b%be1.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE1.png, images/%e5%b1%8f%e5%b9%95%e6%88%aa%e5%9b%be1.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE1.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE1.png"
+        title="屏幕截图1" /></p>
+<ol start="2">
+<li>点击下方图标,查看屏幕截图.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%b1%8f%e5%b9%95%e6%88%aa%e5%9b%be2.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE2.png, images/%e5%b1%8f%e5%b9%95%e6%88%aa%e5%9b%be2.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE2.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE2.png"
+        title="屏幕截图2" /></p>
+<h2 id="浏览器代理">浏览器代理</h2>
+<ol>
+<li><strong>右键目标机-&gt;Explore-&gt;Browser Pivot</strong></li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%b5%8f%e8%a7%88%e5%99%a8%e4%bb%a3%e7%90%861.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%861.png, images/%e6%b5%8f%e8%a7%88%e5%99%a8%e4%bb%a3%e7%90%861.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%861.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%861.png"
+        title="浏览器代理1" /></p>
+<ol start="2">
+<li>配置好相关端口信息后,点击Launch</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%b5%8f%e8%a7%88%e5%99%a8%e4%bb%a3%e7%90%862.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%862.png, images/%e6%b5%8f%e8%a7%88%e5%99%a8%e4%bb%a3%e7%90%862.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%862.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%862.png"
+        title="浏览器代理2" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%b5%8f%e8%a7%88%e5%99%a8%e4%bb%a3%e7%90%863.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%863.png, images/%e6%b5%8f%e8%a7%88%e5%99%a8%e4%bb%a3%e7%90%863.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%863.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%863.png"
+        title="浏览器代理3" /></p>
+<ol start="3">
+<li>在浏览器中或者Windows中设置中配置代理</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%b5%8f%e8%a7%88%e5%99%a8%e4%bb%a3%e7%90%864.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%864.png, images/%e6%b5%8f%e8%a7%88%e5%99%a8%e4%bb%a3%e7%90%864.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%864.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%864.png"
+        title="浏览器代理4" /></p>
+<ol start="4">
+<li>此时我们就可以用浏览器打开该目标机的内网服务.</li>
+</ol>
+<p>可以使用<strong>browserpivot stop</strong>这个命令,关闭浏览器代理.</p>
+<h2 id="web-delivery">Web Delivery</h2>
+<p>此功能可以利用bitsadmin、exe、powershell、python实现快速上线目标主机,使用起来很方便.</p>
+<ol>
+<li>点击下方的图标,配置好端口(不要和其他的重复)、Lintener、Type就点击Launch</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/WebDelivery1.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/WebDelivery1.png, images/WebDelivery1.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/WebDelivery1.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/WebDelivery1.png"
+        title="WebDelivery1" /></p>
+<ol start="2">
+<li>将下方生成的命令在目标机器上执行,就可以实现一条命令快速上线了.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/WebDelivery2.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/WebDelivery2.png, images/WebDelivery2.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/WebDelivery2.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/WebDelivery2.png"
+        title="WebDelivery2" /></p>
+<h2 id="socks">Socks</h2>
+<p>目前利用网络防火墙将组织内部的网络结构与外部网络如INTERNET中有效地隔离开来,这种方法正变得逐渐流行起来.这些防火墙系统通常以应用层网关的形式工作在网络之间,提供受控的TELNET、FTP、SMTP等的接入.</p>
+<p>Socks提供一个通用框架来使这些协议安全透明地穿过防火墙.说的简单明了一点,在渗透测试中,我们使用Socks技术,可以穿透进入目标机的内网,从而扩大我们的战果</p>
+<p>右键目标机-&gt;Pivoting-&gt;Socks Server</p>
+<h2 id="安装扩展">安装扩展</h2>
+<p>扩展是CobaltStrike一个极为重要的模块,它有效的丰富了CobaltStrike的功能.</p>
+<p>选择菜单栏的CobaltStrike-&gt;Script Manager, 点击load,然后选择cna扩展文件即可.</p>
+<h2 id="权限提升">权限提升</h2>
+<ol>
+<li><strong>右键目标机-&gt;Access-&gt;Elevate</strong></li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9d%83%e9%99%90%e6%8f%90%e5%8d%871.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%871.png, images/%e6%9d%83%e9%99%90%e6%8f%90%e5%8d%871.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%871.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%871.png"
+        title="权限提升1" /></p>
+<ol start="2">
+<li>配置好Listener,点击Launch即可</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9d%83%e9%99%90%e6%8f%90%e5%8d%872.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%872.png, images/%e6%9d%83%e9%99%90%e6%8f%90%e5%8d%872.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%872.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%872.png"
+        title="权限提升2" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9d%83%e9%99%90%e6%8f%90%e5%8d%873.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%873.png, images/%e6%9d%83%e9%99%90%e6%8f%90%e5%8d%873.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%873.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%873.png"
+        title="权限提升3" /></p>
+<p>从上图我们可以看到,确实提权了,权限为system.</p>
+<p>也可以在Beacon中输入命令<strong>getsystem</strong>,获取system权限</p>
+<p><strong>需要注意的是</strong>,当权限太低的时候,提权会不成功.</p>
+<h2 id="横向移动">横向移动</h2>
+<ul>
+<li>
+<p>Target视图下的横向移动</p>
+<p>在执行完端口扫描后,目标视图中,选择一个目标,右键-&gt;Jump-&gt;psexec,即可选择凭证进行横向移动,如果该机使用了和之前的目标机一样的凭证,则会成功返回一个system beacon.</p>
+</li>
+<li>
+<p>窃取令牌</p>
+</li>
+</ul>
+<p>在进程列表中,寻找以管理员身份运行的进程,并选定进行steal token,如果成功,则会返回域管权限的beacon,但是一般情况下绝不会那么简单的&hellip;</p>
+<ul>
+<li>其他手段横向移动</li>
+<li>
+<ul>
+<li>可以各种系统漏洞:比如说用ms17-010,ms08-067批量检测一下内网.</li>
+<li>弱口令检测.</li>
+<li>中间件漏洞.</li>
+<li>Web端漏洞.</li>
+</ul>
+</li>
+</ul>
+<h2 id="控制持久化">控制持久化</h2>
+<p>在Windows中,拿到目标主机权限后,维持权限是必不可少的工作.目前常见的手法有:</p>
+<ul>
+<li>注册表</li>
+<li>启动项</li>
+<li>计时任务</li>
+<li>设置服务</li>
+<li>shift后门</li>
+<li>Dll劫持</li>
+<li>利用安装的某些程序</li>
+</ul>
+<h3 id="windows-service维持权限">Windows Service维持权限</h3>
+<p>在CobaltStrike中生成一个Windows Service服务后门,导出时命名为beacon.exe</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bb%b4%e6%8c%81%e6%9d%83%e9%99%901.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BB%B4%E6%8C%81%E6%9D%83%E9%99%901.png, images/%e7%bb%b4%e6%8c%81%e6%9d%83%e9%99%901.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BB%B4%E6%8C%81%E6%9D%83%E9%99%901.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BB%B4%E6%8C%81%E6%9D%83%E9%99%901.png"
+        title="维持权限1" /></p>
+<p>在目标机中执行如下命令:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">C:\Windows\Temp
+upload C:\Users\XiaLuoHun\Desktop\beacon.exe
+shell sc create &#34;thisisserver&#34; binpath= &#34;C:\Users\XiaLuoHun\Desktop\beacon.exe&#34;
+shell sc description &#34;thisisserver&#34; &#34;description&#34;
+shell sc config &#34;thisisserver&#34; start= auto
+shell net start &#34;thisisserver&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>这样的话目标机每次开机,都会运行你的beacon.exe后门.</p>
+<p><strong>需要注意的是</strong>,以上操作如果没有权限的话,就会失败.</p>
+<h2 id="网站克隆">网站克隆</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bd%91%e7%ab%99%e5%85%8b%e9%9a%861.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%861.png, images/%e7%bd%91%e7%ab%99%e5%85%8b%e9%9a%861.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%861.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%861.png"
+        title="网站克隆1" /></p>
+<p>根据个人需求,填写克隆网站,主机地址和端口,注意端口不要冲突,记得把键盘记录打开.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bd%91%e7%ab%99%e5%85%8b%e9%9a%862.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%862.png, images/%e7%bd%91%e7%ab%99%e5%85%8b%e9%9a%862.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%862.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%862.png"
+        title="网站克隆2" /></p>
+<p>点击Clone,就会生成一条链接.需要注意的是,这一步有可能不成功,就需要你换个网址了.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bd%91%e7%ab%99%e5%85%8b%e9%9a%863.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%863.png, images/%e7%bd%91%e7%ab%99%e5%85%8b%e9%9a%863.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%863.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%863.png"
+        title="网站克隆3" /></p>
+<p>接下来,就可以把这条链接发给别人了,当别人在这个网站上进行键盘操作时,就可以在Web Log窗口查看了.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bd%91%e7%ab%99%e5%85%8b%e9%9a%864.png"
+        data-srcset="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%864.png, images/%e7%bd%91%e7%ab%99%e5%85%8b%e9%9a%864.png 1.5x, /posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%864.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/images/%E7%BD%91%E7%AB%99%E5%85%8B%E9%9A%864.png"
+        title="网站克隆4" /></p>
+<h2 id="用户手册">用户手册</h2>
+<p><a href="/posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/cobaltstrike/CobaltStrike4.0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C.pdf" rel="">CobaltStrike4.0用户手册.pdf</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-09-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/cobaltstrike/">CobaltStrike</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android%E9%80%86%E5%90%91/smali/" class="prev" rel="prev" title="Smali"><i class="fas fa-angle-left fa-fw"></i>Smali</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
