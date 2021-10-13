@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Sdk - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="Sdk" />
+<meta property="og:description" content="Sdk 消息 N(notify) 通知,通告,控件发送给使用者 M(message) 发送给控件,用于修改和控制控件的消息 查看控件消息 依次在MSDN中打开Platform SDK Documentation/User Interface Services/Windows User Interface/Controls Button 1 2" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/sdk/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-10-13T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sdk"/>
+<meta name="twitter:description" content="Sdk 消息 N(notify) 通知,通告,控件发送给使用者 M(message) 发送给控件,用于修改和控制控件的消息 查看控件消息 依次在MSDN中打开Platform SDK Documentation/User Interface Services/Windows User Interface/Controls Button 1 2"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/sdk/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/jar%E5%8C%85%E4%BF%AE%E6%94%B9/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/qt/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Sdk",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B\/sdk\/"
+        },"genre": "posts","keywords": "Sdk","wordcount":  2131 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B\/sdk\/","datePublished": "2021-10-13T00:00:00+00:00","dateModified": "2021-10-13T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Sdk</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/"><i class="far fa-folder fa-fw"></i>界面编程</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-13">2021-10-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2131 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#sdk">Sdk</a>
+      <ul>
+        <li><a href="#消息">消息</a>
+          <ul>
+            <li><a href="#nnotify">N(notify)</a></li>
+            <li><a href="#mmessage">M(message)</a></li>
+          </ul>
+        </li>
+        <li><a href="#查看控件消息">查看控件消息</a></li>
+        <li><a href="#button">Button</a></li>
+        <li><a href="#edit-control">Edit Control</a>
+          <ul>
+            <li><a href="#支持换行">支持换行</a></li>
+            <li><a href="#获取文本">获取文本</a>
+              <ul>
+                <li><a href="#em_getline">EM_GETLINE</a></li>
+                <li><a href="#wm_gettext">WM_GETTEXT</a></li>
+                <li><a href="#senddlgitemmessage">SendDlgItemMessage</a></li>
+                <li><a href="#getwindowtext">GetWindowText</a></li>
+                <li><a href="#getdlgitemtext">GetDlgItemText</a></li>
+              </ul>
+            </li>
+            <li><a href="#设置文本">设置文本</a></li>
+          </ul>
+        </li>
+        <li><a href="#check-box">Check Box</a>
+          <ul>
+            <li><a href="#bm_getcheck">BM_GETCHECK</a></li>
+          </ul>
+        </li>
+        <li><a href="#radio-button">Radio Button</a>
+          <ul>
+            <li><a href="#bm_getcheck-1">BM_GETCHECK</a></li>
+          </ul>
+        </li>
+        <li><a href="#combo-box">Combo Box</a>
+          <ul>
+            <li><a href="#cb_addstring">CB_ADDSTRING</a></li>
+            <li><a href="#cb_setcursel">CB_SETCURSEL</a></li>
+            <li><a href="#cb_getcursel">CB_GETCURSEL</a></li>
+            <li><a href="#cb_getlbtext">CB_GETLBTEXT</a></li>
+          </ul>
+        </li>
+        <li><a href="#通用控件">通用控件</a>
+          <ul>
+            <li><a href="#特点">特点</a>
+              <ul>
+                <li><a href="#需包头文件">需包头文件</a></li>
+                <li><a href="#响应消息">响应消息</a></li>
+              </ul>
+            </li>
+            <li><a href="#list-control">List Control</a>
+              <ul>
+                <li><a href="#设置整行选中">设置整行选中</a></li>
+                <li><a href="#插入表头">插入表头</a></li>
+                <li><a href="#添加数据">添加数据</a></li>
+                <li><a href="#获取选中行信息">获取选中行信息</a></li>
+              </ul>
+            </li>
+            <li><a href="#tree-control">Tree Control</a>
+              <ul>
+                <li><a href="#设置风格">设置风格</a></li>
+                <li><a href="#添加数据-1">添加数据</a></li>
+                <li><a href="#获取选中结点信息">获取选中结点信息</a>
+                  <ul>
+                    <li><a href="#响应消息-1">响应消息</a></li>
+                    <li><a href="#fillresourcetabledlg">FillResourceTableDlg</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="sdk">Sdk</h1>
+<h2 id="消息">消息</h2>
+<h3 id="nnotify">N(notify)</h3>
+<p>通知,通告,控件发送给使用者</p>
+<h3 id="mmessage">M(message)</h3>
+<p>发送给控件,用于修改和控制控件的消息</p>
+<h2 id="查看控件消息">查看控件消息</h2>
+<p>依次在MSDN中打开Platform SDK Documentation/User Interface Services/Windows User Interface/Controls</p>
+<h2 id="button">Button</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">case</span> <span class="nl">WM_COMMAND</span><span class="p">:</span>
+  <span class="p">{</span>
+      <span class="n">WORD</span> <span class="n">wID</span> <span class="o">=</span> <span class="n">LOWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//低位表示控件ID
+</span><span class="c1"></span>      <span class="n">WORD</span> <span class="n">wMsg</span> <span class="o">=</span> <span class="n">HIWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//高位表示消息
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="n">wMsg</span> <span class="o">==</span> <span class="n">BN_CLICKED</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="k">switch</span> <span class="p">(</span><span class="n">wID</span><span class="p">)</span>
+          <span class="p">{</span>
+           <span class="k">case</span> <span class="nl">BUT_TEST1</span><span class="p">:</span>
+              <span class="n">MessageBox</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="s">&#34;按钮1按下&#34;</span><span class="p">,</span> <span class="s">&#34;Luo&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+              <span class="k">break</span><span class="p">;</span>
+           <span class="k">case</span> <span class="nl">BUT_TEST2</span><span class="p">:</span>
+            <span class="p">{</span>
+              <span class="n">MessageBox</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="s">&#34;按钮2按下&#34;</span><span class="p">,</span> <span class="s">&#34;Luo&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+              <span class="n">HWND</span> <span class="n">hWnBut1</span> <span class="o">=</span> <span class="n">GetDlgItem</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">BUT_TEST1</span><span class="p">);</span>
+              <span class="n">SendMessage</span><span class="p">(</span><span class="n">hWnBut1</span><span class="p">,</span> <span class="n">BM_CLICK</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+              <span class="k">break</span><span class="p">;</span>
+             <span class="p">}</span>
+           <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+   <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="edit-control">Edit Control</h2>
+<h3 id="支持换行">支持换行</h3>
+<p>Multiline设置为true</p>
+<p>Want Return设置为true</p>
+<h3 id="获取文本">获取文本</h3>
+<h4 id="em_getline">EM_GETLINE</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">case</span> <span class="nl">WM_COMMAND</span><span class="p">:</span>
+  <span class="p">{</span>
+      <span class="n">WORD</span> <span class="n">wID</span> <span class="o">=</span> <span class="n">LOWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//低位表示控件ID
+</span><span class="c1"></span>      <span class="n">WORD</span> <span class="n">wMsg</span> <span class="o">=</span> <span class="n">HIWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//高位表示消息
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="n">wMsg</span> <span class="o">==</span> <span class="n">BN_CLICKED</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="k">switch</span> <span class="p">(</span><span class="n">wID</span><span class="p">)</span>
+          <span class="p">{</span>
+            <span class="k">case</span> <span class="nl">BUT_GETTEXT</span><span class="p">:</span>
+            <span class="p">{</span>
+              <span class="n">CHAR</span> <span class="n">szBuf</span><span class="p">[</span><span class="n">MAXBYTE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span><span class="p">;</span>
+              <span class="n">HWND</span> <span class="n">hWndEdit</span> <span class="o">=</span> <span class="n">GetDlgItem</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">EDIT_TEST</span><span class="p">);</span>
+              <span class="n">SendMessage</span><span class="p">(</span><span class="n">hWndEdit</span><span class="p">,</span> <span class="n">EM_GETLINE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">LPARAM</span><span class="p">)</span><span class="n">szBuf</span><span class="p">);</span>
+              <span class="n">MessageBox</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;Luo&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+              <span class="k">break</span><span class="p">;</span>
+             <span class="p">}</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+     <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="wm_gettext">WM_GETTEXT</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="k">case</span> <span class="nl">WM_COMMAND</span><span class="p">:</span>
+  <span class="p">{</span>
+      <span class="n">WORD</span> <span class="n">wID</span> <span class="o">=</span> <span class="n">LOWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//低位表示控件ID
+</span><span class="c1"></span>      <span class="n">WORD</span> <span class="n">wMsg</span> <span class="o">=</span> <span class="n">HIWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//高位表示消息
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="n">wMsg</span> <span class="o">==</span> <span class="n">BN_CLICKED</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="k">switch</span> <span class="p">(</span><span class="n">wID</span><span class="p">)</span>
+           <span class="p">{</span>
+            <span class="k">case</span> <span class="nl">BUT_GETTEXT</span><span class="p">:</span>
+             <span class="p">{</span>
+                <span class="n">CHAR</span> <span class="n">szBuf</span><span class="p">[</span><span class="n">MAXBYTE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span><span class="p">;</span>
+                <span class="n">HWND</span> <span class="n">hWndEdit</span> <span class="o">=</span> <span class="n">GetDlgItem</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">EDIT_TEST</span><span class="p">);</span>
+                <span class="n">SendMessage</span><span class="p">(</span><span class="n">hWndEdit</span><span class="p">,</span> <span class="n">WM_GETTEXT</span><span class="p">,</span> <span class="n">MAXBYTE</span><span class="p">,</span> <span class="p">(</span><span class="n">LPARAM</span><span class="p">)</span><span class="n">szBuf</span><span class="p">);</span>
+                <span class="n">MessageBox</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;Luo&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+              <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+   <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="senddlgitemmessage">SendDlgItemMessage</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">case</span> <span class="nl">WM_COMMAND</span><span class="p">:</span>
+   <span class="p">{</span>
+       <span class="n">WORD</span> <span class="n">wID</span> <span class="o">=</span> <span class="n">LOWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//低位表示控件ID
+</span><span class="c1"></span>       <span class="n">WORD</span> <span class="n">wMsg</span> <span class="o">=</span> <span class="n">HIWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//高位表示消息
+</span><span class="c1"></span>       <span class="k">if</span> <span class="p">(</span><span class="n">wMsg</span> <span class="o">==</span> <span class="n">BN_CLICKED</span><span class="p">)</span>
+       <span class="p">{</span>
+           <span class="k">switch</span> <span class="p">(</span><span class="n">wID</span><span class="p">)</span>
+           <span class="p">{</span>
+            <span class="k">case</span> <span class="nl">BUT_GETTEXT</span><span class="p">:</span>
+             <span class="p">{</span>
+               <span class="n">CHAR</span> <span class="n">szBuf</span><span class="p">[</span><span class="n">MAXBYTE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span><span class="p">;</span>
+               <span class="n">SendDlgItemMessage</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="c1">//对话框句柄
+</span><span class="c1"></span>                                  <span class="n">EDIT_TEST</span><span class="p">,</span> <span class="c1">//控件ID
+</span><span class="c1"></span>                                  <span class="n">WM_GETTEXT</span><span class="p">,</span> <span class="c1">//消息
+</span><span class="c1"></span>                                  <span class="n">MAXBYTE</span><span class="p">,</span> 
+                                  <span class="p">(</span><span class="n">LPARAM</span><span class="p">)</span><span class="n">szBuf</span><span class="p">);</span>
+               <span class="n">MessageBox</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;Luo&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+               <span class="k">break</span><span class="p">;</span>
+             <span class="p">}</span>
+           <span class="p">}</span>
+        <span class="p">}</span>
+     <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="getwindowtext">GetWindowText</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">case</span> <span class="nl">WM_COMMAND</span><span class="p">:</span>
+   <span class="p">{</span>
+       <span class="n">WORD</span> <span class="n">wID</span> <span class="o">=</span> <span class="n">LOWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//低位表示控件ID
+</span><span class="c1"></span>       <span class="n">WORD</span> <span class="n">wMsg</span> <span class="o">=</span> <span class="n">HIWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//高位表示消息
+</span><span class="c1"></span>       <span class="k">if</span> <span class="p">(</span><span class="n">wMsg</span> <span class="o">==</span> <span class="n">BN_CLICKED</span><span class="p">)</span>
+       <span class="p">{</span>
+          <span class="k">switch</span> <span class="p">(</span><span class="n">wID</span><span class="p">)</span>
+          <span class="p">{</span>
+           <span class="k">case</span> <span class="nl">BUT_GETTEXT</span><span class="p">:</span>
+            <span class="p">{</span>
+              <span class="n">CHAR</span> <span class="n">szBuf</span><span class="p">[</span><span class="n">MAXBYTE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span><span class="p">;</span>
+              <span class="n">HWND</span> <span class="n">hWndEdit</span> <span class="o">=</span> <span class="n">GetDlgItem</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">EDIT_TEST</span><span class="p">);</span>
+              <span class="n">GetWindowText</span><span class="p">(</span><span class="n">hWndEdit</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">szBuf</span><span class="p">));</span>
+              <span class="n">MessageBox</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;Luo&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+              <span class="k">break</span><span class="p">;</span>
+             <span class="p">}</span>
+          <span class="p">}</span>
+       <span class="p">}</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+   <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="getdlgitemtext">GetDlgItemText</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">case</span> <span class="nl">WM_COMMAND</span><span class="p">:</span>
+  <span class="p">{</span>
+     <span class="n">WORD</span> <span class="n">wID</span> <span class="o">=</span> <span class="n">LOWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//低位表示控件ID
+</span><span class="c1"></span>     <span class="n">WORD</span> <span class="n">wMsg</span> <span class="o">=</span> <span class="n">HIWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//高位表示消息
+</span><span class="c1"></span>     <span class="k">if</span> <span class="p">(</span><span class="n">wMsg</span> <span class="o">==</span> <span class="n">BN_CLICKED</span><span class="p">)</span>
+     <span class="p">{</span>
+         <span class="k">switch</span> <span class="p">(</span><span class="n">wID</span><span class="p">)</span>
+         <span class="p">{</span>
+           <span class="k">case</span> <span class="nl">BUT_GETTEXT</span><span class="p">:</span>
+           <span class="p">{</span>
+             <span class="n">CHAR</span> <span class="n">szBuf</span><span class="p">[</span><span class="n">MAXBYTE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span><span class="p">;</span>
+             <span class="n">GetDlgItemText</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">EDIT_TEST</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">szBuf</span><span class="p">));</span>
+             <span class="n">MessageBox</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;Luo&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+             <span class="k">break</span><span class="p">;</span>
+         <span class="p">}</span>
+           <span class="p">}</span>
+      <span class="p">}</span>
+     <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="设置文本">设置文本</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">case</span> <span class="nl">WM_COMMAND</span><span class="p">:</span>
+  <span class="p">{</span>
+      <span class="n">WORD</span> <span class="n">wID</span> <span class="o">=</span> <span class="n">LOWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//低位表示控件ID
+</span><span class="c1"></span>      <span class="n">WORD</span> <span class="n">wMsg</span> <span class="o">=</span> <span class="n">HIWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//高位表示消息
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="n">wMsg</span> <span class="o">==</span> <span class="n">BN_CLICKED</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="k">switch</span> <span class="p">(</span><span class="n">wID</span><span class="p">)</span>
+          <span class="p">{</span>
+          <span class="k">case</span> <span class="nl">BUT_SETTEXT</span><span class="p">:</span>
+            <span class="p">{</span>
+              <span class="kt">char</span> <span class="n">szBuf</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;XiaLuoHun&#34;</span><span class="p">;</span>
+              <span class="n">SetDlgItemText</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">EDIT_TEST</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">);</span>
+              <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="check-box">Check Box</h2>
+<p>在MSDN中查看BUTTON消息</p>
+<h3 id="bm_getcheck">BM_GETCHECK</h3>
+<p>判断复选框是否被选中</p>
+<p>若被选中,则返回BST_CHECKED</p>
+<h2 id="radio-button">Radio Button</h2>
+<p>在MSDN中查看BUTTON消息</p>
+<h3 id="bm_getcheck-1">BM_GETCHECK</h3>
+<p>判断单选框是否被选中</p>
+<p>若被选中,则返回BST_CHECKED</p>
+<h2 id="combo-box">Combo Box</h2>
+<h3 id="cb_addstring">CB_ADDSTRING</h3>
+<p>向组合框中加内容</p>
+<h3 id="cb_setcursel">CB_SETCURSEL</h3>
+<p>设置组合框默认选项</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">case</span> <span class="nl">WM_INITDIALOG</span><span class="p">:</span>
+  <span class="p">{</span>
+      <span class="c1">//向组合框中加内容
+</span><span class="c1"></span>      <span class="n">SendDlgItemMessage</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">CMB_TEST</span><span class="p">,</span> <span class="n">CB_ADDSTRING</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">LPARAM</span><span class="p">)</span><span class="s">&#34;LuoHun&#34;</span><span class="p">);</span>
+      <span class="n">SendDlgItemMessage</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">CMB_TEST</span><span class="p">,</span> <span class="n">CB_ADDSTRING</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">LPARAM</span><span class="p">)</span><span class="s">&#34;ShiTou&#34;</span><span class="p">);</span>
+      <span class="c1">//设置组合框默认选项
+</span><span class="c1"></span>      <span class="n">SendDlgItemMessage</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">CMB_TEST</span><span class="p">,</span> <span class="n">CB_SETCURSEL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="cb_getcursel">CB_GETCURSEL</h3>
+<p>获取当前组合框选中项的索引</p>
+<h3 id="cb_getlbtext">CB_GETLBTEXT</h3>
+<p>根据索引值,获取组合框中的文本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">case</span> <span class="nl">WM_COMMAND</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="n">WORD</span> <span class="n">wID</span> <span class="o">=</span> <span class="n">LOWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//低位表示控件ID
+</span><span class="c1"></span>        <span class="n">WORD</span> <span class="n">wMsg</span> <span class="o">=</span> <span class="n">HIWORD</span><span class="p">(</span><span class="n">wParam</span><span class="p">);</span><span class="c1">//高位表示消息
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">wMsg</span> <span class="o">==</span> <span class="n">BN_CLICKED</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="n">wID</span><span class="p">)</span>
+            <span class="p">{</span>
+              <span class="k">case</span> <span class="nl">BUT_GETTEXT</span><span class="p">:</span>
+              <span class="p">{</span>
+              <span class="c1">//获取组合框中当前选中项的索引值
+</span><span class="c1"></span>                <span class="n">HWND</span> <span class="n">hWndComBox</span> <span class="o">=</span> <span class="n">GetDlgItem</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">CMB_TEST</span><span class="p">);</span>
+                <span class="kt">int</span> <span class="n">nCurIdx</span> <span class="o">=</span> <span class="n">SendMessage</span><span class="p">(</span><span class="n">hWndComBox</span><span class="p">,</span> <span class="n">CB_GETCURSEL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+                <span class="c1">//获取组合框选中项的文本
+</span><span class="c1"></span>                <span class="kt">char</span> <span class="n">szBuf</span><span class="p">[</span><span class="n">MAXBYTE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span><span class="p">;</span>
+                <span class="n">SendMessage</span><span class="p">(</span><span class="n">hWndComBox</span><span class="p">,</span> <span class="n">CB_GETLBTEXT</span><span class="p">,</span> <span class="n">nCurIdx</span><span class="p">,</span> <span class="p">(</span><span class="n">LPARAM</span><span class="p">)</span><span class="n">szBuf</span><span class="p">);</span>
+                <span class="n">MessageBox</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;Luo&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+              <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="通用控件">通用控件</h2>
+<h3 id="特点">特点</h3>
+<h4 id="需包头文件">需包头文件</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;commctrl.h&gt;</span><span class="cp">
+</span><span class="cp">#pragma comment(lib,&#34;comctl32.lib&#34;)
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="响应消息">响应消息</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">WM_NOTIFY</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="list-control">List Control</h3>
+<h4 id="设置整行选中">设置整行选中</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//获取句柄
+</span><span class="c1"></span><span class="n">HWND</span> <span class="n">hListCtrl</span> <span class="o">=</span> <span class="n">GetDlgItem</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">EXPORT_LISTCTRL</span><span class="p">);</span>
+<span class="c1">//设置整行选中
+</span><span class="c1"></span><span class="n">SendMessage</span><span class="p">(</span><span class="n">hListCtrl</span><span class="p">,</span> <span class="n">LVM_SETEXTENDEDLISTVIEWSTYLE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">LVS_EX_FULLROWSELECT</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="插入表头">插入表头</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//插入表头
+</span><span class="c1"></span><span class="n">LV_COLUMN</span> <span class="n">lv</span><span class="p">;</span>
+<span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lv</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">lv</span><span class="p">));</span>
+<span class="c1">//第一列      
+</span><span class="c1"></span><span class="n">lv</span><span class="p">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">LVCF_TEXT</span> <span class="o">|</span> <span class="n">LVCF_WIDTH</span> <span class="o">|</span> <span class="n">LVCF_SUBITEM</span><span class="p">;</span>
+<span class="n">lv</span><span class="p">.</span><span class="n">pszText</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&#34;序号&#34;</span><span class="p">);</span>  
+<span class="n">lv</span><span class="p">.</span><span class="n">cx</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+<span class="n">lv</span><span class="p">.</span><span class="n">iSubItem</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      
+<span class="n">SendMessage</span><span class="p">(</span><span class="n">hListCtrl</span><span class="p">,</span> <span class="n">LVM_INSERTCOLUMN</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">DWORD</span><span class="p">)</span><span class="o">&amp;</span><span class="n">lv</span><span class="p">);</span>
+<span class="c1">//第二列
+</span><span class="c1"></span><span class="n">lv</span><span class="p">.</span><span class="n">pszText</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&#34;RVA&#34;</span><span class="p">);</span>
+<span class="n">lv</span><span class="p">.</span><span class="n">cx</span> <span class="o">=</span> <span class="mi">80</span><span class="p">;</span>
+<span class="n">lv</span><span class="p">.</span><span class="n">iSubItem</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">ListView_InsertColumn</span><span class="p">(</span><span class="n">hListCtrl</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lv</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="添加数据">添加数据</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">LV_ITEM</span> <span class="n">vitem</span><span class="p">;</span> 
+<span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">vitem</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">LV_ITEM</span><span class="p">));</span>
+ <span class="c1">//插入序号
+</span><span class="c1"></span><span class="n">CHAR</span> <span class="n">szBuf</span><span class="p">[</span><span class="n">MAXBYTE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span><span class="p">;</span>
+<span class="n">vitem</span><span class="p">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">LVIF_TEXT</span><span class="p">;</span>
+<span class="n">DWORD</span> <span class="n">dwOrdinalAddBase</span> <span class="o">=</span> <span class="n">dwOrdinal</span> <span class="o">+</span> <span class="n">pExportDirectory</span><span class="o">-&gt;</span><span class="n">Base</span><span class="p">;</span>
+<span class="n">sprintf_s</span><span class="p">(</span><span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;%04X&#34;</span><span class="p">,</span> <span class="n">dwOrdinalAddBase</span><span class="p">);</span>
+<span class="n">vitem</span><span class="p">.</span><span class="n">pszText</span> <span class="o">=</span> <span class="n">szBuf</span><span class="p">;</span>
+<span class="n">vitem</span><span class="p">.</span><span class="n">iItem</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span><span class="c1">//行
+</span><span class="c1"></span><span class="n">vitem</span><span class="p">.</span><span class="n">iSubItem</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//列
+</span><span class="c1"></span><span class="n">ListView_InsertItem</span><span class="p">(</span><span class="n">hListCtrl</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">vitem</span><span class="p">);</span>
+<span class="c1">//插入RVA
+</span><span class="c1"></span><span class="n">sprintf_s</span><span class="p">(</span><span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;%08X&#34;</span><span class="p">,</span> <span class="n">dwFuncRva</span><span class="p">);</span>
+<span class="n">vitem</span><span class="p">.</span><span class="n">pszText</span> <span class="o">=</span> <span class="n">szBuf</span><span class="p">;</span>
+<span class="n">vitem</span><span class="p">.</span><span class="n">iItem</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span><span class="c1">//行
+</span><span class="c1"></span><span class="n">vitem</span><span class="p">.</span><span class="n">iSubItem</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="c1">//列
+</span><span class="c1"></span><span class="n">ListView_SetItem</span><span class="p">(</span><span class="n">hListCtrl</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">vitem</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="获取选中行信息">获取选中行信息</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//获取列表控件句柄
+</span><span class="c1"></span><span class="n">HWND</span> <span class="n">hLstCtrlSection</span> <span class="o">=</span> <span class="n">GetDlgItem</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">RELOCATION_LSTCTRL_SECTION</span><span class="p">);</span>
+<span class="n">LV_ITEM</span> <span class="n">vitem</span><span class="p">;</span>
+<span class="c1">//初始化    
+</span><span class="c1"></span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">vitem</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">LV_ITEM</span><span class="p">));</span>
+<span class="c1">//获取当前选中行的序号
+</span><span class="c1"></span><span class="n">DWORD</span> <span class="n">dwIdx</span> <span class="o">=</span> <span class="n">SendMessage</span><span class="p">(</span><span class="n">hLstCtrlSection</span><span class="p">,</span> <span class="n">LVM_GETSELECTIONMARK</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="c1">//获取当前选中行的信息第1列信息
+</span><span class="c1"></span><span class="n">CHAR</span> <span class="n">szBuf</span><span class="p">[</span><span class="n">MAXBYTE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span><span class="p">;</span>
+<span class="n">vitem</span><span class="p">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">TVIF_TEXT</span> <span class="o">|</span> <span class="n">TVIF_PARAM</span><span class="p">;</span><span class="c1">//设置哪些成员是有效的
+</span><span class="c1"></span><span class="n">vitem</span><span class="p">.</span><span class="n">pszText</span> <span class="o">=</span> <span class="n">szBuf</span><span class="p">;</span>
+<span class="n">vitem</span><span class="p">.</span><span class="n">cchTextMax</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">szBuf</span><span class="p">);</span>
+<span class="n">vitem</span><span class="p">.</span><span class="n">iItem</span> <span class="o">=</span> <span class="n">dwIdx</span><span class="p">;</span><span class="c1">//选中行
+</span><span class="c1"></span><span class="n">vitem</span><span class="p">.</span><span class="n">iSubItem</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="c1">//第1列
+</span><span class="c1"></span><span class="n">BOOL</span> <span class="n">bRet</span> <span class="o">=</span> <span class="n">ListView_GetItem</span><span class="p">(</span><span class="n">hLstCtrlSection</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">vitem</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">bRet</span> <span class="o">==</span> <span class="n">FALSE</span><span class="p">)</span>
+ <span class="p">{</span>
+    <span class="k">return</span> <span class="n">FALSE</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="tree-control">Tree Control</h3>
+<h4 id="设置风格">设置风格</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//获取树控件的句柄
+</span><span class="c1"></span><span class="n">HWND</span> <span class="n">hwndTree</span> <span class="o">=</span> <span class="n">GetDlgItem</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">RESOURCE_TREE</span><span class="p">);</span>
+<span class="c1">//设置树控件的风格
+</span><span class="c1"></span><span class="n">DWORD</span> <span class="n">dwStyle</span> <span class="o">=</span> <span class="n">GetWindowLong</span><span class="p">(</span><span class="n">hwndTree</span><span class="p">,</span> <span class="n">GWL_STYLE</span><span class="p">);</span>
+<span class="n">dwStyle</span> <span class="o">=</span> <span class="n">dwStyle</span> <span class="o">|</span>
+         <span class="n">TVS_HASLINES</span> <span class="o">|</span>
+         <span class="n">TVS_LINESATROOT</span> <span class="o">|</span>
+         <span class="n">TVS_HASBUTTONS</span> <span class="o">|</span>
+         <span class="n">TVS_SHOWSELALWAYS</span><span class="p">;</span>
+<span class="n">SetWindowLong</span><span class="p">(</span><span class="n">hwndTree</span><span class="p">,</span> <span class="n">GWL_STYLE</span><span class="p">,</span> <span class="n">dwStyle</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="添加数据-1">添加数据</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">CHAR</span> <span class="n">szBuf</span><span class="p">[</span><span class="n">MAXBYTE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;LuoHun&#34;</span><span class="p">;</span><span class="c1">//缓冲区
+</span><span class="c1"></span><span class="n">HTREEITEM</span> <span class="n">hFirstItem</span><span class="p">;</span><span class="c1">//保存结点句柄
+</span><span class="c1"></span>
+<span class="n">TVITEM</span>  <span class="n">tvItem</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span><span class="c1">//结点
+</span><span class="c1"></span><span class="n">tvItem</span><span class="p">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">TVIF_TEXT</span> <span class="o">|</span> <span class="n">TVIF_STATE</span> <span class="o">|</span> <span class="n">TVIF_PARAM</span><span class="p">;</span><span class="c1">//设置哪些成员是有效的
+</span><span class="c1"></span><span class="n">tvItem</span><span class="p">.</span><span class="n">cchTextMax</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">szBuf</span><span class="p">);</span>
+<span class="n">tvItem</span><span class="p">.</span><span class="n">pszText</span> <span class="o">=</span> <span class="n">szBuf</span><span class="p">;</span>
+<span class="n">tvItem</span><span class="p">.</span><span class="n">lParam</span> <span class="o">=</span> <span class="p">(</span><span class="n">LPARAM</span><span class="p">)</span><span class="n">pFirstResDirEntry</span><span class="p">;</span><span class="c1">//附加数据
+</span><span class="c1"></span>
+<span class="n">TVINSERTSTRUCT</span> <span class="n">tvStruct</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="n">tvStruct</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="n">tvStruct</span><span class="p">.</span><span class="n">hParent</span> <span class="o">=</span> <span class="n">TVI_ROOT</span><span class="p">;</span>
+<span class="n">tvStruct</span><span class="p">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">tvItem</span><span class="p">;</span>
+
+<span class="n">hFirstItem</span> <span class="o">=</span> <span class="n">TreeView_InsertItem</span><span class="p">(</span><span class="n">hwndTree</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tvStruct</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="获取选中结点信息">获取选中结点信息</h4>
+<h5 id="响应消息-1">响应消息</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">case</span> <span class="nl">WM_NOTIFY</span><span class="p">:</span>
+  <span class="p">{</span>
+     <span class="n">NMHDR</span><span class="o">*</span> <span class="n">pNmhdr</span> <span class="o">=</span> <span class="p">(</span><span class="n">NMHDR</span><span class="o">*</span><span class="p">)</span><span class="n">lParam</span><span class="p">;</span>
+     <span class="n">NMTREEVIEW</span><span class="o">*</span> <span class="n">pnmtv</span> <span class="o">=</span> <span class="p">(</span><span class="n">LPNMTREEVIEW</span><span class="p">)</span><span class="n">lParam</span><span class="p">;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">wParam</span> <span class="o">==</span> <span class="n">RESOURCE_TREE</span> <span class="o">&amp;&amp;</span>
+         <span class="n">pNmhdr</span><span class="o">-&gt;</span><span class="n">code</span> <span class="o">==</span> <span class="n">TVN_SELCHANGED</span> <span class="o">&amp;&amp;</span>
+         <span class="n">pnmtv</span><span class="o">-&gt;</span><span class="n">action</span> <span class="o">==</span> <span class="n">TVC_BYMOUSE</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="c1">//给对话框相关控件赋值
+</span><span class="c1"></span>          <span class="n">FillResourceTableDlg</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+   <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="fillresourcetabledlg">FillResourceTableDlg</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//获取树控件句柄
+</span><span class="c1"></span><span class="n">HWND</span> <span class="n">hTree</span> <span class="o">=</span> <span class="n">GetDlgItem</span><span class="p">(</span><span class="n">hwndDlg</span><span class="p">,</span> <span class="n">RESOURCE_TREE</span><span class="p">);</span>
+
+<span class="c1">//获取选中结点句柄
+</span><span class="c1"></span><span class="n">HTREEITEM</span> <span class="n">hTreeItem</span> <span class="o">=</span> <span class="n">TreeView_GetSelection</span><span class="p">(</span><span class="n">hTree</span><span class="p">);</span>
+
+<span class="c1">//给tvItem赋值
+</span><span class="c1"></span><span class="n">CHAR</span> <span class="n">szBuf</span><span class="p">[</span><span class="n">MAXBYTE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span><span class="p">;</span><span class="c1">//缓冲区
+</span><span class="c1"></span><span class="n">TVITEM</span> <span class="n">tvItem</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span><span class="c1">//结点
+</span><span class="c1"></span><span class="n">tvItem</span><span class="p">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">TVIF_TEXT</span> <span class="o">|</span> <span class="n">TVIF_PARAM</span> <span class="p">;</span><span class="c1">//设置哪些成员是有效的
+</span><span class="c1"></span><span class="n">tvItem</span><span class="p">.</span><span class="n">hItem</span> <span class="o">=</span> <span class="n">hTreeItem</span><span class="p">;</span>
+<span class="n">tvItem</span><span class="p">.</span><span class="n">pszText</span> <span class="o">=</span> <span class="n">szBuf</span><span class="p">;</span>
+<span class="n">tvItem</span><span class="p">.</span><span class="n">cchTextMax</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">szBuf</span><span class="p">);</span>
+
+<span class="c1">//tvItem是一个传入传出参数,获取选中项数据
+</span><span class="c1"></span><span class="n">BOOL</span> <span class="n">bRet</span> <span class="o">=</span> <span class="n">TreeView_GetItem</span><span class="p">(</span><span class="n">hTree</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tvItem</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">bRet</span> <span class="o">==</span> <span class="n">FALSE</span><span class="p">)</span>
+ <span class="p">{</span>
+    <span class="k">return</span> <span class="n">FALSE</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-10-13</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/sdk/">Sdk</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/jar%E5%8C%85%E4%BF%AE%E6%94%B9/" class="prev" rel="prev" title="Jar包修改"><i class="fas fa-angle-left fa-fw"></i>Jar包修改</a>
+            <a href="/posts/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/qt/" class="next" rel="next" title="Qt">Qt<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
