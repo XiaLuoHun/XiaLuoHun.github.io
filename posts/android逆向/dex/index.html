@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Dex - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="Dex" />
-<meta property="og:description" content="Android逆向 Dex 准备Dex文件 我们自己来编译一个Dex文件,供后面分析Dex文件格式. Hello.java 1 2 3 4 5 public class Hello{ public static void main(String[] args){ System.out.println(&#34;Hello Dex!&#34;); } } Makefil" />
+<meta property="og:description" content="Dex 准备Dex文件 我们自己来编译一个Dex文件,供后面分析Dex文件格式. Hello.java 1 2 3 4 5 public class Hello{ public static void main(String[] args){ System.out.println(&#34;Hello Dex!&#34;); } } Makefile脚本 1 2 3 4 5 6" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://XiaLuoHun.github.io/posts/android%E9%80%86%E5%90%91/dex/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-09-25T00:00:00+00:00" />
@@ -14,7 +14,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Dex"/>
-<meta name="twitter:description" content="Android逆向 Dex 准备Dex文件 我们自己来编译一个Dex文件,供后面分析Dex文件格式. Hello.java 1 2 3 4 5 public class Hello{ public static void main(String[] args){ System.out.println(&#34;Hello Dex!&#34;); } } Makefil"/>
+<meta name="twitter:description" content="Dex 准备Dex文件 我们自己来编译一个Dex文件,供后面分析Dex文件格式. Hello.java 1 2 3 4 5 public class Hello{ public static void main(String[] args){ System.out.println(&#34;Hello Dex!&#34;); } } Makefile脚本 1 2 3 4 5 6"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android%E9%80%86%E5%90%91/dex/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android%E9%80%86%E5%90%91/arm%E9%80%86%E5%90%91/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/010editor/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
@@ -25,7 +25,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android%E9%80%86%E5%90%91\/dex\/"
-        },"genre": "posts","keywords": "Dex","wordcount":  6247 ,
+        },"genre": "posts","keywords": "Dex","wordcount":  6238 ,
         "url": "https:\/\/XiaLuoHun.github.io\/posts\/android%E9%80%86%E5%90%91\/dex\/","datePublished": "2021-09-25T00:00:00+00:00","dateModified": "2021-09-25T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "夏洛魂"},"author": {
@@ -102,7 +102,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Dex</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android%E9%80%86%E5%90%91/"><i class="far fa-folder fa-fw"></i>Android逆向</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-25">2021-09-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6247 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-25">2021-09-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6238 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -111,7 +111,7 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#android逆向">Android逆向</a>
+    <li>
       <ul>
         <li><a href="#dex">Dex</a>
           <ul>
@@ -239,8 +239,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="android逆向">Android逆向</h1>
-<h2 id="dex">Dex</h2>
+            </div><div class="content" id="content"><h2 id="dex">Dex</h2>
 <h3 id="准备dex文件">准备Dex文件</h3>
 <p>我们自己来编译一个Dex文件,供后面分析Dex文件格式.</p>
 <h4 id="hellojava">Hello.java</h4>

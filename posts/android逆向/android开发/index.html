@@ -1,0 +1,2977 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Android开发 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="Android开发" />
+<meta property="og:description" content="Android开发 Java 开发环境 环境配置 Jdk下载 环境变量 1 2 3 4 5 6 7 8 9 JAVA_HOME //这里写jdk的安装路径 //如:C:\Program Files\Java\jdk1.8.0_151 Path: %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin; CLASSPATH: .;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar; 编" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-10-20T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Android开发"/>
+<meta name="twitter:description" content="Android开发 Java 开发环境 环境配置 Jdk下载 环境变量 1 2 3 4 5 6 7 8 9 JAVA_HOME //这里写jdk的安装路径 //如:C:\Program Files\Java\jdk1.8.0_151 Path: %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin; CLASSPATH: .;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar; 编"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/mfc/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Android开发",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android%E9%80%86%E5%90%91\/android%E5%BC%80%E5%8F%91\/"
+        },"genre": "posts","keywords": "Android开发","wordcount":  6364 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/android%E9%80%86%E5%90%91\/android%E5%BC%80%E5%8F%91\/","datePublished": "2021-10-20T00:00:00+00:00","dateModified": "2021-10-20T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Android开发</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android%E9%80%86%E5%90%91/"><i class="far fa-folder fa-fw"></i>Android逆向</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-20">2021-10-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6364 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#android开发">Android开发</a>
+      <ul>
+        <li><a href="#java">Java</a>
+          <ul>
+            <li><a href="#开发环境">开发环境</a>
+              <ul>
+                <li><a href="#环境配置">环境配置</a>
+                  <ul>
+                    <li><a href="#jdk下载">Jdk下载</a></li>
+                    <li><a href="#环境变量">环境变量</a></li>
+                  </ul>
+                </li>
+                <li><a href="#编译运行java程序">编译运行Java程序</a>
+                  <ul>
+                    <li><a href="#代码示例">代码示例</a>
+                      <ul>
+                        <li><a href="#hellojava">Hello.java</a></li>
+                        <li><a href="#mathjava">Math.java</a></li>
+                        <li><a href="#注意">注意</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#编译运行">编译运行</a>
+                      <ul>
+                        <li><a href="#文件夹结构">文件夹结构</a></li>
+                        <li><a href="#编译">编译</a></li>
+                        <li><a href="#运行">运行</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#eclipse导出java工程">Eclipse导出Java工程</a></li>
+                    <li><a href="#运行java的可执行jar文件">运行Java的可执行Jar文件</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#数据类型">数据类型</a></li>
+            <li><a href="#关键字">关键字</a>
+              <ul>
+                <li><a href="#final">final</a></li>
+                <li><a href="#运算符">运算符</a></li>
+                <li><a href="#abstract-extends">abstract, extends</a></li>
+                <li><a href="#interface-implements">interface, implements</a></li>
+              </ul>
+            </li>
+            <li><a href="#包装类">包装类</a>
+              <ul>
+                <li><a href="#模板">模板</a></li>
+              </ul>
+            </li>
+            <li><a href="#流程控制语句">流程控制语句</a>
+              <ul>
+                <li><a href="#跳出多重循环">跳出多重循环</a></li>
+              </ul>
+            </li>
+            <li><a href="#内部类">内部类</a></li>
+            <li><a href="#集合类的使用">集合类的使用</a></li>
+            <li><a href="#库的使用">库的使用</a></li>
+          </ul>
+        </li>
+        <li><a href="#android">Android</a>
+          <ul>
+            <li><a href="#概述">概述</a>
+              <ul>
+                <li><a href="#android网站">Android网站</a></li>
+                <li><a href="#体系架构">体系架构</a></li>
+                <li><a href="#jvm">Jvm</a>
+                  <ul>
+                    <li><a href="#编译方式">编译方式</a></li>
+                    <li><a href="#架构">架构</a></li>
+                  </ul>
+                </li>
+                <li><a href="#dvm">Dvm</a>
+                  <ul>
+                    <li><a href="#编译方式-1">编译方式</a>
+                      <ul>
+                        <li><a href="#dex文件">.dex文件</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#架构-1">架构</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#androidstudio">AndroidStudio</a>
+              <ul>
+                <li><a href="#下载">下载</a></li>
+                <li><a href="#安装sdk">安装SDK</a></li>
+                <li><a href="#安装虚拟机">安装虚拟机</a></li>
+                <li><a href="#开启虚拟机开发者模式">开启虚拟机开发者模式</a></li>
+                <li><a href="#快捷键">快捷键</a>
+                  <ul>
+                    <li><a href="#重命名">重命名</a></li>
+                    <li><a href="#注释">注释</a></li>
+                    <li><a href="#代码格式化">代码格式化</a></li>
+                    <li><a href="#所选代码封装为方法">所选代码封装为方法</a></li>
+                    <li><a href="#后退">后退</a></li>
+                    <li><a href="#前进">前进</a></li>
+                    <li><a href="#快速代码生成">快速代码生成</a></li>
+                    <li><a href="#方法参数提示">方法参数提示</a></li>
+                    <li><a href="#查看类方法">查看类方法</a></li>
+                    <li><a href="#类结构窗口">类结构窗口</a></li>
+                    <li><a href="#类继承图">类继承图</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#apk的生成">APK的生成</a>
+              <ul>
+                <li><a href="#apk结构">APK结构</a></li>
+                <li><a href="#sdk目录工具">SDK目录工具</a></li>
+                <li><a href="#aaptexe">aapt.exe</a></li>
+                <li><a href="#javacexe">javac.exe</a></li>
+                <li><a href="#dxbatd8bat">dx.bat(d8.bat)</a></li>
+                <li><a href="#zip压缩算法打包">zip压缩算法打包</a></li>
+                <li><a href="#zipalignexe">zipalign.exe</a></li>
+                <li><a href="#apksignerbat数字签名-rsa">apksigner.bat(数字签名 RSA)</a></li>
+                <li><a href="#apk签名">apk签名</a></li>
+              </ul>
+            </li>
+            <li><a href="#本地化应用">本地化应用</a></li>
+            <li><a href="#activity">Activity</a>
+              <ul>
+                <li><a href="#新建一个activity">新建一个Activity</a></li>
+                <li><a href="#快速创建activity">快速创建Activity</a></li>
+                <li><a href="#启动新界面">启动新界面</a></li>
+                <li><a href="#生命周期">生命周期</a>
+                  <ul>
+                    <li><a href="#在avtivity中重写上述虚函数">在Avtivity中重写上述虚函数</a></li>
+                  </ul>
+                </li>
+                <li><a href="#进程和应用生命周期">进程和应用生命周期</a></li>
+              </ul>
+            </li>
+            <li><a href="#布局">布局</a>
+              <ul>
+                <li><a href="#概念">概念</a></li>
+                <li><a href="#as新建布局">AS新建布局</a></li>
+                <li><a href="#设置布局">设置布局</a></li>
+                <li><a href="#绝对布局">绝对布局</a></li>
+                <li><a href="#线性布局">线性布局</a></li>
+                <li><a href="#相对布局">相对布局</a></li>
+                <li><a href="#帧布局">帧布局</a></li>
+                <li><a href="#表格布局">表格布局</a></li>
+                <li><a href="#约束布局">约束布局</a></li>
+                <li><a href="#查看别人的布局">查看别人的布局</a></li>
+              </ul>
+            </li>
+            <li><a href="#控件相关">控件相关</a>
+              <ul>
+                <li><a href="#华丽界面示例">华丽界面示例</a></li>
+                <li><a href="#模拟android系统操作xml文件">模拟Android系统操作xml文件</a></li>
+                <li><a href="#textview">TextView</a></li>
+                <li><a href="#edittext">EditText</a></li>
+                <li><a href="#button">Button</a>
+                  <ul>
+                    <li><a href="#按钮消息响应">按钮消息响应</a></li>
+                  </ul>
+                </li>
+                <li><a href="#checkbox">CheckBox</a></li>
+                <li><a href="#radiobutton">RadioButton</a></li>
+                <li><a href="#列表组件">列表组件</a>
+                  <ul>
+                    <li><a href="#数据适配器">数据适配器</a></li>
+                    <li><a href="#常用适配器">常用适配器</a>
+                      <ul>
+                        <li><a href="#arrayadapter">ArrayAdapter</a></li>
+                        <li><a href="#simpleadapter">SimpleAdapter</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#自定义适配器">自定义适配器</a>
+                      <ul>
+                        <li><a href="#示例">示例</a></li>
+                        <li><a href="#调用">调用</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><a href="#源代码">源代码</a></li>
+              </ul>
+            </li>
+            <li><a href="#菜单">菜单</a>
+              <ul>
+                <li><a href="#选项菜单">选项菜单</a></li>
+                <li><a href="#上下文菜单">上下文菜单</a></li>
+                <li><a href="#源代码-1">源代码</a></li>
+              </ul>
+            </li>
+            <li><a href="#提示信息">提示信息</a></li>
+            <li><a href="#消息对话框">消息对话框</a></li>
+            <li><a href="#事件处理模型">事件处理模型</a>
+              <ul>
+                <li><a href="#基于多态机制">基于多态机制</a>
+                  <ul>
+                    <li><a href="#使用场景">使用场景</a></li>
+                    <li><a href="#示例-1">示例</a></li>
+                  </ul>
+                </li>
+                <li><a href="#基于监听接口">基于监听接口</a>
+                  <ul>
+                    <li><a href="#使用场景-1">使用场景</a></li>
+                    <li><a href="#监听过程">监听过程</a></li>
+                    <li><a href="#事件接口">事件接口</a></li>
+                    <li><a href="#示例-2">示例</a>
+                      <ul>
+                        <li><a href="#外部类基本不用">外部类(基本不用)</a></li>
+                        <li><a href="#内部类常用">内部类(常用)</a></li>
+                        <li><a href="#当按钮较多时直接由activity实现监听接口">当按钮较多时,直接由Activity实现监听接口</a></li>
+                        <li><a href="#匿名类常用">匿名类(常用)</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><a href="#基于系统设置">基于系统设置</a></li>
+                <li><a href="#基于消息循环">基于消息循环</a>
+                  <ul>
+                    <li><a href="#自己创建消息循环">自己创建消息循环</a></li>
+                  </ul>
+                </li>
+                <li><a href="#源代码-2">源代码</a></li>
+              </ul>
+            </li>
+            <li><a href="#intent意图">Intent(意图)</a>
+              <ul>
+                <li><a href="#3个信息">3个信息</a></li>
+                <li><a href="#注册意图">注册意图</a></li>
+                <li><a href="#显示intent">显示Intent</a>
+                  <ul>
+                    <li><a href="#用intent来传输数据">用Intent来传输数据</a></li>
+                  </ul>
+                </li>
+                <li><a href="#隐式intent">隐式Intent</a>
+                  <ul>
+                    <li><a href="#启动别人的activity">启动别人的Activity</a></li>
+                  </ul>
+                </li>
+                <li><a href="#源代码-3">源代码</a></li>
+              </ul>
+            </li>
+            <li><a href="#服务">服务</a>
+              <ul>
+                <li><a href="#创建服务">创建服务</a></li>
+                <li><a href="#本进程和服务进行通讯">本进程和服务进行通讯</a></li>
+                <li><a href="#注意-1">注意</a></li>
+                <li><a href="#跨进程操作服务">跨进程操作服务</a></li>
+                <li><a href="#跨进程通讯">跨进程通讯</a>
+                  <ul>
+                    <li><a href="#aidl">AIDL</a></li>
+                    <li><a href="#使用aidl创建绑定服务">使用AIDL创建绑定服务</a></li>
+                  </ul>
+                </li>
+                <li><a href="#前台服务">前台服务</a></li>
+                <li><a href="#源代码-4">源代码</a></li>
+              </ul>
+            </li>
+            <li><a href="#广播">广播</a>
+              <ul>
+                <li><a href="#广播电台">广播电台</a>
+                  <ul>
+                    <li><a href="#有序广播">有序广播</a></li>
+                    <li><a href="#无序广播">无序广播</a></li>
+                    <li><a href="#本地广播">本地广播</a></li>
+                  </ul>
+                </li>
+                <li><a href="#广播接收者">广播接收者</a>
+                  <ul>
+                    <li><a href="#创建一个类继承broadcastreceiver">创建一个类继承BroadcastReceiver</a></li>
+                    <li><a href="#注册广播">注册广播</a>
+                      <ul>
+                        <li><a href="#静态注册">静态注册</a></li>
+                        <li><a href="#动态注册">动态注册</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><a href="#发送带权限的广播">发送带权限的广播</a></li>
+                <li><a href="#接收系统广播示例">接收系统广播示例</a>
+                  <ul>
+                    <li><a href="#系统常见广播">系统常见广播</a></li>
+                    <li><a href="#以接收系统短信广播为例">以接收系统短信广播为例</a></li>
+                  </ul>
+                </li>
+                <li><a href="#源代码-5">源代码</a></li>
+              </ul>
+            </li>
+            <li><a href="#文件">文件</a>
+              <ul>
+                <li><a href="#文件存储">文件存储</a>
+                  <ul>
+                    <li><a href="#配置文件保存键值对数据">配置文件(保存键值对数据)</a></li>
+                    <li><a href="#自定义文件格式">自定义文件格式</a>
+                      <ul>
+                        <li><a href="#使用java中的文件流">使用Java中的文件流</a></li>
+                        <li><a href="#示例-3">示例</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><a href="#共享存储">共享存储</a></li>
+                <li><a href="#源代码-6">源代码</a></li>
+              </ul>
+            </li>
+            <li><a href="#数据库">数据库</a>
+              <ul>
+                <li><a href="#创建数据库和表">创建数据库和表</a></li>
+                <li><a href="#增">增</a></li>
+                <li><a href="#删">删</a></li>
+                <li><a href="#改">改</a></li>
+                <li><a href="#查">查</a></li>
+                <li><a href="#注意-2">注意</a></li>
+                <li><a href="#源代码-7">源代码</a></li>
+              </ul>
+            </li>
+            <li><a href="#内容提供程序">内容提供程序</a>
+              <ul>
+                <li><a href="#内容提供者">内容提供者</a>
+                  <ul>
+                    <li>
+                      <ul>
+                        <li><a href="#源代码-8">源代码</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><a href="#内容接收者">内容接收者</a>
+                  <ul>
+                    <li><a href="#拿上述内容提供者的数据">拿上述内容提供者的数据</a>
+                      <ul>
+                        <li><a href="#增-1">增</a></li>
+                        <li><a href="#删-1">删</a></li>
+                        <li><a href="#改-1">改</a></li>
+                        <li><a href="#查-1">查</a></li>
+                        <li><a href="#源代码-9">源代码</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#拿系统内容提供者的数据">拿系统内容提供者的数据</a>
+                      <ul>
+                        <li><a href="#拿联系人信息">拿联系人信息</a></li>
+                        <li><a href="#拿短信信息">拿短信信息</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><a href="#内容观察者">内容观察者</a>
+                  <ul>
+                    <li><a href="#源代码-10">源代码</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#fragment">Fragment</a>
+              <ul>
+                <li><a href="#源代码-11">源代码</a></li>
+              </ul>
+            </li>
+            <li><a href="#功能操作">功能操作</a>
+              <ul>
+                <li><a href="#遍历系统安装的软件">遍历系统安装的软件</a>
+                  <ul>
+                    <li><a href="#管理器">管理器</a></li>
+                    <li><a href="#示例-4">示例</a></li>
+                  </ul>
+                </li>
+                <li><a href="#启动应用">启动应用</a></li>
+                <li><a href="#卸载应用">卸载应用</a></li>
+                <li><a href="#遍历进程">遍历进程</a></li>
+                <li><a href="#流量查看">流量查看</a></li>
+                <li><a href="#监控电话">监控电话</a></li>
+                <li><a href="#屏幕截图">屏幕截图</a>
+                  <ul>
+                    <li><a href="#示例-5">示例</a></li>
+                    <li><a href="#无视权限截图">无视权限,截图</a>
+                      <ul>
+                        <li><a href="#获取root权限">获取Root权限</a></li>
+                        <li><a href="#模拟键盘-鼠标-触摸等">模拟键盘 鼠标 触摸等</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#网络编程">网络编程</a>
+              <ul>
+                <li><a href="#使用java的api">使用Java的API</a></li>
+                <li><a href="#示例-6">示例</a>
+                  <ul>
+                    <li><a href="#server">Server</a></li>
+                    <li><a href="#client">Client</a></li>
+                    <li><a href="#注意-3">注意</a></li>
+                  </ul>
+                </li>
+                <li><a href="#android端执行cmd命令">Android端执行CMD命令</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="android开发">Android开发</h1>
+<h2 id="java">Java</h2>
+<h3 id="开发环境">开发环境</h3>
+<h4 id="环境配置">环境配置</h4>
+<h5 id="jdk下载">Jdk下载</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/jdk%e4%b8%8b%e8%bd%bd.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/jdk%E4%B8%8B%E8%BD%BD.png, images/jdk%e4%b8%8b%e8%bd%bd.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/jdk%E4%B8%8B%E8%BD%BD.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/jdk%E4%B8%8B%E8%BD%BD.png"
+        title="jdk下载" /></p>
+<h5 id="环境变量">环境变量</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">JAVA_HOME</span>
+<span class="c1">//这里写jdk的安装路径
+</span><span class="c1">//如:C:\Program Files\Java\jdk1.8.0_151
+</span><span class="c1"></span><span class="nl">
+</span><span class="nl">Path:</span>
+<span class="o">%</span><span class="n">JAVA_HOME</span><span class="o">%</span><span class="err">\</span><span class="n">bin</span><span class="o">;%</span><span class="n">JAVA_HOME</span><span class="o">%</span><span class="err">\</span><span class="n">jre</span><span class="err">\</span><span class="n">bin</span><span class="o">;</span>
+<span class="nl">
+</span><span class="nl">CLASSPATH:</span>
+<span class="o">.;%</span><span class="n">JAVA_HOME</span><span class="o">%</span><span class="err">\</span><span class="n">lib</span><span class="err">\</span><span class="n">dt</span><span class="o">.</span><span class="na">jar</span><span class="o">;%</span><span class="n">JAVA_HOME</span><span class="o">%</span><span class="err">\</span><span class="n">lib</span><span class="err">\</span><span class="n">tools</span><span class="o">.</span><span class="na">jar</span><span class="o">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="编译运行java程序">编译运行Java程序</h4>
+<h5 id="代码示例">代码示例</h5>
+<h6 id="hellojava">Hello.java</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//包名
+</span><span class="c1">//开头-项目名称-功能
+</span><span class="c1">//公司用com, 个人用org, 官方用java开头
+</span><span class="c1">//包里面的以点分割的字段, 分别对应一个文件夹名
+</span><span class="c1"></span><span class="kn">package</span> <span class="nn">org.hello.main</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.hello.math.Math</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span> <span class="o">{</span>
+
+ <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;1 + 2 = &#34;</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">));</span>
+ <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="mathjava">Math.java</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">org.hello.math</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Math</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">n1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n2</span><span class="o">)</span>
+    <span class="o">{</span>
+     <span class="k">return</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="注意">注意</h6>
+<ul>
+<li>文件名和类名一致</li>
+<li>一个类对应一个文件</li>
+<li>包里面的以点分割的字段,分别对应一个文件夹名</li>
+</ul>
+<h5 id="编译运行">编译运行</h5>
+<p>应用的示例代码为上面的</p>
+<h6 id="文件夹结构">文件夹结构</h6>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%96%87%e4%bb%b6%e5%a4%b9%e7%bb%93%e6%9e%841.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%87%E4%BB%B6%E5%A4%B9%E7%BB%93%E6%9E%841.png, images/%e6%96%87%e4%bb%b6%e5%a4%b9%e7%bb%93%e6%9e%841.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%87%E4%BB%B6%E5%A4%B9%E7%BB%93%E6%9E%841.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%87%E4%BB%B6%E5%A4%B9%E7%BB%93%E6%9E%841.png"
+        title="文件夹结构1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%96%87%e4%bb%b6%e5%a4%b9%e7%bb%93%e6%9e%842.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%87%E4%BB%B6%E5%A4%B9%E7%BB%93%E6%9E%842.png, images/%e6%96%87%e4%bb%b6%e5%a4%b9%e7%bb%93%e6%9e%842.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%87%E4%BB%B6%E5%A4%B9%E7%BB%93%E6%9E%842.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%87%E4%BB%B6%E5%A4%B9%E7%BB%93%E6%9E%842.png"
+        title="文件夹结构2" /></p>
+<h6 id="编译">编译</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">javac</span> <span class="o">-</span><span class="n">cp</span> <span class="n">C</span><span class="o">:</span><span class="err">\</span><span class="n">Users</span><span class="err">\</span><span class="n">XiaLuoHun</span><span class="err">\</span><span class="n">Desktop</span><span class="err">\</span><span class="n">LuoJavaTest</span> <span class="n">Hello</span><span class="o">.</span><span class="na">java</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bc%96%e8%af%911.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BC%96%E8%AF%911.png, images/%e7%bc%96%e8%af%911.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BC%96%E8%AF%911.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BC%96%E8%AF%911.png"
+        title="编译1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bc%96%e8%af%912.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BC%96%E8%AF%912.png, images/%e7%bc%96%e8%af%912.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BC%96%E8%AF%912.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BC%96%E8%AF%912.png"
+        title="编译2" /></p>
+<h6 id="运行">运行</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">java</span> <span class="n">org</span><span class="o">.</span><span class="na">hello</span><span class="o">.</span><span class="na">main</span><span class="o">.</span><span class="na">Hello</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/java%e8%bf%90%e8%a1%8c.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/java%E8%BF%90%E8%A1%8C.png, images/java%e8%bf%90%e8%a1%8c.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/java%E8%BF%90%E8%A1%8C.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/java%E8%BF%90%E8%A1%8C.png"
+        title="java运行" /></p>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/Java%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C.rar" rel="">Java编译运行.rar</a></p>
+<h5 id="eclipse导出java工程">Eclipse导出Java工程</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Eclipse%e5%af%bc%e5%87%baJava%e5%b7%a5%e7%a8%8b1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Eclipse%E5%AF%BC%E5%87%BAJava%E5%B7%A5%E7%A8%8B1.png, images/Eclipse%e5%af%bc%e5%87%baJava%e5%b7%a5%e7%a8%8b1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Eclipse%E5%AF%BC%E5%87%BAJava%E5%B7%A5%E7%A8%8B1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Eclipse%E5%AF%BC%E5%87%BAJava%E5%B7%A5%E7%A8%8B1.png"
+        title="Eclipse导出Java工程1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Eclipse%e5%af%bc%e5%87%baJava%e5%b7%a5%e7%a8%8b2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Eclipse%E5%AF%BC%E5%87%BAJava%E5%B7%A5%E7%A8%8B2.png, images/Eclipse%e5%af%bc%e5%87%baJava%e5%b7%a5%e7%a8%8b2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Eclipse%E5%AF%BC%E5%87%BAJava%E5%B7%A5%E7%A8%8B2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Eclipse%E5%AF%BC%E5%87%BAJava%E5%B7%A5%E7%A8%8B2.png"
+        title="Eclipse导出Java工程2" /></p>
+<h5 id="运行java的可执行jar文件">运行Java的可执行Jar文件</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%bf%90%e8%a1%8cJava%e7%9a%84%e5%8f%af%e6%89%a7%e8%a1%8cJar%e6%96%87%e4%bb%b6.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%BF%90%E8%A1%8CJava%E7%9A%84%E5%8F%AF%E6%89%A7%E8%A1%8CJar%E6%96%87%E4%BB%B6.png, images/%e8%bf%90%e8%a1%8cJava%e7%9a%84%e5%8f%af%e6%89%a7%e8%a1%8cJar%e6%96%87%e4%bb%b6.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%BF%90%E8%A1%8CJava%E7%9A%84%E5%8F%AF%E6%89%A7%E8%A1%8CJar%E6%96%87%E4%BB%B6.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%BF%90%E8%A1%8CJava%E7%9A%84%E5%8F%AF%E6%89%A7%E8%A1%8CJar%E6%96%87%E4%BB%B6.png"
+        title="运行Java的可执行Jar文件" /></p>
+<h3 id="数据类型">数据类型</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Java%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png, images/Java%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png"
+        title="Java数据类型" /></p>
+<h3 id="关键字">关键字</h3>
+<h4 id="final">final</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//类似于C++中的const
+</span><span class="c1"></span><span class="kd">final</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="运算符">运算符</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+<span class="n">n</span> <span class="o">&gt;&gt;=</span> <span class="n">1</span><span class="o">;</span><span class="c1">//Java中都是有符号数的, 右移补符号位
+</span><span class="c1"></span><span class="n">n</span> <span class="o">&gt;&gt;&gt;=</span> <span class="n">1</span><span class="o">;</span><span class="c1">//高位补0
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="abstract-extends">abstract, extends</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">IShape</span><span class="o">{</span>
+    <span class="c1">//抽象方法
+</span><span class="c1"></span>    <span class="kd">abstract</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fun1</span><span class="o">();</span>
+    <span class="c1">//非抽象方法
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fun2</span><span class="o">(){</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//Java无多重继承
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LuoLine</span> <span class="kd">extends</span> <span class="n">IShape</span><span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fun1</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="interface-implements">interface, implements</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//接口类1
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Interface1</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fun1</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="c1">//接口类2
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Interface2</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fun2</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="c1">//多重继承也是有需求的,如:两个基类都是接口类的情况下
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LuoTest</span> <span class="kd">implements</span> <span class="n">Interface1</span><span class="o">,</span> <span class="n">Interface2</span><span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fun1</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fun2</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="包装类">包装类</h3>
+<h4 id="模板">模板</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LuoList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">push_back</span><span class="o">(</span><span class="n">T</span> <span class="n">e</span><span class="o">){</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//Java中的模板是假的模板,没有编译预处理的说法,即不存在替换代码
+</span><span class="c1">//上述代码编译后为下面的代码
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LuoList</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">push_back</span><span class="o">(</span><span class="n">Object</span> <span class="n">e</span><span class="o">){</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//Java中的泛型编程,只能传对象进去,且这个对象是Object的派生类
+</span><span class="c1">//我们通常写的一个类,编译器默认添加extend Object, 即默认是Object的派生类
+</span><span class="c1">//Java为每个基本类型都生成了一个类对象
+</span><span class="c1">//int -&gt; Integer, double -&gt; Double, float -&gt; Float, short -&gt; Short
+</span><span class="c1"></span><span class="n">LuoList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">LuoAry</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LuoList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span>
+<span class="n">LuoAry</span><span class="o">.</span><span class="na">push_back</span><span class="o">(</span><span class="n">1</span><span class="o">);</span><span class="c1">//等价于LuoAry.push_back(new Integer(1));
+</span><span class="c1"></span><span class="n">LuoAry</span><span class="o">.</span><span class="na">push_back</span><span class="o">(</span><span class="n">2</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Java中的基本数据类型没有方法和属性,
+而包装类就是为了让这些拥有方法和属性,实现对象化交互.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Java%e5%8c%85%e8%a3%85%e7%b1%bb.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Java%E5%8C%85%E8%A3%85%E7%B1%BB.png, images/Java%e5%8c%85%e8%a3%85%e7%b1%bb.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Java%E5%8C%85%E8%A3%85%E7%B1%BB.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Java%E5%8C%85%E8%A3%85%E7%B1%BB.png"
+        title="Java包装类" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="s">&#34;100&#34;</span><span class="o">);</span>
+<span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="n">Float</span><span class="o">.</span><span class="na">parseFloat</span><span class="o">(</span><span class="s">&#34;10.88&#34;</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="流程控制语句">流程控制语句</h3>
+<h4 id="跳出多重循环">跳出多重循环</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//Java中没有goto, 但可以使用break Label
+</span><span class="c1">//下面语句的意思是,当j == 3时, 跳出下面的两层循环, 打印Hello Java
+</span><span class="c1"></span><span class="nl">Label1:</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">4</span><span class="o">;</span> <span class="n">j</span><span class="o">++){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span> <span class="n">j</span> <span class="o">==</span> <span class="n">3</span><span class="o">){</span>
+            <span class="k">break</span> <span class="n">Label1</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hello Java&#34;</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="内部类">内部类</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">m_nData1</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+
+    <span class="c1">//当内部类不是静态的时候, 他有两个this指针
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">LuoHello</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">m_nData2</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">Luofun</span><span class="o">()</span> <span class="o">{</span>
+            <span class="c1">//因为有两个this指针, 这里可以访问m_nData1成员
+</span><span class="c1"></span>            <span class="n">m_nData1</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;LuoHello m_nData1 = &#34;</span> <span class="o">+</span> <span class="n">m_nData1</span> <span class="o">+</span> <span class="s">&#34; m_nData2 = &#34;</span> <span class="o">+</span> <span class="n">m_nData2</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">fun</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hello m_nData1 = &#34;</span> <span class="o">+</span> <span class="n">m_nData1</span><span class="o">);</span>
+
+        <span class="c1">//new LuoHello这个内部类的时候, 偷偷将Hello的this指针传了进去
+</span><span class="c1"></span>        <span class="n">LuoHello</span> <span class="n">Luo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LuoHello</span><span class="o">();</span>
+        <span class="n">Luo</span><span class="o">.</span><span class="na">Luofun</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Hello</span> <span class="n">Hun</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hello</span><span class="o">();</span>
+        <span class="n">Hun</span><span class="o">.</span><span class="na">fun</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="集合类的使用">集合类的使用</h3>
+<p>List Set Map</p>
+<h3 id="库的使用">库的使用</h3>
+<p>百度搜索 java api, 可看到官方网址:
+<a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener noreffer">https://docs.oracle.com/javase/8/docs/api/</a></p>
+<h2 id="android">Android</h2>
+<h3 id="概述">概述</h3>
+<h4 id="android网站">Android网站</h4>
+<p>Android开发者
+<a href="https://developer.android.google.cn/" target="_blank" rel="noopener noreffer">https://developer.android.google.cn/</a></p>
+<h4 id="体系架构">体系架构</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Android%e4%bd%93%e7%b3%bb%e6%9e%b6%e6%9e%84.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Android%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84.png, images/Android%e4%bd%93%e7%b3%bb%e6%9e%b6%e6%9e%84.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Android%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Android%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84.png"
+        title="Android体系架构" /></p>
+<ul>
+<li><strong>最底层</strong>,Linux内核.</li>
+<li><strong>HAL层</strong>,硬件抽象层,为了不修改Linux代码,因为一旦修改了,就必须开源,Linux开源协议是gpl协议.</li>
+<li><strong>Lib库层</strong>,C语言写的,类似于Windows的API.</li>
+<li><strong>ART虚拟机</strong>,Dalvik虚拟机已经淘汰了,从Android5.0开始使用ART虚拟机.</li>
+<li><strong>Java Api框架</strong>,Java代码写的,让程序员可以用Java调用C.</li>
+<li><strong>应用层</strong>,提供各种各样的控件,直接调用.</li>
+</ul>
+<h4 id="jvm">Jvm</h4>
+<h5 id="编译方式">编译方式</h5>
+<p>.java文件-&gt;.class文件-&gt;.jar文件</p>
+<h5 id="架构">架构</h5>
+<p>基于堆栈</p>
+<h4 id="dvm">Dvm</h4>
+<h5 id="编译方式-1">编译方式</h5>
+<p>.java文件-&gt;.class文件-&gt;.dex文件</p>
+<h6 id="dex文件">.dex文件</h6>
+<p>压缩版的.jar文件.</p>
+<p>将所有的.class文件合并为一个.dex文件,减少冗余
+如:两个class文件中有相同的字符串,这样合并为.dex文件时 相同的字符串只保留了一份.</p>
+<h5 id="架构-1">架构</h5>
+<p>基于寄存器</p>
+<h3 id="androidstudio">AndroidStudio</h3>
+<h4 id="下载">下载</h4>
+<p>在Android开发者网站下载
+<a href="https://developer.android.google.cn/" target="_blank" rel="noopener noreffer">https://developer.android.google.cn/</a></p>
+<h4 id="安装sdk">安装SDK</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%ae%89%e8%a3%85SDK1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%AE%89%E8%A3%85SDK1.png, images/%e5%ae%89%e8%a3%85SDK1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%AE%89%E8%A3%85SDK1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%AE%89%E8%A3%85SDK1.png"
+        title="安装SDK1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%ae%89%e8%a3%85SDK2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%AE%89%E8%A3%85SDK2.png, images/%e5%ae%89%e8%a3%85SDK2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%AE%89%E8%A3%85SDK2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%AE%89%E8%A3%85SDK2.png"
+        title="安装SDK2" /></p>
+<h4 id="安装虚拟机">安装虚拟机</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%ae%89%e8%a3%85%e8%99%9a%e6%8b%9f%e6%9c%ba.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA.png, images/%e5%ae%89%e8%a3%85%e8%99%9a%e6%8b%9f%e6%9c%ba.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA.png"
+        title="安装虚拟机" /></p>
+<h4 id="开启虚拟机开发者模式">开启虚拟机开发者模式</h4>
+<ol>
+<li>在设置中,一直点击版本号.</li>
+<li>在开发者模式中,开启USB调试.</li>
+</ol>
+<h4 id="快捷键">快捷键</h4>
+<h5 id="重命名">重命名</h5>
+<p>Shift + F6</p>
+<h5 id="注释">注释</h5>
+<p>Ctrl + Shift + /</p>
+<h5 id="代码格式化">代码格式化</h5>
+<p>Ctrl + Alt + L</p>
+<h5 id="所选代码封装为方法">所选代码封装为方法</h5>
+<p>Ctrl + Alt + M</p>
+<h5 id="后退">后退</h5>
+<p>Ctrl + Alt + 向左箭头</p>
+<h5 id="前进">前进</h5>
+<p>Ctrl + Alt + 向右箭头</p>
+<h5 id="快速代码生成">快速代码生成</h5>
+<p>Alt + Insert</p>
+<h5 id="方法参数提示">方法参数提示</h5>
+<p>Ctrl + P</p>
+<h5 id="查看类方法">查看类方法</h5>
+<p>Ctrl + F12</p>
+<h5 id="类结构窗口">类结构窗口</h5>
+<p>Alt + 7</p>
+<h5 id="类继承图">类继承图</h5>
+<p>Ctrl + H</p>
+<h3 id="apk的生成">APK的生成</h3>
+<h4 id="apk结构">APK结构</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/APK%e7%bb%93%e6%9e%84.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/APK%E7%BB%93%E6%9E%84.png, images/APK%e7%bb%93%e6%9e%84.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/APK%E7%BB%93%E6%9E%84.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/APK%E7%BB%93%E6%9E%84.png"
+        title="APK结构" /></p>
+<p>res目录中的xml文件为二进制格式,称为AXML</p>
+<h4 id="sdk目录工具">SDK目录工具</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/SDK%e7%9b%ae%e5%bd%95%e5%b7%a5%e5%85%b7.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SDK%E7%9B%AE%E5%BD%95%E5%B7%A5%E5%85%B7.png, images/SDK%e7%9b%ae%e5%bd%95%e5%b7%a5%e5%85%b7.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SDK%E7%9B%AE%E5%BD%95%E5%B7%A5%E5%85%B7.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SDK%E7%9B%AE%E5%BD%95%E5%B7%A5%E5%85%B7.png"
+        title="SDK目录工具" /></p>
+<h4 id="aaptexe">aapt.exe</h4>
+<p>res(编译前的资源)-&gt; aapt.exe(aapt2.exe) -&gt; resources.arsc + res(AXML) + AndroidManifest.xml.</p>
+<p>可将编译前的资源文件转换成APK文件中的资源文件,也可将APK文件中的资源文件转换成编译前的资源文件.</p>
+<h4 id="javacexe">javac.exe</h4>
+<p>.java文件-&gt;javac.exe-&gt;.class文件</p>
+<h4 id="dxbatd8bat">dx.bat(d8.bat)</h4>
+<p>将编译前的*.class文件-&gt;dx.bat(d8.bat)-&gt;.dex文件
+(老版是用dx.bat, 新版是用d8.bat)</p>
+<h4 id="zip压缩算法打包">zip压缩算法打包</h4>
+<p>res(AXML) + AndroidManifest.xml + .dex + resources.arsc -&gt; .apk</p>
+<h4 id="zipalignexe">zipalign.exe</h4>
+<p>此工具,与dx.bat同目录.
+上述生成的.apk文件,需经此工具进行对齐(AndroidStudio生成的apk文件自动对齐),目的是要确保所有未压缩数据的开头均相对于文件开头部分执行特定的对齐.</p>
+<h4 id="apksignerbat数字签名-rsa">apksigner.bat(数字签名 RSA)</h4>
+<p>此工具,与dx.bat同目录.
+对上述apk文件,进行数字签名,系统才会安装此apk.
+签名在apk文件解压缩后的META-INF文件夹中.</p>
+<h4 id="apk签名">apk签名</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/AS%e7%ad%be%e5%90%8d1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E7%AD%BE%E5%90%8D1.png, images/AS%e7%ad%be%e5%90%8d1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E7%AD%BE%E5%90%8D1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E7%AD%BE%E5%90%8D1.png"
+        title="AS签名1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/AS%e7%ad%be%e5%90%8d2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E7%AD%BE%E5%90%8D2.png, images/AS%e7%ad%be%e5%90%8d2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E7%AD%BE%E5%90%8D2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E7%AD%BE%E5%90%8D2.png"
+        title="AS签名2" /></p>
+<p>V1签名机制只校验了现有的文件,没有校验整个apk文件,这就导致了,可以通过向apk中添加文件达到劫持注入的目的.</p>
+<p>签名后的文件,在工程根目录中的app目录下的release目录下.</p>
+<h3 id="本地化应用">本地化应用</h3>
+<p>中文系统,界面就显示中文;英文系统,界面就显示英文.</p>
+<ol>
+<li>向strings.xml添加字符串</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%ac%e5%9c%b0%e5%8c%96%e5%ba%94%e7%94%a81.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A81.png, images/%e6%9c%ac%e5%9c%b0%e5%8c%96%e5%ba%94%e7%94%a81.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A81.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A81.png"
+        title="本地化应用1" /></p>
+<ol start="2">
+<li>修改activity_main.xml中的字符串引用为strings.xml中的</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%ac%e5%9c%b0%e5%8c%96%e5%ba%94%e7%94%a82.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A82.png, images/%e6%9c%ac%e5%9c%b0%e5%8c%96%e5%ba%94%e7%94%a82.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A82.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A82.png"
+        title="本地化应用2" /></p>
+<ol start="3">
+<li>复制values文件,添加后缀zh</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%ac%e5%9c%b0%e5%8c%96%e5%ba%94%e7%94%a83.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A83.png, images/%e6%9c%ac%e5%9c%b0%e5%8c%96%e5%ba%94%e7%94%a83.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A83.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A83.png"
+        title="本地化应用3" /></p>
+<ol start="4">
+<li>修改values-zh中的strings.xml中的内容为中文</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%ac%e5%9c%b0%e5%8c%96%e5%ba%94%e7%94%a84.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A84.png, images/%e6%9c%ac%e5%9c%b0%e5%8c%96%e5%ba%94%e7%94%a84.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A84.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%BA%94%E7%94%A84.png"
+        title="本地化应用4" /></p>
+<h3 id="activity">Activity</h3>
+<p>提供窗口供应用在其中绘制界面,此窗口通常会填满屏幕,但也可能比屏幕小,并浮动在其他窗口上面.</p>
+<h4 id="新建一个activity">新建一个Activity</h4>
+<ol>
+<li>新建一个类</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%96%b0%e5%bb%ba%e4%b8%80%e4%b8%aaActivity1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AAActivity1.png, images/%e6%96%b0%e5%bb%ba%e4%b8%80%e4%b8%aaActivity1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AAActivity1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AAActivity1.png"
+        title="新建一个Activity1" /></p>
+<ol start="2">
+<li>在AndroidManifest.xml文件中说明</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%96%b0%e5%bb%ba%e4%b8%80%e4%b8%aaActivity2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AAActivity2.png, images/%e6%96%b0%e5%bb%ba%e4%b8%80%e4%b8%aaActivity2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AAActivity2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AAActivity2.png"
+        title="新建一个Activity2" /></p>
+<h4 id="快速创建activity">快速创建Activity</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%bf%ab%e9%80%9f%e5%88%9b%e5%bb%baActivity.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BAActivity.png, images/%e5%bf%ab%e9%80%9f%e5%88%9b%e5%bb%baActivity.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BAActivity.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BAActivity.png"
+        title="快速创建Activity" /></p>
+<h4 id="启动新界面">启动新界面</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%90%af%e5%8a%a8%e6%96%b0%e7%95%8c%e9%9d%a2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E6%96%B0%E7%95%8C%E9%9D%A2.png, images/%e5%90%af%e5%8a%a8%e6%96%b0%e7%95%8c%e9%9d%a2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E6%96%B0%E7%95%8C%E9%9D%A2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E6%96%B0%E7%95%8C%E9%9D%A2.png"
+        title="启动新界面" /></p>
+<h4 id="生命周期">生命周期</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Activity%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png, images/Activity%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png"
+        title="Activity生命周期" /></p>
+<h5 id="在avtivity中重写上述虚函数">在Avtivity中重写上述虚函数</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Activity%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F2.png, images/Activity%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F2.png"
+        title="Activity生命周期2" /></p>
+<h4 id="进程和应用生命周期">进程和应用生命周期</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%bf%9b%e7%a8%8b%e5%92%8c%e5%ba%94%e7%94%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%BA%94%E7%94%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png, images/%e8%bf%9b%e7%a8%8b%e5%92%8c%e5%ba%94%e7%94%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%BA%94%E7%94%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%BA%94%E7%94%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png"
+        title="进程和应用生命周期" /></p>
+<h3 id="布局">布局</h3>
+<h4 id="概念">概念</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%b8%83%e5%b1%80%e6%a6%82%e5%bf%b51.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B8%83%E5%B1%80%E6%A6%82%E5%BF%B51.png, images/%e5%b8%83%e5%b1%80%e6%a6%82%e5%bf%b51.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B8%83%E5%B1%80%E6%A6%82%E5%BF%B51.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B8%83%E5%B1%80%E6%A6%82%E5%BF%B51.png"
+        title="布局概念1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%b8%83%e5%b1%80%e6%a6%82%e5%bf%b52.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B8%83%E5%B1%80%E6%A6%82%E5%BF%B52.png, images/%e5%b8%83%e5%b1%80%e6%a6%82%e5%bf%b52.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B8%83%E5%B1%80%E6%A6%82%E5%BF%B52.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B8%83%E5%B1%80%E6%A6%82%E5%BF%B52.png"
+        title="布局概念2" /></p>
+<h4 id="as新建布局">AS新建布局</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/AS%e6%96%b0%e5%bb%ba%e5%b8%83%e5%b1%80.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E6%96%B0%E5%BB%BA%E5%B8%83%E5%B1%80.png, images/AS%e6%96%b0%e5%bb%ba%e5%b8%83%e5%b1%80.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E6%96%B0%E5%BB%BA%E5%B8%83%E5%B1%80.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E6%96%B0%E5%BB%BA%E5%B8%83%E5%B1%80.png"
+        title="AS新建布局" /></p>
+<h4 id="设置布局">设置布局</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/AS%e8%ae%be%e7%bd%ae%e5%b8%83%e5%b1%80.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E8%AE%BE%E7%BD%AE%E5%B8%83%E5%B1%80.png, images/AS%e8%ae%be%e7%bd%ae%e5%b8%83%e5%b1%80.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E8%AE%BE%E7%BD%AE%E5%B8%83%E5%B1%80.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AS%E8%AE%BE%E7%BD%AE%E5%B8%83%E5%B1%80.png"
+        title="AS设置布局" /></p>
+<h4 id="绝对布局">绝对布局</h4>
+<p>指明子组件的绝对位置,对于不同尺寸的手机来说,适配性较差.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bb%9d%e5%af%b9%e5%b8%83%e5%b1%801.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BB%9D%E5%AF%B9%E5%B8%83%E5%B1%801.png, images/%e7%bb%9d%e5%af%b9%e5%b8%83%e5%b1%801.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BB%9D%E5%AF%B9%E5%B8%83%E5%B1%801.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BB%9D%E5%AF%B9%E5%B8%83%E5%B1%801.png"
+        title="绝对布局1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bb%9d%e5%af%b9%e5%b8%83%e5%b1%802.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BB%9D%E5%AF%B9%E5%B8%83%E5%B1%802.png, images/%e7%bb%9d%e5%af%b9%e5%b8%83%e5%b1%802.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BB%9D%E5%AF%B9%E5%B8%83%E5%B1%802.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BB%9D%E5%AF%B9%E5%B8%83%E5%B1%802.png"
+        title="绝对布局2" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"> <span class="c">&lt;!--  与父窗口同宽   --&gt;</span>
+android:layout_width=&#34;match_parent&#34;
+ <span class="c">&lt;!--  与文本同高   --&gt;</span>
+android:layout_height=&#34;wrap_content&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="线性布局">线性布局</h4>
+<p>用于使所有子视图在单个方向(垂直或水平)保持对齐.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%ba%bf%e6%80%a7%e5%b8%83%e5%b1%801.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BA%BF%E6%80%A7%E5%B8%83%E5%B1%801.png, images/%e7%ba%bf%e6%80%a7%e5%b8%83%e5%b1%801.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BA%BF%E6%80%A7%E5%B8%83%E5%B1%801.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BA%BF%E6%80%A7%E5%B8%83%E5%B1%801.png"
+        title="线性布局1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%ba%bf%e6%80%a7%e5%b8%83%e5%b1%802.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BA%BF%E6%80%A7%E5%B8%83%E5%B1%802.png, images/%e7%ba%bf%e6%80%a7%e5%b8%83%e5%b1%802.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BA%BF%E6%80%A7%E5%B8%83%E5%B1%802.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BA%BF%E6%80%A7%E5%B8%83%E5%B1%802.png"
+        title="线性布局2" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"> <span class="c">&lt;!--  指定布局方向(垂直或者水平)   --&gt;</span>
+android:orientation=&#34;horizontal&#34;
+<span class="c">&lt;!--      
+</span><span class="c">权重,上图中两控件宽度为0,一个权重为1,一个权重为3,
+</span><span class="c">表示将父窗口宽度划分为4份,一个占1份,一个占3份
+</span><span class="c">--&gt;</span>
+android:layout_weight
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="相对布局">相对布局</h4>
+<p>不能设置权重,目前AS支持很差,已被约束布局取代.</p>
+<h4 id="帧布局">帧布局</h4>
+<p>一个控件可以覆盖在另一个控件上.</p>
+<p>应用场景:切换界面.</p>
+<h4 id="表格布局">表格布局</h4>
+<p>用的很少,可以用线性布局来做.</p>
+<h4 id="约束布局">约束布局</h4>
+<p>主流布局,在相对布局的基础上加上权重.</p>
+<h4 id="查看别人的布局">查看别人的布局</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9f%a5%e7%9c%8b%e5%88%ab%e4%ba%ba%e7%9a%84%e5%b8%83%e5%b1%801.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9F%A5%E7%9C%8B%E5%88%AB%E4%BA%BA%E7%9A%84%E5%B8%83%E5%B1%801.png, images/%e6%9f%a5%e7%9c%8b%e5%88%ab%e4%ba%ba%e7%9a%84%e5%b8%83%e5%b1%801.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9F%A5%E7%9C%8B%E5%88%AB%E4%BA%BA%E7%9A%84%E5%B8%83%E5%B1%801.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9F%A5%E7%9C%8B%E5%88%AB%E4%BA%BA%E7%9A%84%E5%B8%83%E5%B1%801.png"
+        title="查看别人的布局1" /></p>
+<p>要确保AS和模拟器连接上,方可在下方选择进程,查看布局.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9f%a5%e7%9c%8b%e5%88%ab%e4%ba%ba%e7%9a%84%e5%b8%83%e5%b1%802.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9F%A5%E7%9C%8B%E5%88%AB%E4%BA%BA%E7%9A%84%E5%B8%83%E5%B1%802.png, images/%e6%9f%a5%e7%9c%8b%e5%88%ab%e4%ba%ba%e7%9a%84%e5%b8%83%e5%b1%802.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9F%A5%E7%9C%8B%E5%88%AB%E4%BA%BA%E7%9A%84%E5%B8%83%E5%B1%802.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9F%A5%E7%9C%8B%E5%88%AB%E4%BA%BA%E7%9A%84%E5%B8%83%E5%B1%802.png"
+        title="查看别人的布局2" /></p>
+<h3 id="控件相关">控件相关</h3>
+<h4 id="华丽界面示例">华丽界面示例</h4>
+<ol>
+<li>创建一个xml文件.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B1.png, images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B1.png"
+        title="华丽界面示例1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B2.png, images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B2.png"
+        title="华丽界面示例2" /></p>
+<ol start="2">
+<li>写下按钮被按下和未被按下所应用的图片.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B3.png, images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B3.png"
+        title="华丽界面示例3" /></p>
+<ol start="3">
+<li>修改button的背景.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b4.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B4.png, images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b4.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B4.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B4.png"
+        title="华丽界面示例4" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b5.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B5.png, images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b5.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B5.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B5.png"
+        title="华丽界面示例5" /></p>
+<ol start="4">
+<li>button修改完成.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b6.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B6.png, images/%e5%8d%8e%e4%b8%bd%e7%95%8c%e9%9d%a2%e7%a4%ba%e4%be%8b6.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B6.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%8E%E4%B8%BD%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B6.png"
+        title="华丽界面示例6" /></p>
+<h4 id="模拟android系统操作xml文件">模拟Android系统操作xml文件</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%a8%a1%e6%8b%9fAndroid%e7%b3%bb%e7%bb%9f%e6%93%8d%e4%bd%9cxml%e6%96%87%e4%bb%b61.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%A8%A1%E6%8B%9FAndroid%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9Cxml%E6%96%87%E4%BB%B61.png, images/%e6%a8%a1%e6%8b%9fAndroid%e7%b3%bb%e7%bb%9f%e6%93%8d%e4%bd%9cxml%e6%96%87%e4%bb%b61.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%A8%A1%E6%8B%9FAndroid%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9Cxml%E6%96%87%E4%BB%B61.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%A8%A1%E6%8B%9FAndroid%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9Cxml%E6%96%87%E4%BB%B61.png"
+        title="模拟Android系统操作xml文件1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%a8%a1%e6%8b%9fAndroid%e7%b3%bb%e7%bb%9f%e6%93%8d%e4%bd%9cxml%e6%96%87%e4%bb%b62.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%A8%A1%E6%8B%9FAndroid%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9Cxml%E6%96%87%E4%BB%B62.png, images/%e6%a8%a1%e6%8b%9fAndroid%e7%b3%bb%e7%bb%9f%e6%93%8d%e4%bd%9cxml%e6%96%87%e4%bb%b62.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%A8%A1%E6%8B%9FAndroid%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9Cxml%E6%96%87%E4%BB%B62.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%A8%A1%E6%8B%9FAndroid%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9Cxml%E6%96%87%E4%BB%B62.png"
+        title="模拟Android系统操作xml文件2" /></p>
+<h4 id="textview">TextView</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/TextView.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/TextView.png, images/TextView.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/TextView.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/TextView.png"
+        title="TextView" /></p>
+<h4 id="edittext">EditText</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/EditText.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/EditText.png, images/EditText.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/EditText.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/EditText.png"
+        title="EditText" /></p>
+<h4 id="button">Button</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Button.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Button.png, images/Button.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Button.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Button.png"
+        title="Button" /></p>
+<h5 id="按钮消息响应">按钮消息响应</h5>
+<ol>
+<li>自定义一个事件监听类.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8c%89%e9%92%ae%e6%b6%88%e6%81%af%e5%93%8d%e5%ba%941.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8C%89%E9%92%AE%E6%B6%88%E6%81%AF%E5%93%8D%E5%BA%941.png, images/%e6%8c%89%e9%92%ae%e6%b6%88%e6%81%af%e5%93%8d%e5%ba%941.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8C%89%E9%92%AE%E6%B6%88%E6%81%AF%E5%93%8D%E5%BA%941.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8C%89%E9%92%AE%E6%B6%88%E6%81%AF%E5%93%8D%E5%BA%941.png"
+        title="按钮消息响应1" /></p>
+<ol start="2">
+<li>按钮注册监听.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8c%89%e9%92%ae%e6%b6%88%e6%81%af%e5%93%8d%e5%ba%942.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8C%89%E9%92%AE%E6%B6%88%E6%81%AF%E5%93%8D%E5%BA%942.png, images/%e6%8c%89%e9%92%ae%e6%b6%88%e6%81%af%e5%93%8d%e5%ba%942.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8C%89%E9%92%AE%E6%B6%88%E6%81%AF%E5%93%8D%E5%BA%942.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8C%89%E9%92%AE%E6%B6%88%E6%81%AF%E5%93%8D%E5%BA%942.png"
+        title="按钮消息响应2" /></p>
+<h4 id="checkbox">CheckBox</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/CheckBox.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/CheckBox.png, images/CheckBox.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/CheckBox.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/CheckBox.png"
+        title="CheckBox" /></p>
+<h4 id="radiobutton">RadioButton</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/RadioButton.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/RadioButton.png, images/RadioButton.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/RadioButton.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/RadioButton.png"
+        title="RadioButton" /></p>
+<h4 id="列表组件">列表组件</h4>
+<h5 id="数据适配器">数据适配器</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%95%b0%e6%8d%ae%e9%80%82%e9%85%8d%e5%99%a8.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E9%80%82%E9%85%8D%E5%99%A8.png, images/%e6%95%b0%e6%8d%ae%e9%80%82%e9%85%8d%e5%99%a8.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E9%80%82%E9%85%8D%E5%99%A8.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E9%80%82%E9%85%8D%E5%99%A8.png"
+        title="数据适配器" /></p>
+<p>上图展示了数据源、适配器、列表控件之间的关系.
+我们知道,数据源是各种各样的,而ListView所展示数据的格式则是有一定的要求的.
+数据适配器正是建立了数据源与ListView之间的适配.</p>
+<h5 id="常用适配器">常用适配器</h5>
+<h6 id="arrayadapter">ArrayAdapter</h6>
+<p>只能操作一个控件,如下述中在操作了TextView控件后,不能修改图片控件.</p>
+<ol>
+<li>新建一个布局文件, 记录每行的UI.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/ArrayAdapter1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/ArrayAdapter1.png, images/ArrayAdapter1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/ArrayAdapter1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/ArrayAdapter1.png"
+        title="ArrayAdapter1" /></p>
+<ol start="2">
+<li>设置.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/ArrayAdapter2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/ArrayAdapter2.png, images/ArrayAdapter2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/ArrayAdapter2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/ArrayAdapter2.png"
+        title="ArrayAdapter2" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/ArrayAdapter3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/ArrayAdapter3.png, images/ArrayAdapter3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/ArrayAdapter3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/ArrayAdapter3.png"
+        title="ArrayAdapter3" /></p>
+<h6 id="simpleadapter">SimpleAdapter</h6>
+<ol>
+<li>新建一个布局文件.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/SimpleAdapter1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SimpleAdapter1.png, images/SimpleAdapter1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SimpleAdapter1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SimpleAdapter1.png"
+        title="SimpleAdapter1" /></p>
+<ol start="2">
+<li>设置</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/SimpleAdapter2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SimpleAdapter2.png, images/SimpleAdapter2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SimpleAdapter2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SimpleAdapter2.png"
+        title="SimpleAdapter2" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/SimpleAdapter3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SimpleAdapter3.png, images/SimpleAdapter3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SimpleAdapter3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/SimpleAdapter3.png"
+        title="SimpleAdapter3" /></p>
+<h5 id="自定义适配器">自定义适配器</h5>
+<p>不用考虑通用性.</p>
+<h6 id="示例">示例</h6>
+<ol>
+<li>新建一个布局文件.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%87%aa%e5%ae%9a%e4%b9%89%e9%80%82%e9%85%8d%e5%99%a81.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%82%E9%85%8D%E5%99%A81.png, images/%e8%87%aa%e5%ae%9a%e4%b9%89%e9%80%82%e9%85%8d%e5%99%a81.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%82%E9%85%8D%E5%99%A81.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%82%E9%85%8D%E5%99%A81.png"
+        title="自定义适配器1" /></p>
+<ol start="2">
+<li>写一个类,继承BaseAdapter.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%87%aa%e5%ae%9a%e4%b9%89%e9%80%82%e9%85%8d%e5%99%a82.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%82%E9%85%8D%E5%99%A82.png, images/%e8%87%aa%e5%ae%9a%e4%b9%89%e9%80%82%e9%85%8d%e5%99%a82.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%82%E9%85%8D%E5%99%A82.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%82%E9%85%8D%E5%99%A82.png"
+        title="自定义适配器2" /></p>
+<h6 id="调用">调用</h6>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%87%aa%e5%ae%9a%e4%b9%89%e9%80%82%e9%85%8d%e5%99%a83.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%82%E9%85%8D%E5%99%A83.png, images/%e8%87%aa%e5%ae%9a%e4%b9%89%e9%80%82%e9%85%8d%e5%99%a83.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%82%E9%85%8D%E5%99%A83.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%82%E9%85%8D%E5%99%A83.png"
+        title="自定义适配器3" /></p>
+<h4 id="源代码">源代码</h4>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E6%8E%A7%E4%BB%B6%E7%9B%B8%E5%85%B3.rar" rel="">控件相关.rar</a></p>
+<h3 id="菜单">菜单</h3>
+<h4 id="选项菜单">选项菜单</h4>
+<ol>
+<li>新建一个menu文件夹.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%951.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%951.png, images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%951.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%951.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%951.png"
+        title="选项菜单1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%952.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%952.png, images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%952.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%952.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%952.png"
+        title="选项菜单2" /></p>
+<ol start="2">
+<li>新建一个menu Xml文件.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%953.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%953.png, images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%953.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%953.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%953.png"
+        title="选项菜单3" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%954.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%954.png, images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%954.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%954.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%954.png"
+        title="选项菜单4" /></p>
+<ol start="3">
+<li>重写onCreateOptionsMenu函数,产生菜单.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%955.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%955.png, images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%955.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%955.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%955.png"
+        title="选项菜单5" /></p>
+<ol start="4">
+<li>重写onOptionsItemSelected函数,处理菜单消息.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%956.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%956.png, images/%e9%80%89%e9%a1%b9%e8%8f%9c%e5%8d%956.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%956.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%80%89%E9%A1%B9%E8%8F%9C%E5%8D%956.png"
+        title="选项菜单6" /></p>
+<h4 id="上下文菜单">上下文菜单</h4>
+<ol>
+<li>存放菜单相关信息,同上.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%b8%8a%e4%b8%8b%e6%96%87%e8%8f%9c%e5%8d%951.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%951.png, images/%e4%b8%8a%e4%b8%8b%e6%96%87%e8%8f%9c%e5%8d%951.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%951.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%951.png"
+        title="上下文菜单1" /></p>
+<ol start="2">
+<li>注册菜单(示例给ListView注册菜单).</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%b8%8a%e4%b8%8b%e6%96%87%e8%8f%9c%e5%8d%952.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%952.png, images/%e4%b8%8a%e4%b8%8b%e6%96%87%e8%8f%9c%e5%8d%952.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%952.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%952.png"
+        title="上下文菜单2" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%b8%8a%e4%b8%8b%e6%96%87%e8%8f%9c%e5%8d%953.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%953.png, images/%e4%b8%8a%e4%b8%8b%e6%96%87%e8%8f%9c%e5%8d%953.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%953.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%953.png"
+        title="上下文菜单3" /></p>
+<ol start="3">
+<li>重写onCreateContextMenu函数,产生菜单.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%b8%8a%e4%b8%8b%e6%96%87%e8%8f%9c%e5%8d%954.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%954.png, images/%e4%b8%8a%e4%b8%8b%e6%96%87%e8%8f%9c%e5%8d%954.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%954.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%954.png"
+        title="上下文菜单4" /></p>
+<ol start="4">
+<li>重写onContextItemSelected函数,处理菜单消息.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%b8%8a%e4%b8%8b%e6%96%87%e8%8f%9c%e5%8d%955.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%955.png, images/%e4%b8%8a%e4%b8%8b%e6%96%87%e8%8f%9c%e5%8d%955.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%955.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%955.png"
+        title="上下文菜单5" /></p>
+<h4 id="源代码-1">源代码</h4>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%A8%A1%E5%9E%8B.rar" rel="">事件处理模型.rar</a></p>
+<h3 id="提示信息">提示信息</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8f%90%e7%a4%ba%e4%bf%a1%e6%81%af1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8F%90%E7%A4%BA%E4%BF%A1%E6%81%AF1.png, images/%e6%8f%90%e7%a4%ba%e4%bf%a1%e6%81%af1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8F%90%E7%A4%BA%E4%BF%A1%E6%81%AF1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8F%90%E7%A4%BA%E4%BF%A1%E6%81%AF1.png"
+        title="提示信息1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8f%90%e7%a4%ba%e4%bf%a1%e6%81%af2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8F%90%E7%A4%BA%E4%BF%A1%E6%81%AF2.png, images/%e6%8f%90%e7%a4%ba%e4%bf%a1%e6%81%af2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8F%90%E7%A4%BA%E4%BF%A1%E6%81%AF2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8F%90%E7%A4%BA%E4%BF%A1%E6%81%AF2.png"
+        title="提示信息2" /></p>
+<h3 id="消息对话框">消息对话框</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%b6%88%e6%81%af%e5%af%b9%e8%af%9d%e6%a1%861.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%B6%88%E6%81%AF%E5%AF%B9%E8%AF%9D%E6%A1%861.png, images/%e6%b6%88%e6%81%af%e5%af%b9%e8%af%9d%e6%a1%861.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%B6%88%E6%81%AF%E5%AF%B9%E8%AF%9D%E6%A1%861.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%B6%88%E6%81%AF%E5%AF%B9%E8%AF%9D%E6%A1%861.png"
+        title="消息对话框1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%b6%88%e6%81%af%e5%af%b9%e8%af%9d%e6%a1%862.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%B6%88%E6%81%AF%E5%AF%B9%E8%AF%9D%E6%A1%862.png, images/%e6%b6%88%e6%81%af%e5%af%b9%e8%af%9d%e6%a1%862.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%B6%88%E6%81%AF%E5%AF%B9%E8%AF%9D%E6%A1%862.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%B6%88%E6%81%AF%E5%AF%B9%E8%AF%9D%E6%A1%862.png"
+        title="消息对话框2" /></p>
+<h3 id="事件处理模型">事件处理模型</h3>
+<h4 id="基于多态机制">基于多态机制</h4>
+<h5 id="使用场景">使用场景</h5>
+<p>触摸,按键.</p>
+<h5 id="示例-1">示例</h5>
+<p>重写虚函数.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%9f%ba%e4%ba%8e%e5%a4%9a%e6%80%81%e6%9c%ba%e5%88%b6.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E6%9C%BA%E5%88%B6.png, images/%e5%9f%ba%e4%ba%8e%e5%a4%9a%e6%80%81%e6%9c%ba%e5%88%b6.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E6%9C%BA%E5%88%B6.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E6%9C%BA%E5%88%B6.png"
+        title="基于多态机制" /></p>
+<h4 id="基于监听接口">基于监听接口</h4>
+<h5 id="使用场景-1">使用场景</h5>
+<p>按钮.</p>
+<h5 id="监听过程">监听过程</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%9b%91%e5%90%ac%e8%bf%87%e7%a8%8b.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%9B%91%E5%90%AC%E8%BF%87%E7%A8%8B.png, images/%e7%9b%91%e5%90%ac%e8%bf%87%e7%a8%8b.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%9B%91%E5%90%AC%E8%BF%87%E7%A8%8B.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%9B%91%E5%90%AC%E8%BF%87%E7%A8%8B.png"
+        title="监听过程" /></p>
+<h5 id="事件接口">事件接口</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%ba%8b%e4%bb%b6%e6%8e%a5%e5%8f%a3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BA%8B%E4%BB%B6%E6%8E%A5%E5%8F%A3.png, images/%e4%ba%8b%e4%bb%b6%e6%8e%a5%e5%8f%a3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BA%8B%E4%BB%B6%E6%8E%A5%E5%8F%A3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BA%8B%E4%BB%B6%E6%8E%A5%E5%8F%A3.png"
+        title="事件接口" /></p>
+<h5 id="示例-2">示例</h5>
+<h6 id="外部类基本不用">外部类(基本不用)</h6>
+<ol>
+<li>新建一个类实现监听接口.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%a4%96%e9%83%a8%e7%b1%bb%28%e5%9f%ba%e6%9c%ac%e4%b8%8d%e7%94%a8%291.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%A4%96%E9%83%A8%E7%B1%BB%28%E5%9F%BA%E6%9C%AC%E4%B8%8D%E7%94%A8%291.png, images/%e5%a4%96%e9%83%a8%e7%b1%bb%28%e5%9f%ba%e6%9c%ac%e4%b8%8d%e7%94%a8%291.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%A4%96%E9%83%A8%E7%B1%BB%28%E5%9F%BA%E6%9C%AC%E4%B8%8D%E7%94%A8%291.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%A4%96%E9%83%A8%E7%B1%BB%28%E5%9F%BA%E6%9C%AC%E4%B8%8D%E7%94%A8%291.png"
+        title="外部类(基本不用)1" /></p>
+<ol start="2">
+<li>给按钮注册监听器.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%a4%96%e9%83%a8%e7%b1%bb%28%e5%9f%ba%e6%9c%ac%e4%b8%8d%e7%94%a8%292.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%A4%96%E9%83%A8%E7%B1%BB%28%E5%9F%BA%E6%9C%AC%E4%B8%8D%E7%94%A8%292.png, images/%e5%a4%96%e9%83%a8%e7%b1%bb%28%e5%9f%ba%e6%9c%ac%e4%b8%8d%e7%94%a8%292.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%A4%96%E9%83%A8%E7%B1%BB%28%E5%9F%BA%E6%9C%AC%E4%B8%8D%E7%94%A8%292.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%A4%96%E9%83%A8%E7%B1%BB%28%E5%9F%BA%E6%9C%AC%E4%B8%8D%E7%94%A8%292.png"
+        title="外部类(基本不用)2" /></p>
+<h6 id="内部类常用">内部类(常用)</h6>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%86%85%e9%83%a8%e7%b1%bb%28%e5%b8%b8%e7%94%a8%29.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E9%83%A8%E7%B1%BB%28%E5%B8%B8%E7%94%A8%29.png, images/%e5%86%85%e9%83%a8%e7%b1%bb%28%e5%b8%b8%e7%94%a8%29.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E9%83%A8%E7%B1%BB%28%E5%B8%B8%E7%94%A8%29.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E9%83%A8%E7%B1%BB%28%E5%B8%B8%E7%94%A8%29.png"
+        title="内部类(常用)" /></p>
+<h6 id="当按钮较多时直接由activity实现监听接口">当按钮较多时,直接由Activity实现监听接口</h6>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%94%b1Activity%e5%ae%9e%e7%8e%b0%e7%9b%91%e5%90%ac%e6%8e%a5%e5%8f%a3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%B1Activity%E5%AE%9E%E7%8E%B0%E7%9B%91%E5%90%AC%E6%8E%A5%E5%8F%A3.png, images/%e7%94%b1Activity%e5%ae%9e%e7%8e%b0%e7%9b%91%e5%90%ac%e6%8e%a5%e5%8f%a3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%B1Activity%E5%AE%9E%E7%8E%B0%E7%9B%91%E5%90%AC%E6%8E%A5%E5%8F%A3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%B1Activity%E5%AE%9E%E7%8E%B0%E7%9B%91%E5%90%AC%E6%8E%A5%E5%8F%A3.png"
+        title="由Activity实现监听接口" /></p>
+<h6 id="匿名类常用">匿名类(常用)</h6>
+<p>跟内部类没有区别,
+匿名类会由编译器自动生成为内部类,
+生成的类名通常为外部类名$1 外部类名$2&hellip;</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%8c%bf%e5%90%8d%e7%b1%bb%28%e5%b8%b8%e7%94%a8%291.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8C%BF%E5%90%8D%E7%B1%BB%28%E5%B8%B8%E7%94%A8%291.png, images/%e5%8c%bf%e5%90%8d%e7%b1%bb%28%e5%b8%b8%e7%94%a8%291.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8C%BF%E5%90%8D%E7%B1%BB%28%E5%B8%B8%E7%94%A8%291.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8C%BF%E5%90%8D%E7%B1%BB%28%E5%B8%B8%E7%94%A8%291.png"
+        title="匿名类(常用)1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%8c%bf%e5%90%8d%e7%b1%bb%28%e5%b8%b8%e7%94%a8%292.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8C%BF%E5%90%8D%E7%B1%BB%28%E5%B8%B8%E7%94%A8%292.png, images/%e5%8c%bf%e5%90%8d%e7%b1%bb%28%e5%b8%b8%e7%94%a8%292.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8C%BF%E5%90%8D%E7%B1%BB%28%E5%B8%B8%E7%94%A8%292.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8C%BF%E5%90%8D%E7%B1%BB%28%E5%B8%B8%E7%94%A8%292.png"
+        title="匿名类(常用)2" /></p>
+<h4 id="基于系统设置">基于系统设置</h4>
+<p>Configuration类专门用于描述手机设备上的配置信息.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%9f%ba%e4%ba%8e%e7%b3%bb%e7%bb%9f%e8%ae%be%e7%bd%ae.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%9F%BA%E4%BA%8E%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE.png, images/%e5%9f%ba%e4%ba%8e%e7%b3%bb%e7%bb%9f%e8%ae%be%e7%bd%ae.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%9F%BA%E4%BA%8E%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%9F%BA%E4%BA%8E%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE.png"
+        title="基于系统设置" /></p>
+<h4 id="基于消息循环">基于消息循环</h4>
+<p>Android中只有主线程可操作UI,其他线程操作UI会崩,考虑同步的话会降低效率.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%9f%ba%e4%ba%8e%e6%b6%88%e6%81%af%e5%be%aa%e7%8e%af.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%9F%BA%E4%BA%8E%E6%B6%88%E6%81%AF%E5%BE%AA%E7%8E%AF.png, images/%e5%9f%ba%e4%ba%8e%e6%b6%88%e6%81%af%e5%be%aa%e7%8e%af.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%9F%BA%E4%BA%8E%E6%B6%88%E6%81%AF%E5%BE%AA%E7%8E%AF.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%9F%BA%E4%BA%8E%E6%B6%88%E6%81%AF%E5%BE%AA%E7%8E%AF.png"
+        title="基于消息循环" /></p>
+<h5 id="自己创建消息循环">自己创建消息循环</h5>
+<p>在Android开发者网站搜索Looper类.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%87%aa%e5%b7%b1%e5%88%9b%e5%bb%ba%e6%b6%88%e6%81%af%e5%be%aa%e7%8e%af.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%B7%B1%E5%88%9B%E5%BB%BA%E6%B6%88%E6%81%AF%E5%BE%AA%E7%8E%AF.png, images/%e8%87%aa%e5%b7%b1%e5%88%9b%e5%bb%ba%e6%b6%88%e6%81%af%e5%be%aa%e7%8e%af.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%B7%B1%E5%88%9B%E5%BB%BA%E6%B6%88%E6%81%AF%E5%BE%AA%E7%8E%AF.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%B7%B1%E5%88%9B%E5%BB%BA%E6%B6%88%E6%81%AF%E5%BE%AA%E7%8E%AF.png"
+        title="自己创建消息循环" /></p>
+<h4 id="源代码-2">源代码</h4>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%A8%A1%E5%9E%8B.rar" rel="">事件处理模型.rar</a></p>
+<h3 id="intent意图">Intent(意图)</h3>
+<h4 id="3个信息">3个信息</h4>
+<ul>
+<li>行为, 指定要执行的通用操作(例如,查看或选取)的字符串.</li>
+<li>数据.</li>
+<li>类别,一个包含应处理Intent组件类型的附加信息的字符串.</li>
+</ul>
+<h4 id="注册意图">注册意图</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%b3%a8%e5%86%8c%e6%84%8f%e5%9b%be.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%B3%A8%E5%86%8C%E6%84%8F%E5%9B%BE.png, images/%e6%b3%a8%e5%86%8c%e6%84%8f%e5%9b%be.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%B3%A8%E5%86%8C%E6%84%8F%E5%9B%BE.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%B3%A8%E5%86%8C%E6%84%8F%E5%9B%BE.png"
+        title="注册意图" /></p>
+<p>Activity中的意图不能只给行为,也要给类别.</p>
+<h4 id="显示intent">显示Intent</h4>
+<p>如打车,明确告诉从哪条路走,无跨进程概念.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%98%be%e7%a4%baIntent%e7%a4%ba%e4%be%8b.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%98%BE%E7%A4%BAIntent%E7%A4%BA%E4%BE%8B.png, images/%e6%98%be%e7%a4%baIntent%e7%a4%ba%e4%be%8b.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%98%BE%E7%A4%BAIntent%E7%A4%BA%E4%BE%8B.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%98%BE%E7%A4%BAIntent%E7%A4%BA%E4%BE%8B.png"
+        title="显示Intent示例" /></p>
+<h5 id="用intent来传输数据">用Intent来传输数据</h5>
+<p>这里启动另一个Activity,将用户名和密码传过去(即便跨进程,也可以将数据传过去),然后另一个Activity将真正的密码传回来,最后取回传回来的数据并显示.</p>
+<ol>
+<li>启动一个Activity并传数据.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%94%a8Intent%e6%9d%a5%e4%bc%a0%e8%be%93%e6%95%b0%e6%8d%ae1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%A8Intent%E6%9D%A5%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE1.png, images/%e7%94%a8Intent%e6%9d%a5%e4%bc%a0%e8%be%93%e6%95%b0%e6%8d%ae1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%A8Intent%E6%9D%A5%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%A8Intent%E6%9D%A5%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE1.png"
+        title="用Intent来传输数据1" /></p>
+<ol start="2">
+<li>另一个Activity接收数据.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%94%a8Intent%e6%9d%a5%e4%bc%a0%e8%be%93%e6%95%b0%e6%8d%ae2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%A8Intent%E6%9D%A5%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE2.png, images/%e7%94%a8Intent%e6%9d%a5%e4%bc%a0%e8%be%93%e6%95%b0%e6%8d%ae2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%A8Intent%E6%9D%A5%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%A8Intent%E6%9D%A5%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE2.png"
+        title="用Intent来传输数据2" /></p>
+<ol start="3">
+<li>接收Activity销毁后传回来的数据.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%94%a8Intent%e6%9d%a5%e4%bc%a0%e8%be%93%e6%95%b0%e6%8d%ae3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%A8Intent%E6%9D%A5%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE3.png, images/%e7%94%a8Intent%e6%9d%a5%e4%bc%a0%e8%be%93%e6%95%b0%e6%8d%ae3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%A8Intent%E6%9D%A5%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%94%A8Intent%E6%9D%A5%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE3.png"
+        title="用Intent来传输数据3" /></p>
+<h4 id="隐式intent">隐式Intent</h4>
+<p>如点外卖,不用关心外卖是如何送到的,可跨进程.</p>
+<ol>
+<li>在Manifest说明权限.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%9a%90%e5%bc%8fIntent1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9A%90%E5%BC%8FIntent1.png, images/%e9%9a%90%e5%bc%8fIntent1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9A%90%E5%BC%8FIntent1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9A%90%E5%BC%8FIntent1.png"
+        title="隐式Intent1" /></p>
+<ol start="2">
+<li>请求权限.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%9a%90%e5%bc%8fIntent2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9A%90%E5%BC%8FIntent2.png, images/%e9%9a%90%e5%bc%8fIntent2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9A%90%E5%BC%8FIntent2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9A%90%E5%BC%8FIntent2.png"
+        title="隐式Intent2" /></p>
+<ol start="3">
+<li>获取请求权限结果.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%9a%90%e5%bc%8fIntent3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9A%90%E5%BC%8FIntent3.png, images/%e9%9a%90%e5%bc%8fIntent3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9A%90%E5%BC%8FIntent3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9A%90%E5%BC%8FIntent3.png"
+        title="隐式Intent3" /></p>
+<h5 id="启动别人的activity">启动别人的Activity</h5>
+<ul>
+<li>以自己写的为例.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%90%af%e5%8a%a8%e5%88%ab%e4%ba%ba%e7%9a%84Activity1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity1.png, images/%e5%90%af%e5%8a%a8%e5%88%ab%e4%ba%ba%e7%9a%84Activity1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity1.png"
+        title="启动别人的Activity1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%90%af%e5%8a%a8%e5%88%ab%e4%ba%ba%e7%9a%84Activity2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity2.png, images/%e5%90%af%e5%8a%a8%e5%88%ab%e4%ba%ba%e7%9a%84Activity2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity2.png"
+        title="启动别人的Activity2" /></p>
+<ul>
+<li>设置闹铃.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%90%af%e5%8a%a8%e5%88%ab%e4%ba%ba%e7%9a%84Activity3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity3.png, images/%e5%90%af%e5%8a%a8%e5%88%ab%e4%ba%ba%e7%9a%84Activity3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity3.png"
+        title="启动别人的Activity3" /></p>
+<ul>
+<li>打电话.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%90%af%e5%8a%a8%e5%88%ab%e4%ba%ba%e7%9a%84Activity4.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity4.png, images/%e5%90%af%e5%8a%a8%e5%88%ab%e4%ba%ba%e7%9a%84Activity4.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity4.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%88%AB%E4%BA%BA%E7%9A%84Activity4.png"
+        title="启动别人的Activity4" /></p>
+<h4 id="源代码-3">源代码</h4>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/Intent%28%E6%84%8F%E5%9B%BE%29.rar" rel="">Intent(意图).rar</a></p>
+<h3 id="服务">服务</h3>
+<p>是一种可在后台执行长时间运行操作而不提供界面的应用组件.</p>
+<h4 id="创建服务">创建服务</h4>
+<ol>
+<li>创建一个类,继承Service.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%88%9b%e5%bb%ba%e6%9c%8d%e5%8a%a11.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A11.png, images/%e5%88%9b%e5%bb%ba%e6%9c%8d%e5%8a%a11.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A11.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A11.png"
+        title="创建服务1" /></p>
+<ol start="2">
+<li>注册服务.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%88%9b%e5%bb%ba%e6%9c%8d%e5%8a%a12.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A12.png, images/%e5%88%9b%e5%bb%ba%e6%9c%8d%e5%8a%a12.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A12.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A12.png"
+        title="创建服务2" /></p>
+<ol start="3">
+<li>启动与停止服务.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%88%9b%e5%bb%ba%e6%9c%8d%e5%8a%a13.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A13.png, images/%e5%88%9b%e5%bb%ba%e6%9c%8d%e5%8a%a13.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A13.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A13.png"
+        title="创建服务3" /></p>
+<h4 id="本进程和服务进行通讯">本进程和服务进行通讯</h4>
+<ol>
+<li>创建一个内部类,继承Binder.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%ac%e8%bf%9b%e7%a8%8b%e5%92%8c%e6%9c%8d%e5%8a%a1%e8%bf%9b%e8%a1%8c%e9%80%9a%e8%ae%af1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF1.png, images/%e6%9c%ac%e8%bf%9b%e7%a8%8b%e5%92%8c%e6%9c%8d%e5%8a%a1%e8%bf%9b%e8%a1%8c%e9%80%9a%e8%ae%af1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF1.png"
+        title="本进程和服务进行通讯1" /></p>
+<ol start="2">
+<li>在onBind函数中,返回Binder对象.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%ac%e8%bf%9b%e7%a8%8b%e5%92%8c%e6%9c%8d%e5%8a%a1%e8%bf%9b%e8%a1%8c%e9%80%9a%e8%ae%af2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF2.png, images/%e6%9c%ac%e8%bf%9b%e7%a8%8b%e5%92%8c%e6%9c%8d%e5%8a%a1%e8%bf%9b%e8%a1%8c%e9%80%9a%e8%ae%af2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF2.png"
+        title="本进程和服务进行通讯2" /></p>
+<ol start="3">
+<li>创建一个ServiceConnection对象.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%ac%e8%bf%9b%e7%a8%8b%e5%92%8c%e6%9c%8d%e5%8a%a1%e8%bf%9b%e8%a1%8c%e9%80%9a%e8%ae%af3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF3.png, images/%e6%9c%ac%e8%bf%9b%e7%a8%8b%e5%92%8c%e6%9c%8d%e5%8a%a1%e8%bf%9b%e8%a1%8c%e9%80%9a%e8%ae%af3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF3.png"
+        title="本进程和服务进行通讯3" /></p>
+<ol start="4">
+<li>绑定服务.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%ac%e8%bf%9b%e7%a8%8b%e5%92%8c%e6%9c%8d%e5%8a%a1%e8%bf%9b%e8%a1%8c%e9%80%9a%e8%ae%af4.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF4.png, images/%e6%9c%ac%e8%bf%9b%e7%a8%8b%e5%92%8c%e6%9c%8d%e5%8a%a1%e8%bf%9b%e8%a1%8c%e9%80%9a%e8%ae%af4.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF4.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%AC%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF4.png"
+        title="本进程和服务进行通讯4" /></p>
+<h4 id="注意-1">注意</h4>
+<p>服务默认运行在主线程中.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%8d%e5%8a%a1%e6%b3%a8%e6%84%8f.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E6%84%8F.png, images/%e6%9c%8d%e5%8a%a1%e6%b3%a8%e6%84%8f.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E6%84%8F.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E6%84%8F.png"
+        title="服务注意" /></p>
+<h4 id="跨进程操作服务">跨进程操作服务</h4>
+<p>在高版本的Android系统中,自建服务的跨进程操作,只能在创建服务的子进程中进行操作,只有系统服务,所有进程可操作.</p>
+<ul>
+<li>将服务放在创建服务的子进程中</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%b0%86%e6%9c%8d%e5%8a%a1%e6%94%be%e5%9c%a8%e5%88%9b%e5%bb%ba%e6%9c%8d%e5%8a%a1%e7%9a%84%e5%ad%90%e8%bf%9b%e7%a8%8b%e4%b8%ad.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B0%86%E6%9C%8D%E5%8A%A1%E6%94%BE%E5%9C%A8%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AD%90%E8%BF%9B%E7%A8%8B%E4%B8%AD.png, images/%e5%b0%86%e6%9c%8d%e5%8a%a1%e6%94%be%e5%9c%a8%e5%88%9b%e5%bb%ba%e6%9c%8d%e5%8a%a1%e7%9a%84%e5%ad%90%e8%bf%9b%e7%a8%8b%e4%b8%ad.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B0%86%E6%9C%8D%E5%8A%A1%E6%94%BE%E5%9C%A8%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AD%90%E8%BF%9B%E7%A8%8B%E4%B8%AD.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B0%86%E6%9C%8D%E5%8A%A1%E6%94%BE%E5%9C%A8%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AD%90%E8%BF%9B%E7%A8%8B%E4%B8%AD.png"
+        title="将服务放在创建服务的子进程中" /></p>
+<ul>
+<li>跨进程启动和停止服务</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%b7%a8%e8%bf%9b%e7%a8%8b%e5%90%af%e5%8a%a8%e5%92%8c%e5%81%9c%e6%ad%a2%e6%9c%8d%e5%8a%a1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%B7%A8%E8%BF%9B%E7%A8%8B%E5%90%AF%E5%8A%A8%E5%92%8C%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1.png, images/%e8%b7%a8%e8%bf%9b%e7%a8%8b%e5%90%af%e5%8a%a8%e5%92%8c%e5%81%9c%e6%ad%a2%e6%9c%8d%e5%8a%a1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%B7%A8%E8%BF%9B%E7%A8%8B%E5%90%AF%E5%8A%A8%E5%92%8C%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%B7%A8%E8%BF%9B%E7%A8%8B%E5%90%AF%E5%8A%A8%E5%92%8C%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1.png"
+        title="跨进程启动和停止服务" /></p>
+<h4 id="跨进程通讯">跨进程通讯</h4>
+<h5 id="aidl">AIDL</h5>
+<p>利用内核,进行进程间的通讯.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/AIDL.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AIDL.png, images/AIDL.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AIDL.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/AIDL.png"
+        title="AIDL" /></p>
+<h5 id="使用aidl创建绑定服务">使用AIDL创建绑定服务</h5>
+<ol>
+<li>创建.aidl文件.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a11.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A11.png, images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a11.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A11.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A11.png"
+        title="使用AIDL创建绑定服务1" /></p>
+<ol start="2">
+<li>在.aidl文件中声明接口.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a12.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A12.png, images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a12.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A12.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A12.png"
+        title="使用AIDL创建绑定服务2" /></p>
+<p>此时编译整个工程,会发现编译器帮我们创建了一个ICount的接口.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a13.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A13.png, images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a13.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A13.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A13.png"
+        title="使用AIDL创建绑定服务3" /></p>
+<ol start="3">
+<li>实现声明的接口.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a14.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A14.png, images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a14.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A14.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A14.png"
+        title="使用AIDL创建绑定服务4" /></p>
+<ol start="4">
+<li>在另一个进程中,重写服务连接函数.</li>
+</ol>
+<p>若两个工程,需要把aidl文件拷贝过去.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a15.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A15.png, images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a15.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A15.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A15.png"
+        title="使用AIDL创建绑定服务5" /></p>
+<ol start="5">
+<li>绑定服务,解绑服务,与服务进行通讯.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a16.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A16.png, images/%e4%bd%bf%e7%94%a8AIDL%e5%88%9b%e5%bb%ba%e7%bb%91%e5%ae%9a%e6%9c%8d%e5%8a%a16.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A16.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8AIDL%E5%88%9B%E5%BB%BA%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A16.png"
+        title="使用AIDL创建绑定服务6" /></p>
+<h4 id="前台服务">前台服务</h4>
+<p>UI放在通知栏.</p>
+<ol>
+<li>在Manifest文件声明权限.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%89%8d%e5%8f%b0%e6%9c%8d%e5%8a%a11.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%89%8D%E5%8F%B0%E6%9C%8D%E5%8A%A11.png, images/%e5%89%8d%e5%8f%b0%e6%9c%8d%e5%8a%a11.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%89%8D%E5%8F%B0%E6%9C%8D%E5%8A%A11.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%89%8D%E5%8F%B0%E6%9C%8D%E5%8A%A11.png"
+        title="前台服务1" /></p>
+<ol start="2">
+<li>创建渠道ID.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%89%8d%e5%8f%b0%e6%9c%8d%e5%8a%a12.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%89%8D%E5%8F%B0%E6%9C%8D%E5%8A%A12.png, images/%e5%89%8d%e5%8f%b0%e6%9c%8d%e5%8a%a12.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%89%8D%E5%8F%B0%E6%9C%8D%E5%8A%A12.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%89%8D%E5%8F%B0%E6%9C%8D%E5%8A%A12.png"
+        title="前台服务2" /></p>
+<ol start="3">
+<li>创建前台服务.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%89%8d%e5%8f%b0%e6%9c%8d%e5%8a%a13.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%89%8D%E5%8F%B0%E6%9C%8D%E5%8A%A13.png, images/%e5%89%8d%e5%8f%b0%e6%9c%8d%e5%8a%a13.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%89%8D%E5%8F%B0%E6%9C%8D%E5%8A%A13.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%89%8D%E5%8F%B0%E6%9C%8D%E5%8A%A13.png"
+        title="前台服务3" /></p>
+<h4 id="源代码-4">源代码</h4>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E6%9C%8D%E5%8A%A11.rar" rel="">服务1.rar</a></p>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E6%9C%8D%E5%8A%A12.rar" rel="">服务2.rar</a></p>
+<h3 id="广播">广播</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%b9%bf%e6%92%ad%e6%a6%82%e8%a7%88.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E6%A6%82%E8%A7%88.png, images/%e5%b9%bf%e6%92%ad%e6%a6%82%e8%a7%88.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E6%A6%82%E8%A7%88.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E6%A6%82%E8%A7%88.png"
+        title="广播概览" /></p>
+<p>广播是一种状态的通知,例如我想知道手机网络状态变化,此时我只要注册一个网络状态变化的广播,当系统网络状态发生变化的时候,系统就会发广播,我就可以收到.</p>
+<h4 id="广播电台">广播电台</h4>
+<h5 id="有序广播">有序广播</h5>
+<p>接收广播的时候按优先级,优先级高的先接收到广播,可选择是否中断广播,让后面优先级低的接收不到广播.</p>
+<h5 id="无序广播">无序广播</h5>
+<p>接收广播的时候无优先级,谁注册了都可以接收到此广播.</p>
+<h5 id="本地广播">本地广播</h5>
+<p>效率高,不需要跨应用发送广播,可选本地广播.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%b9%bf%e6%92%ad%e7%94%b5%e5%8f%b0%e7%a4%ba%e4%be%8b.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E7%94%B5%E5%8F%B0%E7%A4%BA%E4%BE%8B.png, images/%e5%b9%bf%e6%92%ad%e7%94%b5%e5%8f%b0%e7%a4%ba%e4%be%8b.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E7%94%B5%E5%8F%B0%E7%A4%BA%E4%BE%8B.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E7%94%B5%E5%8F%B0%E7%A4%BA%E4%BE%8B.png"
+        title="广播电台示例" /></p>
+<h4 id="广播接收者">广播接收者</h4>
+<h5 id="创建一个类继承broadcastreceiver">创建一个类继承BroadcastReceiver</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%b9%bf%e6%92%ad%e6%8e%a5%e6%94%b6%e8%80%851.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%851.png, images/%e5%b9%bf%e6%92%ad%e6%8e%a5%e6%94%b6%e8%80%851.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%851.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%851.png"
+        title="广播接收者1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%b9%bf%e6%92%ad%e6%8e%a5%e6%94%b6%e8%80%852.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%852.png, images/%e5%b9%bf%e6%92%ad%e6%8e%a5%e6%94%b6%e8%80%852.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%852.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E8%80%852.png"
+        title="广播接收者2" /></p>
+<h5 id="注册广播">注册广播</h5>
+<h6 id="静态注册">静态注册</h6>
+<p>在Manifest文件中进行说明,高版本目前不允许(即便静态注册了,也不会收到广播),
+当然也有例外.</p>
+<p>为了兼容老版本,在高版本中静态注册会变成动态注册,但必须软件运行起来方可接收到广播.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%9d%99%e6%80%81%e6%b3%a8%e5%86%8c%e5%b9%bf%e6%92%ad1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9D%99%E6%80%81%E6%B3%A8%E5%86%8C%E5%B9%BF%E6%92%AD1.png, images/%e9%9d%99%e6%80%81%e6%b3%a8%e5%86%8c%e5%b9%bf%e6%92%ad1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9D%99%E6%80%81%E6%B3%A8%E5%86%8C%E5%B9%BF%E6%92%AD1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9D%99%E6%80%81%E6%B3%A8%E5%86%8C%E5%B9%BF%E6%92%AD1.png"
+        title="静态注册广播1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%9d%99%e6%80%81%e6%b3%a8%e5%86%8c%e5%b9%bf%e6%92%ad2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9D%99%E6%80%81%E6%B3%A8%E5%86%8C%E5%B9%BF%E6%92%AD2.png, images/%e9%9d%99%e6%80%81%e6%b3%a8%e5%86%8c%e5%b9%bf%e6%92%ad2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9D%99%E6%80%81%E6%B3%A8%E5%86%8C%E5%B9%BF%E6%92%AD2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%9D%99%E6%80%81%E6%B3%A8%E5%86%8C%E5%B9%BF%E6%92%AD2.png"
+        title="静态注册广播2" /></p>
+<h6 id="动态注册">动态注册</h6>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%8a%a8%e6%80%81%e6%b3%a8%e5%86%8c%e5%b9%bf%e6%92%ad.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C%E5%B9%BF%E6%92%AD.png, images/%e5%8a%a8%e6%80%81%e6%b3%a8%e5%86%8c%e5%b9%bf%e6%92%ad.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C%E5%B9%BF%E6%92%AD.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C%E5%B9%BF%E6%92%AD.png"
+        title="动态注册广播" /></p>
+<h4 id="发送带权限的广播">发送带权限的广播</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%8f%91%e9%80%81%e5%b8%a6%e6%9d%83%e9%99%90%e7%9a%84%e5%b9%bf%e6%92%ad.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8F%91%E9%80%81%E5%B8%A6%E6%9D%83%E9%99%90%E7%9A%84%E5%B9%BF%E6%92%AD.png, images/%e5%8f%91%e9%80%81%e5%b8%a6%e6%9d%83%e9%99%90%e7%9a%84%e5%b9%bf%e6%92%ad.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8F%91%E9%80%81%E5%B8%A6%E6%9D%83%E9%99%90%E7%9A%84%E5%B9%BF%E6%92%AD.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8F%91%E9%80%81%E5%B8%A6%E6%9D%83%E9%99%90%E7%9A%84%E5%B9%BF%E6%92%AD.png"
+        title="发送带权限的广播" /></p>
+<h4 id="接收系统广播示例">接收系统广播示例</h4>
+<h5 id="系统常见广播">系统常见广播</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%b3%bb%e7%bb%9f%e5%b8%b8%e8%a7%81%e5%b9%bf%e6%92%ad.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E5%B9%BF%E6%92%AD.png, images/%e7%b3%bb%e7%bb%9f%e5%b8%b8%e8%a7%81%e5%b9%bf%e6%92%ad.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E5%B9%BF%E6%92%AD.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E5%B9%BF%E6%92%AD.png"
+        title="系统常见广播" /></p>
+<h5 id="以接收系统短信广播为例">以接收系统短信广播为例</h5>
+<ol>
+<li>Manifest文件中说明权限.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8e%a5%e6%94%b6%e7%b3%bb%e7%bb%9f%e7%9f%ad%e4%bf%a1%e5%b9%bf%e6%92%ad1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8E%A5%E6%94%B6%E7%B3%BB%E7%BB%9F%E7%9F%AD%E4%BF%A1%E5%B9%BF%E6%92%AD1.png, images/%e6%8e%a5%e6%94%b6%e7%b3%bb%e7%bb%9f%e7%9f%ad%e4%bf%a1%e5%b9%bf%e6%92%ad1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8E%A5%E6%94%B6%E7%B3%BB%E7%BB%9F%E7%9F%AD%E4%BF%A1%E5%B9%BF%E6%92%AD1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8E%A5%E6%94%B6%E7%B3%BB%E7%BB%9F%E7%9F%AD%E4%BF%A1%E5%B9%BF%E6%92%AD1.png"
+        title="接收系统短信广播1" /></p>
+<ol start="2">
+<li>新建一个类继承BroadcastReceiver.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8e%a5%e6%94%b6%e7%b3%bb%e7%bb%9f%e5%b9%bf%e6%92%ad%e7%a4%ba%e4%be%8b2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8E%A5%E6%94%B6%E7%B3%BB%E7%BB%9F%E5%B9%BF%E6%92%AD%E7%A4%BA%E4%BE%8B2.png, images/%e6%8e%a5%e6%94%b6%e7%b3%bb%e7%bb%9f%e5%b9%bf%e6%92%ad%e7%a4%ba%e4%be%8b2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8E%A5%E6%94%B6%E7%B3%BB%E7%BB%9F%E5%B9%BF%E6%92%AD%E7%A4%BA%E4%BE%8B2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8E%A5%E6%94%B6%E7%B3%BB%E7%BB%9F%E5%B9%BF%E6%92%AD%E7%A4%BA%E4%BE%8B2.png"
+        title="接收系统广播示例2" /></p>
+<ol start="3">
+<li>注册短信广播.</li>
+</ol>
+<p>需要应用有接收短信的权限,方可接收到短信广播.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8e%a5%e6%94%b6%e7%b3%bb%e7%bb%9f%e5%b9%bf%e6%92%ad%e7%a4%ba%e4%be%8b3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8E%A5%E6%94%B6%E7%B3%BB%E7%BB%9F%E5%B9%BF%E6%92%AD%E7%A4%BA%E4%BE%8B3.png, images/%e6%8e%a5%e6%94%b6%e7%b3%bb%e7%bb%9f%e5%b9%bf%e6%92%ad%e7%a4%ba%e4%be%8b3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8E%A5%E6%94%B6%E7%B3%BB%E7%BB%9F%E5%B9%BF%E6%92%AD%E7%A4%BA%E4%BE%8B3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8E%A5%E6%94%B6%E7%B3%BB%E7%BB%9F%E5%B9%BF%E6%92%AD%E7%A4%BA%E4%BE%8B3.png"
+        title="接收系统广播示例3" /></p>
+<h4 id="源代码-5">源代码</h4>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E5%B9%BF%E6%92%AD.rar" rel="">广播.rar</a></p>
+<h3 id="文件">文件</h3>
+<p>Android中每个应用有自己的私有空间,其他应用不允许访问.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%96%87%e4%bb%b6%e6%a6%82%e8%bf%b0.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%87%E4%BB%B6%E6%A6%82%E8%BF%B0.png, images/%e6%96%87%e4%bb%b6%e6%a6%82%e8%bf%b0.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%87%E4%BB%B6%E6%A6%82%E8%BF%B0.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%96%87%E4%BB%B6%E6%A6%82%E8%BF%B0.png"
+        title="文件概述" /></p>
+<h4 id="文件存储">文件存储</h4>
+<h5 id="配置文件保存键值对数据">配置文件(保存键值对数据)</h5>
+<p>使用 SharedPreferences API.</p>
+<ol>
+<li>创建配置文件并写内容.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b61.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B61.png, images/%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b61.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B61.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B61.png"
+        title="配置文件1" /></p>
+<p>创建的文件,在根目录的data/data/包名目录中.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b62.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B62.png, images/%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b62.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B62.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B62.png"
+        title="配置文件2" /></p>
+<ol start="2">
+<li>读取配置文件.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b63.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B63.png, images/%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b63.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B63.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B63.png"
+        title="配置文件3" /></p>
+<h5 id="自定义文件格式">自定义文件格式</h5>
+<h6 id="使用java中的文件流">使用Java中的文件流</h6>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%87%aa%e5%ae%9a%e4%b9%89%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F1.png, images/%e8%87%aa%e5%ae%9a%e4%b9%89%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F1.png"
+        title="自定义文件格式1" /></p>
+<h6 id="示例-3">示例</h6>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%87%aa%e5%ae%9a%e4%b9%89%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F2.png, images/%e8%87%aa%e5%ae%9a%e4%b9%89%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F2.png"
+        title="自定义文件格式2" /></p>
+<p>创建的文件,在根目录的data/data/包名目录中.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%87%aa%e5%ae%9a%e4%b9%89%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F3.png, images/%e8%87%aa%e5%ae%9a%e4%b9%89%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F3.png"
+        title="自定义文件格式3" /></p>
+<h4 id="共享存储">共享存储</h4>
+<p>Android中SD卡内容,所有应用共享.</p>
+<ol>
+<li>说明权限.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%85%b1%e4%ba%ab%e5%ad%98%e5%82%a81.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A81.png, images/%e5%85%b1%e4%ba%ab%e5%ad%98%e5%82%a81.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A81.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A81.png"
+        title="共享存储1" /></p>
+<ol start="2">
+<li>操作示例.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%85%b1%e4%ba%ab%e5%ad%98%e5%82%a82.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A82.png, images/%e5%85%b1%e4%ba%ab%e5%ad%98%e5%82%a82.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A82.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A82.png"
+        title="共享存储2" /></p>
+<p>[Android 10.0后创建文件createNewFile()和创建文件夹mkdirs()均失败解决方案.mhtml](Android 10.0后创建文件createNewFile()和创建文件夹mkdirs()均失败解决方案.mhtml)</p>
+<h4 id="源代码-6">源代码</h4>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E6%96%87%E4%BB%B6.rar" rel="">文件.rar</a></p>
+<h3 id="数据库">数据库</h3>
+<h4 id="创建数据库和表">创建数据库和表</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%95%b0%e6%8d%ae%e5%ba%931.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%931.png, images/%e6%95%b0%e6%8d%ae%e5%ba%931.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%931.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%931.png"
+        title="数据库1" /></p>
+<h4 id="增">增</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%95%b0%e6%8d%ae%e5%ba%932.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%932.png, images/%e6%95%b0%e6%8d%ae%e5%ba%932.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%932.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%932.png"
+        title="数据库2" /></p>
+<h4 id="删">删</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%95%b0%e6%8d%ae%e5%ba%933.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%933.png, images/%e6%95%b0%e6%8d%ae%e5%ba%933.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%933.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%933.png"
+        title="数据库3" /></p>
+<h4 id="改">改</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%95%b0%e6%8d%ae%e5%ba%934.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%934.png, images/%e6%95%b0%e6%8d%ae%e5%ba%934.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%934.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%934.png"
+        title="数据库4" /></p>
+<h4 id="查">查</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%95%b0%e6%8d%ae%e5%ba%935.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%935.png, images/%e6%95%b0%e6%8d%ae%e5%ba%935.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%935.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%95%B0%E6%8D%AE%E5%BA%935.png"
+        title="数据库5" /></p>
+<h4 id="注意-2">注意</h4>
+<p>使用Android封装好的SQL操作,可以防止SQL注入.</p>
+<h4 id="源代码-7">源代码</h4>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E6%95%B0%E6%8D%AE%E5%BA%93.rar" rel="">数据库.rar</a></p>
+<h3 id="内容提供程序">内容提供程序</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e7%a8%8b%e5%ba%8f%e6%a6%82%e8%bf%b0.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E7%A8%8B%E5%BA%8F%E6%A6%82%E8%BF%B0.png, images/%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e7%a8%8b%e5%ba%8f%e6%a6%82%e8%bf%b0.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E7%A8%8B%E5%BA%8F%E6%A6%82%E8%BF%B0.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E7%A8%8B%E5%BA%8F%E6%A6%82%E8%BF%B0.png"
+        title="内容提供程序概述" /></p>
+<h4 id="内容提供者">内容提供者</h4>
+<ol>
+<li>创建一个类继承ContentProvider, 实现增删改查接口.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%851.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%851.png, images/%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%851.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%851.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%851.png"
+        title="内容提供者1" /></p>
+<ol start="2">
+<li>在Manifest文件中注册内容提供者.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%852.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%852.png, images/%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%852.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%852.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%852.png"
+        title="内容提供者2" /></p>
+<h6 id="源代码-8">源代码</h6>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85.rar" rel="">内容提供者.rar</a></p>
+<h4 id="内容接收者">内容接收者</h4>
+<h5 id="拿上述内容提供者的数据">拿上述内容提供者的数据</h5>
+<h6 id="增-1">增</h6>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8b%bf%e4%b8%8a%e8%bf%b0%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%85%e7%9a%84%e6%95%b0%e6%8d%ae1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE1.png, images/%e6%8b%bf%e4%b8%8a%e8%bf%b0%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%85%e7%9a%84%e6%95%b0%e6%8d%ae1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE1.png"
+        title="拿上述内容提供者的数据1" /></p>
+<h6 id="删-1">删</h6>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8b%bf%e4%b8%8a%e8%bf%b0%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%85%e7%9a%84%e6%95%b0%e6%8d%ae2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE2.png, images/%e6%8b%bf%e4%b8%8a%e8%bf%b0%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%85%e7%9a%84%e6%95%b0%e6%8d%ae2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE2.png"
+        title="拿上述内容提供者的数据2" /></p>
+<h6 id="改-1">改</h6>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8b%bf%e4%b8%8a%e8%bf%b0%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%85%e7%9a%84%e6%95%b0%e6%8d%ae3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE3.png, images/%e6%8b%bf%e4%b8%8a%e8%bf%b0%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%85%e7%9a%84%e6%95%b0%e6%8d%ae3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE3.png"
+        title="拿上述内容提供者的数据3" /></p>
+<h6 id="查-1">查</h6>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8b%bf%e4%b8%8a%e8%bf%b0%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%85%e7%9a%84%e6%95%b0%e6%8d%ae4.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE4.png, images/%e6%8b%bf%e4%b8%8a%e8%bf%b0%e5%86%85%e5%ae%b9%e6%8f%90%e4%be%9b%e8%80%85%e7%9a%84%e6%95%b0%e6%8d%ae4.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE4.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E8%80%85%E7%9A%84%E6%95%B0%E6%8D%AE4.png"
+        title="拿上述内容提供者的数据4" /></p>
+<h6 id="源代码-9">源代码</h6>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E5%86%85%E5%AE%B9%E6%8E%A5%E6%94%B6%E8%80%85.rar" rel="">内容接收者.rar</a></p>
+<h5 id="拿系统内容提供者的数据">拿系统内容提供者的数据</h5>
+<h6 id="拿联系人信息">拿联系人信息</h6>
+<ol>
+<li>在Manifest文件中说明.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8b%bf%e8%81%94%e7%b3%bb%e4%ba%ba%e4%bf%a1%e6%81%af1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E8%81%94%E7%B3%BB%E4%BA%BA%E4%BF%A1%E6%81%AF1.png, images/%e6%8b%bf%e8%81%94%e7%b3%bb%e4%ba%ba%e4%bf%a1%e6%81%af1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E8%81%94%E7%B3%BB%E4%BA%BA%E4%BF%A1%E6%81%AF1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E8%81%94%E7%B3%BB%E4%BA%BA%E4%BF%A1%E6%81%AF1.png"
+        title="拿联系人信息1" /></p>
+<ol start="2">
+<li>示例.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8b%bf%e8%81%94%e7%b3%bb%e4%ba%ba%e4%bf%a1%e6%81%af2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E8%81%94%E7%B3%BB%E4%BA%BA%E4%BF%A1%E6%81%AF2.png, images/%e6%8b%bf%e8%81%94%e7%b3%bb%e4%ba%ba%e4%bf%a1%e6%81%af2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E8%81%94%E7%B3%BB%E4%BA%BA%E4%BF%A1%E6%81%AF2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E8%81%94%E7%B3%BB%E4%BA%BA%E4%BF%A1%E6%81%AF2.png"
+        title="拿联系人信息2" /></p>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E6%8B%BF%E8%81%94%E7%B3%BB%E4%BA%BA%E4%BF%A1%E6%81%AF.rar" rel="">拿联系人信息.rar</a></p>
+<h6 id="拿短信信息">拿短信信息</h6>
+<ol>
+<li>在Manifest文件中说明.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8b%bf%e7%9f%ad%e4%bf%a1%e4%bf%a1%e6%81%af1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E7%9F%AD%E4%BF%A1%E4%BF%A1%E6%81%AF1.png, images/%e6%8b%bf%e7%9f%ad%e4%bf%a1%e4%bf%a1%e6%81%af1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E7%9F%AD%E4%BF%A1%E4%BF%A1%E6%81%AF1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E7%9F%AD%E4%BF%A1%E4%BF%A1%E6%81%AF1.png"
+        title="拿短信信息1" /></p>
+<ol start="2">
+<li>示例.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8b%bf%e7%9f%ad%e4%bf%a1%e4%bf%a1%e6%81%af2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E7%9F%AD%E4%BF%A1%E4%BF%A1%E6%81%AF2.png, images/%e6%8b%bf%e7%9f%ad%e4%bf%a1%e4%bf%a1%e6%81%af2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E7%9F%AD%E4%BF%A1%E4%BF%A1%E6%81%AF2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E6%8B%BF%E7%9F%AD%E4%BF%A1%E4%BF%A1%E6%81%AF2.png"
+        title="拿短信信息2" /></p>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E6%8B%BF%E7%9F%AD%E4%BF%A1%E4%BF%A1%E6%81%AF.rar" rel="">拿短信信息.rar</a></p>
+<h4 id="内容观察者">内容观察者</h4>
+<p>向系统注册一个内容观察者,当内容发生了变化,就会收到通知.</p>
+<ol>
+<li>在Manifest文件中说明.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%86%85%e5%ae%b9%e8%a7%82%e5%af%9f%e8%80%851.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E8%A7%82%E5%AF%9F%E8%80%851.png, images/%e5%86%85%e5%ae%b9%e8%a7%82%e5%af%9f%e8%80%851.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E8%A7%82%E5%AF%9F%E8%80%851.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E8%A7%82%E5%AF%9F%E8%80%851.png"
+        title="内容观察者1" /></p>
+<ol start="2">
+<li>写一个类继承ContentObserver,重写onChange函数.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%86%85%e5%ae%b9%e8%a7%82%e5%af%9f%e8%80%852.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E8%A7%82%E5%AF%9F%E8%80%852.png, images/%e5%86%85%e5%ae%b9%e8%a7%82%e5%af%9f%e8%80%852.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E8%A7%82%E5%AF%9F%E8%80%852.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E8%A7%82%E5%AF%9F%E8%80%852.png"
+        title="内容观察者2" /></p>
+<ol start="3">
+<li>注册内容观察者.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%86%85%e5%ae%b9%e8%a7%82%e5%af%9f%e8%80%853.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E8%A7%82%E5%AF%9F%E8%80%853.png, images/%e5%86%85%e5%ae%b9%e8%a7%82%e5%af%9f%e8%80%853.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E8%A7%82%E5%AF%9F%E8%80%853.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%86%85%E5%AE%B9%E8%A7%82%E5%AF%9F%E8%80%853.png"
+        title="内容观察者3" /></p>
+<h5 id="源代码-10">源代码</h5>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E5%86%85%E5%AE%B9%E8%A7%82%E5%AF%9F%E8%80%85.rar" rel="">内容观察者.rar</a></p>
+<h3 id="fragment">Fragment</h3>
+<p>Activity中放Fragment,Fragment中放布局,可以用来切换视图.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Fragment%e6%a6%82%e8%bf%b0.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment%E6%A6%82%E8%BF%B0.png, images/Fragment%e6%a6%82%e8%bf%b0.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment%E6%A6%82%E8%BF%B0.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment%E6%A6%82%E8%BF%B0.png"
+        title="Fragment概述" /></p>
+<ol>
+<li>新建一个布局文件.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Fragment1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment1.png, images/Fragment1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment1.png"
+        title="Fragment1" /></p>
+<ol start="2">
+<li>写一个类继承Fragment,重写onCreateView函数.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Fragment2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment2.png, images/Fragment2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment2.png"
+        title="Fragment2" /></p>
+<ul>
+<li>静态注册.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Fragment3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment3.png, images/Fragment3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment3.png"
+        title="Fragment3" /></p>
+<ul>
+<li>动态注册.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Fragment4.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment4.png, images/Fragment4.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment4.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Fragment4.png"
+        title="Fragment4" /></p>
+<h4 id="源代码-11">源代码</h4>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/Fragment.rar" rel="">Fragment.rar</a></p>
+<h3 id="功能操作">功能操作</h3>
+<h4 id="遍历系统安装的软件">遍历系统安装的软件</h4>
+<h5 id="管理器">管理器</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%81%8d%e5%8e%86%e7%b3%bb%e7%bb%9f%e5%ae%89%e8%a3%85%e7%9a%84%e8%bd%af%e4%bb%b61.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%81%8D%E5%8E%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%9A%84%E8%BD%AF%E4%BB%B61.png, images/%e9%81%8d%e5%8e%86%e7%b3%bb%e7%bb%9f%e5%ae%89%e8%a3%85%e7%9a%84%e8%bd%af%e4%bb%b61.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%81%8D%E5%8E%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%9A%84%E8%BD%AF%E4%BB%B61.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%81%8D%E5%8E%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%9A%84%E8%BD%AF%E4%BB%B61.png"
+        title="遍历系统安装的软件1" /></p>
+<h5 id="示例-4">示例</h5>
+<p>通过包管理器,我们可以知道系统安装的软件.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%81%8d%e5%8e%86%e7%b3%bb%e7%bb%9f%e5%ae%89%e8%a3%85%e7%9a%84%e8%bd%af%e4%bb%b62.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%81%8D%E5%8E%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%9A%84%E8%BD%AF%E4%BB%B62.png, images/%e9%81%8d%e5%8e%86%e7%b3%bb%e7%bb%9f%e5%ae%89%e8%a3%85%e7%9a%84%e8%bd%af%e4%bb%b62.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%81%8D%E5%8E%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%9A%84%E8%BD%AF%E4%BB%B62.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%81%8D%E5%8E%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%9A%84%E8%BD%AF%E4%BB%B62.png"
+        title="遍历系统安装的软件2" /></p>
+<h4 id="启动应用">启动应用</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%90%af%e5%8a%a8%e5%ba%94%e7%94%a8.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%BA%94%E7%94%A8.png, images/%e5%90%af%e5%8a%a8%e5%ba%94%e7%94%a8.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%BA%94%E7%94%A8.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%90%AF%E5%8A%A8%E5%BA%94%E7%94%A8.png"
+        title="启动应用" /></p>
+<h4 id="卸载应用">卸载应用</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%8d%b8%e8%bd%bd%e5%ba%94%e7%94%a8.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%B8%E8%BD%BD%E5%BA%94%E7%94%A8.png, images/%e5%8d%b8%e8%bd%bd%e5%ba%94%e7%94%a8.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%B8%E8%BD%BD%E5%BA%94%E7%94%A8.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%8D%B8%E8%BD%BD%E5%BA%94%E7%94%A8.png"
+        title="卸载应用" /></p>
+<h4 id="遍历进程">遍历进程</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%81%8d%e5%8e%86%e8%bf%9b%e7%a8%8b.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%81%8D%E5%8E%86%E8%BF%9B%E7%A8%8B.png, images/%e9%81%8d%e5%8e%86%e8%bf%9b%e7%a8%8b.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%81%8D%E5%8E%86%E8%BF%9B%E7%A8%8B.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E9%81%8D%E5%8E%86%E8%BF%9B%E7%A8%8B.png"
+        title="遍历进程" /></p>
+<h4 id="流量查看">流量查看</h4>
+<p>低版本用TrafficStats 不准确,高版本用NetworkStatsManager.</p>
+<h4 id="监控电话">监控电话</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%9b%91%e6%8e%a7%e7%94%b5%e8%af%9d.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%9B%91%E6%8E%A7%E7%94%B5%E8%AF%9D.png, images/%e7%9b%91%e6%8e%a7%e7%94%b5%e8%af%9d.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%9B%91%E6%8E%A7%E7%94%B5%E8%AF%9D.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%9B%91%E6%8E%A7%E7%94%B5%E8%AF%9D.png"
+        title="监控电话" /></p>
+<h4 id="屏幕截图">屏幕截图</h4>
+<p>Android5.0以后,加入了屏幕采集的API.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%b1%8f%e5%b9%95%e6%88%aa%e5%9b%be%e6%a6%82%e8%bf%b0.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%E6%A6%82%E8%BF%B0.png, images/%e5%b1%8f%e5%b9%95%e6%88%aa%e5%9b%be%e6%a6%82%e8%bf%b0.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%E6%A6%82%E8%BF%B0.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%E6%A6%82%E8%BF%B0.png"
+        title="屏幕截图概述" /></p>
+<h5 id="示例-5">示例</h5>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.rar" rel="">屏幕截图.rar</a></p>
+<h5 id="无视权限截图">无视权限,截图</h5>
+<p>在Android系统的system/bin目录下有screencap这个程序,这就是用来截图的.只有当uid = shell或者uid = root才可以调screencap来截图.</p>
+<p>shell权限,就是cmd 执行adb shell.</p>
+<h6 id="获取root权限">获取Root权限</h6>
+<p>未root的手机,system/bin目录下没有su这个程序,所谓的root就是在system/bin目录下放su这个程序.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%8e%b7%e5%8f%96Root%e6%9d%83%e9%99%90.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%8E%B7%E5%8F%96Root%E6%9D%83%E9%99%90.png, images/%e8%8e%b7%e5%8f%96Root%e6%9d%83%e9%99%90.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%8E%B7%E5%8F%96Root%E6%9D%83%E9%99%90.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E8%8E%B7%E5%8F%96Root%E6%9D%83%E9%99%90.png"
+        title="获取Root权限" /></p>
+<h6 id="模拟键盘-鼠标-触摸等">模拟键盘 鼠标 触摸等</h6>
+<p>在system/bin目录下 有个input程序.</p>
+<h3 id="网络编程">网络编程</h3>
+<h4 id="使用java的api">使用Java的API</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bd%bf%e7%94%a8Java%e7%9a%84API.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8Java%E7%9A%84API.png, images/%e4%bd%bf%e7%94%a8Java%e7%9a%84API.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8Java%E7%9A%84API.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E4%BD%BF%E7%94%A8Java%E7%9A%84API.png"
+        title="使用Java的API" /></p>
+<h4 id="示例-6">示例</h4>
+<p>PC端为Server, Android端为Client.</p>
+<h5 id="server">Server</h5>
+<p>Java中的收发数据跟读写文件一样,一切都是流.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bd%91%e7%bb%9c%e7%bc%96%e7%a8%8b1.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B1.png, images/%e7%bd%91%e7%bb%9c%e7%bc%96%e7%a8%8b1.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B1.png"
+        title="网络编程1" /></p>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8BServer.rar" rel="">网络编程Server.rar</a></p>
+<h5 id="client">Client</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bd%91%e7%bb%9c%e7%bc%96%e7%a8%8b2.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B2.png, images/%e7%bd%91%e7%bb%9c%e7%bc%96%e7%a8%8b2.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B2.png"
+        title="网络编程2" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bd%91%e7%bb%9c%e7%bc%96%e7%a8%8b3.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B3.png, images/%e7%bd%91%e7%bb%9c%e7%bc%96%e7%a8%8b3.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B3.png"
+        title="网络编程3" /></p>
+<p><a href="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8BClient.rar" rel="">网络编程Client.rar</a></p>
+<h5 id="注意-3">注意</h5>
+<p>Android为Client, PC为Server时, 若通过回环地址连接,Android端需填 10.0.2.2
+Android为Server, PC为Client时, 若通过回环地址连接,PC端需要做端口映射,
+在Android虚拟机打开的情况下,通过adb命令 adb forward tcp:port tcp:port</p>
+<h4 id="android端执行cmd命令">Android端执行CMD命令</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Android%e7%ab%af%e6%89%a7%e8%a1%8cCMD%e5%91%bd%e4%bb%a4.png"
+        data-srcset="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Android%E7%AB%AF%E6%89%A7%E8%A1%8CCMD%E5%91%BD%E4%BB%A4.png, images/Android%e7%ab%af%e6%89%a7%e8%a1%8cCMD%e5%91%bd%e4%bb%a4.png 1.5x, /posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Android%E7%AB%AF%E6%89%A7%E8%A1%8CCMD%E5%91%BD%E4%BB%A4.png 2x"
+        data-sizes="auto"
+        alt="/posts/android%E9%80%86%E5%90%91/android%E5%BC%80%E5%8F%91/images/Android%E7%AB%AF%E6%89%A7%E8%A1%8CCMD%E5%91%BD%E4%BB%A4.png"
+        title="Android端执行CMD命令" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-10-20</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android%E5%BC%80%E5%8F%91/">Android开发</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/mfc/" class="prev" rel="prev" title="Mfc"><i class="fas fa-angle-left fa-fw"></i>Mfc</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
