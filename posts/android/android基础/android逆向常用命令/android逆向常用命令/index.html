@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Android逆向常用命令 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="Android逆向常用命令" />
+<meta property="og:description" content="Android逆向常用命令 Linux命令 创建空文件 1 touch /data/local/tmp/Luo.txt 写文件 echo命令通过配合&quot;&gt;&ldquo;或者&rdquo;&ra" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-11-19T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Android逆向常用命令"/>
+<meta name="twitter:description" content="Android逆向常用命令 Linux命令 创建空文件 1 touch /data/local/tmp/Luo.txt 写文件 echo命令通过配合&quot;&gt;&ldquo;或者&rdquo;&ra"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/androidhook/frida%E4%BD%BF%E7%94%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Android逆向常用命令",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4\/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4\/"
+        },"genre": "posts","keywords": "Android逆向常用命令","wordcount":  865 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4\/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4\/","datePublished": "2021-11-19T00:00:00+00:00","dateModified": "2021-11-19T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Android逆向常用命令</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/"><i class="far fa-folder fa-fw"></i>Android基础</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-19">2021-11-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 865 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#android逆向常用命令">Android逆向常用命令</a>
+      <ul>
+        <li><a href="#linux命令">Linux命令</a>
+          <ul>
+            <li><a href="#创建空文件">创建空文件</a></li>
+            <li><a href="#写文件">写文件</a></li>
+            <li><a href="#查看文本文件内容">查看文本文件内容</a></li>
+            <li><a href="#在shell中过滤符合条件的输出">在shell中过滤符合条件的输出</a></li>
+            <li><a href="#查看当前设备正在运行的进程">查看当前设备正在运行的进程</a></li>
+            <li><a href="#查看app网络相关信息">查看App网络相关信息</a></li>
+            <li><a href="#查看对应进程打开的文件">查看对应进程打开的文件</a></li>
+            <li><a href="#查看当前系统运行负载">查看当前系统运行负载</a></li>
+          </ul>
+        </li>
+        <li><a href="#adb命令">ADB命令</a>
+          <ul>
+            <li><a href="#查看处于前台的activity">查看处于前台的Activity</a></li>
+            <li><a href="#查看包信息">查看包信息</a></li>
+            <li><a href="#查看app使用的数据库信息">查看App使用的数据库信息</a></li>
+            <li><a href="#截图操作">截图操作</a></li>
+            <li><a href="#管理package">管理package</a></li>
+            <li><a href="#调试命令">调试命令</a></li>
+            <li><a href="#主机与android交互命令">主机与Android交互命令</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="android逆向常用命令">Android逆向常用命令</h1>
+<h2 id="linux命令">Linux命令</h2>
+<h3 id="创建空文件">创建空文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">touch</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">Luo</span><span class="p">.</span><span class="n">txt</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="写文件">写文件</h3>
+<p>echo命令通过配合&quot;&gt;&ldquo;或者&rdquo;&raquo;&ldquo;对文件进行写操作,其中&rdquo;&gt;&ldquo;为覆盖写操作,&quot;&raquo;&ldquo;为扩展写操作.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">echo &#34;LuoHun&#34; &gt;&gt; Luo.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看文本文件内容">查看文本文件内容</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cat Luo.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="在shell中过滤符合条件的输出">在shell中过滤符合条件的输出</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cat Luo.txt | grep LuoHun
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看当前设备正在运行的进程">查看当前设备正在运行的进程</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//在Android8之后,ps命令只能打印出当前进程,需要加上-e参数才能打印出全部的进程
+</span><span class="c1"></span><span class="n">ps</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看app网络相关信息">查看App网络相关信息</h3>
+<p>通常使用的参数组合为-alpe</p>
+<p>netstat -alpe用于查看sockets连接的IP和端口以及相应的进程名和PID,配合grep往往有奇效.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">netstat -alpe | grep com.android.la
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看对应进程打开的文件">查看对应进程打开的文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">lsof -p 1625 -l | grep jar
+</code></pre></td></tr></table>
+</div>
+</div><p>这里的文件不仅仅指常见的普通文件.在Linux系统中有一种说法叫&quot;万物皆文件&rdquo;,其实网络中建立连接的也可以叫做文件,因此lsof命令也可以用于与netstat命令相同的操作.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">lsof -l -p 1625 | grep TCP
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看当前系统运行负载">查看当前系统运行负载</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//和htop作用一样,只是相对来说htop更加人性化
+</span><span class="c1"></span><span class="n">top</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="adb命令">ADB命令</h2>
+<h3 id="查看处于前台的activity">查看处于前台的Activity</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">adb shell dumpsys activity top
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看包信息">查看包信息</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">adb</span> <span class="nx">shell</span> <span class="nx">dumpsys</span> <span class="kn">package</span> <span class="nx">com</span><span class="p">.</span><span class="nx">android</span><span class="p">.</span><span class="nx">settings</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看app使用的数据库信息">查看App使用的数据库信息</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">adb shell dumpsys dbinfo com.android.settings
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="截图操作">截图操作</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">adb shell screencap -p /data/local/tmp/Luo.png
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="管理package">管理package</h3>
+<p>pm命令是Android中packageManager的命令行,是用于管理package的命令.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">//列出所有安装的APK包名
+</span><span class="c1"></span><span class="n">adb</span> <span class="n">shell</span> <span class="n">pm</span> <span class="n">list</span> <span class="n">packages</span>
+<span class="c1">//安装apk文件,这里的apk文件不是在主机目录下,而是在Android目录下
+</span><span class="c1"></span><span class="n">adb</span> <span class="n">shell</span> <span class="n">pm</span> <span class="n">install</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">LuoDst</span><span class="p">.</span><span class="n">apk</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="调试命令">调试命令</h3>
+<p>am命令是一个重要的调试工具,主要用于启动或停止服务、发送广播、启动Activity等</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">//以Debug模式启动App
+adb shell am start -D -N org.example.luodst/.MainActivity
+</code></pre></td></tr></table>
+</div>
+</div><p>其实以上所有命令也可以通过执行adb shell进入Android的shell中直接执行,只需要将开始的adb shell去掉就行.</p>
+<h3 id="主机与android交互命令">主机与Android交互命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">//安装apk
+</span><span class="c1"></span><span class="n">adb</span> <span class="n">install</span>
+<span class="c1">//交换文件
+</span><span class="c1"></span><span class="n">adb</span> <span class="n">push</span> 
+<span class="n">adb</span> <span class="n">pull</span>
+<span class="c1">//查看日志
+</span><span class="c1"></span><span class="n">adb</span> <span class="n">logcat</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-11-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Android逆向常用命令</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android/androidhook/frida%E4%BD%BF%E7%94%A8/" class="prev" rel="prev" title="Frida"><i class="fas fa-angle-left fa-fw"></i>Frida</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
