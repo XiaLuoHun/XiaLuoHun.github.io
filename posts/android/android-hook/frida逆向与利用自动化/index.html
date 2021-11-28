@@ -25,7 +25,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-hook\/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96\/"
-        },"genre": "posts","keywords": "Frida","wordcount":  14332 ,
+        },"genre": "posts","keywords": "Frida","wordcount":  15070 ,
         "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-hook\/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96\/","datePublished": "2021-11-25T00:00:00+00:00","dateModified": "2021-11-25T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "夏洛魂"},"author": {
@@ -102,8 +102,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Frida逆向与利用自动化</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android-hook/"><i class="far fa-folder fa-fw"></i>Android Hook</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-25">2021-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 14332 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 29 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-25">2021-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 15070 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 31 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -183,7 +183,12 @@
                 </li>
               </ul>
             </li>
-            <li><a href="#rpc及其自动化">RPC及其自动化</a></li>
+            <li><a href="#rpc及其自动化">RPC及其自动化</a>
+              <ul>
+                <li><a href="#远程调用">远程调用</a></li>
+                <li><a href="#互联互通">互联互通</a></li>
+              </ul>
+            </li>
             <li><a href="#参数构造">参数构造</a>
               <ul>
                 <li><a href="#数组">数组</a>
@@ -235,6 +240,7 @@
                     <li><a href="#gson打印">Gson打印</a></li>
                   </ul>
                 </li>
+                <li><a href="#枚举-1">枚举</a></li>
               </ul>
             </li>
           </ul>
@@ -1546,6 +1552,7 @@ https://www.apkmirror.com/apk/metactrl/wifi-adb-debug-over-air/
         title="主动调用日志" /></p>
 <p>如果需要主动调用动态函数,必须确保存在相应类的对象,否则无法进入Java.choose这个API的回调onMatch逻辑中.比如MainActivity类对象,由于App在打开后确实运行在MainActivity界面上,那么这个对象就一定会存在,这就是所谓的&quot;所见即所得&quot;思想,这个思想在主动调用的过程中非常重要.</p>
 <h3 id="rpc及其自动化">RPC及其自动化</h3>
+<h4 id="远程调用">远程调用</h4>
 <p>在Frida中,可以使用Python完成JavaScript脚本对进程的注入以及相应的Hook.</p>
 <ol>
 <li>准备一个测试apk.</li>
@@ -1685,55 +1692,35 @@ https://www.apkmirror.com/apk/metactrl/wifi-adb-debug-over-air/
 </span><span class="lnt">26
 </span><span class="lnt">27
 </span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">CallSecretFunc</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        
+    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
         <span class="c1">//动态函数主动调用
-</span><span class="c1"></span>        <span class="nx">Java</span><span class="p">.</span><span class="nx">choose</span><span class="p">(</span><span class="s2">&#34;org.example.luodst.MainActivity&#34;</span><span class="p">,{</span>
-            <span class="nx">onMatch</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">instance</span><span class="p">){</span>
-
+</span><span class="c1"></span>        <span class="nx">Java</span><span class="p">.</span><span class="nx">choose</span><span class="p">(</span><span class="s2">&#34;org.example.luodst.MainActivity&#34;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">onMatch</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nx">instance</span><span class="p">.</span><span class="nx">secret</span><span class="p">()</span>
-
             <span class="p">},</span>
-            <span class="nx">onComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-            <span class="p">}</span>
+            <span class="nx">onComplete</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{}</span>
         <span class="p">})</span>
-
     <span class="p">});</span>
 <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">getTotalValue</span><span class="p">(){</span>
-    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-
+<span class="kd">function</span> <span class="nx">getTotalValue</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
         <span class="c1">//动态字段主动调用
 </span><span class="c1"></span>        <span class="nx">Java</span><span class="p">.</span><span class="nx">choose</span><span class="p">(</span><span class="s2">&#34;org.example.luodst.MainActivity&#34;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="nx">onMatch</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">instance</span><span class="p">){</span>
-
+            <span class="nx">onMatch</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;total value = &#34;</span><span class="p">,</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">total</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
-
             <span class="p">},</span>
-            <span class="nx">onComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-            <span class="p">}</span>
+            <span class="nx">onComplete</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{}</span>
         <span class="p">})</span>
-
     <span class="p">})</span>
 <span class="p">}</span>
 
 <span class="nx">rpc</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">callsecretfunc</span> <span class="o">:</span> <span class="nx">CallSecretFunc</span><span class="p">,</span>
-    <span class="nx">gettotalvalue</span> <span class="o">:</span> <span class="nx">getTotalValue</span>
+    <span class="nx">callsecretfunc</span><span class="o">:</span> <span class="nx">CallSecretFunc</span><span class="p">,</span>
+    <span class="nx">gettotalvalue</span><span class="o">:</span> <span class="nx">getTotalValue</span>
 <span class="p">};</span>
 </code></pre></td></tr></table>
 </div>
@@ -1772,6 +1759,13 @@ https://www.apkmirror.com/apk/metactrl/wifi-adb-debug-over-air/
 </span><span class="lnt">26
 </span><span class="lnt">27
 </span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">frida</span>
@@ -1783,8 +1777,15 @@ https://www.apkmirror.com/apk/metactrl/wifi-adb-debug-over-air/
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
+<span class="c1">#无线连接</span>
+<span class="c1"># /data/local/tmp/frida-server -l 0.0.0.0:6666</span>
+<span class="c1"># Wifi ADB监听IP和端口为192.168.2.111:5555</span>
+<span class="c1">#device = frida.get_device_manager().add_remote_device(&#34;192.168.2.111:6666&#34;)</span>
+
+<span class="c1">#有线连接</span>
 <span class="n">device</span> <span class="o">=</span> <span class="n">frida</span><span class="o">.</span><span class="n">get_usb_device</span><span class="p">()</span>
-<span class="n">process</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s2">&#34;LuoDst&#34;</span><span class="p">)</span>
+
+<span class="n">process</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s2">&#34;com.example.luodst&#34;</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;luoHook.js&#34;</span><span class="p">,</span>  <span class="n">encoding</span> <span class="o">=</span> <span class="s2">&#34;UTF-8&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">jsCode</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -1815,6 +1816,203 @@ https://www.apkmirror.com/apk/metactrl/wifi-adb-debug-over-air/
         title="RPCLoader" /></p>
 <p>和单纯执行JavaScript是一致的,下面对Frida相关代码进行说明.</p>
 <p>首先通过frida.get_usb_device()获取到USB设备句柄;然后通过device.attach(&ldquo;LuoDst&rdquo;)对LuoDst这个进行进行注入;接着使用create_script()函数加载上述编写的JavaScript代码,并使用script.on(&lsquo;message&rsquo;, on_message)注册了自己的消息对应的函数,每当JavaScript想要输出时,都会经过这里指定的on_message进行;最后,也就是最重要的RPC调用代码,即通过script.exports访问所有我们在JavaScript中定义的导出名,进而调用导出函数.这样就完成了RPC远程调用,达到了在主机上可以随意调用App代码的目的.</p>
+<h4 id="互联互通">互联互通</h4>
+<p>本次实验主要是记录Frida中Python和JavaScript代码的互通过程,由Python发送数据到JavaScript进而影响Hook的结果.</p>
+<ol>
+<li>准备一个测试Apk.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.example.luodst</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">androidx.appcompat.app.AppCompatActivity</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.util.Log</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.Button</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.TextView</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+
+        <span class="n">Button</span> <span class="n">btn</span> <span class="o">=</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button</span><span class="o">);</span>
+        <span class="n">btn</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">TextView</span> <span class="n">tv</span> <span class="o">=</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tv</span><span class="o">);</span>
+                <span class="n">tv</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&#34;Hello com.example.luodst !&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>本次我们Hook的目标函数是<strong>android.widget.TextView.setText(CharSequence text)</strong></p>
+<ol start="2">
+<li>JavaScript代码.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">//luoHook.js
+</span><span class="c1"></span><span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Inside java perform function&#34;</span><span class="p">);</span>
+    <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;android.widget.TextView&#34;</span><span class="p">).</span><span class="nx">setText</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;java.lang.CharSequence&#39;</span><span class="p">).</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">strSend</span> <span class="o">=</span> <span class="nx">x</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+        <span class="kd">var</span> <span class="nx">strRecv</span><span class="p">;</span>
+
+        <span class="nx">send</span><span class="p">(</span><span class="nx">strSend</span><span class="p">);</span>
+
+        <span class="nx">recv</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">received_json_objection</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">strRecv</span> <span class="o">=</span> <span class="nx">received_json_objection</span><span class="p">.</span><span class="nx">my_data</span><span class="p">;</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;strRecv &#34;</span><span class="p">,</span> <span class="nx">strRecv</span><span class="p">)</span>
+        <span class="p">}).</span><span class="nx">wait</span><span class="p">()</span>
+
+        <span class="kd">var</span> <span class="nx">javaStr</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">).</span><span class="nx">$new</span><span class="p">(</span><span class="nx">strRecv</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">setText</span><span class="p">(</span><span class="nx">javaStr</span><span class="p">)</span>
+
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;javaStr result&#34;</span><span class="p">,</span> <span class="nx">javaStr</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nx">result</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>Python代码.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#loader.py</span>
+<span class="kn">import</span> <span class="nn">frida</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;send&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s2">&#34;payload&#34;</span><span class="p">])</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="s2">&#34;Hello XiaLuoHun !&#34;</span>
+        <span class="n">script</span><span class="o">.</span><span class="n">post</span><span class="p">({</span><span class="s2">&#34;my_data&#34;</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Modified data send !&#34;</span><span class="p">)</span>
+
+
+<span class="c1">#无线连接</span>
+<span class="c1"># /data/local/tmp/frida-server -l 0.0.0.0:6666</span>
+<span class="c1"># Wifi ADB监听IP和端口为192.168.2.111:5555</span>
+<span class="c1">#device = frida.get_device_manager().add_remote_device(&#34;192.168.2.111:6666&#34;)</span>
+
+<span class="c1">#有线连接</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">frida</span><span class="o">.</span><span class="n">get_usb_device</span><span class="p">()</span>
+
+<span class="n">process</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s2">&#34;com.example.luodst&#34;</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;luoHook.js&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;UTF-8&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">jsCode</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">script</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">create_script</span><span class="p">(</span><span class="n">jsCode</span><span class="p">)</span>
+
+<span class="n">script</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">on_message</span><span class="p">)</span>
+<span class="n">script</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="nb">input</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>运行结果如下图.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/RPC%e4%ba%92%e8%81%94%e4%ba%92%e9%80%9a.png"
+        data-srcset="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/RPC%E4%BA%92%E8%81%94%E4%BA%92%E9%80%9A.png, images/RPC%e4%ba%92%e8%81%94%e4%ba%92%e9%80%9a.png 1.5x, /posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/RPC%E4%BA%92%E8%81%94%E4%BA%92%E9%80%9A.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/RPC%E4%BA%92%E8%81%94%E4%BA%92%E9%80%9A.png"
+        title="RPC互联互通" /></p>
 <h3 id="参数构造">参数构造</h3>
 <p>使用Frida的JavaScript API</p>
 <p><a href="https://frida.re/docs/javascript-api/" target="_blank" rel="noopener noreffer">https://frida.re/docs/javascript-api/</a></p>
@@ -3121,7 +3319,173 @@ https://www.apkmirror.com/apk/metactrl/wifi-adb-debug-over-air/
         data-sizes="auto"
         alt="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/%E6%89%93%E5%8D%B0Object3.png"
         title="打印Object3" /></p>
-<h2 id="objection">Objection</h2>
+<h4 id="枚举-1">枚举</h4>
+<ol>
+<li>准备一个测试App.</li>
+</ol>
+<p><a href="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/frida_example_1.1.apk" rel="">frida_example_1.1.apk</a></p>
+<ol start="2">
+<li>查看相关代码</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/FridaActivity5.png"
+        data-srcset="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/FridaActivity5.png, images/FridaActivity5.png 1.5x, /posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/FridaActivity5.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/FridaActivity5.png"
+        title="FridaActivity5" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/FridaActivity6.png"
+        data-srcset="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/FridaActivity6.png, images/FridaActivity6.png 1.5x, /posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/FridaActivity6.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/FridaActivity6.png"
+        title="FridaActivity6" /></p>
+<ol start="3">
+<li>Hook</li>
+</ol>
+<p><a href="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/frida_example_1.1.js" rel="">frida_example_1.1.js</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">fifth</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">Java</span><span class="p">.</span><span class="nx">choose</span><span class="p">(</span><span class="s2">&#34;com.example.androiddemo.Activity.FridaActivity5&#34;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">onMatch</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;found instance getDynamicDexCheck&#34;</span><span class="p">,</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">getDynamicDexCheck</span><span class="p">().</span><span class="nx">$className</span><span class="p">)</span>
+            <span class="p">},</span>
+            <span class="nx">onComplete</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;search Complete&#34;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+
+        <span class="nx">Java</span><span class="p">.</span><span class="nx">enumerateClassLoaders</span><span class="p">({</span>
+            <span class="nx">onMatch</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">loader</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">try</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">loader</span><span class="p">.</span><span class="nx">findClass</span><span class="p">(</span><span class="s2">&#34;com.example.androiddemo.Dynamic.DynamicCheck&#34;</span><span class="p">))</span> <span class="p">{</span>
+                        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Succefully found loader!&#34;</span><span class="p">,</span> <span class="nx">loader</span><span class="p">);</span>
+                        <span class="nx">Java</span><span class="p">.</span><span class="nx">classFactory</span><span class="p">.</span><span class="nx">loader</span> <span class="o">=</span> <span class="nx">loader</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;found error &#34;</span> <span class="o">+</span> <span class="nx">error</span><span class="p">)</span>
+
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nx">onComplete</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="s2">&#34;enum completed!&#34;</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+        <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;com.example.androiddemo.Dynamic.DynamicCheck&#34;</span><span class="p">).</span><span class="nx">check</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span>
+        <span class="p">};</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">sixth</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;com.example.androiddemo.Activity.Frida6.Frida6Class0&#34;</span><span class="p">).</span><span class="nx">check</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span>
+        <span class="p">};</span>
+        <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;com.example.androiddemo.Activity.Frida6.Frida6Class1&#34;</span><span class="p">).</span><span class="nx">check</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span>
+        <span class="p">};</span>
+        <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;com.example.androiddemo.Activity.Frida6.Frida6Class2&#34;</span><span class="p">).</span><span class="nx">check</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span>
+        <span class="p">};</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">sixth2</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">Java</span><span class="p">.</span><span class="nx">enumerateLoadedClasses</span><span class="p">({</span>
+            <span class="nx">onMatch</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">handle</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">name</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;com.example.androiddemo.Activity.Frida6.Frida6&#34;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span>
+                    <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">name</span><span class="p">).</span><span class="nx">check</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="kc">true</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nx">onComplete</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;enum Complete&#34;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="nx">setImmediate</span><span class="p">(</span><span class="nx">sixth2</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="objection">Objection</h2>
 <p>Frida只是提供了各种API供我们调用,在此基础上可以实现具体的功能,有大佬将各种常见的、常用的功能整合进一个工具,供我们在命令行中使用,这个工具就是Objection.</p>
 <h3 id="安装-1">安装</h3>
 <p>由于Objection是基于Frida的,所以我们要安装与Frida发布日期相近的版本.</p>
@@ -3419,7 +3783,6 @@ https://www.apkmirror.com/apk/metactrl/wifi-adb-debug-over-air/
 </div>
 </div><p>要实现对一个native层函数的Hook,最重要的就是找到该函数的首地址.</p>
 <h4 id="native层函数导出">Native层函数导出</h4>
-<p>JNI函数的命名规则:Java_PackageName_ClassName_MethodName</p>
 <p>如果是导出函数,可以通过下述API函数获得相应函数的首地址.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3549,13 +3912,15 @@ https://www.apkmirror.com/apk/metactrl/wifi-adb-debug-over-air/
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
+</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//libluonative.so
 </span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;jni.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="n">JNIEXPORT</span> <span class="n">jstring</span> <span class="n">JNICALL</span>
+<span class="c1">//JNI函数的命名规则:Java_PackageName_ClassName_MethodName
+</span><span class="c1"></span><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="n">JNIEXPORT</span> <span class="n">jstring</span> <span class="n">JNICALL</span>
 <span class="n">Java_com_example_luonative_MainActivity_stringFromJNI</span><span class="p">(</span>
         <span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span>
         <span class="n">jobject</span> <span class="cm">/* this */</span><span class="p">)</span> <span class="p">{</span>
