@@ -25,7 +25,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-hook\/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96\/"
-        },"genre": "posts","keywords": "Frida","wordcount":  15070 ,
+        },"genre": "posts","keywords": "Frida","wordcount":  15150 ,
         "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-hook\/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96\/","datePublished": "2021-11-25T00:00:00+00:00","dateModified": "2021-11-25T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "夏洛魂"},"author": {
@@ -102,7 +102,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Frida逆向与利用自动化</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android-hook/"><i class="far fa-folder fa-fw"></i>Android Hook</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-25">2021-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 15070 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-25">2021-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 15150 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 31 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -127,12 +127,6 @@
                   </ul>
                 </li>
                 <li><a href="#shell查看和切换">Shell查看和切换</a></li>
-              </ul>
-            </li>
-            <li><a href="#逆向环境准备">逆向环境准备</a>
-              <ul>
-                <li><a href="#androidstudio">AndroidStudio</a></li>
-                <li><a href="#vscode">VSCode</a></li>
                 <li><a href="#proxychains">ProxyChains</a></li>
                 <li><a href="#pyenv">pyenv</a>
                   <ul>
@@ -144,8 +138,15 @@
                   <ul>
                     <li><a href="#htop">htop</a></li>
                     <li><a href="#jnettop">jnettop</a></li>
+                    <li><a href="#tree">tree</a></li>
                   </ul>
                 </li>
+              </ul>
+            </li>
+            <li><a href="#逆向环境准备">逆向环境准备</a>
+              <ul>
+                <li><a href="#androidstudio">AndroidStudio</a></li>
+                <li><a href="#vscode">VSCode</a></li>
               </ul>
             </li>
             <li><a href="#手机环境">手机环境</a>
@@ -331,21 +332,7 @@
 <p><a href="https://www.kali.org/get-kali/#kali-virtual-machines" target="_blank" rel="noopener noreffer">https://www.kali.org/get-kali/#kali-virtual-machines</a></p>
 <h4 id="以root用户登录">以root用户登录</h4>
 <p>Kali Linux虚拟机官方提供了一个默认账号:kali/kali,但是并没有提供root账号.</p>
-<p>可以先用kali/kali进入虚拟机,执行以下步骤设置root账号密码.</p>
-<ol>
-<li>切换到root权限.</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo su
-</code></pre></td></tr></table>
-</div>
-</div><ol start="2">
-<li>更改root密码.</li>
-</ol>
+<p>可以先用kali/kali进入虚拟机,执行以下命令设置root账号密码.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -376,11 +363,13 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">apt update
-apt install xfonts-intl-chinese
-apt install ttf-wqy-microhei
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#目前Kali已默认支持中文</span>
+<span class="n">apt</span> <span class="n">update</span>
+<span class="n">apt</span> <span class="n">install</span> <span class="n">xfonts</span><span class="o">-</span><span class="n">intl</span><span class="o">-</span><span class="n">chinese</span>
+<span class="n">apt</span> <span class="n">install</span> <span class="n">ttf</span><span class="o">-</span><span class="n">wqy</span><span class="o">-</span><span class="n">microhei</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><strong>注意</strong>:切记不要把系统切换为中文环境,切换成中文环境容易出问题.</p>
@@ -388,20 +377,18 @@ apt install ttf-wqy-microhei
 <ol>
 <li>在/usr/share/fonts目录下,创建一个文件夹my_fonts</li>
 <li>将ttf格式字体复制到/usr/share/fonts/my_fonts目录下</li>
-<li>执行命令</li>
+<li>在上述目录中,执行下述命令</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#在/usr/share/fonts/my_fonts目录下执行下述命令</span>
-<span class="n">mkfontdir</span>
-<span class="n">mkfontscale</span>
-<span class="n">fc</span><span class="o">-</span><span class="n">cache</span>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkfontdir
+mkfontscale
+fc-cache
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="shell查看和切换">Shell查看和切换</h4>
@@ -436,16 +423,204 @@ apt install ttf-wqy-microhei
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#切换bash </span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#这里我们要切换到bash,目前Kali默认是zsh</span>
+<span class="c1">#切换bash </span>
 <span class="n">chsh</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span>
 <span class="c1">#切换zsh </span>
 <span class="n">chsh</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">zsh</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>重启后生效.</p>
-<h3 id="逆向环境准备">逆向环境准备</h3>
+<h4 id="proxychains">ProxyChains</h4>
+<p>这里我使用的是v2rayN</p>
+<ol>
+<li>V2rayN允许来自局域网的连接.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/v2rayN1.png"
+        data-srcset="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN1.png, images/v2rayN1.png 1.5x, /posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN1.png"
+        title="v2rayN1" /></p>
+<ol start="2">
+<li>记下V2rayN监听的端口.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/v2rayN2.png"
+        data-srcset="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN2.png, images/v2rayN2.png 1.5x, /posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN2.png"
+        title="v2rayN2" /></p>
+<ol start="3">
+<li>查看Windows本机IP.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Windows%e6%9c%ac%e6%9c%baIP.png"
+        data-srcset="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/Windows%E6%9C%AC%E6%9C%BAIP.png, images/Windows%e6%9c%ac%e6%9c%baIP.png 1.5x, /posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/Windows%E6%9C%AC%E6%9C%BAIP.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/Windows%E6%9C%AC%E6%9C%BAIP.png"
+        title="Windows本机IP" /></p>
+<ol start="4">
+<li>Kali Linux配置</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">apt</span> <span class="n">install</span> <span class="n">proxychains</span>
+<span class="n">vim</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">proxychains</span><span class="o">.</span><span class="n">conf</span>
+<span class="c1">#找到[ProxyList]删除原来的socks4,然后加上</span>
+<span class="p">[</span><span class="n">socks5</span> <span class="n">IP</span> <span class="n">端口</span><span class="p">]</span>
+
+<span class="n">在上述配置文件中找到proxy_dns</span><span class="p">,</span><span class="n">将其注释</span><span class="o">.</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意</strong>:要关闭Windows的防火墙.</p>
+<h4 id="pyenv">pyenv</h4>
+<p>Python版本管理软件.</p>
+<h5 id="安装">安装</h5>
+<ol>
+<li>配置构建环境.</li>
+</ol>
+<p><a href="https://github.com/pyenv/pyenv/wiki#suggested-build-environment" target="_blank" rel="noopener noreffer">https://github.com/pyenv/pyenv/wiki#suggested-build-environment</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt-get update; sudo apt-get install make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>安装pyenv.</li>
+</ol>
+<p><a href="https://github.com/pyenv/pyenv#basic-github-checkout" target="_blank" rel="noopener noreffer">https://github.com/pyenv/pyenv#basic-github-checkout</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">proxychains</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">yyuu</span><span class="o">/</span><span class="n">pyenv</span><span class="o">.</span><span class="n">git</span> <span class="o">~/.</span><span class="n">pyenv</span>
+
+<span class="c1">#zsh</span>
+<span class="n">echo</span> <span class="s1">&#39;export PYENV_ROOT=&#34;$HOME/.pyenv&#34;&#39;</span> <span class="o">&gt;&gt;~/.</span><span class="n">zshrc</span>
+<span class="n">echo</span> <span class="s1">&#39;export PATH=&#34;$PYENV_ROOT/bin:$PATH&#34;&#39;</span> <span class="o">&gt;&gt;~/.</span><span class="n">zshrc</span>
+<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then</span><span class="se">\n</span><span class="s1"> eval &#34;$(pyenv init --path)&#34;</span><span class="se">\n</span><span class="s1">fi&#39;</span><span class="o">&gt;&gt;~/.</span><span class="n">zshrc</span>
+
+<span class="c1">#bash</span>
+<span class="n">echo</span> <span class="s1">&#39;export PYENV_ROOT=&#34;$HOME/.pyenv&#34;&#39;</span> <span class="o">&gt;&gt;~/.</span><span class="n">bashrc</span>
+<span class="n">echo</span> <span class="s1">&#39;export PATH=&#34;$PYENV_ROOT/bin:$PATH&#34;&#39;</span> <span class="o">&gt;&gt;~/.</span><span class="n">bashrc</span>
+<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then</span><span class="se">\n</span><span class="s1"> eval &#34;$(pyenv init --path)&#34;</span><span class="se">\n</span><span class="s1">fi&#39;</span><span class="o">&gt;&gt;~/.</span><span class="n">bashrc</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>安装python版本.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#无代理</span>
+<span class="n">pyenv</span> <span class="n">install</span> <span class="mf">3.8.0</span>
+<span class="c1">#有代理</span>
+<span class="n">PYTHON_CONFIGURE_OPTS</span><span class="o">=</span><span class="s2">&#34;--disable-ipv6&#34;</span>  <span class="n">proxychains</span> <span class="n">pyenv</span> <span class="n">install</span> <span class="mf">3.8.0</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="常用命令">常用命令</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#列出可供安装的python版本 </span>
+<span class="n">pyenv</span> <span class="n">install</span> <span class="o">--</span><span class="nb">list</span>
+<span class="c1">#安装指定版本的 </span>
+<span class="n">pyenv</span> <span class="n">install</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>
+<span class="c1">#在当前目录下设置python版本 </span>
+<span class="n">python</span> <span class="n">pyenv</span> <span class="n">local</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>
+<span class="c1">#列出系统中安装的python版本 </span>
+<span class="n">pyenv</span> <span class="n">versions</span>
+<span class="c1">#显示当前目录下采用的python</span>
+<span class="n">pyenv</span> <span class="n">version</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>参考链接</strong>:</p>
+<p><a href="https://www.jianshu.com/p/be08b5b1dbf6/" target="_blank" rel="noopener noreffer">https://www.jianshu.com/p/be08b5b1dbf6/</a></p>
+<p><a href="https://www.jianshu.com/p/7656896265ab" target="_blank" rel="noopener noreffer">https://www.jianshu.com/p/7656896265ab</a></p>
+<h4 id="实用工具">实用工具</h4>
+<h5 id="htop">htop</h5>
+<p>加强版的top工具,可以动态查看当前活跃的、系统占用率高的进程.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">apt install htop
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="jnettop">jnettop</h5>
+<p>用来实时查看系统网络负载.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">apt install jnettop
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="tree">tree</h5>
+<p>文件名搜索工具,在解包apk后,搜索文件的名字非常好用.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">apt install tree
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="逆向环境准备">逆向环境准备</h3>
 <h4 id="androidstudio">AndroidStudio</h4>
 <ol>
 <li>官网下载AndroidStudio</li>
@@ -522,166 +697,6 @@ source ~/.zshrc
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#修改Command为</span>
 <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">code</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">sandbox</span> <span class="o">--</span><span class="n">unity</span><span class="o">-</span><span class="n">launch</span> <span class="o">%</span><span class="n">F</span>
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="proxychains">ProxyChains</h4>
-<p>这里我使用的是v2rayN</p>
-<ol>
-<li>V2rayN允许来自局域网的连接.</li>
-</ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/v2rayN1.png"
-        data-srcset="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN1.png, images/v2rayN1.png 1.5x, /posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN1.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN1.png"
-        title="v2rayN1" /></p>
-<ol start="2">
-<li>记下V2rayN监听的端口.</li>
-</ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/v2rayN2.png"
-        data-srcset="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN2.png, images/v2rayN2.png 1.5x, /posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN2.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/v2rayN2.png"
-        title="v2rayN2" /></p>
-<ol start="3">
-<li>查看Windows本机IP.</li>
-</ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/Windows%e6%9c%ac%e6%9c%baIP.png"
-        data-srcset="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/Windows%E6%9C%AC%E6%9C%BAIP.png, images/Windows%e6%9c%ac%e6%9c%baIP.png 1.5x, /posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/Windows%E6%9C%AC%E6%9C%BAIP.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android-hook/frida%E9%80%86%E5%90%91%E4%B8%8E%E5%88%A9%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96/images/Windows%E6%9C%AC%E6%9C%BAIP.png"
-        title="Windows本机IP" /></p>
-<ol start="4">
-<li>Kali Linux配置</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">apt</span> <span class="n">install</span> <span class="n">proxychains</span>
-<span class="n">vim</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">proxychains</span><span class="o">.</span><span class="n">conf</span>
-<span class="c1">#找到[ProxyList]删除原来的socks4,然后加上</span>
-<span class="p">[</span><span class="n">socks5</span> <span class="n">IP</span> <span class="n">端口</span><span class="p">]</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>注意</strong>:要关闭Windows的防火墙.</p>
-<h4 id="pyenv">pyenv</h4>
-<p>Python版本管理软件.</p>
-<h5 id="安装">安装</h5>
-<ol>
-<li>配置构建环境.</li>
-</ol>
-<p><a href="https://github.com/pyenv/pyenv/wiki#suggested-build-environment" target="_blank" rel="noopener noreffer">https://github.com/pyenv/pyenv/wiki#suggested-build-environment</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt-get update; sudo apt-get install make build-essential libssl-dev zlib1g-dev \
-libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
-libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-</code></pre></td></tr></table>
-</div>
-</div><ol start="2">
-<li>安装pyenv.</li>
-</ol>
-<p><a href="https://github.com/pyenv/pyenv#basic-github-checkout" target="_blank" rel="noopener noreffer">https://github.com/pyenv/pyenv#basic-github-checkout</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">proxychains</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">yyuu</span><span class="o">/</span><span class="n">pyenv</span><span class="o">.</span><span class="n">git</span> <span class="o">~/.</span><span class="n">pyenv</span>
-
-<span class="n">echo</span> <span class="s1">&#39;export PYENV_ROOT=&#34;$HOME/.pyenv&#34;&#39;</span> <span class="o">&gt;&gt;~/.</span><span class="n">zshrc</span>
-<span class="n">echo</span> <span class="s1">&#39;export PATH=&#34;$PYENV_ROOT/bin:$PATH&#34;&#39;</span> <span class="o">&gt;&gt;~/.</span><span class="n">zshrc</span>
-<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then</span><span class="se">\n</span><span class="s1"> eval &#34;$(pyenv init --path)&#34;</span><span class="se">\n</span><span class="s1">fi&#39;</span><span class="o">&gt;&gt;~/.</span><span class="n">zshrc</span>
-</code></pre></td></tr></table>
-</div>
-</div><ol start="3">
-<li>安装python版本.</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#无代理</span>
-<span class="n">pyenv</span> <span class="n">install</span> <span class="mf">3.8.0</span>
-<span class="c1">#有代理</span>
-<span class="n">PYTHON_CONFIGURE_OPTS</span><span class="o">=</span><span class="s2">&#34;--disable-ipv6&#34;</span>  <span class="n">proxychains</span> <span class="n">pyenv</span> <span class="n">install</span> <span class="mf">3.8.0</span>
-</code></pre></td></tr></table>
-</div>
-</div><h5 id="常用命令">常用命令</h5>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#列出可供安装的python版本 </span>
-<span class="n">pyenv</span> <span class="n">install</span> <span class="o">--</span><span class="nb">list</span>
-<span class="c1">#安装指定版本的 </span>
-<span class="n">pyenv</span> <span class="n">install</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>
-<span class="c1">#在当前目录下设置python版本 </span>
-<span class="n">python</span> <span class="n">pyenv</span> <span class="n">local</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>
-<span class="c1">#列出系统中安装的python版本 </span>
-<span class="n">pyenv</span> <span class="n">versions</span>
-<span class="c1">#显示当前目录下采用的python</span>
-<span class="n">pyenv</span> <span class="n">version</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>参考链接</strong>:</p>
-<p><a href="https://www.jianshu.com/p/be08b5b1dbf6/" target="_blank" rel="noopener noreffer">https://www.jianshu.com/p/be08b5b1dbf6/</a></p>
-<p><a href="https://www.jianshu.com/p/7656896265ab" target="_blank" rel="noopener noreffer">https://www.jianshu.com/p/7656896265ab</a></p>
-<h4 id="实用工具">实用工具</h4>
-<h5 id="htop">htop</h5>
-<p>加强版的top工具,可以动态查看当前活跃的、系统占用率高的进程.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">apt install htop
-</code></pre></td></tr></table>
-</div>
-</div><h5 id="jnettop">jnettop</h5>
-<p>用来实时查看系统网络负载.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">apt install jnettop
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="手机环境">手机环境</h3>
