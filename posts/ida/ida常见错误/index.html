@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>IDA常见错误 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="IDA常见错误" />
+<meta property="og:description" content="IDA常见错误 JUMPOUT(xxxx) 样本 修复我1.exe 原因 Jmp到一个未知值的时候,IDA就会出现这种错误. 修复 将上图内红框中的汇编,nop掉即可. 修复调用约" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-15T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="IDA常见错误"/>
+<meta name="twitter:description" content="IDA常见错误 JUMPOUT(xxxx) 样本 修复我1.exe 原因 Jmp到一个未知值的时候,IDA就会出现这种错误. 修复 将上图内红框中的汇编,nop掉即可. 修复调用约"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/c&#43;&#43;%E9%80%86%E5%90%91/x64%E9%80%86%E5%90%91/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "IDA常见错误",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/ida\/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF\/"
+        },"genre": "posts","keywords": "IDA","wordcount":  240 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/ida\/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF\/","datePublished": "2022-02-15T00:00:00+00:00","dateModified": "2022-02-15T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">IDA常见错误</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ida/"><i class="far fa-folder fa-fw"></i>IDA</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-15">2022-02-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 240 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ida常见错误">IDA常见错误</a>
+      <ul>
+        <li><a href="#jumpoutxxxx">JUMPOUT(xxxx)</a>
+          <ul>
+            <li><a href="#样本">样本</a></li>
+            <li><a href="#原因">原因</a></li>
+            <li><a href="#修复">修复</a></li>
+          </ul>
+        </li>
+        <li><a href="#修复调用约定">修复调用约定</a>
+          <ul>
+            <li><a href="#样本-1">样本</a></li>
+            <li><a href="#原因-1">原因</a></li>
+            <li><a href="#修复-1">修复</a></li>
+          </ul>
+        </li>
+        <li><a href="#sp-analysis-failed">sp-analysis failed</a>
+          <ul>
+            <li><a href="#样本-2">样本</a></li>
+            <li><a href="#原因-2">原因</a></li>
+            <li><a href="#修复-2">修复</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="ida常见错误">IDA常见错误</h1>
+<h2 id="jumpoutxxxx">JUMPOUT(xxxx)</h2>
+<h3 id="样本">样本</h3>
+<p><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/%E4%BF%AE%E5%A4%8D%E6%88%911.exe" rel="">修复我1.exe</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/JUMPOUT1.png"
+        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT1.png, images/JUMPOUT1.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT1.png 2x"
+        data-sizes="auto"
+        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT1.png"
+        title="JUMPOUT1" /></p>
+<h3 id="原因">原因</h3>
+<p>Jmp到一个未知值的时候,IDA就会出现这种错误.</p>
+<h3 id="修复">修复</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/JUMPOUT2.png"
+        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT2.png, images/JUMPOUT2.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT2.png 2x"
+        data-sizes="auto"
+        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT2.png"
+        title="JUMPOUT2" /></p>
+<p>将上图内红框中的汇编,nop掉即可.</p>
+<h2 id="修复调用约定">修复调用约定</h2>
+<h3 id="样本-1">样本</h3>
+<p><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/%E4%BF%AE%E5%A4%8D%E6%88%912.exe" rel="">修复我2.exe</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a1.png"
+        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A1.png, images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a1.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A1.png 2x"
+        data-sizes="auto"
+        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A1.png"
+        title="修复调用约定1" /></p>
+<h3 id="原因-1">原因</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a2.png"
+        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A2.png, images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a2.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A2.png 2x"
+        data-sizes="auto"
+        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A2.png"
+        title="修复调用约定2" /></p>
+<p>从上图发现,v3的值来自edx.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a3.png"
+        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A3.png, images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a3.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A3.png 2x"
+        data-sizes="auto"
+        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A3.png"
+        title="修复调用约定3" /></p>
+<p>从上图可以看到,edx是sub_401020函数的返回值.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a4.png"
+        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A4.png, images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a4.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A4.png 2x"
+        data-sizes="auto"
+        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A4.png"
+        title="修复调用约定4" /></p>
+<h3 id="修复-1">修复</h3>
+<p>指明函数的返回值是edx.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a5.png"
+        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A5.png, images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a5.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A5.png 2x"
+        data-sizes="auto"
+        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A5.png"
+        title="修复调用约定5" /></p>
+<h2 id="sp-analysis-failed">sp-analysis failed</h2>
+<h3 id="样本-2">样本</h3>
+<p><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/%E4%BF%AE%E5%A4%8D%E6%88%913.exe" rel="">修复我3.exe</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/sp-analysis1.png"
+        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis1.png, images/sp-analysis1.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis1.png 2x"
+        data-sizes="auto"
+        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis1.png"
+        title="sp-analysis1" /></p>
+<h3 id="原因-2">原因</h3>
+<p>这种情况通常是由Call造成的.</p>
+<h3 id="修复-2">修复</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/sp-analysis2.png"
+        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis2.png, images/sp-analysis2.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis2.png 2x"
+        data-sizes="auto"
+        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis2.png"
+        title="sp-analysis2" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/sp-analysis3.png"
+        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis3.png, images/sp-analysis3.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis3.png 2x"
+        data-sizes="auto"
+        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis3.png"
+        title="sp-analysis3" /></p>
+<p>loc_xxxx是指一段未知的指令集.</p>
+<p>sub_xxxx是指函数.</p>
+<ol>
+<li>将上述Call指令修改为JMP.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/sp-analysis4.png"
+        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis4.png, images/sp-analysis4.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis4.png 2x"
+        data-sizes="auto"
+        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis4.png"
+        title="sp-analysis4" /></p>
+<ol start="2">
+<li>最后在ret的地方,设置为函数尾.</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-15</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ida/">IDA</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/c&#43;&#43;%E9%80%86%E5%90%91/x64%E9%80%86%E5%90%91/" class="prev" rel="prev" title="x64逆向"><i class="fas fa-angle-left fa-fw"></i>x64逆向</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
