@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Frida源码编译"/>
 <meta name="twitter:description" content="Frida源码编译 官方教程 https://frida.re/docs/building/#gnulinux 这里我们也使用Ubuntu20.04进行编译. 开始编译 安装一些辅助工具. 1 2 3 4 5 6 7 8 9 10 11 12 //设置root"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android-hook/frida%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/android-hook/fridahook%E5%A4%A7%E5%85%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android-hook/frida%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/android-hook/fridahook%E5%A4%A7%E5%85%A8/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -159,19 +159,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//设置root密码
-</span><span class="c1"></span><span class="n">sudo</span> <span class="n">passwd</span> <span class="n">root</span>
-<span class="c1">//更新
-</span><span class="c1"></span><span class="n">apt</span> <span class="n">update</span>
-<span class="c1">//安装net工具,可以使用ifconfig
-</span><span class="c1"></span><span class="n">apt</span> <span class="n">install</span> <span class="n">net</span><span class="o">-</span><span class="n">tools</span>
-<span class="c1">//文本编辑工具
-</span><span class="c1"></span><span class="n">apt</span> <span class="n">install</span> <span class="n">gedit</span>
-<span class="c1">//代理工具,科学上网
-</span><span class="c1"></span><span class="n">apt</span> <span class="n">install</span> <span class="n">proxychains</span>
-<span class="c1">//设置socks5代理
-</span><span class="c1"></span><span class="n">gedit</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">proxychains</span><span class="p">.</span><span class="n">conf</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//设置root密码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sudo</span> <span class="n">passwd</span> <span class="n">root</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//更新
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">apt</span> <span class="n">update</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//安装net工具,可以使用ifconfig
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">apt</span> <span class="n">install</span> <span class="n">net</span><span class="o">-</span><span class="n">tools</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//文本编辑工具
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">apt</span> <span class="n">install</span> <span class="n">gedit</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//代理工具,科学上网
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">apt</span> <span class="n">install</span> <span class="n">proxychains</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//设置socks5代理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">gedit</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">proxychains</span><span class="p">.</span><span class="n">conf</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="安装官方推荐环境">安装官方推荐环境.</h3>
 <div class="highlight"><div class="chroma">
@@ -180,9 +180,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">proxychains</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">curl</span> <span class="n">git</span> <span class="n">lib32stdc</span><span class="o">++-</span><span class="mi">9</span><span class="o">-</span><span class="n">dev</span> \
-    <span class="n">libc6</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">i386</span> <span class="n">nodejs</span> <span class="n">npm</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">proxychains</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">curl</span> <span class="n">git</span> <span class="n">lib32stdc</span><span class="o">++-</span><span class="mi">9</span><span class="o">-</span><span class="n">dev</span> \
+</span></span><span class="line"><span class="cl">    <span class="n">libc6</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">i386</span> <span class="n">nodejs</span> <span class="n">npm</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -190,9 +190,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//编译check-core-linux-x86_64的时候需要
-</span><span class="c1"></span><span class="n">proxychains</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">multilib</span> <span class="n">g</span><span class="o">++-</span><span class="n">multilib</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//编译check-core-linux-x86_64的时候需要
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">proxychains</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">multilib</span> <span class="n">g</span><span class="o">++-</span><span class="n">multilib</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="拉frida源码">拉Frida源码.</h3>
 <div class="highlight"><div class="chroma">
@@ -201,9 +201,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">proxychains git clone --recurse-submodules https://github.com/frida/frida
-cd frida
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">proxychains git clone --recurse-submodules https://github.com/frida/frida
+</span></span><span class="line"><span class="cl">cd frida
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置toolchain和sdk">配置toolchain和sdk.</h3>
 <p>官方toolchain和sdk下载链接如下:</p>
@@ -224,11 +224,11 @@ cd frida
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="nl">https</span><span class="p">:</span><span class="c1">//build.frida.re/deps/20220318/toolchain-linux-x86_64.tar.bz2
-</span><span class="c1"></span><span class="nl">https</span><span class="p">:</span><span class="c1">//build.frida.re/deps/20220318/sdk-linux-x86_64.tar.bz2
-</span><span class="c1"></span><span class="nl">https</span><span class="p">:</span><span class="c1">//build.frida.re/deps/20220318/sdk-android-arm.tar.bz2
-</span><span class="c1"></span><span class="nl">https</span><span class="p">:</span><span class="c1">//build.frida.re/deps/20220318/sdk-android-arm64.tar.bz2
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="nl">https</span><span class="p">:</span><span class="c1">//build.frida.re/deps/20220318/toolchain-linux-x86_64.tar.bz2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">https</span><span class="p">:</span><span class="c1">//build.frida.re/deps/20220318/sdk-linux-x86_64.tar.bz2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">https</span><span class="p">:</span><span class="c1">//build.frida.re/deps/20220318/sdk-android-arm.tar.bz2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">https</span><span class="p">:</span><span class="c1">//build.frida.re/deps/20220318/sdk-android-arm64.tar.bz2
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>在frida文件夹下面新建build文件夹,使用wget将上述链接文件放进去.</p>
 <p>接下来在frida文件夹下,执行下述命令.</p>
@@ -237,8 +237,8 @@ cd frida
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">releng/setup-env.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">releng/setup-env.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置ndk">配置NDK</h3>
 <p>在frida文件夹下,执行下述命令,就会报需要的NDK版本.</p>
@@ -247,8 +247,8 @@ cd frida
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">make core-android-arm64
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">make core-android-arm64
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -268,9 +268,9 @@ cd frida
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//这里我们下载r24的Linux NDK
-</span><span class="c1"></span><span class="nl">https</span><span class="p">:</span><span class="c1">//dl.google.com/android/repository/android-ndk-r24-linux.zip
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//这里我们下载r24的Linux NDK
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">https</span><span class="p">:</span><span class="c1">//dl.google.com/android/repository/android-ndk-r24-linux.zip
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>解压上述下载的文件.</li>
@@ -280,8 +280,8 @@ cd frida
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">unzip android-ndk-r24-linux.zip
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">unzip android-ndk-r24-linux.zip
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>配置环境变量.</li>
@@ -298,15 +298,15 @@ cd frida
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">gedit</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>   
-<span class="c1">//将下述内容添加到上述文件的末尾
-</span><span class="c1"></span><span class="k">export</span> <span class="n">ANDROID_NDK_ROOT</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">luohun</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">android</span><span class="o">-</span><span class="n">ndk</span><span class="o">-</span><span class="n">r24</span>
-<span class="k">export</span> <span class="n">PATH</span><span class="o">=</span><span class="err">$</span><span class="nl">ANDROID_NDK_ROOT</span><span class="p">:</span><span class="err">$</span><span class="n">PATH</span>
-
-<span class="c1">//检查是否配置成功
-</span><span class="c1"></span><span class="n">source</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>
-<span class="n">ndk</span><span class="o">-</span><span class="n">build</span> <span class="o">--</span><span class="n">v</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">gedit</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>   
+</span></span><span class="line"><span class="cl"><span class="c1">//将下述内容添加到上述文件的末尾
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">export</span> <span class="n">ANDROID_NDK_ROOT</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">luohun</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">android</span><span class="o">-</span><span class="n">ndk</span><span class="o">-</span><span class="n">r24</span>
+</span></span><span class="line"><span class="cl"><span class="k">export</span> <span class="n">PATH</span><span class="o">=</span><span class="err">$</span><span class="nl">ANDROID_NDK_ROOT</span><span class="p">:</span><span class="err">$</span><span class="n">PATH</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//检查是否配置成功
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">source</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>
+</span></span><span class="line"><span class="cl"><span class="n">ndk</span><span class="o">-</span><span class="n">build</span> <span class="o">--</span><span class="n">v</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="编译">编译</h3>
 <p>在frida目录下执行make,会让你选择编译的平台,这里我们编译arm64平台的.</p>
@@ -315,8 +315,8 @@ cd frida
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">make core-android-arm64
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">make core-android-arm64
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最终产物在 frida/build/frida-android-arm64/bin目录下.</p>
 <p><img
@@ -352,7 +352,8 @@ cd frida
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/android/android-hook/fridahook%E5%A4%A7%E5%85%A8/" class="prev" rel="prev" title="Frida Hook大全"><i class="fas fa-angle-left fa-fw"></i>Frida Hook大全</a></div>
+    <div class="post-nav"><a href="/posts/android/android-hook/fridahook%E5%A4%A7%E5%85%A8/" class="prev" rel="prev" title="Frida Hook大全"><i class="fas fa-angle-left fa-fw"></i>Frida Hook大全</a>
+            <a href="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/" class="next" rel="next" title="抓包详解">抓包详解<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">

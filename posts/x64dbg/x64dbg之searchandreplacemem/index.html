@@ -122,9 +122,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">SCRIPT_EXPORT</span> <span class="n">duint</span> <span class="nf">FindMem</span><span class="p">(</span><span class="n">duint</span> <span class="n">start</span><span class="p">,</span> <span class="n">duint</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pattern</span><span class="p">);</span>
-<span class="n">SCRIPT_EXPORT</span> <span class="kt">bool</span> <span class="nf">SearchAndReplaceMem</span><span class="p">(</span><span class="n">duint</span> <span class="n">start</span><span class="p">,</span> <span class="n">duint</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">searchpattern</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">replacepattern</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">SCRIPT_EXPORT</span> <span class="n">duint</span> <span class="nf">FindMem</span><span class="p">(</span><span class="n">duint</span> <span class="n">start</span><span class="p">,</span> <span class="n">duint</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pattern</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SCRIPT_EXPORT</span> <span class="kt">bool</span> <span class="nf">SearchAndReplaceMem</span><span class="p">(</span><span class="n">duint</span> <span class="n">start</span><span class="p">,</span> <span class="n">duint</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">searchpattern</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">replacepattern</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>首先SearchAndReplaceMem只会在start开始的size大小范围内只替换一次,所以要结合FindMem来完成全部的替换.</p>
 <p>当FindMem查找的地址范围过大时,第二次查找会失败(示例中的Size为0x0000000040000000),出现下述错误.</p>
@@ -173,39 +173,39 @@
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">DWORD</span> <span class="n">WINAPI</span> <span class="nf">workThreadProc</span><span class="p">(</span><span class="n">_In_</span> <span class="n">LPVOID</span> <span class="n">lpParameter</span><span class="p">)</span> <span class="p">{</span>
-	<span class="n">duint</span> <span class="n">dSelDisasmAddr</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Gui</span><span class="o">::</span><span class="n">Disassembly</span><span class="o">::</span><span class="n">SelectionGetStart</span><span class="p">();</span>
-	<span class="n">duint</span> <span class="n">dSelBase</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Memory</span><span class="o">::</span><span class="n">GetBase</span><span class="p">(</span><span class="n">dSelDisasmAddr</span><span class="p">);</span>
-	<span class="n">duint</span> <span class="n">dSelSize</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Memory</span><span class="o">::</span><span class="n">GetSize</span><span class="p">(</span><span class="n">dSelDisasmAddr</span><span class="p">);</span>
-
-	<span class="kt">char</span> <span class="n">searchpattern</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;48656C6C6F205869614C756F48756E2100&#34;</span><span class="p">;</span>
-	<span class="kt">char</span> <span class="n">replacepattern</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;48656C6C6F20576F726C642100&#34;</span><span class="p">;</span>
-
-	<span class="n">duint</span> <span class="n">nSearchpatternLen</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">searchpattern</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-
-	<span class="n">duint</span> <span class="n">dStartAddr</span> <span class="o">=</span> <span class="n">dSelBase</span><span class="p">;</span>
-	<span class="k">do</span>
-	<span class="p">{</span>
-		<span class="n">duint</span> <span class="n">dAddr</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Pattern</span><span class="o">::</span><span class="n">FindMem</span><span class="p">(</span><span class="n">dStartAddr</span><span class="p">,</span> <span class="n">dSelSize</span> <span class="o">+</span> <span class="n">dSelBase</span> <span class="o">-</span> <span class="n">dStartAddr</span><span class="p">,</span> <span class="n">searchpattern</span><span class="p">);</span>
-
-		<span class="k">if</span> <span class="p">(</span><span class="n">dAddr</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="n">dAddr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-			<span class="k">break</span><span class="p">;</span>
-		<span class="p">}</span>
-
-		<span class="n">dStartAddr</span> <span class="o">=</span> <span class="n">dAddr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-
-		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">Script</span><span class="o">::</span><span class="n">Pattern</span><span class="o">::</span><span class="n">SearchAndReplaceMem</span><span class="p">(</span><span class="n">dAddr</span><span class="p">,</span> <span class="n">nSearchpatternLen</span><span class="p">,</span> <span class="n">searchpattern</span><span class="p">,</span> <span class="n">replacepattern</span><span class="p">))</span>
-		<span class="p">{</span>
-			<span class="k">break</span><span class="p">;</span>
-		<span class="p">}</span>
-
-		<span class="n">Sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-	<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">);</span>
-
-	<span class="o">::</span><span class="n">MessageBox</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="s">&#34;Done&#34;</span><span class="p">,</span> <span class="s">&#34;replaceMemory&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
-	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">DWORD</span> <span class="n">WINAPI</span> <span class="nf">workThreadProc</span><span class="p">(</span><span class="n">_In_</span> <span class="n">LPVOID</span> <span class="n">lpParameter</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">duint</span> <span class="n">dSelDisasmAddr</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Gui</span><span class="o">::</span><span class="n">Disassembly</span><span class="o">::</span><span class="n">SelectionGetStart</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">duint</span> <span class="n">dSelBase</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Memory</span><span class="o">::</span><span class="n">GetBase</span><span class="p">(</span><span class="n">dSelDisasmAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">duint</span> <span class="n">dSelSize</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Memory</span><span class="o">::</span><span class="n">GetSize</span><span class="p">(</span><span class="n">dSelDisasmAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">searchpattern</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;48656C6C6F205869614C756F48756E2100&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">replacepattern</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;48656C6C6F20576F726C642100&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">duint</span> <span class="n">nSearchpatternLen</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">searchpattern</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">duint</span> <span class="n">dStartAddr</span> <span class="o">=</span> <span class="n">dSelBase</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">do</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">duint</span> <span class="n">dAddr</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Pattern</span><span class="o">::</span><span class="n">FindMem</span><span class="p">(</span><span class="n">dStartAddr</span><span class="p">,</span> <span class="n">dSelSize</span> <span class="o">+</span> <span class="n">dSelBase</span> <span class="o">-</span> <span class="n">dStartAddr</span><span class="p">,</span> <span class="n">searchpattern</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">dAddr</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="n">dAddr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">dStartAddr</span> <span class="o">=</span> <span class="n">dAddr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">Script</span><span class="o">::</span><span class="n">Pattern</span><span class="o">::</span><span class="n">SearchAndReplaceMem</span><span class="p">(</span><span class="n">dAddr</span><span class="p">,</span> <span class="n">nSearchpatternLen</span><span class="p">,</span> <span class="n">searchpattern</span><span class="p">,</span> <span class="n">replacepattern</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">Sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">::</span><span class="n">MessageBox</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="s">&#34;Done&#34;</span><span class="p">,</span> <span class="s">&#34;replaceMemory&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">

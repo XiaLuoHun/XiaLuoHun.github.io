@@ -408,42 +408,42 @@
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="c">#hello.asm
-</span><span class="c"></span><span class="nf">includelib</span> <span class="no">user32.lib</span>
-<span class="nf">includelib</span> <span class="no">kernel32.lib</span>
-
-<span class="nf">extrn</span> <span class="no">MessageBoxA</span><span class="p">:</span><span class="no">proc</span>
-<span class="nf">extrn</span> <span class="no">ExitProcess</span><span class="p">:</span><span class="no">proc</span>
-
-<span class="nf">NULL</span> <span class="no">EQU</span> <span class="mi">0</span>
-<span class="nf">MB_OK</span> <span class="no">EQU</span> <span class="mi">0</span>
-
-<span class="na">.const</span>
-  <span class="nf">MSG1</span> <span class="no">db</span> <span class="err">&#34;</span><span class="no">Hello</span> <span class="no">World</span><span class="p">!</span><span class="err">&#34;</span><span class="p">,</span> <span class="mi">0</span>
-  <span class="nf">TITLE1</span> <span class="no">db</span> <span class="err">&#34;</span><span class="no">Luo</span><span class="err">&#34;</span><span class="p">,</span> <span class="mi">0</span>
-  
-<span class="na">.code</span> 
-<span class="no">START</span> <span class="no">proc</span>
- 
-  <span class="c">;栈地址必须保证模16, 申请栈空间保证模8
-</span><span class="c"></span>  <span class="c">;栈预留空间32（20h)个字节
-</span><span class="c"></span>  <span class="nf">sub</span>  <span class="no">rsp</span><span class="p">,</span> <span class="mi">28</span><span class="no">h</span>
-   
-  <span class="nf">mov</span>   <span class="no">rcx</span><span class="p">,</span> <span class="no">NULL</span>
-  <span class="nf">mov</span>   <span class="no">rdx</span><span class="p">,</span> <span class="no">offset</span> <span class="no">MSG1</span>
-  <span class="nf">mov</span>   <span class="no">r8</span><span class="p">,</span> <span class="no">offset</span> <span class="no">TITLE1</span>
-  <span class="nf">mov</span>   <span class="no">r9d</span><span class="p">,</span> <span class="no">MB_OK</span>
-  <span class="nf">call</span>  <span class="no">MessageBoxA</span>
-
-  <span class="nf">mov</span>  <span class="no">ecx</span><span class="p">,</span> <span class="mi">0</span>
-  <span class="nf">call</span> <span class="no">ExitProcess</span>
-  
-  <span class="nf">add</span>   <span class="no">rsp</span><span class="p">,</span> <span class="mi">28</span><span class="no">h</span>
-  <span class="nf">RET</span>
-<span class="nf">START</span> <span class="no">endp</span>
-
-<span class="nf">end</span> 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="c">#hello.asm
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">includelib</span> <span class="no">user32.lib</span>
+</span></span><span class="line"><span class="cl"><span class="nf">includelib</span> <span class="no">kernel32.lib</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">extrn</span> <span class="no">MessageBoxA</span><span class="p">:</span><span class="no">proc</span>
+</span></span><span class="line"><span class="cl"><span class="nf">extrn</span> <span class="no">ExitProcess</span><span class="p">:</span><span class="no">proc</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">NULL</span> <span class="no">EQU</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MB_OK</span> <span class="no">EQU</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">.const</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">MSG1</span> <span class="no">db</span> <span class="err">&#34;</span><span class="no">Hello</span> <span class="no">World</span><span class="p">!</span><span class="err">&#34;</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">TITLE1</span> <span class="no">db</span> <span class="err">&#34;</span><span class="no">Luo</span><span class="err">&#34;</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="na">.code</span> 
+</span></span><span class="line"><span class="cl"><span class="no">START</span> <span class="no">proc</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">  <span class="c">;栈地址必须保证模16, 申请栈空间保证模8
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  <span class="c">;栈预留空间32（20h)个字节
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  <span class="nf">sub</span>  <span class="no">rsp</span><span class="p">,</span> <span class="mi">28</span><span class="no">h</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">  <span class="nf">mov</span>   <span class="no">rcx</span><span class="p">,</span> <span class="no">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">mov</span>   <span class="no">rdx</span><span class="p">,</span> <span class="no">offset</span> <span class="no">MSG1</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">mov</span>   <span class="no">r8</span><span class="p">,</span> <span class="no">offset</span> <span class="no">TITLE1</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">mov</span>   <span class="no">r9d</span><span class="p">,</span> <span class="no">MB_OK</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">call</span>  <span class="no">MessageBoxA</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nf">mov</span>  <span class="no">ecx</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">call</span> <span class="no">ExitProcess</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nf">add</span>   <span class="no">rsp</span><span class="p">,</span> <span class="mi">28</span><span class="no">h</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">RET</span>
+</span></span><span class="line"><span class="cl"><span class="nf">START</span> <span class="no">endp</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">end</span> 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="编译">编译</h3>
 <div class="highlight"><div class="chroma">
@@ -452,9 +452,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">ml64</span> <span class="err">/</span><span class="no">c</span> <span class="no">hello.asm</span>
-<span class="nf">link</span> <span class="err">/</span><span class="no">subsystem</span><span class="p">:</span><span class="no">windows</span> <span class="err">/</span><span class="no">entry</span><span class="p">:</span><span class="no">START</span> <span class="no">hello.obj</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">ml64</span> <span class="err">/</span><span class="no">c</span> <span class="no">hello.asm</span>
+</span></span><span class="line"><span class="cl"><span class="nf">link</span> <span class="err">/</span><span class="no">subsystem</span><span class="p">:</span><span class="no">windows</span> <span class="err">/</span><span class="no">entry</span><span class="p">:</span><span class="no">START</span> <span class="no">hello.obj</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="注意">注意</h3>
 <div class="highlight"><div class="chroma">
@@ -466,12 +466,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">栈地址必须模</span><span class="mi">16</span><span class="p">,</span>
-<span class="err">因为你函数内调用</span><span class="n">API时</span><span class="p">,</span><span class="n">API内会用到多媒体指令</span><span class="p">,</span><span class="err">极大可能会使用</span><span class="n">movaps这个指令</span><span class="p">,</span><span class="err">这个指令要求栈地址必须模</span><span class="mi">16</span><span class="p">,</span><span class="err">否则程序会崩</span><span class="p">.</span>
-<span class="err">故申请的栈空间大小要求模</span><span class="mf">8.</span>
-<span class="err">其实在系统断点处</span><span class="p">,</span><span class="err">栈地址是模</span><span class="mi">16</span><span class="err">的</span><span class="p">,</span><span class="err">但由于经过了</span><span class="n">CAll指令才到达入口断点</span><span class="p">,</span>
-<span class="err">此时栈会抬高</span><span class="mi">8</span><span class="err">字节</span><span class="p">,</span><span class="err">变成模</span><span class="mf">8.</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">栈地址必须模</span><span class="mi">16</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="err">因为你函数内调用</span><span class="n">API时</span><span class="p">,</span><span class="n">API内会用到多媒体指令</span><span class="p">,</span><span class="err">极大可能会使用</span><span class="n">movaps这个指令</span><span class="p">,</span><span class="err">这个指令要求栈地址必须模</span><span class="mi">16</span><span class="p">,</span><span class="err">否则程序会崩</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">故申请的栈空间大小要求模</span><span class="mf">8.</span>
+</span></span><span class="line"><span class="cl"><span class="err">其实在系统断点处</span><span class="p">,</span><span class="err">栈地址是模</span><span class="mi">16</span><span class="err">的</span><span class="p">,</span><span class="err">但由于经过了</span><span class="n">CAll指令才到达入口断点</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="err">此时栈会抬高</span><span class="mi">8</span><span class="err">字节</span><span class="p">,</span><span class="err">变成模</span><span class="mf">8.</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="定位入口函数">定位入口函数</h2>
 <p>Main函数走完,会退进程,调用exit,故离exit最近的一个三参数函数就是Main函数.</p>
@@ -483,10 +483,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#define stdin  (__acrt_iob_func(0))
-</span><span class="cp">#define stdout (__acrt_iob_func(1))
-</span><span class="cp">#define stderr (__acrt_iob_func(2))
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define stdin  (__acrt_iob_func(0))
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define stdout (__acrt_iob_func(1))
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define stderr (__acrt_iob_func(2))
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="iob参数">iob参数</h3>
 <p>为1的话,可以命名该函数为printf.</p>
@@ -531,24 +531,24 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">tagPoint</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">x1</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">y1</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="n">tagPoint</span> <span class="n">pt</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;x=%d y=%d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">x1</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">y1</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">tagPoint</span> <span class="n">pt</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">};</span>
-  <span class="n">fun</span><span class="p">(</span><span class="n">pt</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">tagPoint</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">x1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">y1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="n">tagPoint</span> <span class="n">pt</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;x=%d y=%d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">x1</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">y1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tagPoint</span> <span class="n">pt</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fun</span><span class="p">(</span><span class="n">pt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="debug">Debug</h5>
 <p><img
@@ -593,26 +593,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">tagPoint</span><span class="p">{</span>
-  <span class="kt">int</span> <span class="n">x1</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">y1</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">x2</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">y2</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="n">tagPoint</span> <span class="n">pt</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;x1=%d y1=%d x2=%d y2=%d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">x1</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">y1</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">x2</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">y2</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">tagPoint</span> <span class="n">pt</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">};</span>
-  <span class="n">fun</span><span class="p">(</span><span class="n">pt</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">tagPoint</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">x1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">y1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">x2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">y2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="n">tagPoint</span> <span class="n">pt</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;x1=%d y1=%d x2=%d y2=%d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">x1</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">y1</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">x2</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">y2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tagPoint</span> <span class="n">pt</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fun</span><span class="p">(</span><span class="n">pt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="debug-1">Debug</h5>
 <p><img
@@ -679,27 +679,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">tagPoint</span><span class="p">{</span>
-  <span class="kt">int</span> <span class="n">x1</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">y1</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">x2</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">y2</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="n">tagPoint</span> <span class="nf">fun</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">tagPoint</span> <span class="n">pt</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">};</span>
-  <span class="k">return</span> <span class="n">pt</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">tagPoint</span> <span class="n">pt</span> <span class="o">=</span> <span class="n">fun</span><span class="p">();</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">tagPoint</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">x1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">y1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">x2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">y2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">tagPoint</span> <span class="nf">fun</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tagPoint</span> <span class="n">pt</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">pt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tagPoint</span> <span class="n">pt</span> <span class="o">=</span> <span class="n">fun</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="debug-2">Debug</h5>
 <p><img
@@ -725,9 +725,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">函数多了一个参数.
-函数内返回时,以参数为目标做memcpy,并返回参数1.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">函数多了一个参数.
+</span></span><span class="line"><span class="cl">函数内返回时,以参数为目标做memcpy,并返回参数1.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="注意-1">注意</h3>
 <p>对低32位寄存器赋值,高32位自动清零.也就是说,如当我们看到函数传参,mov ecx, 2
@@ -763,16 +763,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">nNum1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">nNum2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">nNum1</span> <span class="o">+</span> <span class="n">nNum2</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">nNum1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">nNum2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">nNum1</span> <span class="o">+</span> <span class="n">nNum2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="debug-3">Debug</h4>
 <p><img
@@ -799,16 +799,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="n">g_nNum1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">g_nNum2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">g_nNum1</span> <span class="o">+</span> <span class="n">g_nNum2</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">g_nNum1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">g_nNum2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">g_nNum1</span> <span class="o">+</span> <span class="n">g_nNum2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="debug-4">Debug</h4>
 <p><img
@@ -842,15 +842,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">ary</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">};</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d %d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">ary</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">ary</span><span class="p">[</span><span class="n">argc</span><span class="p">]);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">ary</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d %d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">ary</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">ary</span><span class="p">[</span><span class="n">argc</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="debug-5">Debug</h3>
 <p><img
@@ -879,11 +879,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">一维数组寻址公式</span><span class="o">:</span> <span class="err">数组元素的地址</span> <span class="o">=</span> <span class="err">数组首地址</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">数组类型</span><span class="p">)</span> <span class="n">x</span> <span class="err">下标</span>
-<span class="err">二维数组寻址公式</span><span class="o">:</span> <span class="err">数组元素的地址</span> <span class="o">=</span> <span class="err">数组首地址</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">一维数组类型</span><span class="p">)</span> <span class="n">x</span> <span class="err">下标</span><span class="mi">1</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">数组类型</span><span class="p">)</span> <span class="n">x</span> <span class="err">下标</span><span class="mi">2</span>
-<span class="n">Debug版和Release版的寻址公式</span><span class="p">,</span><span class="err">同</span><span class="mi">32</span><span class="err">位</span><span class="p">.</span>
-<span class="err">不同的是</span><span class="mi">64</span><span class="err">位</span><span class="n">Release版</span><span class="p">,</span><span class="err">数组初始化使用多媒体指令</span><span class="p">.</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">一维数组寻址公式</span><span class="o">:</span> <span class="err">数组元素的地址</span> <span class="o">=</span> <span class="err">数组首地址</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">数组类型</span><span class="p">)</span> <span class="n">x</span> <span class="err">下标</span>
+</span></span><span class="line"><span class="cl"><span class="err">二维数组寻址公式</span><span class="o">:</span> <span class="err">数组元素的地址</span> <span class="o">=</span> <span class="err">数组首地址</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">一维数组类型</span><span class="p">)</span> <span class="n">x</span> <span class="err">下标</span><span class="mi">1</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">数组类型</span><span class="p">)</span> <span class="n">x</span> <span class="err">下标</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">Debug版和Release版的寻址公式</span><span class="p">,</span><span class="err">同</span><span class="mi">32</span><span class="err">位</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">不同的是</span><span class="mi">64</span><span class="err">位</span><span class="n">Release版</span><span class="p">,</span><span class="err">数组初始化使用多媒体指令</span><span class="p">.</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="流程控制语句">流程控制语句</h2>
 <h3 id="if">IF</h3>
@@ -902,17 +902,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc &gt; 1</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc &gt; 1</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="release-1">Release</h5>
 <p><img
@@ -943,13 +943,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">虚线</span><span class="o">:</span><span class="err">条件跳转</span><span class="p">.</span>
-<span class="err">实线</span><span class="o">:</span><span class="err">无条件跳转</span><span class="p">.</span>
-<span class="err">每一个点代表一行汇编代码</span><span class="p">.</span>
-
-<span class="n">if语句中有一个jxx跳转</span><span class="p">,</span><span class="err">因此会有一个向下的虚线箭头</span><span class="p">.</span>
-<span class="err">看到上图中标红区域的图形</span><span class="p">,</span><span class="err">即可判断其为</span><span class="n">if语句</span><span class="p">.</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">虚线</span><span class="o">:</span><span class="err">条件跳转</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">实线</span><span class="o">:</span><span class="err">无条件跳转</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">每一个点代表一行汇编代码</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">if语句中有一个jxx跳转</span><span class="p">,</span><span class="err">因此会有一个向下的虚线箭头</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">看到上图中标红区域的图形</span><span class="p">,</span><span class="err">即可判断其为</span><span class="n">if语句</span><span class="p">.</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="双分支">双分支</h4>
 <div class="highlight"><div class="chroma">
@@ -970,21 +970,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc == 1</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="k">else</span>
-  <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc != 1</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc == 1</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc != 1</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="debug-6">Debug</h5>
 <p><img
@@ -1013,11 +1013,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">因为</span><span class="n">if语句中有一个jxx指令用于向下跳转</span><span class="p">,</span><span class="err">所以会有一个向下的虚线箭头</span><span class="p">.</span>
-<span class="err">又因为</span><span class="n">else语句中有jmp跳转</span><span class="p">,</span><span class="err">所以虚线箭头中会有一个向下的实线箭头</span><span class="p">.</span>
-<span class="err">看到上图中标红区域的图形</span><span class="p">,</span><span class="err">即可判断为</span><span class="k">if</span><span class="p">...</span><span class="n">else语句</span><span class="p">,</span>
-<span class="err">虚线箭头之间的代码为</span><span class="n">if代码</span><span class="p">,</span><span class="err">实线箭头之间的代码为</span><span class="n">else代码</span><span class="p">.</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">因为</span><span class="n">if语句中有一个jxx指令用于向下跳转</span><span class="p">,</span><span class="err">所以会有一个向下的虚线箭头</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">又因为</span><span class="n">else语句中有jmp跳转</span><span class="p">,</span><span class="err">所以虚线箭头中会有一个向下的实线箭头</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">看到上图中标红区域的图形</span><span class="p">,</span><span class="err">即可判断为</span><span class="k">if</span><span class="p">...</span><span class="n">else语句</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="err">虚线箭头之间的代码为</span><span class="n">if代码</span><span class="p">,</span><span class="err">实线箭头之间的代码为</span><span class="n">else代码</span><span class="p">.</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="多分支">多分支</h4>
 <div class="highlight"><div class="chroma">
@@ -1042,25 +1042,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc &gt; 2</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc == 2</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="k">else</span>
-  <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc &lt; 2</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc &gt; 2</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc == 2</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc &lt; 2</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="debug-7">Debug</h5>
 <p><img
@@ -1098,14 +1098,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 16 = %u&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="mi">16</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 16 = %u&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="mi">16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1128,14 +1128,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 3 = %I64u&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="mi">3</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 3 = %I64u&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1151,8 +1151,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">M64</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">M64</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="还原">还原</h6>
 <div class="highlight"><div class="chroma">
@@ -1160,8 +1160,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">M64</span><span class="p">,</span> <span class="err">向上取整</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">M64</span><span class="p">,</span> <span class="err">向上取整</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="magicnumber有进位">MagicNumber有进位</h5>
 <div class="highlight"><div class="chroma">
@@ -1175,14 +1175,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 7 = %u&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="mi">7</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 7 = %u&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="mi">7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1199,9 +1199,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">乘减移加移</span>
-<span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">(((</span><span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">&gt;&gt;</span> <span class="mi">32</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="n">n1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">&gt;&gt;</span> <span class="mi">32</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="n">n2</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">乘减移加移</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">(((</span><span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">&gt;&gt;</span> <span class="mi">32</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="n">n1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">&gt;&gt;</span> <span class="mi">32</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="n">n2</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="还原-1">还原</h6>
 <div class="highlight"><div class="chroma">
@@ -1209,8 +1209,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="mi">32</span> <span class="o">+</span> <span class="n">M</span><span class="p">),</span> <span class="err">向上取整</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="mi">32</span> <span class="o">+</span> <span class="n">M</span><span class="p">),</span> <span class="err">向上取整</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="有符号除法">有符号除法</h3>
 <h4 id="除数为正2的幂">除数为正2的幂</h4>
@@ -1225,14 +1225,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 8 = %d&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">/</span> <span class="mi">8</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 8 = %d&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">/</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1249,9 +1249,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">:</span><span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">n</span>
-<span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">:</span><span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="n">n</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">:</span><span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">:</span><span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="n">n</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="还原-2">还原</h5>
 <div class="highlight"><div class="chroma">
@@ -1259,8 +1259,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="n">n</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="n">n</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="除数为正非2的幂">除数为正非2的幂</h4>
 <h5 id="magicnumber为正">MagicNumber为正</h5>
@@ -1275,14 +1275,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 9 = %lld&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="mi">9</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 9 = %lld&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="mi">9</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1299,9 +1299,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="n">x</span> <span class="o">*</span> <span class="n">M64</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">&lt;</span>  <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">M64</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="n">x</span> <span class="o">*</span> <span class="n">M64</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&lt;</span>  <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">M64</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="还原-3">还原</h6>
 <div class="highlight"><div class="chroma">
@@ -1309,8 +1309,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">M64</span><span class="p">,</span> <span class="err">向上取整</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">M64</span><span class="p">,</span> <span class="err">向上取整</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="magicnumber为负">MagicNumber为负</h5>
 <div class="highlight"><div class="chroma">
@@ -1324,14 +1324,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 7 = %d&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">/</span> <span class="mi">7</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / 7 = %d&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">/</span> <span class="mi">7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1348,9 +1348,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">&lt;</span>  <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&lt;</span>  <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="还原-4">还原</h6>
 <div class="highlight"><div class="chroma">
@@ -1358,8 +1358,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">M</span><span class="p">,</span> <span class="err">向上取整</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">M</span><span class="p">,</span> <span class="err">向上取整</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="除数为负2的幂">除数为负2的幂</h4>
 <div class="highlight"><div class="chroma">
@@ -1373,14 +1373,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / -16 = %lld&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="o">-</span><span class="mi">16</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / -16 = %lld&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="o">-</span><span class="mi">16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1403,14 +1403,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / -7 = %d&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">/</span> <span class="o">-</span><span class="mi">7</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / -7 = %d&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">/</span> <span class="o">-</span><span class="mi">7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1427,9 +1427,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">&lt;</span>  <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&lt;</span>  <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="还原-5">还原</h6>
 <div class="highlight"><div class="chroma">
@@ -1437,8 +1437,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="mi">32</span> <span class="o">-</span> <span class="n">M</span><span class="p">),</span> <span class="err">向上取整</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="mi">32</span> <span class="o">-</span> <span class="n">M</span><span class="p">),</span> <span class="err">向上取整</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="magicnumber为负-1">MagicNumber为负</h5>
 <div class="highlight"><div class="chroma">
@@ -1452,14 +1452,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / -10 = %lld&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="o">-</span><span class="mi">10</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc / -10 = %lld&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">argc</span> <span class="o">/</span> <span class="o">-</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1476,9 +1476,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="n">x</span> <span class="o">*</span> <span class="n">M64</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">&lt;</span>  <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">M64</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="n">x</span> <span class="o">*</span> <span class="n">M64</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&lt;</span>  <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">M64</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="总结">总结</h6>
 <div class="highlight"><div class="chroma">
@@ -1486,8 +1486,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="mi">64</span> <span class="o">-</span> <span class="n">M64</span><span class="p">),</span> <span class="err">向上取整</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">64</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="mi">64</span> <span class="o">-</span> <span class="n">M64</span><span class="p">),</span> <span class="err">向上取整</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="总结-1">总结</h3>
 <div class="highlight"><div class="chroma">
@@ -1506,19 +1506,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="n">x</span> <span class="o">*</span> <span class="n">M</span>  <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
-<span class="err">结论</span><span class="o">:</span>
-<span class="n">M</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">正除数</span><span class="p">,</span> <span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">M</span><span class="p">,</span> <span class="err">向上取整</span>
-<span class="n">M</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">负除数</span><span class="p">,</span> <span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="mi">32</span> <span class="o">-</span> <span class="n">M</span> <span class="p">),</span> <span class="err">向上取整</span>
-
-<span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
-<span class="err">结论</span><span class="o">:</span>
-<span class="n">M</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">正除数</span><span class="p">,</span> <span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">M</span><span class="p">,</span> <span class="err">向上取整</span>
-
-<span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
-<span class="err">结论</span><span class="o">:</span>
-<span class="n">M</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">负除数</span><span class="p">,</span> <span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="mi">32</span> <span class="o">-</span> <span class="n">M</span> <span class="p">),</span> <span class="err">向上取整</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="n">x</span> <span class="o">*</span> <span class="n">M</span>  <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">结论</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="n">M</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">正除数</span><span class="p">,</span> <span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">M</span><span class="p">,</span> <span class="err">向上取整</span>
+</span></span><span class="line"><span class="cl"><span class="n">M</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">负除数</span><span class="p">,</span> <span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="mi">32</span> <span class="o">-</span> <span class="n">M</span> <span class="p">),</span> <span class="err">向上取整</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">结论</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="n">M</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">正除数</span><span class="p">,</span> <span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">M</span><span class="p">,</span> <span class="err">向上取整</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">/</span> <span class="err">除数</span> <span class="o">=</span>  <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">结论</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="n">M</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">/</span> <span class="err">负除数</span><span class="p">,</span> <span class="err">除数</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">^</span> <span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="mi">32</span> <span class="o">-</span> <span class="n">M</span> <span class="p">),</span> <span class="err">向上取整</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="取模">取模</h2>
 <p>余数的符号与被除数相同.</p>
@@ -1529,9 +1529,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="err">商</span> <span class="o">=</span> <span class="err">被除数</span> <span class="o">/</span> <span class="err">除数</span>
-<span class="err">余数</span> <span class="o">=</span> <span class="err">被除数</span> <span class="o">-</span> <span class="err">商</span> <span class="o">*</span> <span class="err">除数</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">商</span> <span class="o">=</span> <span class="err">被除数</span> <span class="o">/</span> <span class="err">除数</span>
+</span></span><span class="line"><span class="cl"><span class="err">余数</span> <span class="o">=</span> <span class="err">被除数</span> <span class="o">-</span> <span class="err">商</span> <span class="o">*</span> <span class="err">除数</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1544,14 +1544,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc % 3 = %d&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">%</span> <span class="mi">3</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;argc % 3 = %d&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">%</span> <span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="release-2">Release</h4>
 <p><img
@@ -1574,14 +1574,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">argc</span> <span class="o">%</span> <span class="mi">4</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">argc</span> <span class="o">%</span> <span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="release-3">Release</h4>
 <p><img
@@ -1598,8 +1598,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">x</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="有符号模2的幂">有符号模2的幂</h3>
 <h4 id="优化1">优化1</h4>
@@ -1614,14 +1614,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">%</span> <span class="mi">4</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">%</span> <span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="release-4">Release</h5>
 <p><img
@@ -1644,14 +1644,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%lld</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">%</span> <span class="mi">512</span><span class="p">);</span>
-
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%lld</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">argc</span> <span class="o">%</span> <span class="mi">512</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="release-5">Release</h5>
 <div class="highlight"><div class="chroma">
@@ -1667,16 +1667,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">mov</span> <span class="no">rax</span><span class="p">,</span> <span class="p">[</span><span class="no">rsp</span><span class="err">+</span><span class="mi">28</span><span class="no">h</span><span class="err">+</span><span class="no">arg_8</span><span class="p">]</span>
-<span class="nf">lea</span> <span class="no">rcx</span><span class="p">,</span> <span class="no">aLld_0</span> <span class="c">; &#34;%lld\n&#34;
-</span><span class="c"></span><span class="no">cqo</span>
-<span class="nf">and</span> <span class="no">edx</span><span class="p">,</span> <span class="mi">511</span>
-<span class="nf">add</span> <span class="no">rax</span><span class="p">,</span> <span class="no">rdx</span>
-<span class="nf">and</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">511</span>
-<span class="nf">sub</span> <span class="no">rax</span><span class="p">,</span> <span class="no">rdx</span>
-<span class="nf">mov</span> <span class="no">rdx</span><span class="p">,</span> <span class="no">rax</span>
-<span class="nf">call</span> <span class="no">sub_1400011F0</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">rax</span><span class="p">,</span> <span class="p">[</span><span class="no">rsp</span><span class="err">+</span><span class="mi">28</span><span class="no">h</span><span class="err">+</span><span class="no">arg_8</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">lea</span> <span class="no">rcx</span><span class="p">,</span> <span class="no">aLld_0</span> <span class="c">; &#34;%lld\n&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">cqo</span>
+</span></span><span class="line"><span class="cl"><span class="nf">and</span> <span class="no">edx</span><span class="p">,</span> <span class="mi">511</span>
+</span></span><span class="line"><span class="cl"><span class="nf">add</span> <span class="no">rax</span><span class="p">,</span> <span class="no">rdx</span>
+</span></span><span class="line"><span class="cl"><span class="nf">and</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">511</span>
+</span></span><span class="line"><span class="cl"><span class="nf">sub</span> <span class="no">rax</span><span class="p">,</span> <span class="no">rdx</span>
+</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">rdx</span><span class="p">,</span> <span class="no">rax</span>
+</span></span><span class="line"><span class="cl"><span class="nf">call</span> <span class="no">sub_1400011F0</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="特征-14">特征</h5>
 <div class="highlight"><div class="chroma">
@@ -1685,9 +1685,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> 
-<span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">:</span> <span class="n">x</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">^</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="c逆向">C++逆向</h2>
 <p>64位程序,只能通过函数内是否有虚表,判断是否是构造函数.</p>
@@ -1704,12 +1704,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="err">00000000</span> <span class="nf">RUNTIME_FUNCTION</span> <span class="no">struc</span><span class="c">; (sizeof = 0xC, mappedto_5)
-</span><span class="c"></span><span class="mi">00000000</span> <span class="no">FunctionStart</span>   <span class="no">dd</span> <span class="err">?</span> <span class="c">; offset rva
-</span><span class="c"></span><span class="mi">00000004</span> <span class="no">FunctionEnd</span>     <span class="no">dd</span> <span class="err">?</span> <span class="c">; offset rva pastend
-</span><span class="c"></span><span class="mi">00000008</span> <span class="no">UnwindInfo</span>      <span class="no">dd</span> <span class="err">?</span> <span class="c">; offset rva
-</span><span class="c"></span><span class="mi">0000000</span><span class="no">C</span> <span class="no">RUNTIME_FUNCTION</span> <span class="no">ends</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">00000000</span> <span class="nf">RUNTIME_FUNCTION</span> <span class="no">struc</span><span class="c">; (sizeof = 0xC, mappedto_5)
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000000</span> <span class="no">FunctionStart</span>   <span class="no">dd</span> <span class="err">?</span> <span class="c">; offset rva
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000004</span> <span class="no">FunctionEnd</span>     <span class="no">dd</span> <span class="err">?</span> <span class="c">; offset rva pastend
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000008</span> <span class="no">UnwindInfo</span>      <span class="no">dd</span> <span class="err">?</span> <span class="c">; offset rva
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">0000000</span><span class="no">C</span> <span class="no">RUNTIME_FUNCTION</span> <span class="no">ends</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="unwind_info结构体">UNWIND_INFO结构体</h3>
 <div class="highlight"><div class="chroma">
@@ -1731,22 +1731,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">_UNWIND_INFO</span> <span class="p">{</span>
-  <span class="n">UBYTE</span> <span class="nl">Version</span> <span class="p">:</span> <span class="mi">3</span><span class="p">;</span>
-  <span class="n">UBYTE</span> <span class="nl">Flags</span> <span class="p">:</span> <span class="mi">5</span><span class="p">;</span>
-  <span class="n">UBYTE</span> <span class="n">SizeOfProlog</span><span class="p">;</span>
-  <span class="n">UBYTE</span> <span class="n">CountOfCodes</span><span class="p">;</span>
-  <span class="n">UBYTE</span> <span class="nl">FrameRegister</span> <span class="p">:</span> <span class="mi">4</span><span class="p">;</span>
-  <span class="n">UBYTE</span> <span class="nl">FrameOffset</span> <span class="p">:</span> <span class="mi">4</span><span class="p">;</span>
-  <span class="n">UNWIND_CODE</span> <span class="n">UnwindCode</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-  <span class="cm">/*  UNWIND_CODE MoreUnwindCode[((CountOfCodes + 1) &amp; ~1) - 1];
-</span><span class="cm">  *   union {
-</span><span class="cm">  *       OPTIONAL ULONG ExceptionHandler;
-</span><span class="cm">  *       OPTIONAL ULONG FunctionEntry;   //异常处理函数RVA, 可有可无,看Flag
-</span><span class="cm">  *   };
-</span><span class="cm">  *   OPTIONAL ULONG ExceptionData[]; */</span>  <span class="c1">//FunctionInfo的RVA
-</span><span class="c1"></span><span class="p">}</span> <span class="n">UNWIND_INFO</span><span class="p">,</span> <span class="o">*</span><span class="n">PUNWIND_INFO</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">_UNWIND_INFO</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">UBYTE</span> <span class="nl">Version</span> <span class="p">:</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">UBYTE</span> <span class="nl">Flags</span> <span class="p">:</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">UBYTE</span> <span class="n">SizeOfProlog</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">UBYTE</span> <span class="n">CountOfCodes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">UBYTE</span> <span class="nl">FrameRegister</span> <span class="p">:</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">UBYTE</span> <span class="nl">FrameOffset</span> <span class="p">:</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">UNWIND_CODE</span> <span class="n">UnwindCode</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/*  UNWIND_CODE MoreUnwindCode[((CountOfCodes + 1) &amp; ~1) - 1];
+</span></span></span><span class="line"><span class="cl"><span class="cm">  *   union {
+</span></span></span><span class="line"><span class="cl"><span class="cm">  *       OPTIONAL ULONG ExceptionHandler;
+</span></span></span><span class="line"><span class="cl"><span class="cm">  *       OPTIONAL ULONG FunctionEntry;   //异常处理函数RVA, 可有可无,看Flag
+</span></span></span><span class="line"><span class="cl"><span class="cm">  *   };
+</span></span></span><span class="line"><span class="cl"><span class="cm">  *   OPTIONAL ULONG ExceptionData[]; */</span>  <span class="c1">//FunctionInfo的RVA
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">UNWIND_INFO</span><span class="p">,</span> <span class="o">*</span><span class="n">PUNWIND_INFO</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1757,12 +1757,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//Flag
-</span><span class="c1"></span><span class="cp">#define UNW_FLAG_NHANDLER       0x0
-</span><span class="cp">#define UNW_FLAG_EHANDLER       0x1  </span><span class="c1">//置位, 说明有一个C++异常回调函数
-</span><span class="c1"></span><span class="cp">#define UNW_FLAG_UHANDLER       0x2  </span><span class="c1">//置位, 说明有一个C异常回调函数
-</span><span class="c1"></span><span class="cp">#define UNW_FLAG_CHAININFO      0x4
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//Flag
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define UNW_FLAG_NHANDLER       0x0
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define UNW_FLAG_EHANDLER       0x1  </span><span class="c1">//置位, 说明有一个C++异常回调函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define UNW_FLAG_UHANDLER       0x2  </span><span class="c1">//置位, 说明有一个C异常回调函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define UNW_FLAG_CHAININFO      0x4
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1774,13 +1774,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="err">00000000</span> <span class="nf">UNWIND_INFO_HDR</span> <span class="no">struc</span><span class="c">; (sizeof = 0x4, mappedto_6)
-</span><span class="c"></span><span class="mi">00000000</span> <span class="no">Ver3_Flags</span>      <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span><span class="c"></span><span class="mi">00000001</span> <span class="no">PrologSize</span>      <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span><span class="c"></span><span class="mi">00000002</span> <span class="no">CntUnwindCodes</span>  <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span><span class="c"></span><span class="mi">00000003</span> <span class="no">FrReg_FrRegOff</span>  <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span><span class="c"></span><span class="mi">00000004</span> <span class="no">UNWIND_INFO_HDR</span> <span class="no">ends</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">00000000</span> <span class="nf">UNWIND_INFO_HDR</span> <span class="no">struc</span><span class="c">; (sizeof = 0x4, mappedto_6)
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000000</span> <span class="no">Ver3_Flags</span>      <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000001</span> <span class="no">PrologSize</span>      <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000002</span> <span class="no">CntUnwindCodes</span>  <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000003</span> <span class="no">FrReg_FrRegOff</span>  <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000004</span> <span class="no">UNWIND_INFO_HDR</span> <span class="no">ends</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1803,15 +1803,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">typedef</span> <span class="k">union</span> <span class="nc">_UNWIND_CODE</span> <span class="p">{</span>
-  <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">UBYTE</span> <span class="n">CodeOffset</span><span class="p">;</span>
-    <span class="n">UBYTE</span> <span class="nl">UnwindOp</span> <span class="p">:</span> <span class="mi">4</span><span class="p">;</span>
-    <span class="n">UBYTE</span> <span class="nl">OpInfo</span> <span class="p">:</span> <span class="mi">4</span><span class="p">;</span>
-  <span class="p">};</span>
-  <span class="n">USHORT</span> <span class="n">FrameOffset</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">UNWIND_CODE</span><span class="p">,</span> <span class="o">*</span><span class="n">PUNWIND_CODE</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">union</span> <span class="nc">_UNWIND_CODE</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">UBYTE</span> <span class="n">CodeOffset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">UBYTE</span> <span class="nl">UnwindOp</span> <span class="p">:</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">UBYTE</span> <span class="nl">OpInfo</span> <span class="p">:</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="n">USHORT</span> <span class="n">FrameOffset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">UNWIND_CODE</span><span class="p">,</span> <span class="o">*</span><span class="n">PUNWIND_CODE</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1821,11 +1821,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="err">00000000</span> <span class="nf">UNWIND_CODE</span>     <span class="no">struc</span><span class="c">; (sizeof = 0x2, mappedto_7)
-</span><span class="c"></span><span class="mi">00000000</span> <span class="no">PrologOff</span>       <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span><span class="c"></span><span class="mi">00000001</span> <span class="no">OpCode_OpInfo</span>   <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span><span class="c"></span><span class="mi">00000002</span> <span class="no">UNWIND_CODE</span>     <span class="no">ends</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">00000000</span> <span class="nf">UNWIND_CODE</span>     <span class="no">struc</span><span class="c">; (sizeof = 0x2, mappedto_7)
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000000</span> <span class="no">PrologOff</span>       <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000001</span> <span class="no">OpCode_OpInfo</span>   <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000002</span> <span class="no">UNWIND_CODE</span>     <span class="no">ends</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="定位catch代码块">定位Catch代码块</h3>
 <div class="highlight"><div class="chroma">
@@ -1857,32 +1857,32 @@
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-  <span class="k">try</span>
-  <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="p">{</span>
-      <span class="k">throw</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">else</span>
-    <span class="p">{</span>
-      <span class="k">throw</span> <span class="mf">3.14</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="k">catch</span> <span class="p">(</span><span class="kt">int</span> <span class="n">nVal</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;catch (int nVal) %d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">nVal</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="k">catch</span> <span class="p">(</span><span class="kt">double</span> <span class="n">dbl</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;catch (double dbl) %lf</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">dbl</span><span class="p">);</span>
-  <span class="p">}</span>
- 
-  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="mf">3.14</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">catch</span> <span class="p">(</span><span class="kt">int</span> <span class="n">nVal</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;catch (int nVal) %d</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">nVal</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">catch</span> <span class="p">(</span><span class="kt">double</span> <span class="n">dbl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;catch (double dbl) %lf</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">dbl</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">  <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol>
 <li>定位有异常处理函数的RUNTIME_FUNCTION结构.</li>

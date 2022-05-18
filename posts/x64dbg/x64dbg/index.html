@@ -165,16 +165,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">//插件初始化函数,设置插件名称
-</span><span class="c1"></span><span class="n">PLUG_EXPORT</span> <span class="kt">bool</span> <span class="nf">pluginit</span><span class="p">(</span><span class="n">PLUG_INITSTRUCT</span><span class="o">*</span> <span class="n">initStruct</span><span class="p">);</span>
-<span class="c1">//设置插件菜单,图标,注册回调函数
-</span><span class="c1"></span><span class="n">PLUG_EXPORT</span> <span class="kt">void</span> <span class="nf">plugsetup</span><span class="p">(</span><span class="n">PLUG_SETUPSTRUCT</span><span class="o">*</span> <span class="n">setupStruct</span><span class="p">);</span>
-<span class="c1">//菜单点击后的响应
-</span><span class="c1"></span><span class="n">PLUG_EXPORT</span> <span class="kt">void</span> <span class="nf">CBMENUENTRY</span><span class="p">(</span><span class="n">CBTYPE</span> <span class="n">cbType</span><span class="p">,</span> <span class="n">PLUG_CB_MENUENTRY</span><span class="o">*</span> <span class="n">info</span><span class="p">);</span>
-
-<span class="c1">//回调函数的注册
-</span><span class="c1"></span><span class="n">PLUG_IMPEXP</span> <span class="kt">void</span> <span class="nf">_plugin_registercallback</span><span class="p">(</span><span class="kt">int</span> <span class="n">pluginHandle</span><span class="p">,</span> <span class="n">CBTYPE</span> <span class="n">cbType</span><span class="p">,</span> <span class="n">CBPLUGIN</span> <span class="n">cbPlugin</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//插件初始化函数,设置插件名称
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">PLUG_EXPORT</span> <span class="kt">bool</span> <span class="nf">pluginit</span><span class="p">(</span><span class="n">PLUG_INITSTRUCT</span><span class="o">*</span> <span class="n">initStruct</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//设置插件菜单,图标,注册回调函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">PLUG_EXPORT</span> <span class="kt">void</span> <span class="nf">plugsetup</span><span class="p">(</span><span class="n">PLUG_SETUPSTRUCT</span><span class="o">*</span> <span class="n">setupStruct</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//菜单点击后的响应
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">PLUG_EXPORT</span> <span class="kt">void</span> <span class="nf">CBMENUENTRY</span><span class="p">(</span><span class="n">CBTYPE</span> <span class="n">cbType</span><span class="p">,</span> <span class="n">PLUG_CB_MENUENTRY</span><span class="o">*</span> <span class="n">info</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//回调函数的注册
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">PLUG_IMPEXP</span> <span class="kt">void</span> <span class="nf">_plugin_registercallback</span><span class="p">(</span><span class="kt">int</span> <span class="n">pluginHandle</span><span class="p">,</span> <span class="n">CBTYPE</span> <span class="n">cbType</span><span class="p">,</span> <span class="n">CBPLUGIN</span> <span class="n">cbPlugin</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="插件sdk中关心的接口">插件SDK中关心的接口</h2>
 <p><img
@@ -194,10 +194,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="n">BRIDGE_IMPEXP</span> <span class="kt">bool</span> <span class="nf">DbgCmdExec</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">cmd</span><span class="p">);</span>
-<span class="c1">//调用示例
-</span><span class="c1"></span><span class="n">DbgCmdExec</span><span class="p">(</span><span class="s">&#34;StepOver&#34;</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">BRIDGE_IMPEXP</span> <span class="kt">bool</span> <span class="nf">DbgCmdExec</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">cmd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//调用示例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">DbgCmdExec</span><span class="p">(</span><span class="s">&#34;StepOver&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="命令查询网址">命令查询网址</h3>
 <p><a href="https://help.x64dbg.com/en/latest/commands/breakpoint-control/index.html#" target="_blank" rel="noopener noreffer">https://help.x64dbg.com/en/latest/commands/breakpoint-control/index.html#</a></p>

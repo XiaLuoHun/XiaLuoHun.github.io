@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>抓包详解 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="抓包详解" />
+<meta property="og:description" content="抓包详解 介绍 抓包通常是指通过一些手段获取App与服务器之间传输的明文网络数据信息. 抓包分为以下两种情形: Hook抓包:通过对发包函数的Hoo" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-05-18T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="抓包详解"/>
+<meta name="twitter:description" content="抓包详解 介绍 抓包通常是指通过一些手段获取App与服务器之间传输的明文网络数据信息. 抓包分为以下两种情形: Hook抓包:通过对发包函数的Hoo"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/android-hook/frida%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "抓包详解",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E6%8A%93%E5%8C%85\/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3\/"
+        },"genre": "posts","keywords": "抓包","wordcount":  6164 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E6%8A%93%E5%8C%85\/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3\/","datePublished": "2022-05-18T00:00:00+00:00","dateModified": "2022-05-18T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">抓包详解</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android-%E6%8A%93%E5%8C%85/"><i class="far fa-folder fa-fw"></i>Android 抓包</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-18">2022-05-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6164 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#抓包详解">抓包详解</a>
+      <ul>
+        <li><a href="#介绍">介绍</a></li>
+        <li><a href="#http抓包配置">Http抓包配置</a>
+          <ul>
+            <li><a href="#wlan代理">WLAN代理</a></li>
+            <li><a href="#vpn代理">VPN代理</a></li>
+            <li><a href="#burpsuite">BurpSuite</a></li>
+            <li><a href="#charles">Charles</a></li>
+          </ul>
+        </li>
+        <li><a href="#https抓包配置">Https抓包配置</a>
+          <ul>
+            <li><a href="#开启ssl-proxying">开启SSL Proxying</a></li>
+            <li><a href="#将charles证书加入到android系统信任的证书列表中">将Charles证书加入到Android系统信任的证书列表中</a></li>
+          </ul>
+        </li>
+        <li><a href="#socks5抓包配置">Socks5抓包配置</a></li>
+        <li><a href="#osi七层模型">OSI七层模型</a></li>
+        <li><a href="#http协议">Http协议</a>
+          <ul>
+            <li><a href="#url">URL</a></li>
+            <li><a href="#http请求">Http请求</a></li>
+            <li><a href="#请求方法">请求方法</a></li>
+            <li><a href="#请求头">请求头</a></li>
+            <li><a href="#http响应">Http响应</a></li>
+            <li><a href="#参考链接">参考链接</a></li>
+          </ul>
+        </li>
+        <li><a href="#https实现原理">Https实现原理</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#证书验证阶段">证书验证阶段</a></li>
+                <li><a href="#数据传输阶段">数据传输阶段</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#中间人抓包">中间人抓包</a>
+          <ul>
+            <li><a href="#对抗手段">对抗手段</a>
+              <ul>
+                <li><a href="#ssl-pinning">SSL Pinning</a>
+                  <ul>
+                    <li><a href="#原理">原理</a></li>
+                    <li><a href="#绕过方式">绕过方式</a></li>
+                  </ul>
+                </li>
+                <li><a href="#服务器校验客户端">服务器校验客户端</a>
+                  <ul>
+                    <li><a href="#原理-1">原理</a></li>
+                    <li><a href="#绕过方式-1">绕过方式</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#hook模拟抓包">Hook模拟抓包</a>
+          <ul>
+            <li><a href="#objection">Objection</a>
+              <ul>
+                <li><a href="#示例apk">示例Apk</a></li>
+                <li><a href="#步骤展示">步骤展示</a></li>
+                <li><a href="#缺点">缺点</a></li>
+              </ul>
+            </li>
+            <li><a href="#okhttplogger">OkHttpLogger</a>
+              <ul>
+                <li><a href="#介绍-1">介绍</a></li>
+                <li><a href="#示例apk-1">示例Apk</a></li>
+                <li><a href="#步骤展示-1">步骤展示</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="抓包详解">抓包详解</h1>
+<h2 id="介绍">介绍</h2>
+<p>抓包通常是指通过一些手段获取App与服务器之间传输的明文网络数据信息.</p>
+<p>抓包分为以下两种情形:</p>
+<ol>
+<li><strong>Hook抓包</strong>:通过对发包函数的Hook来达到抓包的作用.</li>
+<li><strong>中间人抓包</strong>:将原来一段完整的客户端-服务器的通信方式割裂成两段客户端-服务器的通信.</li>
+</ol>
+<p>中间人的抓包在OSI七层网络模型的结构中通常又会被分成以下两种情形:</p>
+<ol>
+<li><strong>应用层</strong>:Http(s)协议抓包.</li>
+<li><strong>会话层</strong>:Socket通信抓包.</li>
+</ol>
+<h2 id="http抓包配置">Http抓包配置</h2>
+<p>首先要将计算机和测试手机连接在同一个局域网中并且要确保手机和计算机能够相互访问.</p>
+<h3 id="wlan代理">WLAN代理</h3>
+<p>在手机设置代理时,可以选择&quot;设置&quot;应用中的WLAN设置,长按选择&quot;修改网络&quot;选项,并在弹出的对话框中选择手动代理,设置代理服务器地址为主机的地址以及端口,这里端口为8080.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8a%93%e5%8c%85-WLAN%e8%ae%be%e7%bd%ae1.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-WLAN%E8%AE%BE%E7%BD%AE1.png, images/%e6%8a%93%e5%8c%85-WLAN%e8%ae%be%e7%bd%ae1.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-WLAN%E8%AE%BE%E7%BD%AE1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-WLAN%E8%AE%BE%E7%BD%AE1.png"
+        title="抓包-WLAN设置1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8a%93%e5%8c%85-WLAN%e8%ae%be%e7%bd%ae2.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-WLAN%E8%AE%BE%E7%BD%AE2.png, images/%e6%8a%93%e5%8c%85-WLAN%e8%ae%be%e7%bd%ae2.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-WLAN%E8%AE%BE%E7%BD%AE2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-WLAN%E8%AE%BE%E7%BD%AE2.png"
+        title="抓包-WLAN设置2" /></p>
+<p>上述这种配置代理的方式可被下述App代码检测,而导致最终抓不到数据包,因此推荐使用VPN代理方式.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;http.proxyHost&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;http.proxyPort&#34;</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>相对于直接从应用层设置WLAN代理的方式,VPN代理则是通过虚拟出一个新的网卡,从网络层加上该层代理,不仅可以绕过上述App代码的检测,而且检测VPN代理的API相对较少,也比较容易绕过.</p>
+<h3 id="vpn代理">VPN代理</h3>
+<p>为了配置VPN代理,首先需要下载一个VPN软件,这里推荐Postern这个App.</p>
+<ol>
+<li>adb安装Postern,进入App主页面,然后单击App左上方将菜单调出.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Postern1.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern1.png, images/Postern1.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern1.png"
+        title="Postern1" /></p>
+<ol start="2">
+<li>进入&quot;配置代理&quot;页面后单击&quot;代理1:proxy&quot;,配置服务器IP地址为主机IP、端口为8080,再选择代理类型为HTTPS/HTTP CONNECT,配置完毕后单击&quot;保存&quot;按钮并退出页面.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Postern2.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern2.png, images/Postern2.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern2.png"
+        title="Postern2" /></p>
+<ol start="3">
+<li>配置完代理后,重新单击App左上角,待弹出菜单后选择&quot;配置规则&quot;,清空原来的所有规则并创建一个新的规则,分别设置&quot;动作&quot;选项为&quot;通过代理连接&quot; &ldquo;代理/代理组&quot;为刚才设置的代理(这里为192.168.1.5:8080),并设置&quot;目标地址&quot;为&rdquo;*&ldquo;或者直接清空以指定手机所有流量从代理经过.注意,&ldquo;开启抓包&quot;选项要关闭.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Postern3.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern3.png, images/Postern3.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern3.png"
+        title="Postern3" /></p>
+<ol start="4">
+<li>在上述代理和规则都设置完毕后,重新打开菜单项单击&quot;关闭VPN&quot;并开启VPN.这样测试机的配置就完成了.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Postern4.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern4.png, images/Postern4.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern4.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Postern4.png"
+        title="Postern4" /></p>
+<h3 id="burpsuite">BurpSuite</h3>
+<p>接下来使用BurpSuite来进行测试抓包.</p>
+<ol>
+<li>打开BurpSuite,单击Proxy-&gt;Intercept,再单击Intercept is On按钮关闭拦截模式.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8a%93%e5%8c%85-BurpSuite1.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-BurpSuite1.png, images/%e6%8a%93%e5%8c%85-BurpSuite1.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-BurpSuite1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-BurpSuite1.png"
+        title="抓包-BurpSuite1" /></p>
+<ol start="2">
+<li>在关闭拦截模式后,单击Options按钮并把代理地址修改为本机IP地址和端口8080.设置好代理地址后,单击OK按钮完成抓包的全部配置.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8a%93%e5%8c%85-BurpSuite2.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-BurpSuite2.png, images/%e6%8a%93%e5%8c%85-BurpSuite2.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-BurpSuite2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-BurpSuite2.png"
+        title="抓包-BurpSuite2" /></p>
+<ol start="3">
+<li>手机和PC端抓包设置完毕后,在手机浏览器上访问任意Http网址,就可以在&quot;HTTP history&quot;页面中看到抓到的Http明文数据了.(这里手机访问的网址为:http://www.jwc.ldu.edu.cn/wlgxk.asp)</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8a%93%e5%8c%85-BurpSuite3.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-BurpSuite3.png, images/%e6%8a%93%e5%8c%85-BurpSuite3.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-BurpSuite3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-BurpSuite3.png"
+        title="抓包-BurpSuite3" /></p>
+<h3 id="charles">Charles</h3>
+<p>依次单击Proxy-&gt;Proxy Settings,在弹出的窗口中对端口进行配置.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8a%93%e5%8c%85-Charles1.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-Charles1.png, images/%e6%8a%93%e5%8c%85-Charles1.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-Charles1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-Charles1.png"
+        title="抓包-Charles1" /></p>
+<p><strong>注意</strong>:如果只是抓取HTTP类型的数据包,要关闭SSL Proxying模式(默认开启).</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8a%93%e5%8c%85-Charles2.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-Charles2.png, images/%e6%8a%93%e5%8c%85-Charles2.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-Charles2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E6%8A%93%E5%8C%85-Charles2.png"
+        title="抓包-Charles2" /></p>
+<p>如果不关掉,抓取HTTP数据包,就会出现上面的问题,明明是HTTP协议却被识别为HTTPS协议.</p>
+<h2 id="https抓包配置">Https抓包配置</h2>
+<h3 id="开启ssl-proxying">开启SSL Proxying</h3>
+<p>为了能够成功抓取HTTPS的数据,首先需要通过Ctrl+L快捷键开启Charles的SSL Proxying模式.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/SSL-Proxying%e9%94%99%e8%af%af1.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/SSL-Proxying%E9%94%99%E8%AF%AF1.png, images/SSL-Proxying%e9%94%99%e8%af%af1.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/SSL-Proxying%E9%94%99%E8%AF%AF1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/SSL-Proxying%E9%94%99%E8%AF%AF1.png"
+        title="SSL-Proxying错误1" /></p>
+<p>为了解决上述错误,我们需要设置下SSL Proxying.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/SSL-Proxying%e8%ae%be%e7%bd%ae1.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/SSL-Proxying%E8%AE%BE%E7%BD%AE1.png, images/SSL-Proxying%e8%ae%be%e7%bd%ae1.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/SSL-Proxying%E8%AE%BE%E7%BD%AE1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/SSL-Proxying%E8%AE%BE%E7%BD%AE1.png"
+        title="SSL-Proxying设置1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/SSL-Proxying%e8%ae%be%e7%bd%ae2.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/SSL-Proxying%E8%AE%BE%E7%BD%AE2.png, images/SSL-Proxying%e8%ae%be%e7%bd%ae2.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/SSL-Proxying%E8%AE%BE%E7%BD%AE2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/SSL-Proxying%E8%AE%BE%E7%BD%AE2.png"
+        title="SSL-Proxying设置2" /></p>
+<p>注意: 这里要设置下端口,不设置端口,Charles只会做转发,不会解密Https数据.</p>
+<h3 id="将charles证书加入到android系统信任的证书列表中">将Charles证书加入到Android系统信任的证书列表中</h3>
+<p>在开启SSL Proxying模式后,用VPN代理模式使用手机浏览器访问任意HTTPS站点时,浏览器会显示提示信息&quot;您的连接不是私密连接&rdquo;,为了解决这个问题,我们需要将Charles证书加入到Android系统信任的证书列表中,具体步骤如下:</p>
+<ol>
+<li>Charles导出cer证书,保存在PC上.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/charles%e5%af%bc%e5%87%bacer%e8%af%81%e4%b9%a61.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/charles%E5%AF%BC%E5%87%BAcer%E8%AF%81%E4%B9%A61.png, images/charles%e5%af%bc%e5%87%bacer%e8%af%81%e4%b9%a61.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/charles%E5%AF%BC%E5%87%BAcer%E8%AF%81%E4%B9%A61.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/charles%E5%AF%BC%E5%87%BAcer%E8%AF%81%E4%B9%A61.png"
+        title="charles导出cer证书1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/charles%e5%af%bc%e5%87%bacer%e8%af%81%e4%b9%a62.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/charles%E5%AF%BC%E5%87%BAcer%E8%AF%81%E4%B9%A62.png, images/charles%e5%af%bc%e5%87%bacer%e8%af%81%e4%b9%a62.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/charles%E5%AF%BC%E5%87%BAcer%E8%AF%81%E4%B9%A62.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/charles%E5%AF%BC%E5%87%BAcer%E8%AF%81%E4%B9%A62.png"
+        title="charles导出cer证书2" /></p>
+<ol start="2">
+<li>修改证书名称.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//Android系统证书目录
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">security</span><span class="o">/</span><span class="n">cacerts</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//每个证书的命名规则,文件名是一个Hash值，而后缀是一个数字
+</span></span></span><span class="line"><span class="cl"><span class="c1">//后缀名的数字是为了防止文件名冲突的,比如如果两个证书算出的Hash值是一样的话,那么一个证书的后缀名数字可以设置成0,而另一个证书的后缀名数字可以设置成1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;</span><span class="n">Certificate_Hash</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;</span><span class="n">Number</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//文件名可以用下面的命令计算出来
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">openssl</span> <span class="n">x509</span> <span class="o">-</span><span class="n">inform</span> <span class="n">DER</span> <span class="o">-</span><span class="n">subject_hash_old</span> <span class="o">-</span><span class="n">in</span> <span class="o">&lt;</span><span class="n">Certificate_File</span><span class="p">.</span><span class="n">cer</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">openssl</span> <span class="n">x509</span> <span class="o">-</span><span class="n">inform</span> <span class="n">PEM</span> <span class="o">-</span><span class="n">subject_hash_old</span> <span class="o">-</span><span class="n">in</span> <span class="o">&lt;</span><span class="n">Certificate_File</span><span class="p">.</span><span class="n">pem</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%ae%a1%e7%ae%97%e8%af%81%e4%b9%a6Hash.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E8%AE%A1%E7%AE%97%E8%AF%81%E4%B9%A6Hash.png, images/%e8%ae%a1%e7%ae%97%e8%af%81%e4%b9%a6Hash.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E8%AE%A1%E7%AE%97%E8%AF%81%E4%B9%A6Hash.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E8%AE%A1%E7%AE%97%E8%AF%81%E4%B9%A6Hash.png"
+        title="计算证书Hash" /></p>
+<ol start="3">
+<li>复制证书到Android设备上.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">adb push xxxxxxx.0 /sdcard/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%a4%8d%e5%88%b6%e8%af%81%e4%b9%a6%e5%88%b0%e8%ae%be%e5%a4%87%e4%b8%8a.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E5%A4%8D%E5%88%B6%E8%AF%81%E4%B9%A6%E5%88%B0%E8%AE%BE%E5%A4%87%E4%B8%8A.png, images/%e5%a4%8d%e5%88%b6%e8%af%81%e4%b9%a6%e5%88%b0%e8%ae%be%e5%a4%87%e4%b8%8a.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E5%A4%8D%E5%88%B6%E8%AF%81%E4%B9%A6%E5%88%B0%E8%AE%BE%E5%A4%87%E4%B8%8A.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E5%A4%8D%E5%88%B6%E8%AF%81%E4%B9%A6%E5%88%B0%E8%AE%BE%E5%A4%87%E4%B8%8A.png"
+        title="复制证书到设备上" /></p>
+<ol start="4">
+<li>复制到Android系统目录,并修改权限.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">adb shell
+</span></span><span class="line"><span class="cl">su
+</span></span><span class="line"><span class="cl">mount -o remount,rw /
+</span></span><span class="line"><span class="cl">cp /sdcard/1146ce35.0 /system/etc/security/cacerts/
+</span></span><span class="line"><span class="cl">chmod 777 /system/etc/security/cacerts/*
+</span></span><span class="line"><span class="cl">mount -o remount,ro /
+</span></span><span class="line"><span class="cl">adb reboot
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行完上述命令,手机重启之后,Charles的证书就会放在系统证书中被系统信任.</p>
+<p>如果运气不好,可能会出现下面的错误,原因是root的不彻底,权限不够,换一种方式root即可.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/mount%e9%94%99%e8%af%af.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/mount%E9%94%99%E8%AF%AF.png, images/mount%e9%94%99%e8%af%af.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/mount%E9%94%99%E8%AF%AF.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/mount%E9%94%99%E8%AF%AF.png"
+        title="mount错误" /></p>
+<ol start="5">
+<li>此时切换为VPN代理模式,用手机浏览器访问任意HTTPS站点,Charles就能够正常抓到数据了.</li>
+</ol>
+<h2 id="socks5抓包配置">Socks5抓包配置</h2>
+<p>如果App不使用HTTP/HTTPS连接方式,那么主机的抓包软件就无法正常抓到数据包,为了绕过对协议的限制,我们选择将VPN代理中的&quot;代理类型&quot;设置为SOCKS5模式,为了区分于HTTPS/HTTP CONNECT代理类型要将服务器端口修改为8888,从而从应用层的下层对所有网络连接进行抓取.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Socks5-1.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Socks5-1.png, images/Socks5-1.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Socks5-1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Socks5-1.png"
+        title="Socks5" /></p>
+<p>与此同时要在Charles上进行配置.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Socks5-2.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Socks5-2.png, images/Socks5-2.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Socks5-2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Socks5-2.png"
+        title="Socks5-2" /></p>
+<p>由于使用的是SOCKS代理模式,因此哪怕App使用Socket进行网络连接,Charles也可以正常抓取.</p>
+<h2 id="osi七层模型">OSI七层模型</h2>
+<table>
+<thead>
+<tr>
+<th>OSI七层网络模型</th>
+<th>TCP/IP五层概念模型</th>
+<th>对应网络协议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用层(Application)</td>
+<td></td>
+<td>HTTP、HTTPS、WS、FTP、DNS、SMTP、TFTP、SNMP、POP3、DHCP</td>
+</tr>
+<tr>
+<td>表示层(Presentation)</td>
+<td>应用层</td>
+<td>TELNET、RLOGIN、SNMP、GOPHER</td>
+</tr>
+<tr>
+<td>会话层(Session)</td>
+<td></td>
+<td>SMTP、DNS</td>
+</tr>
+<tr>
+<td>传输层(Transport)</td>
+<td>传输层</td>
+<td>TCP、UDP</td>
+</tr>
+<tr>
+<td>网络层(Network)</td>
+<td>网络层</td>
+<td>IP(TPV4、IPV6)、ICMP、IGMP、ARP</td>
+</tr>
+<tr>
+<td>数据链路层(Data Link)</td>
+<td>数据链路层</td>
+<td>FDDI、ETHERNET、APPANET、PDN、SLIP、PPP</td>
+</tr>
+<tr>
+<td>物理层(Physical)</td>
+<td>物理层</td>
+<td>IEEE 802.1A、IEEE 802.2到IEEE 802.11</td>
+</tr>
+</tbody>
+</table>
+<h2 id="http协议">Http协议</h2>
+<p>HTTP(超文本传输协议)是一个基于请求与响应模式的、无状态的、应用层的协议，基于TCP的连接方式.</p>
+<h3 id="url">URL</h3>
+<p>URL是一种特殊类型的URI,包含了用于查找某个资源的足够的信息.格式如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="nl">http</span><span class="p">:</span><span class="c1">//host[&#34;:&#34;port][abs_path]
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>http: 表示要通过HTTP协议来定位网络资源.</p>
+</li>
+<li>
+<p>host: 表示合法的Internet主机域名或者IP地址.</p>
+</li>
+<li>
+<p>port: 指定一个端口号,为空则使用缺省端口80.</p>
+</li>
+<li>
+<p>abs_path: 指定请求资源的URI,如果URL中没有给出abs_path,那么当它作为请求URI时,必须以“/”的形式给出.</p>
+</li>
+</ul>
+<h3 id="http请求">Http请求</h3>
+<p>由以下四部分组成:请求行、请求头部、请求空行、请求数据.</p>
+<p>下方的URL其实是abs_path.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Http%e8%af%b7%e6%b1%82.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Http%E8%AF%B7%E6%B1%82.png, images/Http%e8%af%b7%e6%b1%82.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Http%E8%AF%B7%E6%B1%82.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Http%E8%AF%B7%E6%B1%82.png"
+        title="Http请求" /></p>
+<h3 id="请求方法">请求方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>请求获取Request-URI所标识的资源</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>在Request-URI所标识的资源后附加新的数据</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>请求获取由Request-URI所标识的资源的响应消息报头</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>请求服务器存储一个资源,并用Request-URI作为其标识</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>请求服务器删除Request-URI所标识的资源</td>
+</tr>
+<tr>
+<td>TRACE</td>
+<td>请求服务器回送收到的请求信息,主要用于测试或诊断</td>
+</tr>
+<tr>
+<td>CONNECT</td>
+<td>用于某些代理服务器,请求的连接转化为一个安全隧道</td>
+</tr>
+<tr>
+<td>OPYIONS</td>
+<td>请求查询服务器的性能,或者查询与资源相关的选项和需求</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>是对PUT方法的补充,用来对已知资源进行局部更新</td>
+</tr>
+</tbody>
+</table>
+<h3 id="请求头">请求头</h3>
+<table>
+<thead>
+<tr>
+<th>请求头</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host</td>
+<td>接受请求的服务器地址,可以是IP:端口号,也可以是域名</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>发送请求的应用程序名称</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>指定与连接相关的属性,如Connection:Keep-Alive</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>通知服务端可以发送的编码格式</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>通知服务端可以发送的数据压缩格式</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>通知服务端可以发送的语言</td>
+</tr>
+</tbody>
+</table>
+<h3 id="http响应">Http响应</h3>
+<p>由以下四部分组成:状态行、响应头部、响应空行、响应正文.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Http%e5%93%8d%e5%ba%94.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Http%E5%93%8D%E5%BA%94.png, images/Http%e5%93%8d%e5%ba%94.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Http%E5%93%8D%E5%BA%94.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Http%E5%93%8D%E5%BA%94.png"
+        title="Http响应" /></p>
+<h3 id="参考链接">参考链接</h3>
+<p><a href="https://www.runoob.com/http/http-messages.html" target="_blank" rel="noopener noreffer">https://www.runoob.com/http/http-messages.html</a></p>
+<h2 id="https实现原理">Https实现原理</h2>
+<p>Https的整体过程分为证书验证和数据传输阶段.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Https%e5%8e%9f%e7%90%86%e5%9b%be.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Https%E5%8E%9F%E7%90%86%E5%9B%BE.png, images/Https%e5%8e%9f%e7%90%86%e5%9b%be.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Https%E5%8E%9F%E7%90%86%E5%9B%BE.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Https%E5%8E%9F%E7%90%86%E5%9B%BE.png"
+        title="Https原理图" /></p>
+<h4 id="证书验证阶段">证书验证阶段</h4>
+<ol>
+<li>浏览器发起Https请求.</li>
+<li>服务端返回Https证书.</li>
+<li>客户端验证证书是否合法,如果不合法则提示警告.</li>
+</ol>
+<h4 id="数据传输阶段">数据传输阶段</h4>
+<ol>
+<li>当证书验证合法后,在本地生成随机数.</li>
+<li>通过公钥加密随机数,并把加密后的随机数传输到服务端.</li>
+<li>服务端通过私钥对随机数进行解密.</li>
+<li>服务端通过客户端传输的随机数构造对称加密算法,对返回结果内容进行加密后传输.</li>
+</ol>
+<h2 id="中间人抓包">中间人抓包</h2>
+<p>中间人攻击,实际上是指客户端在传输数据到服务端的中间过程中,被在链路上的一个设备进行抓取过滤甚至篡改,将完整的客户端-服务端通信在客户端和服务器无感的状态下分割成客户端-攻击者和攻击者-服务端两个通信阶段.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%b8%ad%e9%97%b4%e4%ba%ba%e6%94%bb%e5%87%bb1.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB1.png, images/%e4%b8%ad%e9%97%b4%e4%ba%ba%e6%94%bb%e5%87%bb1.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB1.png"
+        title="中间人攻击1" /></p>
+<p>我们在Https上的应用层抓包原理也是基于中间人攻击的方式.Https上的应用层抓包原理主要&quot;攻破&quot;的是Https传输过程中验证身份的步骤,我们在配置抓包环境时是将Charles证书加入到系统本身信任的证书中,当应用进行通信时,如果没有进一步的安全保护措施,那么客户端接收到的服务器证书即使是Charles证书也会继续通信,整个过程如下:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%b8%ad%e9%97%b4%e4%ba%ba%e6%94%bb%e5%87%bb2.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB2.png, images/%e4%b8%ad%e9%97%b4%e4%ba%ba%e6%94%bb%e5%87%bb2.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB2.png"
+        title="中间人攻击2" /></p>
+<h3 id="对抗手段">对抗手段</h3>
+<p>为了应对这一通过手动给系统安装证书从而导致中间人攻击继续生效的风险,App也对该类攻击推出了对抗手段,主要有以下两种方式:</p>
+<h4 id="ssl-pinning">SSL Pinning</h4>
+<h5 id="原理">原理</h5>
+<p>也称为证书绑定,该种方式不仅校验服务器证书是否是系统中的可信凭证,在通信过程中甚至连系统内置的证书都不信任而只信任App指定的证书.一旦发现服务器证书为非指定证书即停止通信,最终导致即使将Charles证书安装到系统信任凭据中也无法生效.</p>
+<h5 id="绕过方式">绕过方式</h5>
+<p>客户端在校验服务器的情况时,考虑到对证书验证的代码是写在App内部,自然而然就可以通过Hook修改校验服务器的代码,从而使得判断的机制失效.</p>
+<p>前人的研究工作如下:</p>
+<ol>
+<li>可以利用Objection命令完成Bypass.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android sslpinning disable
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>Github开源项目-DroidSSLUnpinning.</li>
+</ol>
+<p><a href="https://github.com/WooyunDota/DroidSSLUnpinning/blob/master/ObjectionUnpinningPlus/hooks.js" target="_blank" rel="noopener noreffer">https://github.com/WooyunDota/DroidSSLUnpinning/blob/master/ObjectionUnpinningPlus/hooks.js</a></p>
+<p><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/DroidSSLUnpinning.7z" rel="">DroidSSLUnpinning.7z</a></p>
+<p>由于SSL Pinning的功能是开发者自定义的,因此并不存在一个通用的解决方案,Objection和DroidSSLUnpinning也只是对常见的App所使用的网络框架中对证书进行校验的代码逻辑进行了Hook修改,一旦App中的代码被混淆或使用了未知的框架,这些App的客户端校验服务器的逻辑就需要安全人员自行分析.</p>
+<h4 id="服务器校验客户端">服务器校验客户端</h4>
+<h5 id="原理-1">原理</h5>
+<p>这种方式发生在Https验证身份阶段,服务器在接受到客户端的公钥后,在发送session key之前先对客户端的公钥进行验证,如果不是信任的证书公钥,服务器就中止和客户端的通信.</p>
+<h5 id="绕过方式-1">绕过方式</h5>
+<p>服务器并不掌握在分析人员手中,因此在中间人的状态下与服务器进行通信的实际上已经变成抓包软件,比如Charles.通常来说,我们所能做的对抗手段就是将App中内置的证书导入Charles中,使得服务端认为自己仍旧是在与其信任的客户端进行通信,最终达到欺骗服务器的目的.</p>
+<p>具体的操作需要完成两项工作:</p>
+<ol>
+<li>
+<p>分析Apk,找到证书文件和相应的证书密码.</p>
+</li>
+<li>
+<p>在找到证书和密码后将其导入到抓包软件中,比如导入Charles.打开Charles,依次单击Proxy-&gt;SSL Proxy Settings-&gt;Client Certificates-&gt;Add 添加新证书,然后输入指定的域名IP以及端口并导入p12或者pem格式的证书,之后即可将Charles伪装成使用特定证书的客户端,最终达到正常抓包的目的.</p>
+</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Charles%e5%af%bc%e5%85%a5%e8%af%81%e4%b9%a61.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A61.png, images/Charles%e5%af%bc%e5%85%a5%e8%af%81%e4%b9%a61.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A61.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A61.png"
+        title="Charles导入证书1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Charles%e5%af%bc%e5%85%a5%e8%af%81%e4%b9%a62.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A62.png, images/Charles%e5%af%bc%e5%85%a5%e8%af%81%e4%b9%a62.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A62.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A62.png"
+        title="Charles导入证书2" /></p>
+<h2 id="hook模拟抓包">Hook模拟抓包</h2>
+<p>这种方式的抓包虽然不如抓包软件抓到的数据包全面,但是如果能够顺利Hook到发包函数,就可以直接无视证书,甚至通过Hook直接得到参数并在Hook的函数中通过打印函数调用栈得到函数的调用链,为后续分析带来便利.</p>
+<h3 id="objection">Objection</h3>
+<p>这里来展示下如何利用Objection快速定位App中的收发包函数.</p>
+<h4 id="示例apk">示例Apk</h4>
+<p><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/moveTV.apk" rel="">moveTV.apk</a></p>
+<h4 id="步骤展示">步骤展示</h4>
+<ol>
+<li>切换到Objection的目录,删除旧的日志.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cd ~/.objection
+</span></span><span class="line"><span class="cl">rm *
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>启动App,使用Objection附加到App进程.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">objection.exe -g com.cz.babySister explore
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>运行下述命令,获取App已经加载的所有类.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android hooking list classes
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>输入exit命令,退出Objection,到Objection目录重命名日志文件(objection.log),防止后续操作影响本次生成的日志文件,这里重命名为objection1.log</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/objection%e6%97%a5%e5%bf%97.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/objection%E6%97%A5%E5%BF%97.png, images/objection%e6%97%a5%e5%bf%97.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/objection%E6%97%A5%E5%BF%97.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/objection%E6%97%A5%E5%BF%97.png"
+        title="objection日志" /></p>
+<ol start="5">
+<li>使用网络框架相关的关键词来过滤相关类.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cat .\objection1.log |grep -i HttpURLConnection
+</span></span><span class="line"><span class="cl">cat .\objection1.log |grep -i okhttp3
+</span></span><span class="line"><span class="cl">cat .\objection1.log |grep -i okhttp
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//看上述哪个过滤的数量比较多,就重定向到文件中,如:
+</span></span><span class="line"><span class="cl">cat .\objection1.log |grep -i okhttp &gt;1.txt 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%bf%87%e6%bb%a4%e7%a4%ba%e4%be%8b1.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E8%BF%87%E6%BB%A4%E7%A4%BA%E4%BE%8B1.png, images/%e8%bf%87%e6%bb%a4%e7%a4%ba%e4%be%8b1.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E8%BF%87%E6%BB%A4%E7%A4%BA%E4%BE%8B1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E8%BF%87%E6%BB%A4%E7%A4%BA%E4%BE%8B1.png"
+        title="过滤示例1" /></p>
+<ol start="6">
+<li>通过一些文件编辑器快速输入多行相同的数据来补全每一行中类的Objection命令.这里使用notepad++通过Shift+Alt对每一行首进行全选,并输入以下命令.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android hooking watch class
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%bf%87%e6%bb%a4%e7%a4%ba%e4%be%8b2.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E8%BF%87%E6%BB%A4%E7%A4%BA%E4%BE%8B2.png, images/%e8%bf%87%e6%bb%a4%e7%a4%ba%e4%be%8b2.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E8%BF%87%E6%BB%A4%E7%A4%BA%E4%BE%8B2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E8%BF%87%E6%BB%A4%E7%A4%BA%E4%BE%8B2.png"
+        title="过滤示例2" /></p>
+<ol start="7">
+<li>切割上述文件中的命令为多个文件,防止Objection一次性Hook太多类崩溃.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%88%87%e5%89%b2%e5%91%bd%e4%bb%a4.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E5%88%87%E5%89%B2%E5%91%BD%E4%BB%A4.png, images/%e5%88%87%e5%89%b2%e5%91%bd%e4%bb%a4.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E5%88%87%E5%89%B2%E5%91%BD%E4%BB%A4.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/%E5%88%87%E5%89%B2%E5%91%BD%E4%BB%A4.png"
+        title="切割命令" /></p>
+<ol start="8">
+<li>重新使用Objection附加到App上,并使用-c执行文件中的命令.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Objection%e5%b8%ae%e5%8a%a9.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E5%B8%AE%E5%8A%A9.png, images/Objection%e5%b8%ae%e5%8a%a9.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E5%B8%AE%E5%8A%A9.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E5%B8%AE%E5%8A%A9.png"
+        title="Objection帮助" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">objection</span><span class="p">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">g</span> <span class="n">com</span><span class="p">.</span><span class="n">cz</span><span class="p">.</span><span class="n">babySister</span> <span class="n">explore</span> <span class="o">-</span><span class="n">c</span> <span class="s">&#34;.</span><span class="se">\1</span><span class="s">.txt&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="9">
+<li>在手机上对App进行操作(这里主要是点击App中的登录按钮,抓通信数据.),如果Objection界面中没有任何函数被调到,就应该回到第8步,更换包含Hook命令的文本文件.如果在Objection界面看到一堆函数被调用,说明框架类型确认成功.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Objection%e8%b0%83%e7%94%a8%e7%bb%93%e6%9e%9c.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C.png, images/Objection%e8%b0%83%e7%94%a8%e7%bb%93%e6%9e%9c.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C.png"
+        title="Objection调用结果" /></p>
+<ol start="10">
+<li>任意选择上图中被调用的函数,比如说选择com.android.okhttp.internal.http.RealResponseBody.source()这个函数.此时退出Objection,重新附加上App,使用下述命令进行单一Hook.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">android</span> <span class="n">hooking</span> <span class="n">watch</span> <span class="n">class_method</span> <span class="n">com</span><span class="p">.</span><span class="n">android</span><span class="p">.</span><span class="n">okhttp</span><span class="p">.</span><span class="n">internal</span><span class="p">.</span><span class="n">http</span><span class="p">.</span><span class="n">RealResponseBo</span>
+</span></span><span class="line"><span class="cl"><span class="n">dy</span><span class="p">.</span><span class="n">source</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="n">args</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="n">backtrace</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="k">return</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="11">
+<li>此时去点击App中的登录按钮,查看Objection界面.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Objection%e8%b0%83%e7%94%a8%e7%bb%93%e6%9e%9c2.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C2.png, images/Objection%e8%b0%83%e7%94%a8%e7%bb%93%e6%9e%9c2.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C2.png"
+        title="Objection调用结果2" /></p>
+<p>这样就找到了发包函数com.cz.babySister.c.a.a</p>
+<ol start="12">
+<li>Hook上述函数进行验证.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">android</span> <span class="n">hooking</span> <span class="n">watch</span> <span class="n">class_method</span> <span class="n">com</span><span class="p">.</span><span class="n">cz</span><span class="p">.</span><span class="n">babySister</span><span class="p">.</span><span class="n">c</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">a</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="n">args</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="n">back</span> 
+</span></span><span class="line"><span class="cl"><span class="n">trace</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="k">return</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Objection%e8%b0%83%e7%94%a8%e7%bb%93%e6%9e%9c3.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C3.png, images/Objection%e8%b0%83%e7%94%a8%e7%bb%93%e6%9e%9c3.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/Objection%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C3.png"
+        title="Objection调用结果3" /></p>
+<p>这里我们输入的账号和密码分别是123和qwertyuiop</p>
+<h4 id="缺点">缺点</h4>
+<p>上述过程过于依赖利用网络通信框架的关键词进行过滤,假如要分析的App本身存在强度非常大的混淆,将App中一些用来快速定位网络框架的关键字混淆成了无意义的字符,那么Hook抓包定位的方式就失效了.</p>
+<h3 id="okhttplogger">OkHttpLogger</h3>
+<h4 id="介绍-1">介绍</h4>
+<p>Github链接: <a href="https://github.com/siyujie/OkHttpLogger-Frida" target="_blank" rel="noopener noreffer">https://github.com/siyujie/OkHttpLogger-Frida</a></p>
+<p><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/OkHttpLogger-Frida.7z" rel="">OkHttpLogger-Frida.7z</a></p>
+<p>这是一个能够完成混淆后的okhttp Hook的项目,在该项目中,Hook的方法脱离了直接经过字符串匹配的方式,反而通过反射去获取所有类并利用okhttp3框架的一些特征去验证App中是否使用了okhttp3这个网络通信框架.</p>
+<h4 id="示例apk-1">示例Apk</h4>
+<p><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/%E6%98%A5%E6%B0%B4%E5%A0%82.apk" rel="">春水堂.apk</a></p>
+<h4 id="步骤展示-1">步骤展示</h4>
+<ol>
+<li>将项目中的okhttpfind.dex放到手机的/data/local/tmp目录下,并为之提升权限.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">adb</span> <span class="n">push</span> <span class="p">.</span><span class="err">\</span><span class="n">okhttpfind</span><span class="p">.</span><span class="n">dex</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">lcoal</span><span class="o">/</span><span class="n">tmp</span>
+</span></span><span class="line"><span class="cl"><span class="n">adb</span> <span class="n">shell</span>
+</span></span><span class="line"><span class="cl"><span class="n">su</span>
+</span></span><span class="line"><span class="cl"><span class="n">chmod</span> <span class="mi">777</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">lcoal</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">okhttpfind</span><span class="p">.</span><span class="n">dex</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>启动App,使用下述命令将okhttp_poker.js注进去.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//加入-o LuoHun.txt 可以将Frida一次注入后的所有输出保存到文件中,可供后续
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">frida</span> <span class="o">-</span><span class="n">U</span> <span class="n">org</span><span class="p">.</span><span class="n">sfjboldyvukzzlpp</span> <span class="o">-</span><span class="n">l</span> <span class="p">.</span><span class="err">\</span><span class="n">okhttp_poker</span><span class="p">.</span><span class="n">js</span> <span class="o">-</span><span class="n">o</span> <span class="n">LuoHun</span><span class="p">.</span><span class="n">txt</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/OkHttpLogger%e6%ad%a5%e9%aa%a4%e5%b1%95%e7%a4%ba1.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA1.png, images/OkHttpLogger%e6%ad%a5%e9%aa%a4%e5%b1%95%e7%a4%ba1.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA1.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA1.png"
+        title="OkHttpLogger步骤展示1" /></p>
+<ol start="3">
+<li>按照提示输入find()命令,执行寻找okhttp框架的功能.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/OkHttpLogger%e6%ad%a5%e9%aa%a4%e5%b1%95%e7%a4%ba2.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA2.png, images/OkHttpLogger%e6%ad%a5%e9%aa%a4%e5%b1%95%e7%a4%ba2.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA2.png"
+        title="OkHttpLogger步骤展示2" /></p>
+<ol start="4">
+<li>将找到的结果全部复制并覆盖原okhttp_poker.js脚本中关于okhttp类的一些定义.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/OkHttpLogger%e6%ad%a5%e9%aa%a4%e5%b1%95%e7%a4%ba3.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA3.png, images/OkHttpLogger%e6%ad%a5%e9%aa%a4%e5%b1%95%e7%a4%ba3.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA3.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA3.png"
+        title="OkHttpLogger步骤展示3" /></p>
+<ol start="5">
+<li>执行hold()命令,开启Hook,然后开始操作App,就会发现一堆网络连接的内容.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/OkHttpLogger%e6%ad%a5%e9%aa%a4%e5%b1%95%e7%a4%ba4.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA4.png, images/OkHttpLogger%e6%ad%a5%e9%aa%a4%e5%b1%95%e7%a4%ba4.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA4.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/images/OkHttpLogger%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA4.png"
+        title="OkHttpLogger步骤展示4" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-18</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%8A%93%E5%8C%85/">抓包</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android/android-hook/frida%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/" class="prev" rel="prev" title="Frida源码编译"><i class="fas fa-angle-left fa-fw"></i>Frida源码编译</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

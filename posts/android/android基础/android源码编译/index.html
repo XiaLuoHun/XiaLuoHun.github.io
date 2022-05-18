@@ -171,8 +171,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo passwd root
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo passwd root
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>进行重置root密码,重置密码需要输入两次.</p>
 <p>重启虚拟机,用root账号登录.</p>
@@ -182,8 +182,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">dpkg-reconfigure tzdata
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">dpkg-reconfigure tzdata
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在弹出窗口选择 Asia-&gt;shanghai</p>
 <h3 id="字体安装">字体安装</h3>
@@ -199,10 +199,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkfontdir
-mkfontscale
-fc-cache
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mkfontdir
+</span></span><span class="line"><span class="cl">mkfontscale
+</span></span><span class="line"><span class="cl">fc-cache
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="切换shell为bash">切换shell为bash</h3>
 <div class="highlight"><div class="chroma">
@@ -212,10 +212,10 @@ fc-cache
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#这里我们要切换到bash,目前Kali默认是zsh</span>
-<span class="c1">#切换bash </span>
-<span class="n">chsh</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#这里我们要切换到bash,目前Kali默认是zsh</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#切换bash </span>
+</span></span><span class="line"><span class="cl"><span class="n">chsh</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>重启后生效.</p>
 <h3 id="关闭息屏和休眠">关闭息屏和休眠</h3>
@@ -249,8 +249,8 @@ fc-cache
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">apt install htop jnettop tree
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apt install htop jnettop tree
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="新建分区">新建分区</h3>
 <p>使用gparted这个软件,在unallocated部分右击,选择新建,按照默认即可,即可新建一个370G的分区.</p>
@@ -262,10 +262,10 @@ fc-cache
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd Desktop
-mkdir COMPILE
-mount /dev/sda3 COMPILE
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cd Desktop
+</span></span><span class="line"><span class="cl">mkdir COMPILE
+</span></span><span class="line"><span class="cl">mount /dev/sda3 COMPILE
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="传输源代码">传输源代码</h3>
 <h4 id="kali开启sshd">kali开启sshd</h4>
@@ -287,20 +287,20 @@ mount /dev/sda3 COMPILE
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">nano</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ssh</span><span class="o">/</span><span class="n">sshd_config</span>
-
-<span class="c1">#ctrl+w,搜索PermitRootLogin,将其修改为yes</span>
-<span class="n">PermitRootLogin</span> <span class="n">yes</span>
-
-<span class="c1">#ctrl+o, enter保存</span>
-<span class="c1">#ctrl+x,退出</span>
-
-<span class="c1">#开启服务</span>
-<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">init</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">ssh</span> <span class="n">start</span>
-
-<span class="c1">#开机自启</span>
-<span class="n">update</span><span class="o">-</span><span class="n">rc</span><span class="o">.</span><span class="n">d</span> <span class="n">ssh</span> <span class="n">enable</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">nano</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ssh</span><span class="o">/</span><span class="n">sshd_config</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#ctrl+w,搜索PermitRootLogin,将其修改为yes</span>
+</span></span><span class="line"><span class="cl"><span class="n">PermitRootLogin</span> <span class="n">yes</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#ctrl+o, enter保存</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#ctrl+x,退出</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#开启服务</span>
+</span></span><span class="line"><span class="cl"><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">init</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">ssh</span> <span class="n">start</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#开机自启</span>
+</span></span><span class="line"><span class="cl"><span class="n">update</span><span class="o">-</span><span class="n">rc</span><span class="o">.</span><span class="n">d</span> <span class="n">ssh</span> <span class="n">enable</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -354,9 +354,9 @@ mount /dev/sda3 COMPILE
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="mi">7</span><span class="n">z</span> <span class="n">x</span> <span class="n">aosp810r1</span><span class="mf">.7</span><span class="n">z</span>
-<span class="c1">#解压过程中出现问题,输入 A</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">7</span><span class="n">z</span> <span class="n">x</span> <span class="n">aosp810r1</span><span class="mf">.7</span><span class="n">z</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#解压过程中出现问题,输入 A</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="下载驱动包">下载驱动包</h2>
 <ol>
@@ -392,10 +392,10 @@ mount /dev/sda3 COMPILE
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#上述两个链接都要下载</span>
-<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">dl</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">android</span><span class="o">/</span><span class="n">aosp</span><span class="o">/</span><span class="n">lge</span><span class="o">-</span><span class="n">bullhead</span><span class="o">-</span><span class="n">opm1</span><span class="mf">.171019.011</span><span class="o">-</span><span class="mi">2</span><span class="n">c4b1025</span><span class="o">.</span><span class="n">tgz</span>
-<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">dl</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">android</span><span class="o">/</span><span class="n">aosp</span><span class="o">/</span><span class="n">qcom</span><span class="o">-</span><span class="n">bullhead</span><span class="o">-</span><span class="n">opm1</span><span class="mf">.171019.011</span><span class="o">-</span><span class="mi">79</span><span class="n">a898aa</span><span class="o">.</span><span class="n">tgz</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#上述两个链接都要下载</span>
+</span></span><span class="line"><span class="cl"><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">dl</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">android</span><span class="o">/</span><span class="n">aosp</span><span class="o">/</span><span class="n">lge</span><span class="o">-</span><span class="n">bullhead</span><span class="o">-</span><span class="n">opm1</span><span class="mf">.171019.011</span><span class="o">-</span><span class="mi">2</span><span class="n">c4b1025</span><span class="o">.</span><span class="n">tgz</span>
+</span></span><span class="line"><span class="cl"><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">dl</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">android</span><span class="o">/</span><span class="n">aosp</span><span class="o">/</span><span class="n">qcom</span><span class="o">-</span><span class="n">bullhead</span><span class="o">-</span><span class="n">opm1</span><span class="mf">.171019.011</span><span class="o">-</span><span class="mi">79</span><span class="n">a898aa</span><span class="o">.</span><span class="n">tgz</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>下载驱动包到上述Android源码解压的文件夹下.</li>
@@ -417,9 +417,9 @@ mount /dev/sda3 COMPILE
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tar zxvf lge-bullhead-opm1.171019.011-2c4b1025.tgz
-tar zxvf qcom-bullhead-opm1.171019.011-79a898aa.tgz
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">tar zxvf lge-bullhead-opm1.171019.011-2c4b1025.tgz
+</span></span><span class="line"><span class="cl">tar zxvf qcom-bullhead-opm1.171019.011-79a898aa.tgz
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="准备编译环境">准备编译环境</h2>
 <div class="highlight"><div class="chroma">
@@ -441,22 +441,22 @@ tar zxvf qcom-bullhead-opm1.171019.011-79a898aa.tgz
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">apt</span> <span class="n">update</span>
-<span class="n">apt</span> <span class="n">install</span> <span class="n">bison</span> <span class="n">tree</span>
-<span class="n">dpkg</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">architecture</span> <span class="n">i386</span>
-<span class="n">apt</span> <span class="n">update</span>
-<span class="n">apt</span> <span class="n">install</span> <span class="n">libc6</span><span class="p">:</span><span class="n">i386</span> <span class="n">libncurses5</span><span class="p">:</span><span class="n">i386</span> <span class="n">libstdc</span><span class="o">++</span><span class="mi">6</span><span class="p">:</span><span class="n">i386</span>
-<span class="n">apt</span> <span class="n">install</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">utils</span>
-
-<span class="c1">#安装OpenJdk8</span>
-<span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">java</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">openjdk</span><span class="o">/</span><span class="n">jdk8u41</span><span class="o">/</span><span class="n">ri</span><span class="o">/</span><span class="n">openjdk</span><span class="o">-</span><span class="mi">8</span><span class="n">u41</span><span class="o">-</span><span class="n">b04</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="o">-</span><span class="mi">14</span><span class="n">_jan_2020</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
-<span class="c1">#解压</span>
-<span class="n">tar</span> <span class="n">zxvf</span> <span class="n">openjdk</span><span class="o">-</span><span class="mi">8</span><span class="n">u41</span><span class="o">-</span><span class="n">b04</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="o">-</span><span class="mi">14</span><span class="n">_jan_2020</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> 
-<span class="c1">#编写~/.bashrc,添加环境变量</span>
-<span class="n">export</span> <span class="n">JAVA_HOME</span><span class="o">=/</span><span class="n">root</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">java</span><span class="o">-</span><span class="n">se</span><span class="o">-</span><span class="mi">8</span><span class="n">u41</span><span class="o">-</span><span class="n">ri</span>
-<span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="err">$</span><span class="n">JAVA_HOME</span><span class="o">/</span><span class="nb">bin</span><span class="p">:</span><span class="err">$</span><span class="n">PATH</span>
-<span class="n">export</span> <span class="n">CLASSPATH</span><span class="o">=.</span><span class="p">:</span><span class="err">$</span><span class="n">JAVA_HOME</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">dt</span><span class="o">.</span><span class="n">jar</span><span class="p">:</span><span class="err">$</span><span class="n">JAVA_HOME</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">tools</span><span class="o">.</span><span class="n">jar</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">apt</span> <span class="n">update</span>
+</span></span><span class="line"><span class="cl"><span class="n">apt</span> <span class="n">install</span> <span class="n">bison</span> <span class="n">tree</span>
+</span></span><span class="line"><span class="cl"><span class="n">dpkg</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">architecture</span> <span class="n">i386</span>
+</span></span><span class="line"><span class="cl"><span class="n">apt</span> <span class="n">update</span>
+</span></span><span class="line"><span class="cl"><span class="n">apt</span> <span class="n">install</span> <span class="n">libc6</span><span class="p">:</span><span class="n">i386</span> <span class="n">libncurses5</span><span class="p">:</span><span class="n">i386</span> <span class="n">libstdc</span><span class="o">++</span><span class="mi">6</span><span class="p">:</span><span class="n">i386</span>
+</span></span><span class="line"><span class="cl"><span class="n">apt</span> <span class="n">install</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">utils</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#安装OpenJdk8</span>
+</span></span><span class="line"><span class="cl"><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">java</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">openjdk</span><span class="o">/</span><span class="n">jdk8u41</span><span class="o">/</span><span class="n">ri</span><span class="o">/</span><span class="n">openjdk</span><span class="o">-</span><span class="mi">8</span><span class="n">u41</span><span class="o">-</span><span class="n">b04</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="o">-</span><span class="mi">14</span><span class="n">_jan_2020</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#解压</span>
+</span></span><span class="line"><span class="cl"><span class="n">tar</span> <span class="n">zxvf</span> <span class="n">openjdk</span><span class="o">-</span><span class="mi">8</span><span class="n">u41</span><span class="o">-</span><span class="n">b04</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="o">-</span><span class="mi">14</span><span class="n">_jan_2020</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">#编写~/.bashrc,添加环境变量</span>
+</span></span><span class="line"><span class="cl"><span class="n">export</span> <span class="n">JAVA_HOME</span><span class="o">=/</span><span class="n">root</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">java</span><span class="o">-</span><span class="n">se</span><span class="o">-</span><span class="mi">8</span><span class="n">u41</span><span class="o">-</span><span class="n">ri</span>
+</span></span><span class="line"><span class="cl"><span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="err">$</span><span class="n">JAVA_HOME</span><span class="o">/</span><span class="nb">bin</span><span class="p">:</span><span class="err">$</span><span class="n">PATH</span>
+</span></span><span class="line"><span class="cl"><span class="n">export</span> <span class="n">CLASSPATH</span><span class="o">=.</span><span class="p">:</span><span class="err">$</span><span class="n">JAVA_HOME</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">dt</span><span class="o">.</span><span class="n">jar</span><span class="p">:</span><span class="err">$</span><span class="n">JAVA_HOME</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">tools</span><span class="o">.</span><span class="n">jar</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>至此环境已经准备好了,关机打个快照.</p>
 <h2 id="开启编译">开启编译</h2>
@@ -466,8 +466,8 @@ tar zxvf qcom-bullhead-opm1.171019.011-79a898aa.tgz
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mount /dev/sda3 COMPILE
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mount /dev/sda3 COMPILE
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>新建10G的交换分区</p>
 <div class="highlight"><div class="chroma">
@@ -479,12 +479,12 @@ tar zxvf qcom-bullhead-opm1.171019.011-79a898aa.tgz
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">swapfile</span> <span class="n">bs</span><span class="o">=</span><span class="mi">1</span><span class="n">M</span> <span class="n">count</span><span class="o">=</span><span class="mi">10240</span>
-<span class="c1">#mkswap创建交换文件</span>
-<span class="n">mkswap</span> <span class="n">swapfile</span>
-<span class="c1">#swapon激活</span>
-<span class="n">sudo</span> <span class="n">swapon</span> <span class="n">swapfile</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">swapfile</span> <span class="n">bs</span><span class="o">=</span><span class="mi">1</span><span class="n">M</span> <span class="n">count</span><span class="o">=</span><span class="mi">10240</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#mkswap创建交换文件</span>
+</span></span><span class="line"><span class="cl"><span class="n">mkswap</span> <span class="n">swapfile</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#swapon激活</span>
+</span></span><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">swapon</span> <span class="n">swapfile</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在Android源码目录执行下述命令</p>
 <div class="highlight"><div class="chroma">
@@ -510,26 +510,26 @@ tar zxvf qcom-bullhead-opm1.171019.011-79a898aa.tgz
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#下述两个文件,就是上面驱动包解压出来的</span>
-<span class="c1">#执行后,要按enter 输入I ACCEPT</span>
-<span class="o">./</span><span class="n">extract</span><span class="o">-</span><span class="n">lge</span><span class="o">-</span><span class="n">bullhead</span><span class="o">.</span><span class="n">sh</span>
-<span class="o">./</span><span class="n">extract</span><span class="o">-</span><span class="n">qcom</span><span class="o">-</span><span class="n">bullhead</span><span class="o">.</span><span class="n">sh</span>
-
-<span class="c1">#编译安卓源码前执行以下命令</span>
-<span class="n">export</span> <span class="n">LC_ALL</span><span class="o">=</span><span class="n">C</span>
-
-<span class="c1">#导入环境变量</span>
-<span class="n">source</span> <span class="n">build</span><span class="o">/</span><span class="n">envsetup</span><span class="o">.</span><span class="n">sh</span>
-
-<span class="c1">#选择设备</span>
-<span class="n">lunch</span>
-<span class="c1">#这里我目前的手机为Nexus 5X</span>
-<span class="c1">#选择的是 29. aosp_bullhead-userdebug</span>
-<span class="mi">29</span>
-
-<span class="c1">#编译</span>
-<span class="n">m</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#下述两个文件,就是上面驱动包解压出来的</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#执行后,要按enter 输入I ACCEPT</span>
+</span></span><span class="line"><span class="cl"><span class="o">./</span><span class="n">extract</span><span class="o">-</span><span class="n">lge</span><span class="o">-</span><span class="n">bullhead</span><span class="o">.</span><span class="n">sh</span>
+</span></span><span class="line"><span class="cl"><span class="o">./</span><span class="n">extract</span><span class="o">-</span><span class="n">qcom</span><span class="o">-</span><span class="n">bullhead</span><span class="o">.</span><span class="n">sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#编译安卓源码前执行以下命令</span>
+</span></span><span class="line"><span class="cl"><span class="n">export</span> <span class="n">LC_ALL</span><span class="o">=</span><span class="n">C</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#导入环境变量</span>
+</span></span><span class="line"><span class="cl"><span class="n">source</span> <span class="n">build</span><span class="o">/</span><span class="n">envsetup</span><span class="o">.</span><span class="n">sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#选择设备</span>
+</span></span><span class="line"><span class="cl"><span class="n">lunch</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#这里我目前的手机为Nexus 5X</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#选择的是 29. aosp_bullhead-userdebug</span>
+</span></span><span class="line"><span class="cl"><span class="mi">29</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#编译</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"

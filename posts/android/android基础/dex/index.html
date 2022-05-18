@@ -25,7 +25,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/dex\/"
-        },"genre": "posts","keywords": "Dex","wordcount":  6833 ,
+        },"genre": "posts","keywords": "Dex","wordcount":  6832 ,
         "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/dex\/","datePublished": "2021-09-25T00:00:00+00:00","dateModified": "2021-09-25T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "夏洛魂"},"author": {
@@ -102,7 +102,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Dex</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/"><i class="far fa-folder fa-fw"></i>Android基础</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-25">2021-09-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6833 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-25">2021-09-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6832 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -252,12 +252,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span><span class="o">{</span>
- <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hello Dex!&#34;</span><span class="o">);</span>
- <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hello Dex!&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"> <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="makefile脚本">Makefile脚本</h4>
 <div class="highlight"><div class="chroma">
@@ -271,14 +271,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nf">all</span><span class="o">:</span>
- javac Hello.java
- d8 Hello.class
-
-<span class="nf">install</span><span class="o">:</span>
- adb push classes.dex /data/local/tmp
- adb shell /system/bin/dalvikvm -cp /data/local/tmp/classes.dex Hello
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nf">all</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"> javac Hello.java
+</span></span><span class="line"><span class="cl"> d8 Hello.class
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">install</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"> adb push classes.dex /data/local/tmp
+</span></span><span class="line"><span class="cl"> adb shell /system/bin/dalvikvm -cp /data/local/tmp/classes.dex Hello
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>dalvikvm是Android虚拟机运行Dex的程序,真机中可能没有这个程序.
 目前Android12.0虚拟机也没有这个程序,我测试用的是Android10.0</p>
@@ -348,44 +348,44 @@
 </span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">DEX_INLINE</span> <span class="kt">int</span> <span class="nf">readSignedLeb128</span><span class="p">(</span><span class="k">const</span> <span class="n">u1</span><span class="o">**</span> <span class="n">pStream</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">const</span> <span class="n">u1</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="o">*</span><span class="n">pStream</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;=</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="mi">25</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">25</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">7</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&lt;=</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="mi">18</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">18</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
-            <span class="n">result</span> <span class="o">|=</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">14</span><span class="p">;</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&lt;=</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">11</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
-                <span class="n">result</span> <span class="o">|=</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">21</span><span class="p">;</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&lt;=</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">;</span>
-                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                    <span class="cm">/*
-</span><span class="cm">                     * Note: We don&#39;t check to see if cur is out of
-</span><span class="cm">                     * range here, meaning we tolerate garbage in the
-</span><span class="cm">                     * high four-order bits.
-</span><span class="cm">                     */</span>
-                    <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
-                    <span class="n">result</span> <span class="o">|=</span> <span class="n">cur</span> <span class="o">&lt;&lt;</span> <span class="mi">28</span><span class="p">;</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="o">*</span><span class="n">pStream</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">DEX_INLINE</span> <span class="kt">int</span> <span class="nf">readSignedLeb128</span><span class="p">(</span><span class="k">const</span> <span class="n">u1</span><span class="o">**</span> <span class="n">pStream</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">u1</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="o">*</span><span class="n">pStream</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;=</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="mi">25</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">25</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&lt;=</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="mi">18</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">18</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span> <span class="o">|=</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">14</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&lt;=</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">11</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">|=</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">21</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&lt;=</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">                     * Note: We don&#39;t check to see if cur is out of
+</span></span></span><span class="line"><span class="cl"><span class="cm">                     * range here, meaning we tolerate garbage in the
+</span></span></span><span class="line"><span class="cl"><span class="cm">                     * high four-order bits.
+</span></span></span><span class="line"><span class="cl"><span class="cm">                     */</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">result</span> <span class="o">|=</span> <span class="n">cur</span> <span class="o">&lt;&lt;</span> <span class="mi">28</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">pStream</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="总结">总结</h6>
 <div class="highlight"><div class="chroma">
@@ -400,15 +400,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">从上面代码来看,先读取第一字节,判断其是否小于等于7f,如果小于等于,表示这个字节最高位为0,sleb128编码结束.
-以解析0x7f为例.
-0x807f对应的二进制为10000000 0111 1111
-8位一组,首字节为0表示leb128编码结束,然后倒着将每组中的后7位重组
-如本例中二进制重组为1111111 0000000这里有14位,要左移18位,然后右移18位(14 + 18 = 32)(如果有7位,就要左移25位,然后右移25位, 7 + 25 = 32),
-注意最高位为符号位,右移的时候需要补1,
-本例中左移18位,又右移18位后的二进制结果为1 111 1111 1111 1111 1111 1111 1000 0000
-最高位是符号位,负数以补码形式存在,故取反加1后表示的真实数为-128
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">从上面代码来看,先读取第一字节,判断其是否小于等于7f,如果小于等于,表示这个字节最高位为0,sleb128编码结束.
+</span></span><span class="line"><span class="cl">以解析0x7f为例.
+</span></span><span class="line"><span class="cl">0x807f对应的二进制为10000000 0111 1111
+</span></span><span class="line"><span class="cl">8位一组,首字节为0表示leb128编码结束,然后倒着将每组中的后7位重组
+</span></span><span class="line"><span class="cl">如本例中二进制重组为1111111 0000000这里有14位,要左移18位,然后右移18位(14 + 18 = 32)(如果有7位,就要左移25位,然后右移25位, 7 + 25 = 32),
+</span></span><span class="line"><span class="cl">注意最高位为符号位,右移的时候需要补1,
+</span></span><span class="line"><span class="cl">本例中左移18位,又右移18位后的二进制结果为1 111 1111 1111 1111 1111 1111 1000 0000
+</span></span><span class="line"><span class="cl">最高位是符号位,负数以补码形式存在,故取反加1后表示的真实数为-128
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="uleb128">uleb128</h5>
 <h6 id="源码-1">源码</h6>
@@ -446,36 +446,36 @@
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="n">DEX_INLINE</span> <span class="kt">int</span> <span class="nf">readUnsignedLeb128</span><span class="p">(</span><span class="k">const</span> <span class="n">u1</span><span class="o">**</span> <span class="n">pStream</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">const</span> <span class="n">u1</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="o">*</span><span class="n">pStream</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&gt;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">7</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&gt;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
-            <span class="n">result</span> <span class="o">|=</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">14</span><span class="p">;</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&gt;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
-                <span class="n">result</span> <span class="o">|=</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">21</span><span class="p">;</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&gt;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="cm">/*
-</span><span class="cm">                     * Note: We don&#39;t check to see if cur is out of
-</span><span class="cm">                     * range here, meaning we tolerate garbage in the
-</span><span class="cm">                     * high four-order bits.
-</span><span class="cm">                     */</span>
-                    <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
-                    <span class="n">result</span> <span class="o">|=</span> <span class="n">cur</span> <span class="o">&lt;&lt;</span> <span class="mi">28</span><span class="p">;</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="o">*</span><span class="n">pStream</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">DEX_INLINE</span> <span class="kt">int</span> <span class="nf">readUnsignedLeb128</span><span class="p">(</span><span class="k">const</span> <span class="n">u1</span><span class="o">**</span> <span class="n">pStream</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">u1</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="o">*</span><span class="n">pStream</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&gt;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&gt;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span> <span class="o">|=</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">14</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&gt;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">|=</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">21</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&gt;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">                     * Note: We don&#39;t check to see if cur is out of
+</span></span></span><span class="line"><span class="cl"><span class="cm">                     * range here, meaning we tolerate garbage in the
+</span></span></span><span class="line"><span class="cl"><span class="cm">                     * high four-order bits.
+</span></span></span><span class="line"><span class="cl"><span class="cm">                     */</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">cur</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">result</span> <span class="o">|=</span> <span class="n">cur</span> <span class="o">&lt;&lt;</span> <span class="mi">28</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">pStream</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="总结-1">总结</h6>
 <div class="highlight"><div class="chroma">
@@ -488,13 +488,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">从上面代码来看,先读取第一个字节,并判断其是否大于0x7f,如果大于的话,则代表这个字节的最高位是1,而不是0.
-如果是1的话,则代表还要读下一个字节;如果是0的话,则代表uleb128编码的数值到此为止.
-以0x807f解析为例:
-0x807f对应的二进制为1000 0000 0111 1111
-8位一组,首字节为0表示leb128编码结束,然后倒着将每组中的后7位重组
-如本例中二进制重组为1111111 0000000对应的16进制为0x3f80,对应的10进制就是16256
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">从上面代码来看,先读取第一个字节,并判断其是否大于0x7f,如果大于的话,则代表这个字节的最高位是1,而不是0.
+</span></span><span class="line"><span class="cl">如果是1的话,则代表还要读下一个字节;如果是0的话,则代表uleb128编码的数值到此为止.
+</span></span><span class="line"><span class="cl">以0x807f解析为例:
+</span></span><span class="line"><span class="cl">0x807f对应的二进制为1000 0000 0111 1111
+</span></span><span class="line"><span class="cl">8位一组,首字节为0表示leb128编码结束,然后倒着将每组中的后7位重组
+</span></span><span class="line"><span class="cl">如本例中二进制重组为1111111 0000000对应的16进制为0x3f80,对应的10进制就是16256
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="uleb128p1">uleb128p1</h5>
 <p>在uleb128编码的基础上减1</p>
@@ -523,10 +523,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//固定8字节
-</span><span class="c1"></span><span class="n">ubyte</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="n">DEX_FILE_MAGIC</span> <span class="o">=</span> <span class="p">{</span> <span class="mh">0x64</span> <span class="mh">0x65</span> <span class="mh">0x78</span> <span class="mh">0x0a</span> <span class="mh">0x30</span> <span class="mh">0x33</span> <span class="mh">0x35</span> <span class="mh">0x00</span> <span class="p">}</span>
-                        <span class="o">=</span> <span class="s">&#34;dex</span><span class="se">\n</span><span class="s">035</span><span class="se">\0</span><span class="s">&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//固定8字节
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ubyte</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="n">DEX_FILE_MAGIC</span> <span class="o">=</span> <span class="p">{</span> <span class="mh">0x64</span> <span class="mh">0x65</span> <span class="mh">0x78</span> <span class="mh">0x0a</span> <span class="mh">0x30</span> <span class="mh">0x33</span> <span class="mh">0x35</span> <span class="mh">0x00</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">=</span> <span class="s">&#34;dex</span><span class="se">\n</span><span class="s">035</span><span class="se">\0</span><span class="s">&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="checksum">checksum</h4>
 <p>adler32 checksum
@@ -570,13 +570,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/*
-</span><span class="cm"> * Direct-mapped &#34;string_id_item&#34;.
-</span><span class="cm"> */</span>
-<span class="k">struct</span> <span class="nc">DexStringId</span> <span class="p">{</span>
- <span class="kt">uint32_t</span> <span class="n">stringDataOff</span><span class="p">;</span><span class="c1">//字符串数据偏移,指向string_data_item结构
-</span><span class="c1"></span><span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Direct-mapped &#34;string_id_item&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexStringId</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span> <span class="n">stringDataOff</span><span class="p">;</span><span class="c1">//字符串数据偏移,指向string_data_item结构
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -595,11 +595,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">string_data_item</span> <span class="p">{</span>
- <span class="n">uleb128</span> <span class="n">utf16_size</span><span class="p">;</span> <span class="c1">//字符串长度
-</span><span class="c1"></span> <span class="n">ubyte</span><span class="p">[]</span> <span class="n">data</span><span class="p">;</span>       <span class="c1">//字符串数据
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">string_data_item</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="n">uleb128</span> <span class="n">utf16_size</span><span class="p">;</span> <span class="c1">//字符串长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">ubyte</span><span class="p">[]</span> <span class="n">data</span><span class="p">;</span>       <span class="c1">//字符串数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="我们来解析来字符串表的第0项">我们来解析来字符串表的第0项</h5>
 <p><img
@@ -623,13 +623,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/*
-</span><span class="cm"> * Direct-mapped &#34;type_id_item&#34;.
-</span><span class="cm"> */</span>
-<span class="k">struct</span> <span class="nc">DexTypeId</span> <span class="p">{</span>
- <span class="kt">uint32_t</span>  <span class="n">descriptorIdx</span><span class="p">;</span>      <span class="cm">/* index into stringIds list for type descriptor */</span>
-<span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Direct-mapped &#34;type_id_item&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexTypeId</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span>  <span class="n">descriptorIdx</span><span class="p">;</span>      <span class="cm">/* index into stringIds list for type descriptor */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -679,30 +679,30 @@
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/*
-</span><span class="cm"> * Direct-mapped &#34;type_item&#34;.
-</span><span class="cm"> */</span>
-<span class="k">struct</span> <span class="nc">DexTypeItem</span> <span class="p">{</span>
- <span class="kt">uint16_t</span>  <span class="n">typeIdx</span><span class="p">;</span>            <span class="cm">/* index into typeIds */</span>
-<span class="p">};</span>
-
-<span class="cm">/*
-</span><span class="cm"> * Direct-mapped &#34;type_list&#34;.
-</span><span class="cm"> */</span>
-<span class="k">struct</span> <span class="nc">DexTypeList</span> <span class="p">{</span>
- <span class="kt">uint32_t</span>  <span class="n">size</span><span class="p">;</span>               <span class="cm">/* #of entries in list */</span>
- <span class="n">DexTypeItem</span> <span class="n">list</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>          <span class="cm">/* entries */</span>
-<span class="p">};</span>
-
-<span class="cm">/*
-</span><span class="cm"> * Direct-mapped &#34;proto_id_item&#34;.
-</span><span class="cm"> */</span>
-<span class="k">struct</span> <span class="nc">DexProtoId</span> <span class="p">{</span>
- <span class="kt">uint32_t</span>  <span class="n">shortyIdx</span><span class="p">;</span>          <span class="cm">/* DexStringId列表的索引,方法签名字符串,由返回值和参数类型列表组合 */</span>
- <span class="kt">uint32_t</span>  <span class="n">returnTypeIdx</span><span class="p">;</span>      <span class="cm">/* DexTypeId的索引,返回值的类型 */</span>
- <span class="kt">uint32_t</span>  <span class="n">parametersOff</span><span class="p">;</span>      <span class="cm">/* 指向DexTypeList的偏移,参数类型列表 */</span>
-<span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Direct-mapped &#34;type_item&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexTypeItem</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint16_t</span>  <span class="n">typeIdx</span><span class="p">;</span>            <span class="cm">/* index into typeIds */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Direct-mapped &#34;type_list&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexTypeList</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span>  <span class="n">size</span><span class="p">;</span>               <span class="cm">/* #of entries in list */</span>
+</span></span><span class="line"><span class="cl"> <span class="n">DexTypeItem</span> <span class="n">list</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>          <span class="cm">/* entries */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Direct-mapped &#34;proto_id_item&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexProtoId</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span>  <span class="n">shortyIdx</span><span class="p">;</span>          <span class="cm">/* DexStringId列表的索引,方法签名字符串,由返回值和参数类型列表组合 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span>  <span class="n">returnTypeIdx</span><span class="p">;</span>      <span class="cm">/* DexTypeId的索引,返回值的类型 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span>  <span class="n">parametersOff</span><span class="p">;</span>      <span class="cm">/* 指向DexTypeList的偏移,参数类型列表 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -737,15 +737,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/*
-</span><span class="cm"> * Direct-mapped &#34;field_id_item&#34;.
-</span><span class="cm"> */</span>
-<span class="k">struct</span> <span class="nc">DexFieldId</span> <span class="p">{</span>
- <span class="kt">uint16_t</span>  <span class="n">classIdx</span><span class="p">;</span>           <span class="cm">/* 类的类型,指向DexTypeId的索引,字段所属的类 */</span>
- <span class="kt">uint16_t</span>  <span class="n">typeIdx</span><span class="p">;</span>            <span class="cm">/* 字段类型,指向DexTypeId的索引,字段的类型 */</span>
- <span class="kt">uint32_t</span>  <span class="n">nameIdx</span><span class="p">;</span>            <span class="cm">/* 字段名,指向DexStringId的索引,字段的名称 */</span>
-<span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Direct-mapped &#34;field_id_item&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexFieldId</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint16_t</span>  <span class="n">classIdx</span><span class="p">;</span>           <span class="cm">/* 类的类型,指向DexTypeId的索引,字段所属的类 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint16_t</span>  <span class="n">typeIdx</span><span class="p">;</span>            <span class="cm">/* 字段类型,指向DexTypeId的索引,字段的类型 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span>  <span class="n">nameIdx</span><span class="p">;</span>            <span class="cm">/* 字段名,指向DexStringId的索引,字段的名称 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -780,15 +780,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/*
-</span><span class="cm"> * Direct-mapped &#34;method_id_item&#34;.
-</span><span class="cm"> */</span>
-<span class="k">struct</span> <span class="nc">DexMethodId</span> <span class="p">{</span>
- <span class="kt">uint16_t</span>  <span class="n">classIdx</span><span class="p">;</span>           <span class="cm">/* 类的类型,指向DexTypeId的索引,方法所属的类 */</span>
- <span class="kt">uint16_t</span>  <span class="n">protoIdx</span><span class="p">;</span>           <span class="cm">/* 声明类型,指向DexProtoId的索引,方法的签名 */</span>
- <span class="kt">uint32_t</span>  <span class="n">nameIdx</span><span class="p">;</span>            <span class="cm">/* 方法名,指向DexStringId索引,方法的名称 */</span>
-<span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Direct-mapped &#34;method_id_item&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexMethodId</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint16_t</span>  <span class="n">classIdx</span><span class="p">;</span>           <span class="cm">/* 类的类型,指向DexTypeId的索引,方法所属的类 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint16_t</span>  <span class="n">protoIdx</span><span class="p">;</span>           <span class="cm">/* 声明类型,指向DexProtoId的索引,方法的签名 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span>  <span class="n">nameIdx</span><span class="p">;</span>            <span class="cm">/* 方法名,指向DexStringId索引,方法的名称 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -828,20 +828,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/*
-</span><span class="cm"> * Direct-mapped &#34;class_def_item&#34;.
-</span><span class="cm"> */</span>
-<span class="k">struct</span> <span class="nc">DexClassDef</span> <span class="p">{</span>
-    <span class="kt">uint32_t</span>  <span class="n">classIdx</span><span class="p">;</span>           <span class="cm">/* 类的类型，指向DexTypeId的索引 */</span>
-    <span class="kt">uint32_t</span>  <span class="n">accessFlags</span><span class="p">;</span>        <span class="cm">/* 访问权限 */</span>
-    <span class="kt">uint32_t</span>  <span class="n">superclassIdx</span><span class="p">;</span>      <span class="cm">/* 父类的类型，指向DexTypeId的索引 */</span>
-    <span class="kt">uint32_t</span>  <span class="n">interfacesOff</span><span class="p">;</span>      <span class="cm">/* 接口，指向DexTypeList的偏移,如果没有接口的声明和实现,值为0 */</span>
-    <span class="kt">uint32_t</span>  <span class="n">sourceFileIdx</span><span class="p">;</span>      <span class="cm">/* 类所在的源文件名，指向DexStringId的索引 */</span>
-    <span class="kt">uint32_t</span>  <span class="n">annotationsOff</span><span class="p">;</span>     <span class="cm">/* 注释,根据类型不同会有注解类,注解字段,注解方法,注解参数,没有注解值就是0,指向DexAnnotationsDirectoryItem的结构体 */</span>
-    <span class="kt">uint32_t</span>  <span class="n">classDataOff</span><span class="p">;</span>       <span class="cm">/* 类的数据部分,指向DexClassData结构的偏移 */</span>
-    <span class="kt">uint32_t</span>  <span class="n">staticValuesOff</span><span class="p">;</span>    <span class="cm">/* 类中的静态数据,指向DexEncodeArray结构的偏移 */</span>
-<span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Direct-mapped &#34;class_def_item&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexClassDef</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span>  <span class="n">classIdx</span><span class="p">;</span>           <span class="cm">/* 类的类型，指向DexTypeId的索引 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span>  <span class="n">accessFlags</span><span class="p">;</span>        <span class="cm">/* 访问权限 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span>  <span class="n">superclassIdx</span><span class="p">;</span>      <span class="cm">/* 父类的类型，指向DexTypeId的索引 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span>  <span class="n">interfacesOff</span><span class="p">;</span>      <span class="cm">/* 接口，指向DexTypeList的偏移,如果没有接口的声明和实现,值为0 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span>  <span class="n">sourceFileIdx</span><span class="p">;</span>      <span class="cm">/* 类所在的源文件名，指向DexStringId的索引 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span>  <span class="n">annotationsOff</span><span class="p">;</span>     <span class="cm">/* 注释,根据类型不同会有注解类,注解字段,注解方法,注解参数,没有注解值就是0,指向DexAnnotationsDirectoryItem的结构体 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span>  <span class="n">classDataOff</span><span class="p">;</span>       <span class="cm">/* 类的数据部分,指向DexClassData结构的偏移 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span>  <span class="n">staticValuesOff</span><span class="p">;</span>    <span class="cm">/* 类中的静态数据,指向DexEncodeArray结构的偏移 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -915,56 +915,56 @@
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* expanded form of a class_data_item header */</span>
-<span class="k">struct</span> <span class="nc">DexClassDataHeader</span> <span class="p">{</span>
- <span class="kt">uint32_t</span> <span class="n">staticFieldsSize</span><span class="p">;</span>      <span class="cm">/* 静态字段的个数 */</span>
- <span class="kt">uint32_t</span> <span class="n">instanceFieldsSize</span><span class="p">;</span>    <span class="cm">/* 实例字段的个数 */</span>
- <span class="kt">uint32_t</span> <span class="n">directMethodsSize</span><span class="p">;</span>     <span class="cm">/* 直接方法的个数 */</span>
- <span class="kt">uint32_t</span> <span class="n">virtualMethodsSize</span><span class="p">;</span>    <span class="cm">/* 虚方法的个数 */</span>
-<span class="p">};</span>
-
-<span class="cm">/* expanded form of encoded_field */</span>
-<span class="k">struct</span> <span class="nc">DexField</span> <span class="p">{</span>
- <span class="kt">uint32_t</span> <span class="n">fieldIdx</span><span class="p">;</span>      <span class="cm">/* 指向DexFieldId的索引 */</span>
- <span class="kt">uint32_t</span> <span class="n">accessFlags</span><span class="p">;</span>   <span class="cm">/* 访问标志 */</span>
-<span class="p">};</span>
-
-<span class="cm">/*
-</span><span class="cm"> * Direct-mapped &#34;code_item&#34;.
-</span><span class="cm"> *
-</span><span class="cm"> * The &#34;catches&#34; table is used when throwing an exception,
-</span><span class="cm"> * &#34;debugInfo&#34; is used when displaying an exception stack trace or
-</span><span class="cm"> * debugging. An offset of zero indicates that there are no entries.
-</span><span class="cm"> */</span>
-<span class="k">struct</span> <span class="nc">DexCode</span> <span class="p">{</span>
- <span class="kt">uint16_t</span>  <span class="n">registersSize</span><span class="p">;</span> <span class="cm">/* 使用寄存器的个数 */</span>
- <span class="kt">uint16_t</span>  <span class="n">insSize</span><span class="p">;</span>       <span class="cm">/* 参数的个数 */</span>
- <span class="kt">uint16_t</span>  <span class="n">outsSize</span><span class="p">;</span>      <span class="cm">/* 调用其他方法时使用的寄存器个数 */</span>
- <span class="kt">uint16_t</span>  <span class="n">triesSize</span><span class="p">;</span>     <span class="cm">/* try/catch语句的个数 */</span>
- <span class="kt">uint32_t</span>  <span class="n">debugInfoOff</span><span class="p">;</span>  <span class="cm">/* 指向调试信息的偏移 */</span>
- <span class="kt">uint32_t</span>  <span class="n">insnsSize</span><span class="p">;</span>     <span class="cm">/* 指令集的个数，以2字节为单位 */</span>
- <span class="kt">uint16_t</span>  <span class="n">insns</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>      <span class="cm">/* 指令集 */</span>
- <span class="cm">/* 2字节空间用于对齐 */</span>
- <span class="cm">/* followed by try_item[triesSize] DexTry结构体 */</span>
- <span class="cm">/* followed by uleb128 handlersSize */</span>
- <span class="cm">/* followed by catch_handler_item[handlersSize] DexCatchHandler结构体 */</span>
-<span class="p">};</span>
-
-<span class="cm">/* expanded form of encoded_method */</span>
-<span class="k">struct</span> <span class="nc">DexMethod</span> <span class="p">{</span>
- <span class="kt">uint32_t</span> <span class="n">methodIdx</span><span class="p">;</span>    <span class="cm">/* 指向DexMethodId的索引 */</span>
- <span class="kt">uint32_t</span> <span class="n">accessFlags</span><span class="p">;</span>  <span class="cm">/* 访问标志 */</span>
- <span class="kt">uint32_t</span> <span class="n">codeOff</span><span class="p">;</span>      <span class="cm">/* 指向DexCode结构的偏移 */</span>
-<span class="p">};</span>
-
-<span class="k">struct</span> <span class="nc">DexClassData</span> <span class="p">{</span>
- <span class="n">DexClassDataHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="cm">/* 指定字段和方法的个数 */</span>
- <span class="n">DexField</span><span class="o">*</span> <span class="n">staticFields</span><span class="p">;</span>     <span class="cm">/* 静态字段 */</span>
- <span class="n">DexField</span><span class="o">*</span> <span class="n">instanceFields</span><span class="p">;</span>   <span class="cm">/* 实例字段 */</span>
- <span class="n">DexMethod</span><span class="o">*</span> <span class="n">directMethods</span><span class="p">;</span>   <span class="cm">/* 直接方法 */</span>
- <span class="n">DexMethod</span><span class="o">*</span> <span class="n">virtualMethods</span><span class="p">;</span>  <span class="cm">/* 虚方法 */</span>
-<span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cm">/* expanded form of a class_data_item header */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexClassDataHeader</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span> <span class="n">staticFieldsSize</span><span class="p">;</span>      <span class="cm">/* 静态字段的个数 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span> <span class="n">instanceFieldsSize</span><span class="p">;</span>    <span class="cm">/* 实例字段的个数 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span> <span class="n">directMethodsSize</span><span class="p">;</span>     <span class="cm">/* 直接方法的个数 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span> <span class="n">virtualMethodsSize</span><span class="p">;</span>    <span class="cm">/* 虚方法的个数 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* expanded form of encoded_field */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexField</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span> <span class="n">fieldIdx</span><span class="p">;</span>      <span class="cm">/* 指向DexFieldId的索引 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span> <span class="n">accessFlags</span><span class="p">;</span>   <span class="cm">/* 访问标志 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Direct-mapped &#34;code_item&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * The &#34;catches&#34; table is used when throwing an exception,
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * &#34;debugInfo&#34; is used when displaying an exception stack trace or
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * debugging. An offset of zero indicates that there are no entries.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexCode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint16_t</span>  <span class="n">registersSize</span><span class="p">;</span> <span class="cm">/* 使用寄存器的个数 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint16_t</span>  <span class="n">insSize</span><span class="p">;</span>       <span class="cm">/* 参数的个数 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint16_t</span>  <span class="n">outsSize</span><span class="p">;</span>      <span class="cm">/* 调用其他方法时使用的寄存器个数 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint16_t</span>  <span class="n">triesSize</span><span class="p">;</span>     <span class="cm">/* try/catch语句的个数 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span>  <span class="n">debugInfoOff</span><span class="p">;</span>  <span class="cm">/* 指向调试信息的偏移 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span>  <span class="n">insnsSize</span><span class="p">;</span>     <span class="cm">/* 指令集的个数，以2字节为单位 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint16_t</span>  <span class="n">insns</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>      <span class="cm">/* 指令集 */</span>
+</span></span><span class="line"><span class="cl"> <span class="cm">/* 2字节空间用于对齐 */</span>
+</span></span><span class="line"><span class="cl"> <span class="cm">/* followed by try_item[triesSize] DexTry结构体 */</span>
+</span></span><span class="line"><span class="cl"> <span class="cm">/* followed by uleb128 handlersSize */</span>
+</span></span><span class="line"><span class="cl"> <span class="cm">/* followed by catch_handler_item[handlersSize] DexCatchHandler结构体 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* expanded form of encoded_method */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexMethod</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span> <span class="n">methodIdx</span><span class="p">;</span>    <span class="cm">/* 指向DexMethodId的索引 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span> <span class="n">accessFlags</span><span class="p">;</span>  <span class="cm">/* 访问标志 */</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span> <span class="n">codeOff</span><span class="p">;</span>      <span class="cm">/* 指向DexCode结构的偏移 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexClassData</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="n">DexClassDataHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="cm">/* 指定字段和方法的个数 */</span>
+</span></span><span class="line"><span class="cl"> <span class="n">DexField</span><span class="o">*</span> <span class="n">staticFields</span><span class="p">;</span>     <span class="cm">/* 静态字段 */</span>
+</span></span><span class="line"><span class="cl"> <span class="n">DexField</span><span class="o">*</span> <span class="n">instanceFields</span><span class="p">;</span>   <span class="cm">/* 实例字段 */</span>
+</span></span><span class="line"><span class="cl"> <span class="n">DexMethod</span><span class="o">*</span> <span class="n">directMethods</span><span class="p">;</span>   <span class="cm">/* 直接方法 */</span>
+</span></span><span class="line"><span class="cl"> <span class="n">DexMethod</span><span class="o">*</span> <span class="n">virtualMethods</span><span class="p">;</span>  <span class="cm">/* 虚方法 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="map_list">map_list</h4>
 <p>Dalvik虚拟机解析Dex后,将其映射成DexMapList的数据结构,然后在里面可以找到前面8个部分的偏移和大小.</p>
@@ -1013,48 +1013,48 @@
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* map item type codes */</span>
-<span class="k">enum</span> <span class="p">{</span>
- <span class="n">kDexTypeHeaderItem</span> <span class="o">=</span> <span class="mh">0x0000</span><span class="p">,</span>
- <span class="n">kDexTypeStringIdItem</span> <span class="o">=</span> <span class="mh">0x0001</span><span class="p">,</span>
- <span class="n">kDexTypeTypeIdItem</span> <span class="o">=</span> <span class="mh">0x0002</span><span class="p">,</span>
- <span class="n">kDexTypeProtoIdItem</span> <span class="o">=</span> <span class="mh">0x0003</span><span class="p">,</span>
- <span class="n">kDexTypeFieldIdItem</span> <span class="o">=</span> <span class="mh">0x0004</span><span class="p">,</span>
- <span class="n">kDexTypeMethodIdItem</span> <span class="o">=</span> <span class="mh">0x0005</span><span class="p">,</span>
- <span class="n">kDexTypeClassDefItem</span> <span class="o">=</span> <span class="mh">0x0006</span><span class="p">,</span>
- <span class="n">kDexTypeCallSiteIdItem</span> <span class="o">=</span> <span class="mh">0x0007</span><span class="p">,</span>
- <span class="n">kDexTypeMethodHandleItem</span> <span class="o">=</span> <span class="mh">0x0008</span><span class="p">,</span>
- <span class="n">kDexTypeMapList</span> <span class="o">=</span> <span class="mh">0x1000</span><span class="p">,</span>
- <span class="n">kDexTypeTypeList</span> <span class="o">=</span> <span class="mh">0x1001</span><span class="p">,</span>
- <span class="n">kDexTypeAnnotationSetRefList</span> <span class="o">=</span> <span class="mh">0x1002</span><span class="p">,</span>
- <span class="n">kDexTypeAnnotationSetItem</span> <span class="o">=</span> <span class="mh">0x1003</span><span class="p">,</span>
- <span class="n">kDexTypeClassDataItem</span> <span class="o">=</span> <span class="mh">0x2000</span><span class="p">,</span>
- <span class="n">kDexTypeCodeItem</span> <span class="o">=</span> <span class="mh">0x2001</span><span class="p">,</span>
- <span class="n">kDexTypeStringDataItem</span> <span class="o">=</span> <span class="mh">0x2002</span><span class="p">,</span>
- <span class="n">kDexTypeDebugInfoItem</span> <span class="o">=</span> <span class="mh">0x2003</span><span class="p">,</span>
- <span class="n">kDexTypeAnnotationItem</span> <span class="o">=</span> <span class="mh">0x2004</span><span class="p">,</span>
- <span class="n">kDexTypeEncodedArrayItem</span> <span class="o">=</span> <span class="mh">0x2005</span><span class="p">,</span>
- <span class="n">kDexTypeAnnotationsDirectoryItem</span> <span class="o">=</span> <span class="mh">0x2006</span><span class="p">,</span>
-<span class="p">};</span>
-
-<span class="cm">/*
-</span><span class="cm"> * Direct-mapped &#34;map_item&#34;.
-</span><span class="cm"> */</span>
-<span class="k">struct</span> <span class="nc">DexMapItem</span> <span class="p">{</span>
-    <span class="kt">uint16_t</span> <span class="n">type</span><span class="p">;</span>       <span class="cm">/* kDexType开头的类型 */</span>
-    <span class="kt">uint16_t</span> <span class="n">unused</span><span class="p">;</span>     <span class="cm">/* 未使用，用于字节对齐 */</span>
-    <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">;</span>       <span class="cm">/* 数据的大小 */</span>
-    <span class="kt">uint32_t</span> <span class="n">offset</span><span class="p">;</span>     <span class="cm">/* 指定类型数据的文件偏移 */</span>
-<span class="p">};</span>
-
-<span class="cm">/*
-</span><span class="cm"> * Direct-mapped &#34;map_list&#34;.
-</span><span class="cm"> */</span>
-<span class="k">struct</span> <span class="nc">DexMapList</span> <span class="p">{</span>
-    <span class="kt">uint32_t</span>  <span class="n">size</span><span class="p">;</span>       <span class="cm">/* 有多少个DexMapItem */</span>
-    <span class="n">DexMapItem</span> <span class="n">list</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>   <span class="cm">/* entries */</span>
-<span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cm">/* map item type codes */</span>
+</span></span><span class="line"><span class="cl"><span class="k">enum</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeHeaderItem</span> <span class="o">=</span> <span class="mh">0x0000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeStringIdItem</span> <span class="o">=</span> <span class="mh">0x0001</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeTypeIdItem</span> <span class="o">=</span> <span class="mh">0x0002</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeProtoIdItem</span> <span class="o">=</span> <span class="mh">0x0003</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeFieldIdItem</span> <span class="o">=</span> <span class="mh">0x0004</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeMethodIdItem</span> <span class="o">=</span> <span class="mh">0x0005</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeClassDefItem</span> <span class="o">=</span> <span class="mh">0x0006</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeCallSiteIdItem</span> <span class="o">=</span> <span class="mh">0x0007</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeMethodHandleItem</span> <span class="o">=</span> <span class="mh">0x0008</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeMapList</span> <span class="o">=</span> <span class="mh">0x1000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeTypeList</span> <span class="o">=</span> <span class="mh">0x1001</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeAnnotationSetRefList</span> <span class="o">=</span> <span class="mh">0x1002</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeAnnotationSetItem</span> <span class="o">=</span> <span class="mh">0x1003</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeClassDataItem</span> <span class="o">=</span> <span class="mh">0x2000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeCodeItem</span> <span class="o">=</span> <span class="mh">0x2001</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeStringDataItem</span> <span class="o">=</span> <span class="mh">0x2002</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeDebugInfoItem</span> <span class="o">=</span> <span class="mh">0x2003</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeAnnotationItem</span> <span class="o">=</span> <span class="mh">0x2004</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeEncodedArrayItem</span> <span class="o">=</span> <span class="mh">0x2005</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">kDexTypeAnnotationsDirectoryItem</span> <span class="o">=</span> <span class="mh">0x2006</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Direct-mapped &#34;map_item&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexMapItem</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">type</span><span class="p">;</span>       <span class="cm">/* kDexType开头的类型 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">unused</span><span class="p">;</span>     <span class="cm">/* 未使用，用于字节对齐 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">;</span>       <span class="cm">/* 数据的大小 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span> <span class="n">offset</span><span class="p">;</span>     <span class="cm">/* 指定类型数据的文件偏移 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Direct-mapped &#34;map_list&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DexMapList</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span>  <span class="n">size</span><span class="p">;</span>       <span class="cm">/* 有多少个DexMapItem */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DexMapItem</span> <span class="n">list</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>   <span class="cm">/* entries */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>每个DexMapItem对应了一块数据,例如type=kDexTypeHeaderItem则对应DexHeader的偏移地址和大小.</p>
 <h3 id="动态加载dex文件">动态加载Dex文件</h3>
@@ -1082,17 +1082,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">public</span> <span class="n">DexClassLoader</span><span class="p">(</span><span class="n">String</span> <span class="n">dexPath</span><span class="p">,</span> <span class="n">String</span> <span class="n">optimizedDirectory</span><span class="p">,</span> <span class="n">String</span> <span class="n">librarySearchPath</span><span class="p">,</span> <span class="n">ClassLoader</span> <span class="n">parent</span><span class="p">)</span>
-<span class="c1">//参数一: String dexPath, Dex文件路径
-</span><span class="c1">//参数二: String optimizedDirectory, Dex优化目录
-</span><span class="c1">// Android中内存中不会出现上述参数一的Dex文件, 会先优化,然后运行,优化后为.odex文件
-</span><span class="c1">//参数三: String librarySearchPath, 库搜索路径,jni有so文件
-</span><span class="c1">//参数四: ClassLoader parent, 类加载器
-</span><span class="c1">//如 java.lang.String 不在我们写的Dex文件中,
-</span><span class="c1">//将一个类加载器定义为父亲,是说假如这个类我没有,那就去父亲那里找,父亲没有,那就去父亲的父亲那里去找
-</span><span class="c1">//getClassLoader(), 拿当前类加载器
-</span><span class="c1">//dalvik.system.DexClassLoader.getSystemClassLoader(), 拿系统类加载器
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">public</span> <span class="n">DexClassLoader</span><span class="p">(</span><span class="n">String</span> <span class="n">dexPath</span><span class="p">,</span> <span class="n">String</span> <span class="n">optimizedDirectory</span><span class="p">,</span> <span class="n">String</span> <span class="n">librarySearchPath</span><span class="p">,</span> <span class="n">ClassLoader</span> <span class="n">parent</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//参数一: String dexPath, Dex文件路径
+</span></span></span><span class="line"><span class="cl"><span class="c1">//参数二: String optimizedDirectory, Dex优化目录
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Android中内存中不会出现上述参数一的Dex文件, 会先优化,然后运行,优化后为.odex文件
+</span></span></span><span class="line"><span class="cl"><span class="c1">//参数三: String librarySearchPath, 库搜索路径,jni有so文件
+</span></span></span><span class="line"><span class="cl"><span class="c1">//参数四: ClassLoader parent, 类加载器
+</span></span></span><span class="line"><span class="cl"><span class="c1">//如 java.lang.String 不在我们写的Dex文件中,
+</span></span></span><span class="line"><span class="cl"><span class="c1">//将一个类加载器定义为父亲,是说假如这个类我没有,那就去父亲那里找,父亲没有,那就去父亲的父亲那里去找
+</span></span></span><span class="line"><span class="cl"><span class="c1">//getClassLoader(), 拿当前类加载器
+</span></span></span><span class="line"><span class="cl"><span class="c1">//dalvik.system.DexClassLoader.getSystemClassLoader(), 拿系统类加载器
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="步骤">步骤</h4>
 <p>准备两个工程,
@@ -1273,126 +1273,124 @@ LuoPack为壳程序,动态加载上述Dex文件.</p>
 </span><span class="lnt">113
 </span><span class="lnt">114
 </span><span class="lnt">115
-</span><span class="lnt">116
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">org.example.luopack</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">android.app.Application</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">android.content.Context</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.FileOutputStream</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.lang.reflect.Field</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">dalvik.system.DexClassLoader</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">myApp</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="o">{</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="n">Context</span> <span class="n">base</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="n">base</span><span class="o">);</span>
-
-        <span class="n">loadDex</span><span class="o">(</span><span class="n">base</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">loadDex</span><span class="o">(</span><span class="n">Context</span> <span class="n">base</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c1">//释放Dex文件
-</span><span class="c1"></span>        <span class="n">String</span> <span class="n">dexFilePath</span> <span class="o">=</span> <span class="n">ReleaseFile</span><span class="o">(</span><span class="n">base</span><span class="o">,</span> <span class="s">&#34;classes.dex&#34;</span><span class="o">,</span> <span class="s">&#34;mydex&#34;</span><span class="o">);</span>
-        <span class="n">String</span> <span class="n">odexFilePath</span> <span class="o">=</span> <span class="n">createFolder</span><span class="o">(</span><span class="n">base</span><span class="o">,</span> <span class="s">&#34;myodex&#34;</span><span class="o">);</span>
-
-        <span class="n">DexClassLoader</span> <span class="n">classLoader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DexClassLoader</span><span class="o">(</span><span class="n">dexFilePath</span><span class="o">,</span> <span class="n">odexFilePath</span><span class="o">,</span>
-                <span class="n">getApplicationInfo</span><span class="o">().</span><span class="na">nativeLibraryDir</span><span class="o">,</span> <span class="n">getClassLoader</span><span class="o">());</span>
-
-        <span class="c1">//getClassLoader(), 拿的是当前类加载器, 里面没有org.example.luosrc.MainActivity这个类
-</span><span class="c1"></span>        <span class="c1">//上述新new的classLoader里面有org.example.luosrc.MainActivity这个类
-</span><span class="c1"></span>        <span class="c1">//让Android操作系统使用上述新new的classLoader即可
-</span><span class="c1"></span>
-        <span class="c1">//反射替换classLoader
-</span><span class="c1"></span>        <span class="c1">//getClassLoader(), F7进去查看在哪里拿的classLoader
-</span><span class="c1"></span>        <span class="c1">//ContextImpl这个类中
-</span><span class="c1"></span>        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">Class</span> <span class="n">clsContextImpl</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;android.app.ContextImpl&#34;</span><span class="o">);</span>
-            <span class="n">Field</span> <span class="n">mPackageInfo</span> <span class="o">=</span> <span class="n">clsContextImpl</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;mPackageInfo&#34;</span><span class="o">);</span>
-            <span class="n">mPackageInfo</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-            <span class="n">Object</span> <span class="n">objLoadApk</span> <span class="o">=</span> <span class="n">mPackageInfo</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">getBaseContext</span><span class="o">());</span>
-            <span class="n">Class</span> <span class="n">clsLoadApk</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;android.app.LoadedApk&#34;</span><span class="o">);</span>
-            <span class="n">Field</span> <span class="n">mClassLoader</span> <span class="o">=</span> <span class="n">clsLoadApk</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;mClassLoader&#34;</span><span class="o">);</span>
-            <span class="n">mClassLoader</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-            <span class="n">mClassLoader</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">objLoadApk</span><span class="o">,</span> <span class="n">classLoader</span><span class="o">);</span>
-
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-
-    <span class="o">}</span>
-
-    <span class="n">String</span> <span class="nf">createFolder</span><span class="o">(</span><span class="n">Context</span> <span class="n">base</span><span class="o">,</span> <span class="n">String</span> <span class="n">strAndroidFolder</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">File</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="na">getFilesDir</span><span class="o">();</span>
-        <span class="n">File</span> <span class="n">fileDir</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">dir</span><span class="o">.</span><span class="na">getAbsoluteFile</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">strAndroidFolder</span><span class="o">);</span>
-        <span class="k">if</span> <span class="o">(!</span><span class="n">fileDir</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
-            <span class="n">fileDir</span><span class="o">.</span><span class="na">mkdir</span><span class="o">();</span>
-        <span class="o">}</span>
-
-        <span class="k">return</span> <span class="n">fileDir</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="c1">//将要释放的文件放到assets目录下
-</span><span class="c1"></span>    <span class="n">String</span> <span class="nf">ReleaseFile</span><span class="o">(</span><span class="n">Context</span> <span class="n">base</span><span class="o">,</span> <span class="n">String</span> <span class="n">strFileName</span><span class="o">,</span> <span class="n">String</span> <span class="n">strAndroidFolder</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="n">File</span> <span class="n">dexFile</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">is</span> <span class="o">=</span> <span class="n">getAssets</span><span class="o">().</span><span class="na">open</span><span class="o">(</span><span class="n">strFileName</span><span class="o">);</span>
-            <span class="n">File</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="na">getFilesDir</span><span class="o">();</span>
-            <span class="n">File</span> <span class="n">fileDir</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">dir</span><span class="o">.</span><span class="na">getAbsoluteFile</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">strAndroidFolder</span><span class="o">);</span>
-            <span class="k">if</span> <span class="o">(!</span><span class="n">fileDir</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
-                <span class="n">fileDir</span><span class="o">.</span><span class="na">mkdir</span><span class="o">();</span>
-            <span class="o">}</span>
-            <span class="n">dexFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fileDir</span><span class="o">.</span><span class="na">getAbsoluteFile</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">strFileName</span><span class="o">);</span>
-            <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">dexFile</span><span class="o">);</span>
-            <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">0x1000</span><span class="o">];</span>
-            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-                <span class="kt">int</span> <span class="n">bytes</span> <span class="o">=</span> <span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">);</span>
-                <span class="k">if</span> <span class="o">(</span><span class="n">bytes</span> <span class="o">&lt;=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="k">break</span><span class="o">;</span>
-                <span class="o">}</span>
-                <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">bytes</span><span class="o">);</span>
-            <span class="o">}</span>
-
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">is</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">try</span> <span class="o">{</span>
-                    <span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">fos</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">try</span> <span class="o">{</span>
-                    <span class="n">fos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-
-            <span class="k">return</span> <span class="n">dexFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">org.example.luopack</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">android.app.Application</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">android.content.Context</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.FileOutputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.lang.reflect.Field</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">dalvik.system.DexClassLoader</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">myApp</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="n">Context</span> <span class="n">base</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="n">base</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">loadDex</span><span class="o">(</span><span class="n">base</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">loadDex</span><span class="o">(</span><span class="n">Context</span> <span class="n">base</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//释放Dex文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">String</span> <span class="n">dexFilePath</span> <span class="o">=</span> <span class="n">ReleaseFile</span><span class="o">(</span><span class="n">base</span><span class="o">,</span> <span class="s">&#34;classes.dex&#34;</span><span class="o">,</span> <span class="s">&#34;mydex&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">odexFilePath</span> <span class="o">=</span> <span class="n">createFolder</span><span class="o">(</span><span class="n">base</span><span class="o">,</span> <span class="s">&#34;myodex&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">DexClassLoader</span> <span class="n">classLoader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DexClassLoader</span><span class="o">(</span><span class="n">dexFilePath</span><span class="o">,</span> <span class="n">odexFilePath</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">getApplicationInfo</span><span class="o">().</span><span class="na">nativeLibraryDir</span><span class="o">,</span> <span class="n">getClassLoader</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//getClassLoader(), 拿的是当前类加载器, 里面没有org.example.luosrc.MainActivity这个类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//上述新new的classLoader里面有org.example.luosrc.MainActivity这个类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//让Android操作系统使用上述新new的classLoader即可
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//反射替换classLoader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//getClassLoader(), F7进去查看在哪里拿的classLoader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//ContextImpl这个类中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Class</span> <span class="n">clsContextImpl</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;android.app.ContextImpl&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Field</span> <span class="n">mPackageInfo</span> <span class="o">=</span> <span class="n">clsContextImpl</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;mPackageInfo&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mPackageInfo</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Object</span> <span class="n">objLoadApk</span> <span class="o">=</span> <span class="n">mPackageInfo</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">getBaseContext</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Class</span> <span class="n">clsLoadApk</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;android.app.LoadedApk&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Field</span> <span class="n">mClassLoader</span> <span class="o">=</span> <span class="n">clsLoadApk</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;mClassLoader&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mClassLoader</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mClassLoader</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">objLoadApk</span><span class="o">,</span> <span class="n">classLoader</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="nf">createFolder</span><span class="o">(</span><span class="n">Context</span> <span class="n">base</span><span class="o">,</span> <span class="n">String</span> <span class="n">strAndroidFolder</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">File</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="na">getFilesDir</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">File</span> <span class="n">fileDir</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">dir</span><span class="o">.</span><span class="na">getAbsoluteFile</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">strAndroidFolder</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(!</span><span class="n">fileDir</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fileDir</span><span class="o">.</span><span class="na">mkdir</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">fileDir</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//将要释放的文件放到assets目录下
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">String</span> <span class="nf">ReleaseFile</span><span class="o">(</span><span class="n">Context</span> <span class="n">base</span><span class="o">,</span> <span class="n">String</span> <span class="n">strFileName</span><span class="o">,</span> <span class="n">String</span> <span class="n">strAndroidFolder</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">File</span> <span class="n">dexFile</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">is</span> <span class="o">=</span> <span class="n">getAssets</span><span class="o">().</span><span class="na">open</span><span class="o">(</span><span class="n">strFileName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">File</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="na">getFilesDir</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">File</span> <span class="n">fileDir</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">dir</span><span class="o">.</span><span class="na">getAbsoluteFile</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">strAndroidFolder</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(!</span><span class="n">fileDir</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">fileDir</span><span class="o">.</span><span class="na">mkdir</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dexFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fileDir</span><span class="o">.</span><span class="na">getAbsoluteFile</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">strFileName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">dexFile</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">0x1000</span><span class="o">];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">int</span> <span class="n">bytes</span> <span class="o">=</span> <span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">bytes</span> <span class="o">&lt;=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">bytes</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">is</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">fos</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">fos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">dexFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/dex/Dex_%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BDDex%E6%96%87%E4%BB%B6.7z" rel="">Dex_动态加载Dex文件.7z</a></p>
 <h3 id="odex">odex</h3>
@@ -1405,8 +1403,8 @@ LuoPack为壳程序,动态加载上述Dex文件.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">adb shell
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">adb shell
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="列出进程列表">列出进程列表</h5>
 <div class="highlight"><div class="chroma">
@@ -1414,8 +1412,8 @@ LuoPack为壳程序,动态加载上述Dex文件.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ps
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ps
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="查看模块列表">查看模块列表</h5>
 <p><img
@@ -1431,8 +1429,8 @@ LuoPack为壳程序,动态加载上述Dex文件.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cat proc/2979/maps
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cat proc/2979/maps
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1636,133 +1634,133 @@ LuoPack为壳程序,动态加载上述Dex文件.</p>
 </span><span class="lnt">126
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">//http://androidxref.com/5.0.0_r2/xref/libcore/dalvik/src/main/java/dalvik/system/DexClassLoader.java
-</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">DexClassLoader</span> <span class="n">extends</span> <span class="n">BaseDexClassLoader</span> <span class="p">{</span>
- <span class="k">public</span> <span class="nf">DexClassLoader</span><span class="p">(</span><span class="n">String</span> <span class="n">dexPath</span><span class="p">,</span> <span class="n">String</span> <span class="n">optimizedDirectory</span><span class="p">,</span>
-  <span class="n">String</span> <span class="n">libraryPath</span><span class="p">,</span> <span class="n">ClassLoader</span> <span class="n">parent</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">//①DexClassLoader.java 57行
-</span><span class="c1"></span>  <span class="n">super</span><span class="p">(</span><span class="n">dexPath</span><span class="p">,</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="n">optimizedDirectory</span><span class="p">),</span> <span class="n">libraryPath</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
- <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">class</span> <span class="nc">BaseDexClassLoader</span> <span class="n">extends</span> <span class="n">ClassLoader</span> <span class="p">{</span>
- <span class="k">private</span> <span class="k">final</span> <span class="n">DexPathList</span> <span class="n">pathList</span><span class="p">;</span>
-
- <span class="k">public</span> <span class="nf">BaseDexClassLoader</span><span class="p">(</span><span class="n">String</span> <span class="n">dexPath</span><span class="p">,</span> <span class="n">File</span> <span class="n">optimizedDirectory</span><span class="p">,</span>
-  <span class="n">String</span> <span class="n">libraryPath</span><span class="p">,</span> <span class="n">ClassLoader</span> <span class="n">parent</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">super</span><span class="p">(</span><span class="n">parent</span><span class="p">);</span>
-
-  <span class="c1">//②BaseDexClassLoader.java 48行
-</span><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="n">pathList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DexPathList</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">dexPath</span><span class="p">,</span> <span class="n">libraryPath</span><span class="p">,</span> <span class="n">optimizedDirectory</span><span class="p">);</span>
- <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">DexPathList</span> <span class="p">{</span>
- <span class="k">private</span> <span class="k">static</span> <span class="k">final</span> <span class="n">String</span> <span class="n">DEX_SUFFIX</span> <span class="o">=</span> <span class="s">&#34;.dex&#34;</span><span class="p">;</span>
- <span class="c1">//这里地方Element 是个内部类
-</span><span class="c1"></span> <span class="k">private</span> <span class="k">final</span> <span class="n">Element</span><span class="p">[]</span> <span class="n">dexElements</span><span class="p">;</span>
-
- <span class="k">public</span> <span class="nf">DexPathList</span><span class="p">(</span><span class="n">ClassLoader</span> <span class="n">definingContext</span><span class="p">,</span> <span class="n">String</span> <span class="n">dexPath</span><span class="p">,</span>
-  <span class="n">String</span> <span class="n">libraryPath</span><span class="p">,</span> <span class="n">File</span> <span class="n">optimizedDirectory</span><span class="p">)</span> <span class="p">{</span>
-
-  <span class="c1">//③DexPathList.java 109行
-</span><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="n">dexElements</span> <span class="o">=</span> <span class="n">makeDexElements</span><span class="p">(</span><span class="n">splitDexPath</span><span class="p">(</span><span class="n">dexPath</span><span class="p">),</span> <span class="n">optimizedDirectory</span><span class="p">,</span> <span class="n">suppressedExceptions</span><span class="p">);</span>
- <span class="p">}</span>
-
- <span class="k">private</span> <span class="k">static</span> <span class="n">Element</span><span class="p">[]</span> <span class="n">makeDexElements</span><span class="p">(</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">File</span><span class="o">&gt;</span> <span class="n">files</span><span class="p">,</span> <span class="n">File</span> <span class="n">optimizedDirectory</span><span class="p">,</span>
-  <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">IOException</span><span class="o">&gt;</span> <span class="n">suppressedExceptions</span><span class="p">)</span> <span class="p">{</span>
-
-  <span class="c1">//④DexPathList.java  223行
-</span><span class="c1"></span>  <span class="n">dex</span> <span class="o">=</span> <span class="n">loadDexFile</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">optimizedDirectory</span><span class="p">);</span>
-
-  <span class="k">if</span> <span class="p">((</span><span class="n">zip</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">dex</span> <span class="o">!=</span> <span class="n">null</span><span class="p">))</span> <span class="p">{</span>
-   <span class="c1">//⑫DexPathList.java  248行
-</span><span class="c1"></span>   <span class="c1">//这里在使用dex这个值
-</span><span class="c1"></span>   <span class="n">elements</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="k">new</span> <span class="n">Element</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="n">zip</span><span class="p">,</span> <span class="n">dex</span><span class="p">));</span>
-
-   <span class="c1">//DexPathList.java  252行
-</span><span class="c1"></span>   <span class="k">return</span> <span class="n">elements</span><span class="p">.</span><span class="n">toArray</span><span class="p">(</span><span class="k">new</span> <span class="n">Element</span><span class="p">[</span><span class="n">elements</span><span class="p">.</span><span class="n">size</span><span class="p">()]);</span>
-  <span class="p">}</span>
-
-  <span class="k">private</span> <span class="k">static</span> <span class="n">DexFile</span> <span class="nf">loadDexFile</span><span class="p">(</span><span class="n">File</span> <span class="n">file</span><span class="p">,</span> <span class="n">File</span> <span class="n">optimizedDirectory</span><span class="p">)</span>
-   <span class="k">throws</span> <span class="n">IOException</span> <span class="p">{</span>
-
-   <span class="c1">//⑤DexPathList.java 265行
-</span><span class="c1"></span>   <span class="k">return</span> <span class="n">DexFile</span><span class="p">.</span><span class="n">loadDex</span><span class="p">(</span><span class="n">file</span><span class="p">.</span><span class="n">getPath</span><span class="p">(),</span> <span class="n">optimizedPath</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="c1">//DexPathList.java 393行
-</span><span class="c1"></span>  <span class="k">static</span> <span class="k">class</span> <span class="nc">Element</span> <span class="p">{</span>
-   <span class="k">private</span> <span class="k">final</span> <span class="n">DexFile</span> <span class="n">dexFile</span><span class="p">;</span>
-
-   <span class="c1">//⑬DexPathList.java 402行
-</span><span class="c1"></span>   <span class="k">public</span> <span class="nf">Element</span><span class="p">(</span><span class="n">File</span> <span class="n">file</span><span class="p">,</span> <span class="n">boolean</span> <span class="n">isDirectory</span><span class="p">,</span> <span class="n">File</span> <span class="n">zip</span><span class="p">,</span> <span class="n">DexFile</span> <span class="n">dexFile</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="n">isDirectory</span> <span class="o">=</span> <span class="n">isDirectory</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="n">zip</span> <span class="o">=</span> <span class="n">zip</span><span class="p">;</span>
-    <span class="c1">//dexFile存在Element的成员dexFile中
-</span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="n">dexFile</span> <span class="o">=</span> <span class="n">dexFile</span><span class="p">;</span>
-   <span class="p">}</span>
-  <span class="p">}</span>
- <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">final</span> <span class="k">class</span> <span class="nc">DexFile</span> <span class="p">{</span>
- <span class="k">private</span> <span class="kt">long</span> <span class="n">mCookie</span><span class="p">;</span>
-
- <span class="k">static</span> <span class="k">public</span> <span class="n">DexFile</span> <span class="nf">loadDex</span><span class="p">(</span><span class="n">String</span> <span class="n">sourcePathName</span><span class="p">,</span> <span class="n">String</span> <span class="n">outputPathName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">)</span> <span class="p">{</span>
-
-  <span class="c1">//⑥DexFile.java 151行
-</span><span class="c1"></span>  <span class="k">return</span> <span class="k">new</span> <span class="n">DexFile</span><span class="p">(</span><span class="n">sourcePathName</span><span class="p">,</span> <span class="n">outputPathName</span><span class="p">,</span> <span class="n">flags</span><span class="p">);</span>
- <span class="p">}</span>
-
- <span class="k">private</span> <span class="nf">DexFile</span><span class="p">(</span><span class="n">String</span> <span class="n">sourceName</span><span class="p">,</span> <span class="n">String</span> <span class="n">outputName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">)</span> <span class="p">{</span>
-
-  <span class="c1">//⑦DexFile.java 111行
-</span><span class="c1"></span>  <span class="c1">//⑭DexFile中的成员mCookie等价于OpenMemory的返回值
-</span><span class="c1"></span>  <span class="n">mCookie</span> <span class="o">=</span> <span class="n">openDexFile</span><span class="p">(</span><span class="n">sourceName</span><span class="p">,</span> <span class="n">outputName</span><span class="p">,</span> <span class="n">flags</span><span class="p">);</span>
- <span class="p">}</span>
-
- <span class="k">private</span> <span class="k">static</span> <span class="kt">long</span> <span class="nf">openDexFile</span><span class="p">(</span><span class="n">String</span> <span class="n">sourceName</span><span class="p">,</span> <span class="n">String</span> <span class="n">outputName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">)</span> <span class="p">{</span>
-
-  <span class="c1">//⑧DexFile.java 295行
-</span><span class="c1"></span>  <span class="k">return</span> <span class="n">openDexFileNative</span><span class="p">(</span><span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="n">sourceName</span><span class="p">).</span><span class="n">getAbsolutePath</span><span class="p">(),</span>
-   <span class="p">(</span><span class="n">outputName</span> <span class="o">==</span> <span class="n">null</span><span class="p">)</span> <span class="o">?</span> <span class="nl">null</span> <span class="p">:</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="n">outputName</span><span class="p">).</span><span class="n">getAbsolutePath</span><span class="p">(),</span>
-   <span class="n">flags</span><span class="p">);</span>
- <span class="p">}</span>
-
- <span class="c1">//⑨DexFile.java 308行, 这里可以看到是个jni函数
-</span><span class="c1"></span> <span class="k">private</span> <span class="k">static</span> <span class="n">native</span> <span class="kt">long</span> <span class="nf">openDexFileNative</span><span class="p">(</span><span class="n">String</span> <span class="n">sourceName</span><span class="p">,</span> <span class="n">String</span> <span class="n">outputName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">);</span>
-<span class="p">}</span>
-
-
-<span class="c1">//dalvik_system_DexFile.cc 101行
-</span><span class="c1"></span><span class="k">static</span> <span class="n">jlong</span> <span class="nf">DexFile_openDexFileNative</span><span class="p">(</span><span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">jclass</span><span class="p">,</span> <span class="n">jstring</span> <span class="n">javaSourceName</span><span class="p">,</span> <span class="n">jstring</span> <span class="n">javaOutputName</span><span class="p">,</span> <span class="n">jint</span><span class="p">)</span> <span class="p">{</span>
-
- <span class="c1">//112行
-</span><span class="c1"></span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">DexFile</span><span class="o">*&gt;&gt;</span> <span class="n">dex_files</span><span class="p">(</span><span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">DexFile</span><span class="o">*&gt;</span><span class="p">());</span>
- <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">error_msgs</span><span class="p">;</span>
-
- <span class="c1">//⑩115行 这里可以看到关键在dex_files
-</span><span class="c1"></span> <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="n">linker</span><span class="o">-&gt;</span><span class="n">OpenDexFilesFromOat</span><span class="p">(</span><span class="n">sourceName</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">outputName</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">error_msgs</span><span class="p">,</span>
-  <span class="n">dex_files</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
-<span class="p">}</span>
-
-<span class="c1">//dex_file.h 
-</span><span class="c1"></span>   <span class="c1">// Opens .dex files found in the container, guessing the container format based on file extension.
-</span><span class="c1"></span><span class="k">static</span> <span class="kt">bool</span> <span class="nf">Open</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">filename</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">location</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span> <span class="n">error_msg</span><span class="p">,</span>
- <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">DexFile</span><span class="o">*&gt;*</span> <span class="n">dex_files</span><span class="p">);</span>
-
-<span class="c1">// Opens .dex file, backed by existing memory
-</span><span class="c1"></span><span class="k">static</span> <span class="k">const</span> <span class="n">DexFile</span><span class="o">*</span> <span class="nf">Open</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">base</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span>
- <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">location</span><span class="p">,</span>
- <span class="kt">uint32_t</span> <span class="n">location_checksum</span><span class="p">,</span>
- <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span> <span class="n">error_msg</span><span class="p">)</span> <span class="p">{</span>
-
- <span class="c1">//⑪dex_file.h 393行      
-</span><span class="c1"></span> <span class="k">return</span> <span class="n">OpenMemory</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">location_checksum</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">error_msg</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//http://androidxref.com/5.0.0_r2/xref/libcore/dalvik/src/main/java/dalvik/system/DexClassLoader.java
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">DexClassLoader</span> <span class="n">extends</span> <span class="n">BaseDexClassLoader</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">public</span> <span class="nf">DexClassLoader</span><span class="p">(</span><span class="n">String</span> <span class="n">dexPath</span><span class="p">,</span> <span class="n">String</span> <span class="n">optimizedDirectory</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">String</span> <span class="n">libraryPath</span><span class="p">,</span> <span class="n">ClassLoader</span> <span class="n">parent</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//①DexClassLoader.java 57行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">super</span><span class="p">(</span><span class="n">dexPath</span><span class="p">,</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="n">optimizedDirectory</span><span class="p">),</span> <span class="n">libraryPath</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">class</span> <span class="nc">BaseDexClassLoader</span> <span class="n">extends</span> <span class="n">ClassLoader</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">private</span> <span class="k">final</span> <span class="n">DexPathList</span> <span class="n">pathList</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">public</span> <span class="nf">BaseDexClassLoader</span><span class="p">(</span><span class="n">String</span> <span class="n">dexPath</span><span class="p">,</span> <span class="n">File</span> <span class="n">optimizedDirectory</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">String</span> <span class="n">libraryPath</span><span class="p">,</span> <span class="n">ClassLoader</span> <span class="n">parent</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">super</span><span class="p">(</span><span class="n">parent</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//②BaseDexClassLoader.java 48行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="n">pathList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DexPathList</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">dexPath</span><span class="p">,</span> <span class="n">libraryPath</span><span class="p">,</span> <span class="n">optimizedDirectory</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">DexPathList</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">private</span> <span class="k">static</span> <span class="k">final</span> <span class="n">String</span> <span class="n">DEX_SUFFIX</span> <span class="o">=</span> <span class="s">&#34;.dex&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="c1">//这里地方Element 是个内部类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="k">private</span> <span class="k">final</span> <span class="n">Element</span><span class="p">[]</span> <span class="n">dexElements</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">public</span> <span class="nf">DexPathList</span><span class="p">(</span><span class="n">ClassLoader</span> <span class="n">definingContext</span><span class="p">,</span> <span class="n">String</span> <span class="n">dexPath</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">String</span> <span class="n">libraryPath</span><span class="p">,</span> <span class="n">File</span> <span class="n">optimizedDirectory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//③DexPathList.java 109行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="n">dexElements</span> <span class="o">=</span> <span class="n">makeDexElements</span><span class="p">(</span><span class="n">splitDexPath</span><span class="p">(</span><span class="n">dexPath</span><span class="p">),</span> <span class="n">optimizedDirectory</span><span class="p">,</span> <span class="n">suppressedExceptions</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">private</span> <span class="k">static</span> <span class="n">Element</span><span class="p">[]</span> <span class="n">makeDexElements</span><span class="p">(</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">File</span><span class="o">&gt;</span> <span class="n">files</span><span class="p">,</span> <span class="n">File</span> <span class="n">optimizedDirectory</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">IOException</span><span class="o">&gt;</span> <span class="n">suppressedExceptions</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//④DexPathList.java  223行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">dex</span> <span class="o">=</span> <span class="n">loadDexFile</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">optimizedDirectory</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">((</span><span class="n">zip</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">dex</span> <span class="o">!=</span> <span class="n">null</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">//⑫DexPathList.java  248行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">//这里在使用dex这个值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">elements</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="k">new</span> <span class="n">Element</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="n">zip</span><span class="p">,</span> <span class="n">dex</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="c1">//DexPathList.java  252行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="k">return</span> <span class="n">elements</span><span class="p">.</span><span class="n">toArray</span><span class="p">(</span><span class="k">new</span> <span class="n">Element</span><span class="p">[</span><span class="n">elements</span><span class="p">.</span><span class="n">size</span><span class="p">()]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">private</span> <span class="k">static</span> <span class="n">DexFile</span> <span class="nf">loadDexFile</span><span class="p">(</span><span class="n">File</span> <span class="n">file</span><span class="p">,</span> <span class="n">File</span> <span class="n">optimizedDirectory</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="k">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="c1">//⑤DexPathList.java 265行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="k">return</span> <span class="n">DexFile</span><span class="p">.</span><span class="n">loadDex</span><span class="p">(</span><span class="n">file</span><span class="p">.</span><span class="n">getPath</span><span class="p">(),</span> <span class="n">optimizedPath</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//DexPathList.java 393行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">static</span> <span class="k">class</span> <span class="nc">Element</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">private</span> <span class="k">final</span> <span class="n">DexFile</span> <span class="n">dexFile</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="c1">//⑬DexPathList.java 402行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="k">public</span> <span class="nf">Element</span><span class="p">(</span><span class="n">File</span> <span class="n">file</span><span class="p">,</span> <span class="n">boolean</span> <span class="n">isDirectory</span><span class="p">,</span> <span class="n">File</span> <span class="n">zip</span><span class="p">,</span> <span class="n">DexFile</span> <span class="n">dexFile</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">isDirectory</span> <span class="o">=</span> <span class="n">isDirectory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">zip</span> <span class="o">=</span> <span class="n">zip</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//dexFile存在Element的成员dexFile中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="n">dexFile</span> <span class="o">=</span> <span class="n">dexFile</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">final</span> <span class="k">class</span> <span class="nc">DexFile</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">private</span> <span class="kt">long</span> <span class="n">mCookie</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">static</span> <span class="k">public</span> <span class="n">DexFile</span> <span class="nf">loadDex</span><span class="p">(</span><span class="n">String</span> <span class="n">sourcePathName</span><span class="p">,</span> <span class="n">String</span> <span class="n">outputPathName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//⑥DexFile.java 151行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="k">new</span> <span class="n">DexFile</span><span class="p">(</span><span class="n">sourcePathName</span><span class="p">,</span> <span class="n">outputPathName</span><span class="p">,</span> <span class="n">flags</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">private</span> <span class="nf">DexFile</span><span class="p">(</span><span class="n">String</span> <span class="n">sourceName</span><span class="p">,</span> <span class="n">String</span> <span class="n">outputName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//⑦DexFile.java 111行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">//⑭DexFile中的成员mCookie等价于OpenMemory的返回值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">mCookie</span> <span class="o">=</span> <span class="n">openDexFile</span><span class="p">(</span><span class="n">sourceName</span><span class="p">,</span> <span class="n">outputName</span><span class="p">,</span> <span class="n">flags</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">private</span> <span class="k">static</span> <span class="kt">long</span> <span class="nf">openDexFile</span><span class="p">(</span><span class="n">String</span> <span class="n">sourceName</span><span class="p">,</span> <span class="n">String</span> <span class="n">outputName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//⑧DexFile.java 295行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="n">openDexFileNative</span><span class="p">(</span><span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="n">sourceName</span><span class="p">).</span><span class="n">getAbsolutePath</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">   <span class="p">(</span><span class="n">outputName</span> <span class="o">==</span> <span class="n">null</span><span class="p">)</span> <span class="o">?</span> <span class="nl">null</span> <span class="p">:</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="n">outputName</span><span class="p">).</span><span class="n">getAbsolutePath</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">   <span class="n">flags</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="c1">//⑨DexFile.java 308行, 这里可以看到是个jni函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="k">private</span> <span class="k">static</span> <span class="n">native</span> <span class="kt">long</span> <span class="nf">openDexFileNative</span><span class="p">(</span><span class="n">String</span> <span class="n">sourceName</span><span class="p">,</span> <span class="n">String</span> <span class="n">outputName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//dalvik_system_DexFile.cc 101行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="n">jlong</span> <span class="nf">DexFile_openDexFileNative</span><span class="p">(</span><span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">jclass</span><span class="p">,</span> <span class="n">jstring</span> <span class="n">javaSourceName</span><span class="p">,</span> <span class="n">jstring</span> <span class="n">javaOutputName</span><span class="p">,</span> <span class="n">jint</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="c1">//112行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">DexFile</span><span class="o">*&gt;&gt;</span> <span class="n">dex_files</span><span class="p">(</span><span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">DexFile</span><span class="o">*&gt;</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">error_msgs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="c1">//⑩115行 这里可以看到关键在dex_files
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="n">linker</span><span class="o">-&gt;</span><span class="n">OpenDexFilesFromOat</span><span class="p">(</span><span class="n">sourceName</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">outputName</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">error_msgs</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">dex_files</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//dex_file.h 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// Opens .dex files found in the container, guessing the container format based on file extension.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">bool</span> <span class="nf">Open</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">filename</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">location</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span> <span class="n">error_msg</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">DexFile</span><span class="o">*&gt;*</span> <span class="n">dex_files</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Opens .dex file, backed by existing memory
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="k">const</span> <span class="n">DexFile</span><span class="o">*</span> <span class="nf">Open</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">base</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">location</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">uint32_t</span> <span class="n">location_checksum</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span> <span class="n">error_msg</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="c1">//⑪dex_file.h 393行      
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="k">return</span> <span class="n">OpenMemory</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">location_checksum</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">error_msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Android虚拟机代码在libart.so这个库文件中,位于Android虚拟机 /sysytem/lib/libart.so
 我们可以在动态库中查看该导出函数,利用它来加载Dex文件.
@@ -1793,25 +1791,25 @@ LuoPack为壳程序,动态加载上述Dex文件.</p>
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="k">public</span> <span class="k">class</span> <span class="nc">DexClassLoader</span> <span class="n">extends</span> <span class="n">BaseDexClassLoader</span> <span class="p">{</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">class</span> <span class="nc">BaseDexClassLoader</span> <span class="n">extends</span> <span class="n">ClassLoader</span> <span class="p">{</span>
- <span class="k">private</span> <span class="k">final</span> <span class="n">DexPathList</span> <span class="n">pathList</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">DexPathList</span> <span class="p">{</span>
- <span class="k">private</span> <span class="k">final</span> <span class="n">Element</span><span class="p">[]</span> <span class="n">dexElements</span><span class="p">;</span>
-
- <span class="k">static</span> <span class="k">class</span> <span class="nc">Element</span> <span class="p">{</span>
-   <span class="k">private</span> <span class="k">final</span> <span class="n">DexFile</span> <span class="n">dexFile</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">final</span> <span class="k">class</span> <span class="nc">DexFile</span> <span class="p">{</span>
- <span class="k">private</span> <span class="kt">long</span> <span class="n">mCookie</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">class</span> <span class="nc">DexClassLoader</span> <span class="n">extends</span> <span class="n">BaseDexClassLoader</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">class</span> <span class="nc">BaseDexClassLoader</span> <span class="n">extends</span> <span class="n">ClassLoader</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">private</span> <span class="k">final</span> <span class="n">DexPathList</span> <span class="n">pathList</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">DexPathList</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">private</span> <span class="k">final</span> <span class="n">Element</span><span class="p">[]</span> <span class="n">dexElements</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">static</span> <span class="k">class</span> <span class="nc">Element</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">private</span> <span class="k">final</span> <span class="n">DexFile</span> <span class="n">dexFile</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">final</span> <span class="k">class</span> <span class="nc">DexFile</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">private</span> <span class="kt">long</span> <span class="n">mCookie</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="源码-3">源码</h4>
 <p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/dex/Dex_%E5%86%85%E5%AD%98%E5%8A%A0%E8%BD%BDDex%E6%96%87%E4%BB%B6.7z" rel="">Dex_内存加载Dex文件.7z</a></p>
@@ -1839,21 +1837,21 @@ LuoPack为壳程序,动态加载上述Dex文件.</p>
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">buildTypes</span> <span class="p">{</span>
-    <span class="n">debug</span> <span class="p">{</span>
-        <span class="n">minifyEnabled</span> <span class="nb">true</span>
-        <span class="n">ndk</span> <span class="p">{</span>
-            <span class="n">abiFilters</span> <span class="s">&#34;armeabi&#34;</span><span class="p">,</span><span class="s">&#34;armeabi-v7a&#34;</span><span class="p">,</span><span class="s">&#34;x86&#34;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="n">release</span> <span class="p">{</span>
-        <span class="n">minifyEnabled</span> <span class="nb">false</span>
-        <span class="n">proguardFiles</span> <span class="n">getDefaultProguardFile</span><span class="p">(</span><span class="err">&#39;</span><span class="n">proguard</span><span class="o">-</span><span class="n">android</span><span class="o">-</span><span class="n">optimize</span><span class="p">.</span><span class="n">txt</span><span class="err">&#39;</span><span class="p">),</span> <span class="err">&#39;</span><span class="n">proguard</span><span class="o">-</span><span class="n">rules</span><span class="p">.</span><span class="n">pro</span><span class="err">&#39;</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">buildTypes</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">debug</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">minifyEnabled</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ndk</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">abiFilters</span> <span class="s">&#34;armeabi&#34;</span><span class="p">,</span><span class="s">&#34;armeabi-v7a&#34;</span><span class="p">,</span><span class="s">&#34;x86&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">release</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">minifyEnabled</span> <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">        <span class="n">proguardFiles</span> <span class="n">getDefaultProguardFile</span><span class="p">(</span><span class="err">&#39;</span><span class="n">proguard</span><span class="o">-</span><span class="n">android</span><span class="o">-</span><span class="n">optimize</span><span class="p">.</span><span class="n">txt</span><span class="err">&#39;</span><span class="p">),</span> <span class="err">&#39;</span><span class="n">proguard</span><span class="o">-</span><span class="n">rules</span><span class="p">.</span><span class="n">pro</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"

@@ -170,21 +170,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">UpdateData</span><span class="p">(</span><span class="n">TRUE</span><span class="p">);</span>
-<span class="k">switch</span> <span class="p">(</span><span class="n">m_nGender</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
-    <span class="p">{</span>
-        <span class="n">AfxMessageBox</span><span class="p">(</span><span class="s">&#34;性别 男&#34;</span><span class="p">);</span>
-        <span class="k">break</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
-    <span class="p">{</span>
-        <span class="n">AfxMessageBox</span><span class="p">(</span><span class="s">&#34;性别 女&#34;</span><span class="p">);</span>
-        <span class="k">break</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">UpdateData</span><span class="p">(</span><span class="n">TRUE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">switch</span> <span class="p">(</span><span class="n">m_nGender</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AfxMessageBox</span><span class="p">(</span><span class="s">&#34;性别 男&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AfxMessageBox</span><span class="p">(</span><span class="s">&#34;性别 女&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="combo-box">Combo Box</h2>
 <p>绑定CComboBox这个类型.</p>
@@ -195,10 +195,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//可向组合框中的项添加4字节的附加数据
-</span><span class="c1"></span><span class="kt">int</span> <span class="nf">SetItemData</span><span class="p">(</span> <span class="kt">int</span> <span class="n">nIndex</span><span class="p">,</span> <span class="n">DWORD</span> <span class="n">dwItemData</span> <span class="p">);</span>
-<span class="n">DWORD</span> <span class="nf">GetItemData</span><span class="p">(</span> <span class="kt">int</span> <span class="n">nIndex</span> <span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//可向组合框中的项添加4字节的附加数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">SetItemData</span><span class="p">(</span> <span class="kt">int</span> <span class="n">nIndex</span><span class="p">,</span> <span class="n">DWORD</span> <span class="n">dwItemData</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">DWORD</span> <span class="nf">GetItemData</span><span class="p">(</span> <span class="kt">int</span> <span class="n">nIndex</span> <span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="初始化">初始化</h3>
 <div class="highlight"><div class="chroma">
@@ -215,17 +215,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//在OnInitDialog这个函数中写代码
-</span><span class="c1"></span><span class="kt">int</span> <span class="n">nItemIdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="c1">//向组合框中添加内容
-</span><span class="c1"></span><span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">AddString</span><span class="p">(</span><span class="s">&#34;河南&#34;</span><span class="p">);</span>
-<span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">SetItemData</span><span class="p">(</span><span class="n">nItemIdx</span><span class="o">++</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span><span class="c1">//为每一项添加4字节的附加数据
-</span><span class="c1"></span>
-<span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">AddString</span><span class="p">(</span><span class="s">&#34;湖南&#34;</span><span class="p">);</span>
-<span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">SetItemData</span><span class="p">(</span><span class="n">nItemIdx</span><span class="o">++</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
-<span class="c1">//设置组合框默认选项
-</span><span class="c1"></span><span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">SetCurSel</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//在OnInitDialog这个函数中写代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">nItemIdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//向组合框中添加内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">AddString</span><span class="p">(</span><span class="s">&#34;河南&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">SetItemData</span><span class="p">(</span><span class="n">nItemIdx</span><span class="o">++</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span><span class="c1">//为每一项添加4字节的附加数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">AddString</span><span class="p">(</span><span class="s">&#34;湖南&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">SetItemData</span><span class="p">(</span><span class="n">nItemIdx</span><span class="o">++</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//设置组合框默认选项
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">SetCurSel</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="获取组合框选中项的文本">获取组合框选中项的文本</h3>
 <div class="highlight"><div class="chroma">
@@ -239,14 +239,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//获取当前选中的索引值
-</span><span class="c1"></span><span class="kt">int</span> <span class="n">nIdx</span> <span class="o">=</span> <span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">GetCurSel</span><span class="p">();</span>
-<span class="c1">//通过索引值获取文本
-</span><span class="c1"></span><span class="n">CString</span> <span class="n">csBuf</span><span class="p">;</span>
-<span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">GetLBText</span><span class="p">(</span><span class="n">nIdx</span><span class="p">,</span> <span class="n">csBuf</span><span class="p">);</span>
-<span class="c1">//获取保存在此项的4字节附加数据
-</span><span class="c1"></span><span class="n">DWORD</span> <span class="n">dwExtraData</span> <span class="o">=</span> <span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">GetItemData</span><span class="p">(</span><span class="n">nIdx</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//获取当前选中的索引值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">nIdx</span> <span class="o">=</span> <span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">GetCurSel</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//通过索引值获取文本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CString</span> <span class="n">csBuf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">GetLBText</span><span class="p">(</span><span class="n">nIdx</span><span class="p">,</span> <span class="n">csBuf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//获取保存在此项的4字节附加数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">DWORD</span> <span class="n">dwExtraData</span> <span class="o">=</span> <span class="n">m_cmbLocation</span><span class="p">.</span><span class="n">GetItemData</span><span class="p">(</span><span class="n">nIdx</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="list-control">List Control</h2>
 <p>设置列表控件属性中的View为Report</p>
@@ -258,10 +258,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//可向列表控件的项添加4字节的附加数据
-</span><span class="c1"></span><span class="n">BOOL</span> <span class="nf">SetItemData</span><span class="p">(</span> <span class="kt">int</span> <span class="n">nItem</span><span class="p">,</span> <span class="n">DWORD</span> <span class="n">dwData</span> <span class="p">);</span>
-<span class="n">DWORD</span> <span class="nf">GetItemData</span><span class="p">(</span> <span class="kt">int</span> <span class="n">nItem</span> <span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//可向列表控件的项添加4字节的附加数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">BOOL</span> <span class="nf">SetItemData</span><span class="p">(</span> <span class="kt">int</span> <span class="n">nItem</span><span class="p">,</span> <span class="n">DWORD</span> <span class="n">dwData</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">DWORD</span> <span class="nf">GetItemData</span><span class="p">(</span> <span class="kt">int</span> <span class="n">nItem</span> <span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="初始化-1">初始化</h3>
 <div class="highlight"><div class="chroma">
@@ -297,36 +297,36 @@
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">//在OnInitDialog这个函数中写代码
-</span><span class="c1">//初始化列表控件
-</span><span class="c1">//插入表头
-</span><span class="c1"></span><span class="kt">int</span> <span class="n">nColIdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">InsertColumn</span><span class="p">(</span><span class="n">nColIdx</span><span class="o">++</span><span class="p">,</span> <span class="s">&#34;姓名&#34;</span><span class="p">);</span>
-<span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">InsertColumn</span><span class="p">(</span><span class="n">nColIdx</span><span class="o">++</span><span class="p">,</span> <span class="s">&#34;性别&#34;</span><span class="p">);</span>
-<span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">InsertColumn</span><span class="p">(</span><span class="n">nColIdx</span><span class="o">++</span><span class="p">,</span> <span class="s">&#34;爱好&#34;</span><span class="p">);</span>
-
-<span class="c1">//添加内容
-</span><span class="c1"></span><span class="kt">int</span> <span class="n">nItemIdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//列表控件的行
-</span><span class="c1">//插入第一项
-</span><span class="c1"></span><span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">InsertItem</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="s">&#34;Luo&#34;</span><span class="p">);</span>
-<span class="kt">int</span> <span class="n">nSubItemIdx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="c1">//列表控件的列
-</span><span class="c1"></span><span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="n">nSubItemIdx</span><span class="o">++</span><span class="p">,</span> <span class="s">&#34;男&#34;</span><span class="p">);</span>
-<span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="n">nSubItemIdx</span><span class="o">++</span><span class="p">,</span> <span class="s">&#34;敲代码&#34;</span><span class="p">);</span>
-
-<span class="c1">//设置整行选择
-</span><span class="c1"></span><span class="n">DWORD</span> <span class="n">dwStyle</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetExtendedStyle</span><span class="p">();</span>
-<span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">SetExtendedStyle</span><span class="p">(</span><span class="n">dwStyle</span> <span class="o">|</span> <span class="n">LVS_EX_FULLROWSELECT</span><span class="p">);</span>
-
-<span class="c1">//设置所有列根据内容自动调整宽度
-</span><span class="c1">//获取表头
-</span><span class="c1"></span><span class="n">CHeaderCtrl</span><span class="o">*</span> <span class="n">pHeaderCtrl</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetHeaderCtrl</span><span class="p">();</span>
-<span class="c1">//通过表头获取有多少列
-</span><span class="c1"></span><span class="kt">int</span> <span class="n">nColNum</span> <span class="o">=</span> <span class="n">pHeaderCtrl</span><span class="o">-&gt;</span><span class="n">GetItemCount</span><span class="p">();</span>
-<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nColNum</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
- <span class="p">{</span>
-     <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">SetColumnWidth</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">LVSCW_AUTOSIZE_USEHEADER</span><span class="p">);</span>
- <span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//在OnInitDialog这个函数中写代码
+</span></span></span><span class="line"><span class="cl"><span class="c1">//初始化列表控件
+</span></span></span><span class="line"><span class="cl"><span class="c1">//插入表头
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">nColIdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">InsertColumn</span><span class="p">(</span><span class="n">nColIdx</span><span class="o">++</span><span class="p">,</span> <span class="s">&#34;姓名&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">InsertColumn</span><span class="p">(</span><span class="n">nColIdx</span><span class="o">++</span><span class="p">,</span> <span class="s">&#34;性别&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">InsertColumn</span><span class="p">(</span><span class="n">nColIdx</span><span class="o">++</span><span class="p">,</span> <span class="s">&#34;爱好&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//添加内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">nItemIdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//列表控件的行
+</span></span></span><span class="line"><span class="cl"><span class="c1">//插入第一项
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">InsertItem</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="s">&#34;Luo&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">nSubItemIdx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="c1">//列表控件的列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="n">nSubItemIdx</span><span class="o">++</span><span class="p">,</span> <span class="s">&#34;男&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="n">nSubItemIdx</span><span class="o">++</span><span class="p">,</span> <span class="s">&#34;敲代码&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//设置整行选择
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">DWORD</span> <span class="n">dwStyle</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetExtendedStyle</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">SetExtendedStyle</span><span class="p">(</span><span class="n">dwStyle</span> <span class="o">|</span> <span class="n">LVS_EX_FULLROWSELECT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//设置所有列根据内容自动调整宽度
+</span></span></span><span class="line"><span class="cl"><span class="c1">//获取表头
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CHeaderCtrl</span><span class="o">*</span> <span class="n">pHeaderCtrl</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetHeaderCtrl</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//通过表头获取有多少列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">nColNum</span> <span class="o">=</span> <span class="n">pHeaderCtrl</span><span class="o">-&gt;</span><span class="n">GetItemCount</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nColNum</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">SetColumnWidth</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">LVSCW_AUTOSIZE_USEHEADER</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="获取列表控件选中项的文本">获取列表控件选中项的文本</h3>
 <div class="highlight"><div class="chroma">
@@ -339,13 +339,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">//获取当前选中的行的索引值
-</span><span class="c1"></span><span class="kt">int</span>  <span class="n">nItemIdx</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetSelectionMark</span><span class="p">();</span>
-<span class="c1">//获取选中行的文本信息
-</span><span class="c1"></span><span class="n">CString</span> <span class="n">csName</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-<span class="n">CString</span> <span class="n">csGender</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="n">CString</span> <span class="n">csLike</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//获取当前选中的行的索引值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span>  <span class="n">nItemIdx</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetSelectionMark</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//获取选中行的文本信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CString</span> <span class="n">csName</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">CString</span> <span class="n">csGender</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">CString</span> <span class="n">csLike</span> <span class="o">=</span> <span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">nItemIdx</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="右键弹出菜单">右键弹出菜单</h3>
 <h4 id="新建一个菜单资源">新建一个菜单资源</h4>
@@ -382,22 +382,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="n">LPNMITEMACTIVATE</span> <span class="n">pNMItemActivate</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">LPNMITEMACTIVATE</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pNMHDR</span><span class="p">);</span>
-<span class="c1">// TODO:  在此添加控件通知处理程序代码
-</span><span class="c1"></span><span class="o">*</span><span class="n">pResult</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-<span class="c1">//坐标转换
-</span><span class="c1"></span><span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">ClientToScreen</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pNMItemActivate</span><span class="o">-&gt;</span><span class="n">ptAction</span><span class="p">);</span>
-
-<span class="c1">//弹出菜单
-</span><span class="c1"></span><span class="n">CMenu</span> <span class="n">cMn</span><span class="p">;</span>
-<span class="n">cMn</span><span class="p">.</span><span class="n">LoadMenu</span><span class="p">(</span><span class="n">IDR_MENU1</span><span class="p">);</span><span class="c1">//从资源加载菜单
-</span><span class="c1"></span><span class="n">CMenu</span><span class="o">*</span> <span class="n">pSubMenu</span> <span class="o">=</span> <span class="n">cMn</span><span class="p">.</span><span class="n">GetSubMenu</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="c1">//获取子菜单
-</span><span class="c1"></span><span class="n">pSubMenu</span><span class="o">-&gt;</span><span class="n">TrackPopupMenu</span><span class="p">(</span><span class="n">TPM_LEFTALIGN</span><span class="p">,</span>
-                         <span class="n">pNMItemActivate</span><span class="o">-&gt;</span><span class="n">ptAction</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
-                         <span class="n">pNMItemActivate</span><span class="o">-&gt;</span><span class="n">ptAction</span><span class="p">.</span><span class="n">y</span><span class="p">,</span>
-                         <span class="k">this</span><span class="p">);</span><span class="c1">//最后一个参数类型CWnd*,填写处理这一消息的窗口指针
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">LPNMITEMACTIVATE</span> <span class="n">pNMItemActivate</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">LPNMITEMACTIVATE</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pNMHDR</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// TODO:  在此添加控件通知处理程序代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">*</span><span class="n">pResult</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//坐标转换
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">m_LstCtrl</span><span class="p">.</span><span class="n">ClientToScreen</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pNMItemActivate</span><span class="o">-&gt;</span><span class="n">ptAction</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//弹出菜单
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CMenu</span> <span class="n">cMn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cMn</span><span class="p">.</span><span class="n">LoadMenu</span><span class="p">(</span><span class="n">IDR_MENU1</span><span class="p">);</span><span class="c1">//从资源加载菜单
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CMenu</span><span class="o">*</span> <span class="n">pSubMenu</span> <span class="o">=</span> <span class="n">cMn</span><span class="p">.</span><span class="n">GetSubMenu</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="c1">//获取子菜单
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pSubMenu</span><span class="o">-&gt;</span><span class="n">TrackPopupMenu</span><span class="p">(</span><span class="n">TPM_LEFTALIGN</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="n">pNMItemActivate</span><span class="o">-&gt;</span><span class="n">ptAction</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="n">pNMItemActivate</span><span class="o">-&gt;</span><span class="n">ptAction</span><span class="p">.</span><span class="n">y</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="k">this</span><span class="p">);</span><span class="c1">//最后一个参数类型CWnd*,填写处理这一消息的窗口指针
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="tree-control">Tree Control</h2>
 <p>绑定CTreeCtrl这个类型</p>
@@ -408,10 +408,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//可向树控件中的项添加4字节的附加数据
-</span><span class="c1"></span><span class="n">BOOL</span> <span class="nf">SetItemData</span><span class="p">(</span> <span class="n">HTREEITEM</span> <span class="n">hItem</span><span class="p">,</span> <span class="n">DWORD</span> <span class="n">dwData</span> <span class="p">);</span>
-<span class="n">DWORD</span> <span class="nf">GetItemData</span><span class="p">(</span> <span class="n">HTREEITEM</span> <span class="n">hItem</span> <span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//可向树控件中的项添加4字节的附加数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">BOOL</span> <span class="nf">SetItemData</span><span class="p">(</span> <span class="n">HTREEITEM</span> <span class="n">hItem</span><span class="p">,</span> <span class="n">DWORD</span> <span class="n">dwData</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">DWORD</span> <span class="nf">GetItemData</span><span class="p">(</span> <span class="n">HTREEITEM</span> <span class="n">hItem</span> <span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="设置风格">设置风格</h3>
 <div class="highlight"><div class="chroma">
@@ -428,17 +428,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">//获取树控件的句柄
-</span><span class="c1"></span><span class="n">HWND</span> <span class="n">hwndTree</span> <span class="o">=</span> <span class="n">GetDlgItem</span><span class="p">(</span><span class="n">m_hWnd</span><span class="p">,</span> <span class="n">IDC_TREE</span><span class="p">);</span>
-<span class="c1">//设置树控件的风格
-</span><span class="c1"></span><span class="n">DWORD</span> <span class="n">dwStyle</span> <span class="o">=</span> <span class="n">GetWindowLong</span><span class="p">(</span><span class="n">hwndTree</span><span class="p">,</span> <span class="n">GWL_STYLE</span><span class="p">);</span>
-<span class="n">dwStyle</span> <span class="o">=</span> <span class="n">dwStyle</span> <span class="o">|</span>
-         <span class="n">TVS_HASLINES</span> <span class="o">|</span>
-         <span class="n">TVS_LINESATROOT</span> <span class="o">|</span>
-         <span class="n">TVS_HASBUTTONS</span> <span class="o">|</span>
-         <span class="n">TVS_SHOWSELALWAYS</span><span class="p">;</span>
-<span class="n">SetWindowLong</span><span class="p">(</span><span class="n">hwndTree</span><span class="p">,</span> <span class="n">GWL_STYLE</span><span class="p">,</span> <span class="n">dwStyle</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//获取树控件的句柄
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">HWND</span> <span class="n">hwndTree</span> <span class="o">=</span> <span class="n">GetDlgItem</span><span class="p">(</span><span class="n">m_hWnd</span><span class="p">,</span> <span class="n">IDC_TREE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//设置树控件的风格
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">DWORD</span> <span class="n">dwStyle</span> <span class="o">=</span> <span class="n">GetWindowLong</span><span class="p">(</span><span class="n">hwndTree</span><span class="p">,</span> <span class="n">GWL_STYLE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">dwStyle</span> <span class="o">=</span> <span class="n">dwStyle</span> <span class="o">|</span>
+</span></span><span class="line"><span class="cl">         <span class="n">TVS_HASLINES</span> <span class="o">|</span>
+</span></span><span class="line"><span class="cl">         <span class="n">TVS_LINESATROOT</span> <span class="o">|</span>
+</span></span><span class="line"><span class="cl">         <span class="n">TVS_HASBUTTONS</span> <span class="o">|</span>
+</span></span><span class="line"><span class="cl">         <span class="n">TVS_SHOWSELALWAYS</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">SetWindowLong</span><span class="p">(</span><span class="n">hwndTree</span><span class="p">,</span> <span class="n">GWL_STYLE</span><span class="p">,</span> <span class="n">dwStyle</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="添加数据">添加数据</h3>
 <div class="highlight"><div class="chroma">
@@ -452,14 +452,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">HTREEITEM</span> <span class="nf">InsertItem</span><span class="p">(</span> <span class="n">LPTVINSERTSTRUCT</span> <span class="n">lpInsertStruct</span> <span class="p">);</span>
-
-<span class="n">HTREEITEM</span> <span class="nf">InsertItem</span><span class="p">(</span><span class="n">UINT</span> <span class="n">nMask</span><span class="p">,</span> <span class="n">LPCTSTR</span> <span class="n">lpszItem</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nImage</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nSelectedImage</span><span class="p">,</span> <span class="n">UINT</span> <span class="n">nState</span><span class="p">,</span> <span class="n">UINT</span> <span class="n">nStateMask</span><span class="p">,</span> <span class="n">LPARAM</span> <span class="n">lParam</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hParent</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hInsertAfter</span> <span class="p">);</span>
-
-<span class="n">HTREEITEM</span> <span class="nf">InsertItem</span><span class="p">(</span> <span class="n">LPCTSTR</span> <span class="n">lpszItem</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hParent</span> <span class="o">=</span> <span class="n">TVI_ROOT</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hInsertAfter</span> <span class="o">=</span> <span class="n">TVI_LAST</span> <span class="p">);</span>
-
-<span class="n">HTREEITEM</span> <span class="nf">InsertItem</span><span class="p">(</span> <span class="n">LPCTSTR</span> <span class="n">lpszItem</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nImage</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nSelectedImage</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hParent</span> <span class="o">=</span> <span class="n">TVI_ROOT</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hInsertAfter</span> <span class="o">=</span> <span class="n">TVI_LAST</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">HTREEITEM</span> <span class="nf">InsertItem</span><span class="p">(</span> <span class="n">LPTVINSERTSTRUCT</span> <span class="n">lpInsertStruct</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">HTREEITEM</span> <span class="nf">InsertItem</span><span class="p">(</span><span class="n">UINT</span> <span class="n">nMask</span><span class="p">,</span> <span class="n">LPCTSTR</span> <span class="n">lpszItem</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nImage</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nSelectedImage</span><span class="p">,</span> <span class="n">UINT</span> <span class="n">nState</span><span class="p">,</span> <span class="n">UINT</span> <span class="n">nStateMask</span><span class="p">,</span> <span class="n">LPARAM</span> <span class="n">lParam</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hParent</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hInsertAfter</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">HTREEITEM</span> <span class="nf">InsertItem</span><span class="p">(</span> <span class="n">LPCTSTR</span> <span class="n">lpszItem</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hParent</span> <span class="o">=</span> <span class="n">TVI_ROOT</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hInsertAfter</span> <span class="o">=</span> <span class="n">TVI_LAST</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">HTREEITEM</span> <span class="nf">InsertItem</span><span class="p">(</span> <span class="n">LPCTSTR</span> <span class="n">lpszItem</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nImage</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nSelectedImage</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hParent</span> <span class="o">=</span> <span class="n">TVI_ROOT</span><span class="p">,</span> <span class="n">HTREEITEM</span> <span class="n">hInsertAfter</span> <span class="o">=</span> <span class="n">TVI_LAST</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="获取选中节点">获取选中节点</h3>
 <div class="highlight"><div class="chroma">
@@ -467,8 +467,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">HTREEITEM</span> <span class="nf">GetSelectedItem</span><span class="p">(</span> <span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">HTREEITEM</span> <span class="nf">GetSelectedItem</span><span class="p">(</span> <span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
