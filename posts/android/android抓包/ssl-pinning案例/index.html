@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>SSL Pinning案例 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="SSL Pinning案例" />
+<meta property="og:description" content="SSL Pinning案例 案例Apk dida.apk 情景再现 测试抓包环境. PC端使用Charles,手机端使用Postern(Socks模式),PC端和手机端在" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-06-10T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SSL Pinning案例"/>
+<meta name="twitter:description" content="SSL Pinning案例 案例Apk dida.apk 情景再现 测试抓包环境. PC端使用Charles,手机端使用Postern(Socks模式),PC端和手机端在"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SSL Pinning案例",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E6%8A%93%E5%8C%85\/ssl-pinning%E6%A1%88%E4%BE%8B\/"
+        },"genre": "posts","keywords": "抓包","wordcount":  2384 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E6%8A%93%E5%8C%85\/ssl-pinning%E6%A1%88%E4%BE%8B\/","datePublished": "2022-06-10T00:00:00+00:00","dateModified": "2022-06-10T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">SSL Pinning案例</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android-%E6%8A%93%E5%8C%85/"><i class="far fa-folder fa-fw"></i>Android 抓包</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-10">2022-06-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2384 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ssl-pinning案例">SSL Pinning案例</a>
+      <ul>
+        <li><a href="#案例apk">案例Apk</a></li>
+        <li><a href="#情景再现">情景再现</a></li>
+        <li><a href="#解决方案">解决方案</a>
+          <ul>
+            <li><a href="#概述">概述</a></li>
+            <li><a href="#前人研究">前人研究</a>
+              <ul>
+                <li><a href="#objection">Objection</a></li>
+                <li><a href="#droidsslunpinning">DroidSSLUnpinning</a></li>
+                <li><a href="#okhttp-sslunpinning">okhttp-sslunpinning</a></li>
+                <li><a href="#结论">结论</a></li>
+              </ul>
+            </li>
+            <li><a href="#常规思路">常规思路</a></li>
+            <li><a href="#hook脚本">Hook脚本</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="ssl-pinning案例">SSL Pinning案例</h1>
+<h2 id="案例apk">案例Apk</h2>
+<p><a href="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/dida.apk" rel="">dida.apk</a></p>
+<h2 id="情景再现">情景再现</h2>
+<ol>
+<li>测试抓包环境.</li>
+</ol>
+<p>PC端使用Charles,手机端使用Postern(Socks模式),PC端和手机端在同一局域网环境下且Charles证书已安装到手机系统分区中,手机端使用浏览器访问百度进行测试.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%8a%93%e5%8c%85%e7%8e%af%e5%a2%83%e6%b5%8b%e8%af%95.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/%E6%8A%93%E5%8C%85%E7%8E%AF%E5%A2%83%E6%B5%8B%E8%AF%95.png, images/%e6%8a%93%e5%8c%85%e7%8e%af%e5%a2%83%e6%b5%8b%e8%af%95.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/%E6%8A%93%E5%8C%85%E7%8E%AF%E5%A2%83%E6%B5%8B%E8%AF%95.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/%E6%8A%93%E5%8C%85%E7%8E%AF%E5%A2%83%E6%B5%8B%E8%AF%95.png"
+        title="抓包环境测试" /></p>
+<ol start="2">
+<li>打开案例App,测试通过手机号注册发送验证码流程.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/SSLPinning%e5%a4%b1%e8%b4%a5%e6%a1%88%e4%be%8b.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/SSLPinning%E5%A4%B1%E8%B4%A5%E6%A1%88%E4%BE%8B.png, images/SSLPinning%e5%a4%b1%e8%b4%a5%e6%a1%88%e4%be%8b.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/SSLPinning%E5%A4%B1%E8%B4%A5%E6%A1%88%E4%BE%8B.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/SSLPinning%E5%A4%B1%E8%B4%A5%E6%A1%88%E4%BE%8B.png"
+        title="SSLPinning失败案例" /></p>
+<p>经过多次测试,发现某些网址的抓包结果总是提示&quot;Client closed the connection before a request was made. Possibly the SSL certificate was rejected.&quot;,也就说客户端主动停止与服务器的连接,App使用了证书绑定技术.</p>
+<h2 id="解决方案">解决方案</h2>
+<h3 id="概述">概述</h3>
+<p>由于上面这种方式对证书验证的代码是写在App内部,所以我们可以通过Hook的方式让执行证书绑定的函数失效.而Hook可行的前提是能够确定证书绑定的函数,此时需要对不同网络框架中证书绑定相关的代码有一定了解.例如,App使用okhttp3网络框架进行证书绑定,那么使用的证书绑定类总是CertificatePinner类,此时Hook的目标就是CertificatePinner类中的函数;App使用TrustManager类完成证书的绑定,那么Hook的目标就是TrustManager类中的证书绑定函数.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">OkHttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OkHttpClient</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//完成证书绑定
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">.</span><span class="na">certificatePinner</span><span class="o">(</span><span class="k">new</span> <span class="n">CertificatePinner</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;test.com&#34;</span><span class="o">,</span> <span class="s">&#34;sha512/14cf3DRF...&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">build</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="前人研究">前人研究</h3>
+<p>Android世界中有很多的网络框架,如果对每个网络框架都进行证书绑定函数的确定,工作量很大.但幸运的是,前人已经完成了很多种网络框架的证书绑定函数的收集工作,可供我们参考.</p>
+<h4 id="objection">Objection</h4>
+<p>考虑到App在启动之前就已经完成了证书绑定,所以我们首先要确保App进程完全关闭,然后利用Objection的-s/&ndash;start-command参数达到命令在应用启动之前就执行的效果.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">objection.exe -g cn.ticktick.task explore -s &#34;android sslpinning disable&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/ObjectionSSLPin%e5%a4%b1%e8%b4%a5.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/ObjectionSSLPin%E5%A4%B1%E8%B4%A5.png, images/ObjectionSSLPin%e5%a4%b1%e8%b4%a5.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/ObjectionSSLPin%E5%A4%B1%E8%B4%A5.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/ObjectionSSLPin%E5%A4%B1%E8%B4%A5.png"
+        title="ObjectionSSLPin失败" /></p>
+<p>从上面结果中可以看到依旧是失败,出现这个问题可能是Objection工具未集成足够多的网络框架证书绑定函数而造成的.</p>
+<h4 id="droidsslunpinning">DroidSSLUnpinning</h4>
+<p><a href="https://github.com/WooyunDota/DroidSSLUnpinning/blob/master/ObjectionUnpinningPlus/hooks.js" target="_blank" rel="noopener noreffer">https://github.com/WooyunDota/DroidSSLUnpinning/blob/master/ObjectionUnpinningPlus/hooks.js</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">frida -U -f cn.ticktick.task -l .\hooks.js --no-pause
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="okhttp-sslunpinning">okhttp-sslunpinning</h4>
+<p><a href="https://github.com/bxl0608/okhttp-sslunpinning" target="_blank" rel="noopener noreffer">https://github.com/bxl0608/okhttp-sslunpinning</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span><span class="lnt">260
+</span><span class="lnt">261
+</span><span class="lnt">262
+</span><span class="lnt">263
+</span><span class="lnt">264
+</span><span class="lnt">265
+</span><span class="lnt">266
+</span><span class="lnt">267
+</span><span class="lnt">268
+</span><span class="lnt">269
+</span><span class="lnt">270
+</span><span class="lnt">271
+</span><span class="lnt">272
+</span><span class="lnt">273
+</span><span class="lnt">274
+</span><span class="lnt">275
+</span><span class="lnt">276
+</span><span class="lnt">277
+</span><span class="lnt">278
+</span><span class="lnt">279
+</span><span class="lnt">280
+</span><span class="lnt">281
+</span><span class="lnt">282
+</span><span class="lnt">283
+</span><span class="lnt">284
+</span><span class="lnt">285
+</span><span class="lnt">286
+</span><span class="lnt">287
+</span><span class="lnt">288
+</span><span class="lnt">289
+</span><span class="lnt">290
+</span><span class="lnt">291
+</span><span class="lnt">292
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">classesNames</span> <span class="p">=</span> <span class="nx">new</span> <span class="nf">Array</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">OkhttpClientClassName</span> <span class="p">=</span> <span class="s">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">CertificatePinnerClassName</span> <span class="p">=</span> <span class="s">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">prefix</span> <span class="p">=</span> <span class="s">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">function</span> <span class="nf">initConsole</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">Color</span> <span class="p">=</span> <span class="p">{</span><span class="nx">RESET</span><span class="p">:</span> <span class="s">&#34;\x1b[39;49;00m&#34;</span><span class="p">,</span> <span class="nx">Black</span><span class="p">:</span> <span class="s">&#34;0;01&#34;</span><span class="p">,</span> <span class="nx">Blue</span><span class="p">:</span> <span class="s">&#34;4;01&#34;</span><span class="p">,</span> <span class="nx">Cyan</span><span class="p">:</span> <span class="s">&#34;6;01&#34;</span><span class="p">,</span> <span class="nx">Gray</span><span class="p">:</span> <span class="s">&#34;7;11&#34;</span><span class="p">,</span> <span class="s">&#34;Green&#34;</span><span class="p">:</span> <span class="s">&#34;2;01&#34;</span><span class="p">,</span> <span class="nx">Purple</span><span class="p">:</span> <span class="s">&#34;5;01&#34;</span><span class="p">,</span> <span class="nx">Yellow</span><span class="p">:</span> <span class="s">&#34;3;01&#34;</span><span class="p">,</span>  <span class="nx">Red</span><span class="p">:</span> <span class="s">&#34;1;01&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">LightColor</span> <span class="p">=</span> <span class="p">{</span><span class="nx">RESET</span><span class="p">:</span> <span class="s">&#34;\x1b[39;49;00m&#34;</span><span class="p">,</span> <span class="nx">Black</span><span class="p">:</span> <span class="s">&#34;0;11&#34;</span><span class="p">,</span> <span class="nx">Blue</span><span class="p">:</span> <span class="s">&#34;4;11&#34;</span><span class="p">,</span> <span class="nx">Cyan</span><span class="p">:</span> <span class="s">&#34;6;11&#34;</span><span class="p">,</span> <span class="nx">Gray</span><span class="p">:</span> <span class="s">&#34;7;01&#34;</span><span class="p">,</span> <span class="s">&#34;Green&#34;</span><span class="p">:</span> <span class="s">&#34;2;11&#34;</span><span class="p">,</span> <span class="nx">Purple</span><span class="p">:</span> <span class="s">&#34;5;11&#34;</span><span class="p">,</span> <span class="nx">Red</span><span class="p">:</span> <span class="s">&#34;1;11&#34;</span><span class="p">,</span> <span class="nx">Yellow</span><span class="p">:</span> <span class="s">&#34;3;11&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">colorPrefix</span> <span class="p">=</span> <span class="err">&#39;\</span><span class="nx">x1b</span><span class="p">[</span><span class="mi">3</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">colorSuffix</span> <span class="p">=</span> <span class="sc">&#39;m&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Object</span><span class="p">.</span><span class="nf">keys</span><span class="p">(</span><span class="nx">Color</span><span class="p">).</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function</span><span class="p">(</span><span class="nx">c</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">c</span>  <span class="o">==</span> <span class="s">&#34;RESET&#34;</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">            <span class="k">return</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">[</span><span class="nx">c</span><span class="p">]</span> <span class="p">=</span> <span class="nf">function</span><span class="p">(</span><span class="nx">message</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">colorPrefix</span> <span class="o">+</span> <span class="nx">Color</span><span class="p">[</span><span class="nx">c</span><span class="p">]</span> <span class="o">+</span> <span class="nx">colorSuffix</span> <span class="o">+</span> <span class="nx">message</span> <span class="o">+</span> <span class="nx">Color</span><span class="p">.</span><span class="nx">RESET</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">[</span><span class="s">&#34;Light&#34;</span> <span class="o">+</span> <span class="nx">c</span><span class="p">]</span> <span class="p">=</span> <span class="nf">function</span><span class="p">(</span><span class="nx">message</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">colorPrefix</span> <span class="o">+</span> <span class="nx">LightColor</span><span class="p">[</span><span class="nx">c</span><span class="p">]</span> <span class="o">+</span> <span class="nx">colorSuffix</span> <span class="o">+</span> <span class="nx">message</span> <span class="o">+</span> <span class="nx">Color</span><span class="p">.</span><span class="nx">RESET</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">function</span> <span class="nf">loadOkhttpClient</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nf">perform</span><span class="p">(</span><span class="nf">function</span> <span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">try</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="s">&#34;okhttp3.OkHttpClient&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="nf">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//console.error(e)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">function</span> <span class="nf">loadClasses</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nf">perform</span><span class="p">(</span><span class="nf">function</span> <span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Java</span><span class="p">.</span><span class="nf">enumerateLoadedClasses</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onMatch</span><span class="p">:</span> <span class="nf">function</span><span class="p">(</span><span class="nx">clsName</span><span class="p">,</span> <span class="nx">handle</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">classesNames</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">clsName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onComplete</span><span class="p">:</span> <span class="nf">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nf">Green</span><span class="p">(</span><span class="s">&#34;Search Class Completed!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">function</span> <span class="nf">findOkhttpClass</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nf">perform</span><span class="p">(</span><span class="nf">function</span> <span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">Modifier</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="s">&#34;java.lang.reflect.Modifier&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">function</span> <span class="nf">isOkhttpClient</span><span class="p">(</span><span class="nx">clsName</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">clsName</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">).</span><span class="nx">length</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="nx">try</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">cls</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">clsName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">interfaces</span> <span class="p">=</span> <span class="nx">cls</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">getInterfaces</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">const</span> <span class="nx">count</span> <span class="p">=</span> <span class="nx">interfaces</span><span class="p">.</span><span class="nx">length</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="nx">count</span> <span class="p">&lt;</span> <span class="mi">2</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">flag</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">count</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">interface_</span> <span class="p">=</span> <span class="nx">interfaces</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">interface_name</span> <span class="p">=</span> <span class="nx">interface_</span><span class="p">.</span><span class="nf">getName</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span><span class="p">(</span><span class="nx">interface_name</span><span class="p">.</span><span class="nf">indexOf</span><span class="p">(</span><span class="s">&#34;Cloneable&#34;</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">flag</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">if</span><span class="p">(</span><span class="nx">interface_name</span><span class="p">.</span><span class="nf">indexOf</span><span class="p">(</span><span class="s">&#34;$&#34;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                            <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(!</span><span class="nx">flag</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="nx">cls</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">getDeclaredClasses</span><span class="p">().</span><span class="nx">length</span> <span class="p">&lt;</span> <span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="nx">cls</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">getSuperclass</span><span class="p">().</span><span class="nf">getName</span><span class="p">()</span> <span class="o">!=</span> <span class="err">&#39;</span><span class="nx">java</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">Object</span><span class="err">&#39;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">            <span class="p">}</span><span class="nf">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">function</span> <span class="nf">isCertificatePinner</span><span class="p">(</span><span class="nx">clsName</span><span class="p">,</span><span class="nx">prefix</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(!</span><span class="nx">clsName</span><span class="p">.</span><span class="nf">startsWith</span><span class="p">(</span><span class="nx">prefix</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">clsName</span><span class="p">.</span><span class="nf">indexOf</span><span class="p">(</span><span class="s">&#34;$&#34;</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">clsName</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">).</span><span class="nx">length</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">cls</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">clsName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">cls</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">isInterface</span><span class="p">()){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">cls</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">getInterfaces</span><span class="p">().</span><span class="nx">length</span> <span class="p">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">cls</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">getDeclaredClasses</span><span class="p">().</span><span class="nx">length</span> <span class="p">&lt;</span> <span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">cls</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">getSuperclass</span><span class="p">().</span><span class="nf">getName</span><span class="p">()</span> <span class="o">!=</span> <span class="s">&#34;java.lang.Object&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(!</span><span class="nx">Modifier</span><span class="p">.</span><span class="nf">isFinal</span><span class="p">(</span><span class="nx">cls</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">getModifiers</span><span class="p">())){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">flag</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">methods</span> <span class="p">=</span> <span class="nx">cls</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">getDeclaredMethods</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">methods</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">method</span> <span class="p">=</span> <span class="nx">methods</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="nx">method</span><span class="p">.</span><span class="nf">getParameterCount</span><span class="p">()</span> <span class="p">&lt;</span> <span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="nx">method</span><span class="p">.</span><span class="nf">getParameterTypes</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="nf">getName</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#34;java.security.cert.Certificate&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">flag</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">break</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(!</span><span class="nx">flag</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nx">flag</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">fields</span> <span class="p">=</span> <span class="nx">cls</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">getDeclaredFields</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">k</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">k</span> <span class="p">&lt;</span> <span class="nx">fields</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">field</span> <span class="p">=</span> <span class="nx">fields</span><span class="p">[</span><span class="nx">k</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nf">getType</span><span class="p">().</span><span class="nf">getName</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#34;java.util.Set&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">flag</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">break</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(!</span><span class="nx">flag</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">classesNames</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nf">isOkhttpClient</span><span class="p">(</span><span class="nx">classesNames</span><span class="p">[</span><span class="nx">i</span><span class="p">])){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">OkhttpClientClassName</span> <span class="p">=</span> <span class="nx">classesNames</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">prefix</span> <span class="p">=</span> <span class="nx">classesNames</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nf">split</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="sc">&#39;.&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">classesNames</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nf">isCertificatePinner</span><span class="p">(</span><span class="nx">classesNames</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span><span class="nx">prefix</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">CertificatePinnerClassName</span> <span class="p">=</span> <span class="nx">classesNames</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">           <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">printOut</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="nx">OkhttpClientClassName</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="o">||</span> <span class="nx">CertificatePinnerClassName</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="o">||</span> <span class="nx">prefix</span> <span class="o">==</span> <span class="s">&#34;&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">printOut</span> <span class="p">=</span> <span class="nx">console</span><span class="p">.</span><span class="nx">Red</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printOut</span><span class="p">(</span><span class="s">&#34;Can&#39;t find the okhttp class&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">printOut</span> <span class="p">=</span> <span class="nx">console</span><span class="p">.</span><span class="nx">Green</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printOut</span><span class="p">(</span><span class="s">&#34;Found Class: &#34;</span><span class="o">+</span><span class="nx">classesNames</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printOut</span><span class="p">(</span><span class="s">&#34;Okhttp&#39;s package prefix: &#34;</span><span class="o">+</span><span class="nx">prefix</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printOut</span><span class="p">(</span><span class="s">&#34;Found the OkhttpClient: &#34;</span><span class="o">+</span><span class="nx">OkhttpClientClassName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printOut</span><span class="p">(</span><span class="s">&#34;Found the OkhttpCertificatePinner: &#34;</span><span class="o">+</span><span class="nx">CertificatePinnerClassName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">function</span> <span class="nf">hook</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nf">perform</span><span class="p">(</span><span class="nf">function</span> <span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">Modifier</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="s">&#34;java.lang.reflect.Modifier&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//TrustAllManager
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">TrustAllManagerClass</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">registerClass</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">name</span><span class="p">:</span> <span class="s">&#34;TrustAllManager&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">implements</span><span class="p">:[</span><span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="s">&#34;javax.net.ssl.X509TrustManager&#34;</span><span class="p">)],</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">methods</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">checkClientTrusted</span><span class="p">(</span><span class="nx">chain</span><span class="p">,</span> <span class="nx">authType</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">console</span><span class="p">.</span><span class="nf">Cyan</span><span class="p">(</span><span class="s">&#34;checkClientTrusted Called!!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">checkServerTrusted</span><span class="p">(</span><span class="nx">chain</span><span class="p">,</span> <span class="nx">authType</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">console</span><span class="p">.</span><span class="nf">Cyan</span><span class="p">(</span><span class="s">&#34;checkServerTrusted Called!!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">getAcceptedIssuers</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">return</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">              <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">trustAllManagerHandle</span> <span class="p">=</span> <span class="nx">TrustAllManagerClass</span><span class="p">.</span><span class="err">$</span><span class="nb">new</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">sslContext</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="s">&#34;javax.net.ssl.SSLContext&#34;</span><span class="p">).</span><span class="nf">getInstance</span><span class="p">(</span><span class="s">&#34;TLS&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">sslContext</span><span class="p">.</span><span class="nf">init</span><span class="p">(</span><span class="nx">null</span><span class="p">,</span><span class="nx">Java</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="s">&#34;Ljavax.net.ssl.X509TrustManager;&#34;</span><span class="p">,[</span><span class="nx">trustAllManagerHandle</span><span class="p">]),</span><span class="nx">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">sslSocketFactory</span> <span class="p">=</span> <span class="nx">sslContext</span><span class="p">.</span><span class="nf">getSocketFactory</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//HostnameVerify
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">MyHostnameVerify</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">registerClass</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">name</span><span class="p">:</span> <span class="s">&#34;MyHostnameVerify&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">implements</span><span class="p">:[</span><span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="s">&#34;javax.net.ssl.HostnameVerifier&#34;</span><span class="p">)],</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">methods</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">verify</span><span class="p">(</span><span class="nx">hostname</span><span class="p">,</span> <span class="nx">session</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">hostname</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">myHostnameVerifyHandle</span> <span class="p">=</span> <span class="nx">MyHostnameVerify</span><span class="p">.</span><span class="err">$</span><span class="nb">new</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">internalOkhttpClientClasses</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">OkhttpClientClassName</span><span class="p">).</span><span class="nx">class</span><span class="p">.</span><span class="nf">getDeclaredClasses</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">internalOkhttpClientClasses</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function</span> <span class="p">(</span><span class="nx">internalClass</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">methods</span> <span class="p">=</span> <span class="nx">internalClass</span><span class="p">.</span><span class="nf">getDeclaredMethods</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">methods</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function</span><span class="p">(</span><span class="nx">method</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                 <span class="k">if</span><span class="p">(</span><span class="nx">method</span><span class="p">.</span><span class="nf">getParameterCount</span><span class="p">()</span> <span class="p">&lt;</span> <span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">firstParameterTypeName</span> <span class="p">=</span> <span class="nx">method</span><span class="p">.</span><span class="nf">getParameterTypes</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="nf">getName</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="nx">firstParameterTypeName</span> <span class="o">==</span> <span class="s">&#34;javax.net.ssl.SSLSocketFactory&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">Builder</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">internalClass</span><span class="p">.</span><span class="nf">getName</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">sslSocketFacotryMethodName</span>  <span class="p">=</span> <span class="nx">method</span><span class="p">.</span><span class="nf">getName</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">Builder</span><span class="p">[</span><span class="nx">sslSocketFacotryMethodName</span><span class="p">].</span><span class="nx">overloads</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function</span><span class="p">(</span><span class="nx">overload</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">overload</span><span class="p">.</span><span class="nx">implementation</span> <span class="p">=</span> <span class="nf">function</span><span class="p">(</span><span class="nx">SSLSocketFactory</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                            <span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">sslSocketFactory</span>
+</span></span><span class="line"><span class="cl">                            <span class="k">return</span> <span class="nx">this</span><span class="p">[</span><span class="nx">sslSocketFacotryMethodName</span><span class="p">].</span><span class="nf">apply</span><span class="p">(</span><span class="nx">this</span><span class="p">,</span><span class="nx">arguments</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">console</span><span class="p">.</span><span class="nf">Blue</span><span class="p">(</span><span class="nx">sslSocketFacotryMethodName</span><span class="o">+</span><span class="s">&#34;  Hooked!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">                    
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="nx">firstParameterTypeName</span> <span class="o">==</span> <span class="s">&#34;javax.net.ssl.HostnameVerifier&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">Builder</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">internalClass</span><span class="p">.</span><span class="nf">getName</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">hostnameVerifierMethodName</span> <span class="p">=</span> <span class="nx">method</span><span class="p">.</span><span class="nf">getName</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">Builder</span><span class="p">[</span><span class="nx">hostnameVerifierMethodName</span><span class="p">].</span><span class="nx">overloads</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function</span><span class="p">(</span><span class="nx">overload</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">overload</span><span class="p">.</span><span class="nx">implementation</span> <span class="p">=</span> <span class="nf">function</span><span class="p">(</span><span class="nx">hostnameVerifier</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                            <span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">myHostnameVerifyHandle</span>
+</span></span><span class="line"><span class="cl">                            <span class="k">return</span> <span class="nx">this</span><span class="p">[</span><span class="nx">hostnameVerifierMethodName</span><span class="p">].</span><span class="nf">apply</span><span class="p">(</span><span class="nx">this</span><span class="p">,</span><span class="nx">arguments</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">console</span><span class="p">.</span><span class="nf">Yellow</span><span class="p">(</span><span class="nx">hostnameVerifierMethodName</span><span class="o">+</span><span class="s">&#34;  Hooked!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="nx">firstParameterTypeName</span> <span class="o">==</span> <span class="nx">CertificatePinnerClassName</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">Builder</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">internalClass</span><span class="p">.</span><span class="nf">getName</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">certificatePinnerMethodName</span> <span class="p">=</span> <span class="nx">method</span><span class="p">.</span><span class="nf">getName</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="nx">Builder</span><span class="p">[</span><span class="nx">certificatePinnerMethodName</span><span class="p">].</span><span class="nx">overloads</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function</span><span class="p">(</span><span class="nx">overload</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">overload</span><span class="p">.</span><span class="nx">implementation</span> <span class="p">=</span> <span class="nf">function</span><span class="p">(</span><span class="nx">certificatePinner</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                            <span class="k">return</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">retain</span><span class="p">(</span><span class="nx">this</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">console</span><span class="p">.</span><span class="nf">Purple</span><span class="p">(</span><span class="nx">certificatePinnerMethodName</span><span class="o">+</span><span class="s">&#34;  Hooked!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">                   
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">CertificatePinnerClass</span> <span class="p">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">CertificatePinnerClassName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">methods</span> <span class="p">=</span> <span class="nx">CertificatePinnerClass</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">getDeclaredMethods</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">methods</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function</span> <span class="p">(</span><span class="nx">method</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">method</span><span class="p">.</span><span class="nf">getReturnType</span><span class="p">().</span><span class="nf">getName</span><span class="p">()</span> <span class="o">==</span> <span class="err">&#39;</span><span class="nx">void</span><span class="err">&#39;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">methodName</span> <span class="p">=</span> <span class="nx">method</span><span class="p">.</span><span class="nf">getName</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nf">Cyan</span><span class="p">(</span><span class="nx">methodName</span><span class="o">+</span><span class="s">&#34; Hooked!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">CertificatePinnerClass</span><span class="p">[</span><span class="nx">methodName</span><span class="p">].</span><span class="nx">overloads</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function</span> <span class="p">(</span><span class="nx">overload</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span><span class="p">(</span><span class="nx">overload</span><span class="p">.</span><span class="nx">returnType</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="sc">&#39;V&#39;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                        <span class="nx">overload</span><span class="p">.</span><span class="nx">implementation</span> <span class="p">=</span> <span class="nf">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">                            <span class="nx">console</span><span class="p">.</span><span class="nf">Cyan</span><span class="p">(</span><span class="s">&#34;certificatePinner check called!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">}</span>   
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">function</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">initConsole</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">loadOkhttpClient</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">loadClasses</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">findOkhttpClass</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">hook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nf">setImmediate</span><span class="p">(</span><span class="nx">main</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个主要针对被混淆过的okhttp框架,恰好测试的案例的okhttp框架被混淆过.</p>
+<ol>
+<li>先使用attach模式,找到经过混淆的OkhttpClient类.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%af%bb%e6%89%beokhttpClient.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/%E5%AF%BB%E6%89%BEokhttpClient.png, images/%e5%af%bb%e6%89%beokhttpClient.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/%E5%AF%BB%E6%89%BEokhttpClient.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/%E5%AF%BB%E6%89%BEokhttpClient.png"
+        title="寻找okhttpClient" /></p>
+<ol start="2">
+<li>修改loadOkhttpClient中加载的类为上述找到的经过混淆的类.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/loadOkhttpClient.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/loadOkhttpClient.png, images/loadOkhttpClient.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/loadOkhttpClient.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/loadOkhttpClient.png"
+        title="loadOkhttpClient" /></p>
+<ol start="3">
+<li>使用Frida进行Hook,以spawn模式来启动Apk即可.</li>
+</ol>
+<h4 id="结论">结论</h4>
+<p>经过测试,前两种方案对目前测试的案例是不行的,第3种方案可以.</p>
+<h3 id="常规思路">常规思路</h3>
+<p>在经过上述前人总结的2种方案都失败后,可以得到一个结论:App被混淆了.这种情况下,有两种思路可以借鉴:</p>
+<ol>
+<li>使用Objection对所有Http字符串相关类进行Hook,定位关键的证书绑定函数.</li>
+<li>考虑到App在验证证书时一定会打开证书文件判断是否是App自身信任的,因此一定会使用File类的构造函数打开证书文件获得文件句柄,故我们可以Hook File类的构造函数,即File$init函数.(推荐)</li>
+</ol>
+<p>这里我们使用第2种方案,确保App完全关闭,然后利用Objection完成注入.需要注意的是,在终端中&quot;$&ldquo;是特殊字符,需要进行转义.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">objection.exe -g cn.ticktick.task explore -s &#34;android hooking watch class_method java.io.File.&#39;$&#39;init --dump-args --dump-backtrace --dump-return&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>接下来以/system/etc/security/cacerts这个系统存放证书的路径为关键词在终端进行搜索,就会发现有一个栈的信息中存在非常明显的CertificatePinner.java文件名信息,因此可以判定函数z1.g.a()就是对应的完成证书绑定的函数.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/HookFile%e7%b1%bb%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/HookFile%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0.png, images/HookFile%e7%b1%bb%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/HookFile%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/HookFile%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0.png"
+        title="HookFile类的构造函数" /></p>
+<h3 id="hook脚本">Hook脚本</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">killCertificatePinner</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Beginning killCertificatePinner !...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;z1.g&#34;</span><span class="p">).</span><span class="nx">a</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span><span class="nx">list</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;called z1.g.a ~&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">killCertificatePinner</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">setImmediate</span><span class="p">(</span><span class="nx">main</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%bf%87SSLPinning.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/%E8%BF%87SSLPinning.png, images/%e8%bf%87SSLPinning.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/%E8%BF%87SSLPinning.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/images/%E8%BF%87SSLPinning.png"
+        title="过SSLPinning" /></p>
+<h2 id="参考链接">参考链接</h2>
+<p>&lt;安卓Frida逆向与抓包实战&gt;</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%8A%93%E5%8C%85/">抓包</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/" class="prev" rel="prev" title="AES"><i class="fas fa-angle-left fa-fw"></i>AES</a>
+            <a href="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/" class="next" rel="next" title="双向校验案例">双向校验案例<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>双向校验案例 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="双向校验案例" />
+<meta property="og:description" content="双向校验案例 案例Apk NCSearch.apk 服务端校验客户端 现象 配置好Charles抓包环境并完成浏览器百度访问测试. 对App进行抓包. 观察上述response" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-06-14T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="双向校验案例"/>
+<meta name="twitter:description" content="双向校验案例 案例Apk NCSearch.apk 服务端校验客户端 现象 配置好Charles抓包环境并完成浏览器百度访问测试. 对App进行抓包. 观察上述response"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "双向校验案例",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E6%8A%93%E5%8C%85\/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B\/"
+        },"genre": "posts","keywords": "抓包","wordcount":  3771 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E6%8A%93%E5%8C%85\/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B\/","datePublished": "2022-06-14T00:00:00+00:00","dateModified": "2022-06-14T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">双向校验案例</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android-%E6%8A%93%E5%8C%85/"><i class="far fa-folder fa-fw"></i>Android 抓包</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-14">2022-06-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3771 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#双向校验案例">双向校验案例</a>
+      <ul>
+        <li><a href="#案例apk">案例Apk</a></li>
+        <li><a href="#服务端校验客户端">服务端校验客户端</a>
+          <ul>
+            <li><a href="#现象">现象</a></li>
+            <li><a href="#寻找服务端信任证书">寻找服务端信任证书</a></li>
+            <li><a href="#导出证书">导出证书</a></li>
+            <li><a href="#charles导入证书">Charles导入证书</a></li>
+            <li><a href="#非标转端口添加">非标转端口添加</a></li>
+          </ul>
+        </li>
+        <li><a href="#客户端校验服务端">客户端校验服务端</a></li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="双向校验案例">双向校验案例</h1>
+<h2 id="案例apk">案例Apk</h2>
+<p><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/NCSearch.apk" rel="">NCSearch.apk</a></p>
+<h2 id="服务端校验客户端">服务端校验客户端</h2>
+<h3 id="现象">现象</h3>
+<ol>
+<li>配置好Charles抓包环境并完成浏览器百度访问测试.</li>
+<li>对App进行抓包.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%8d%e5%8a%a1%e7%ab%af%e6%a0%a1%e9%aa%8c%e5%ae%a2%e6%88%b7%e7%ab%af%e6%a0%87%e5%bf%97.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A0%A1%E9%AA%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A0%87%E5%BF%97.png, images/%e6%9c%8d%e5%8a%a1%e7%ab%af%e6%a0%a1%e9%aa%8c%e5%ae%a2%e6%88%b7%e7%ab%af%e6%a0%87%e5%bf%97.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A0%A1%E9%AA%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A0%87%E5%BF%97.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A0%A1%E9%AA%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A0%87%E5%BF%97.png"
+        title="服务端校验客户端标志" /></p>
+<p>观察上述response数据,发现有&quot;400 No required SSL certificate was sent&quot;提示信息,是说服务端未接收到所需要的SSL证书信息,也就是说服务端对客户端进行了证书校验.</p>
+<h3 id="寻找服务端信任证书">寻找服务端信任证书</h3>
+<p>当App未使用VPN代理时对服务器进行访问,服务器是能够正常返回数据的,说明App在与服务器进行通信的过程中是使用服务器端信任的证书与服务器进行数据交互的,因此服务器端信任的证书一定会在App发起通信之前从资源文件中加载进来,那么只需将Apk进行解包使用下述命令进行搜索.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//通常来搜索 .p12 .bks .truststore
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">tree</span> <span class="o">-</span><span class="n">NCfhl</span> <span class="o">|</span><span class="n">grep</span> <span class="o">-</span><span class="n">i</span> <span class="p">.</span><span class="n">p12</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当前也有一些App,会通过改名、加密等方式将证书隐藏起来,遇到这种情况,可以通过Hook的手段快速定位(这里可以参考下r0capture的代码).</p>
+<p><strong>需要注意的是</strong>,执行下述Hook代码前,需要先将手机中的VPN代理关掉.因为该App还有客户端校验服务端的代码.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">uuid</span><span class="p">(</span><span class="nx">len</span><span class="p">,</span> <span class="nx">radix</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">chars</span> <span class="o">=</span> <span class="s1">&#39;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">uuid</span> <span class="o">=</span> <span class="p">[],</span> <span class="nx">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">radix</span> <span class="o">=</span> <span class="nx">radix</span> <span class="o">||</span> <span class="nx">chars</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">len</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// Compact form
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="nx">uuid</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">chars</span><span class="p">[</span><span class="mi">0</span> <span class="o">|</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">radix</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// rfc4122, version 4 form
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kd">var</span> <span class="nx">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">      <span class="c1">// rfc4122 requires these characters
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">uuid</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="nx">uuid</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="nx">uuid</span><span class="p">[</span><span class="mi">18</span><span class="p">]</span> <span class="o">=</span> <span class="nx">uuid</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">uuid</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;4&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">      <span class="c1">// Fill in random data. At i==19 set the high bits of clock sequence as
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// per rfc4122, sec. 4.1.5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">36</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">uuid</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">r</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">|</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">16</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">uuid</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">chars</span><span class="p">[(</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">19</span><span class="p">)</span> <span class="o">?</span> <span class="p">(</span><span class="nx">r</span> <span class="o">&amp;</span> <span class="mh">0x3</span><span class="p">)</span> <span class="o">|</span> <span class="mh">0x8</span> <span class="o">:</span> <span class="nx">r</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">uuid</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">function</span> <span class="nx">storeP12</span><span class="p">(</span><span class="nx">pri</span><span class="p">,</span> <span class="nx">p7</span><span class="p">,</span> <span class="nx">p12Path</span><span class="p">,</span> <span class="nx">p12Password</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">X509Certificate</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;java.security.cert.X509Certificate&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">p7X509</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">cast</span><span class="p">(</span><span class="nx">p7</span><span class="p">,</span> <span class="nx">X509Certificate</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">chain</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">array</span><span class="p">(</span><span class="s2">&#34;java.security.cert.X509Certificate&#34;</span><span class="p">,</span> <span class="p">[</span><span class="nx">p7X509</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">ks</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;java.security.KeyStore&#34;</span><span class="p">).</span><span class="nx">getInstance</span><span class="p">(</span><span class="s2">&#34;PKCS12&#34;</span><span class="p">,</span> <span class="s2">&#34;BC&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">ks</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">ks</span><span class="p">.</span><span class="nx">setKeyEntry</span><span class="p">(</span><span class="s2">&#34;client&#34;</span><span class="p">,</span> <span class="nx">pri</span><span class="p">,</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">).</span><span class="nx">$new</span><span class="p">(</span><span class="nx">p12Password</span><span class="p">).</span><span class="nx">toCharArray</span><span class="p">(),</span> <span class="nx">chain</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="kd">var</span> <span class="nx">out</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;java.io.FileOutputStream&#34;</span><span class="p">).</span><span class="nx">$new</span><span class="p">(</span><span class="nx">p12Path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">ks</span><span class="p">.</span><span class="nx">store</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">).</span><span class="nx">$new</span><span class="p">(</span><span class="nx">p12Password</span><span class="p">).</span><span class="nx">toCharArray</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;dump success!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">exp</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">exp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">//在服务器校验客户端的情形下，帮助dump客户端证书，并保存为p12的格式，证书密码为LuoHun
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;java.security.KeyStore$PrivateKeyEntry&#34;</span><span class="p">).</span><span class="nx">getPrivateKey</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getPrivateKey</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">packageName</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;android.app.ActivityThread&#34;</span><span class="p">).</span><span class="nx">currentApplication</span><span class="p">().</span><span class="nx">getApplicationContext</span><span class="p">().</span><span class="nx">getPackageName</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">storeP12</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getPrivateKey</span><span class="p">(),</span> <span class="k">this</span><span class="p">.</span><span class="nx">getCertificate</span><span class="p">(),</span> <span class="s1">&#39;/sdcard/Download/&#39;</span> <span class="o">+</span> <span class="nx">packageName</span> <span class="o">+</span> <span class="nx">uuid</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.p12&#39;</span><span class="p">,</span> <span class="s1">&#39;LuoHun&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;java.security.KeyStore$PrivateKeyEntry&#34;</span><span class="p">).</span><span class="nx">getCertificateChain</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getCertificateChain</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">packageName</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;android.app.ActivityThread&#34;</span><span class="p">).</span><span class="nx">currentApplication</span><span class="p">().</span><span class="nx">getApplicationContext</span><span class="p">().</span><span class="nx">getPackageName</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">storeP12</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getPrivateKey</span><span class="p">(),</span> <span class="k">this</span><span class="p">.</span><span class="nx">getCertificate</span><span class="p">(),</span> <span class="s1">&#39;/sdcard/Download/&#39;</span> <span class="o">+</span> <span class="nx">packageName</span> <span class="o">+</span> <span class="nx">uuid</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.p12&#39;</span><span class="p">,</span> <span class="s1">&#39;LuoHun&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">setImmediate</span><span class="p">(</span><span class="nx">main</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%af%81%e4%b9%a6Dump.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E8%AF%81%E4%B9%A6Dump.png, images/%e8%af%81%e4%b9%a6Dump.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E8%AF%81%E4%B9%A6Dump.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E8%AF%81%E4%B9%A6Dump.png"
+        title="证书Dump" /></p>
+<h3 id="导出证书">导出证书</h3>
+<p>当Frida Hook显示dump success!时,就去手机的/sdcard/Download/将证书导出.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">adb shell
+</span></span><span class="line"><span class="cl">su
+</span></span><span class="line"><span class="cl">cd /sdcard/Download/
+</span></span><span class="line"><span class="cl">mkdir luo
+</span></span><span class="line"><span class="cl">mv *.p12 luo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">adb pull /sdcard/Download/luo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="charles导入证书">Charles导入证书</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Charles%e5%af%bc%e5%85%a5%e8%af%81%e4%b9%a6.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A6.png, images/Charles%e5%af%bc%e5%85%a5%e8%af%81%e4%b9%a6.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A6.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A6.png"
+        title="Charles导入证书" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Charles%e5%af%bc%e5%85%a5%e8%af%81%e4%b9%a61.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A61.png, images/Charles%e5%af%bc%e5%85%a5%e8%af%81%e4%b9%a61.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A61.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/Charles%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A61.png"
+        title="Charles导入证书1" /></p>
+<p>Import P12证书时,选择上述导出到PC端上的任一证书文件即可,输入密码 LuoHun</p>
+<p>这样配置的话,就可将服务端信任的证书导入到Charles中,从而达到了&quot;欺骗&quot;服务器的目的.</p>
+<h3 id="非标转端口添加">非标转端口添加</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%9d%9e%e6%a0%87%e5%87%86%e7%ab%af%e5%8f%a3%e6%b7%bb%e5%8a%a0.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E9%9D%9E%E6%A0%87%E5%87%86%E7%AB%AF%E5%8F%A3%E6%B7%BB%E5%8A%A0.png, images/%e9%9d%9e%e6%a0%87%e5%87%86%e7%ab%af%e5%8f%a3%e6%b7%bb%e5%8a%a0.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E9%9D%9E%E6%A0%87%E5%87%86%E7%AB%AF%E5%8F%A3%E6%B7%BB%E5%8A%A0.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E9%9D%9E%E6%A0%87%E5%87%86%E7%AB%AF%E5%8F%A3%E6%B7%BB%E5%8A%A0.png"
+        title="非标准端口添加" /></p>
+<p>这里可以看到,该App使用了非标准端口,在Charles中依次点击 Proxy-&gt;SSL Proxying Settings,在弹出窗口中输入端口号即可.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%9d%9e%e6%a0%87%e5%87%86%e7%ab%af%e5%8f%a3%e6%b7%bb%e5%8a%a01.png"
+        data-srcset="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E9%9D%9E%E6%A0%87%E5%87%86%E7%AB%AF%E5%8F%A3%E6%B7%BB%E5%8A%A01.png, images/%e9%9d%9e%e6%a0%87%e5%87%86%e7%ab%af%e5%8f%a3%e6%b7%bb%e5%8a%a01.png 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E9%9D%9E%E6%A0%87%E5%87%86%E7%AB%AF%E5%8F%A3%E6%B7%BB%E5%8A%A01.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/images/%E9%9D%9E%E6%A0%87%E5%87%86%E7%AB%AF%E5%8F%A3%E6%B7%BB%E5%8A%A01.png"
+        title="非标准端口添加1" /></p>
+<h2 id="客户端校验服务端">客户端校验服务端</h2>
+<p>对于客户端校验服务端的Hook代码,可参考github仓库: <a href="https://github.com/CreditTone/hooker/blob/master/js/just_trust_me.js" target="_blank" rel="noopener noreffer">https://github.com/CreditTone/hooker/blob/master/js/just_trust_me.js</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span><span class="lnt">260
+</span><span class="lnt">261
+</span><span class="lnt">262
+</span><span class="lnt">263
+</span><span class="lnt">264
+</span><span class="lnt">265
+</span><span class="lnt">266
+</span><span class="lnt">267
+</span><span class="lnt">268
+</span><span class="lnt">269
+</span><span class="lnt">270
+</span><span class="lnt">271
+</span><span class="lnt">272
+</span><span class="lnt">273
+</span><span class="lnt">274
+</span><span class="lnt">275
+</span><span class="lnt">276
+</span><span class="lnt">277
+</span><span class="lnt">278
+</span><span class="lnt">279
+</span><span class="lnt">280
+</span><span class="lnt">281
+</span><span class="lnt">282
+</span><span class="lnt">283
+</span><span class="lnt">284
+</span><span class="lnt">285
+</span><span class="lnt">286
+</span><span class="lnt">287
+</span><span class="lnt">288
+</span><span class="lnt">289
+</span><span class="lnt">290
+</span><span class="lnt">291
+</span><span class="lnt">292
+</span><span class="lnt">293
+</span><span class="lnt">294
+</span><span class="lnt">295
+</span><span class="lnt">296
+</span><span class="lnt">297
+</span><span class="lnt">298
+</span><span class="lnt">299
+</span><span class="lnt">300
+</span><span class="lnt">301
+</span><span class="lnt">302
+</span><span class="lnt">303
+</span><span class="lnt">304
+</span><span class="lnt">305
+</span><span class="lnt">306
+</span><span class="lnt">307
+</span><span class="lnt">308
+</span><span class="lnt">309
+</span><span class="lnt">310
+</span><span class="lnt">311
+</span><span class="lnt">312
+</span><span class="lnt">313
+</span><span class="lnt">314
+</span><span class="lnt">315
+</span><span class="lnt">316
+</span><span class="lnt">317
+</span><span class="lnt">318
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">classExists</span><span class="p">(</span><span class="nx">className</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">exists</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">clz</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">className</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">exists</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//console.log(err);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">exists</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">loadDexfile</span><span class="p">(</span><span class="nx">dexfile</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Java</span><span class="p">.</span><span class="nx">openClassFile</span><span class="p">(</span><span class="nx">dexfile</span><span class="p">).</span><span class="nx">load</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//console.log(&#34;load &#34; + dexfile);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">loadedXRadar</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">loadXRadarDexfile</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">loadedXRadar</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">loadDexfile</span><span class="p">(</span><span class="s1">&#39;/data/local/tmp/radar.dex&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">loadXRadarDexfile</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hasTrustManagerImpl</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">classExists</span><span class="p">(</span><span class="s2">&#34;com.android.org.conscrypt.TrustManagerImpl&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">newArrayList</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">ArrayListClz</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;java.util.ArrayList&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">ArrayListClz</span><span class="p">.</span><span class="nx">$new</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">processOkHttp</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//知道你为什么有时候用JustTrustMe失败吗，因为app代码混淆了下面这些类你改到对应的类和方法就行啦
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">classExists</span><span class="p">(</span><span class="s2">&#34;com.squareup.okhttp.CertificatePinner&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">squareupOkhttp3CertificatePinnerClz</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;com.squareup.okhttp.CertificatePinner&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">squareupOkhttp3CertificatePinnerClzCheck</span> <span class="o">=</span> <span class="nx">squareupOkhttp3CertificatePinnerClz</span><span class="p">.</span><span class="nx">check</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;java.util.List&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">squareupOkhttp3CertificatePinnerClzCheck</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//什么都不做
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;com.squareup.okhttp.CertificatePinner.check(&#39;java.lang.String&#39;, &#39;java.util.List&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;没找到com.squareup.okhttp.CertificatePinner类，这是android系统自带的类没找到就算求了。不同系统不一样，不用找了!!!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">classExists</span><span class="p">(</span><span class="s2">&#34;okhttp3.CertificatePinner&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">okhttp3CertificatePinnerClz</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;okhttp3.CertificatePinner&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">okhttp3CertificatePinnerClzCheck</span> <span class="o">=</span> <span class="nx">okhttp3CertificatePinnerClz</span><span class="p">.</span><span class="nx">check</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;java.util.List&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">okhttp3CertificatePinnerClzCheck</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//什么都不做
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;okhttp3.CertificatePinner.check(&#39;java.lang.String&#39;, &#39;java.util.List&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;okhttp3.CertificatePinner的check方法可能被混淆了。你可以jadx反编译下还原回来！&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;没找到okhttp3.CertificatePinner类，可能被混淆了。你可以jadx反编译下还原回来！&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">classExists</span><span class="p">(</span><span class="s2">&#34;okhttp3.internal.tls.OkHostnameVerifier&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">OkHostnameVerifierClz</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;okhttp3.internal.tls.OkHostnameVerifier&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">OkHostnameVerifierClzVerify_5791</span> <span class="o">=</span> <span class="nx">OkHostnameVerifierClz</span><span class="p">.</span><span class="nx">verify</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;javax.net.ssl.SSLSession&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">OkHostnameVerifierClzVerify_5791</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//强制返回true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;okhttp3.internal.tls.OkHostnameVerifier.verify(&#39;java.lang.String&#39;, &#39;javax.net.ssl.SSLSession&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">};</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">OkHostnameVerifierVerify_8978</span> <span class="o">=</span> <span class="nx">OkHostnameVerifierClz</span><span class="p">.</span><span class="nx">verify</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;java.security.cert.X509Certificate&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">OkHostnameVerifierVerify_8978</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//强制返回true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;okhttp3.internal.tls.OkHostnameVerifier.verify(&#39;java.lang.String&#39;, &#39;java.security.cert.X509Certificate&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;okhttp3.internal.tls.OkHostnameVerifier的verify方法可能被混淆了。你可以jadx反编译下还原回来！&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;没找到okhttp3.internal.tls.OkHostnameVerifier类，可能被混淆了。你可以jadx反编译下还原回来！&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">classExists</span><span class="p">(</span><span class="s2">&#34;okhttp3.OkHttpClient$Builder&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">okhttp3_OkHttpClient_Builder_clz</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;okhttp3.OkHttpClient$Builder&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">okhttp3_OkHttpClient_Builder_clz_sslSocketFactory_one</span> <span class="o">=</span> <span class="nx">okhttp3_OkHttpClient_Builder_clz</span><span class="p">.</span><span class="nx">sslSocketFactory</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;javax.net.ssl.SSLSocketFactory&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">okhttp3_OkHttpClient_Builder_clz_sslSocketFactory_one</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sSLSocketFactory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//把参数替换成EmptySSLFactory
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span> <span class="nx">okhttp3_OkHttpClient_Builder_clz_sslSocketFactory_one</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;gz.justtrustme.Helper&#34;</span><span class="p">).</span><span class="nx">getEmptySSLFactory</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">};</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">okhttp3_OkHttpClient_Builder_clz_sslSocketFactory_two</span> <span class="o">=</span> <span class="nx">okhttp3_OkHttpClient_Builder_clz</span><span class="p">.</span><span class="nx">sslSocketFactory</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;javax.net.ssl.SSLSocketFactory&#39;</span><span class="p">,</span> <span class="s1">&#39;javax.net.ssl.X509TrustManager&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">okhttp3_OkHttpClient_Builder_clz_sslSocketFactory_two</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sSLSocketFactory</span><span class="p">,</span> <span class="nx">x509TrustManager</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//把参数替换成EmptySSLFactory
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span> <span class="nx">okhttp3_OkHttpClient_Builder_clz_sslSocketFactory_two</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;gz.justtrustme.Helper&#34;</span><span class="p">).</span><span class="nx">getEmptySSLFactory</span><span class="p">(),</span> <span class="nx">x509TrustManager</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;okhttp3.OkHttpClient$Builder的sslSocketFactory方法可能被混淆了。你可以jadx反编译下还原回来！&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;没找到okhttp3.OkHttpClient$Builder类，可能被混淆了。你可以jadx反编译下还原回来！&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">processXutils</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">classExists</span><span class="p">(</span><span class="s2">&#34;org.xutils.http.RequestParams&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">RequestParamsClass</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;org.xutils.http.RequestParams&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">RequestParamsClassSetSslSocketFactory</span> <span class="o">=</span> <span class="nx">RequestParamsClass</span><span class="p">.</span><span class="nx">setSslSocketFactory</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;javax.net.ssl.SSLSocketFactory&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">RequestParamsClassSetSslSocketFactory</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;org.xutils.http.RequestParams.setSslSocketFactory(&#39;javax.net.ssl.SSLSocketFactory&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">Helper</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;gz.justtrustme.Helper&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//替换javax.net.ssl.SSLSocketFactory参数为我们的EmptySSLFactory
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">RequestParamsClassSetSslSocketFactory</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">Helper</span><span class="p">.</span><span class="nx">getEmptySSLFactory</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">RequestParamsClassSetHostnameVerifier</span> <span class="o">=</span> <span class="nx">RequestParamsClass</span><span class="p">.</span><span class="nx">setHostnameVerifier</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;javax.net.ssl.HostnameVerifier&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">RequestParamsClassSetHostnameVerifier</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;org.xutils.http.RequestParams.setHostnameVerifier(&#39;javax.net.ssl.HostnameVerifier&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">ImSureItsLegitHostnameVerifier</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;gz.justtrustme.ImSureItsLegitHostnameVerifier&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//替换javax.net.ssl.HostnameVerifier参数为我们的ImSureItsLegitHostnameVerifier
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">RequestParamsClassSetHostnameVerifier</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">ImSureItsLegitHostnameVerifier</span><span class="p">.</span><span class="nx">$new</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">processHttpClientAndroidLib</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">classExists</span><span class="p">(</span><span class="s2">&#34;ch.boye.httpclientandroidlib.conn.ssl.AbstractVerifier&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">AbstractVerifierClass</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;ch.boye.httpclientandroidlib.conn.ssl.AbstractVerifier&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">OkHostnameVerifierClzVerify_5791</span> <span class="o">=</span> <span class="nx">AbstractVerifierClass</span><span class="p">.</span><span class="nx">verify</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;[Ljava.lang.String;&#39;</span><span class="p">,</span> <span class="s1">&#39;[Ljava.lang.String;&#39;</span><span class="p">,</span> <span class="s1">&#39;boolean&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">OkHostnameVerifierClzVerify_5791</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">,</span> <span class="nx">v3</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//什么都不做
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ch.boye.httpclientandroidlib.conn.ssl.AbstractVerifier.verify(&#39;java.lang.String&#39;, &#39;[Ljava.lang.String;&#39;, &#39;[Ljava.lang.String;&#39;, &#39;boolean&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;没找到ch.boye.httpclientandroidlib.conn.ssl.AbstractVerifier类，但是这个类用的少。不用找了!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//这是hooker添加的hook点，原JustTrustMe中没有的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">processConscryptPlatform</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">classExists</span><span class="p">(</span><span class="s2">&#34;com.android.org.conscrypt.Platform&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">com_android_org_conscrypt_Platform_clz</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;com.android.org.conscrypt.Platform&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_9565</span> <span class="o">=</span> <span class="nx">com_android_org_conscrypt_Platform_clz</span><span class="p">.</span><span class="nx">checkServerTrusted</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;javax.net.ssl.X509TrustManager&#39;</span><span class="p">,</span> <span class="s1">&#39;[Ljava.security.cert.X509Certificate;&#39;</span><span class="p">,</span> <span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;com.android.org.conscrypt.ConscryptEngine&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_9565</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">,</span> <span class="nx">v3</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//什么都不做
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6928</span> <span class="o">=</span> <span class="nx">com_android_org_conscrypt_Platform_clz</span><span class="p">.</span><span class="nx">checkServerTrusted</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;javax.net.ssl.X509TrustManager&#39;</span><span class="p">,</span> <span class="s1">&#39;[Ljava.security.cert.X509Certificate;&#39;</span><span class="p">,</span> <span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;com.android.org.conscrypt.AbstractConscryptSocket&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6928</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">,</span> <span class="nx">v3</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//什么都不做
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//这是hooker添加的hook点，原JustTrustMe中没有的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">processPinningTrustManager</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">classExists</span><span class="p">(</span><span class="s2">&#34;appcelerator.https.PinningTrustManager&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">pinningTrustManagerClass</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;appcelerator.https.PinningTrustManager&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">pinningTrustManagerClass_checkServerTrusted</span> <span class="o">=</span> <span class="nx">pinningTrustManagerClass</span><span class="p">.</span><span class="nx">checkServerTrusted</span><span class="p">.</span><span class="nx">overload</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">pinningTrustManagerClass_checkServerTrusted</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//什么都不做
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">Helper</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;gz.justtrustme.Helper&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">DefaultHttpClientClass</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;org.apache.http.impl.client.DefaultHttpClient&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//被强奸的构造方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">DefaultHttpClientClassRapeConstructor</span> <span class="o">=</span> <span class="nx">DefaultHttpClientClass</span><span class="p">.</span><span class="nx">$init</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;org.apache.http.conn.ClientConnectionManager&#39;</span><span class="p">,</span> <span class="s1">&#39;org.apache.http.params.HttpParams&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">DefaultHttpClientClassRapeConstructor</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//被强奸的构造方法被调用的话，我们替换调ClientConnectionManager参数为我们的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">returnObj</span> <span class="o">=</span> <span class="nx">DefaultHttpClientClassRapeConstructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">Helper</span><span class="p">.</span><span class="nx">getCCM</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">),</span> <span class="nx">v1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;org.apache.http.impl.client.DefaultHttpClient.$init(&#39;org.apache.http.conn.ClientConnectionManager&#39;, &#39;org.apache.http.params.HttpParams&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">returnObj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">DefaultHttpClientClassInit_1602</span> <span class="o">=</span> <span class="nx">DefaultHttpClientClass</span><span class="p">.</span><span class="nx">$init</span><span class="p">.</span><span class="nx">overload</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">DefaultHttpClientClassInit_1602</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//使用DefaultHttpClientClassRapeConstructor强奸它
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">returnObj</span> <span class="o">=</span> <span class="nx">DefaultHttpClientClassRapeConstructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">Helper</span><span class="p">.</span><span class="nx">getSCCM</span><span class="p">(),</span> <span class="kc">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;org.apache.http.impl.client.DefaultHttpClient.$init() was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">returnObj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">DefaultHttpClientClassInit_1603</span> <span class="o">=</span> <span class="nx">DefaultHttpClientClass</span><span class="p">.</span><span class="nx">$init</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;org.apache.http.params.HttpParams&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">DefaultHttpClientClassInit_1603</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//使用DefaultHttpClientClassRapeConstructor强奸它
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">returnObj</span> <span class="o">=</span> <span class="nx">DefaultHttpClientClassRapeConstructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">Helper</span><span class="p">.</span><span class="nx">getSCCM</span><span class="p">(),</span> <span class="nx">v0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;org.apache.http.impl.client.DefaultHttpClient.$init(&#39;org.apache.http.params.HttpParams&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">returnObj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//以上DefaultHttpClient的三个构造方法逻辑全部被我们替换了
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">X509TrustManagerExtensionsClass</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;android.net.http.X509TrustManagerExtensions&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">X509TrustManagerExtensionsClassCheckServerTrusted</span> <span class="o">=</span> <span class="nx">X509TrustManagerExtensionsClass</span><span class="p">.</span><span class="nx">checkServerTrusted</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;[Ljava.security.cert.X509Certificate;&#39;</span><span class="p">,</span> <span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;java.lang.String&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">X509TrustManagerExtensionsClassCheckServerTrusted</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">certsArr</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;android.net.http.X509TrustManagerExtensions.checkServerTrusted(&#39;[Ljava.security.cert.X509Certificate;&#39;, &#39;java.lang.String&#39;, &#39;java.lang.String&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;java.util.Arrays$ArrayList&#39;</span><span class="p">).</span><span class="nx">$new</span><span class="p">(</span><span class="nx">certsArr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">NetworkSecurityTrustManagerClass</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;android.security.net.config.NetworkSecurityTrustManager&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">NetworkSecurityTrustManagerClassCheckPins</span> <span class="o">=</span> <span class="nx">NetworkSecurityTrustManagerClass</span><span class="p">.</span><span class="nx">checkPins</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;java.util.List&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">NetworkSecurityTrustManagerClassCheckPins</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//什么都不做
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;android.security.net.config.NetworkSecurityTrustManager.checkPins(&#39;java.util.List&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//替换trustmanagers参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">SSLSocketFactory</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;org.apache.http.conn.ssl.SSLSocketFactory&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">SSLSocketFactoryRapeConstructor</span> <span class="o">=</span> <span class="nx">SSLSocketFactory</span><span class="p">.</span><span class="nx">$init</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;java.security.KeyStore&#39;</span><span class="p">,</span> <span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;java.security.KeyStore&#39;</span><span class="p">,</span> <span class="s1">&#39;java.security.SecureRandom&#39;</span><span class="p">,</span> <span class="s1">&#39;org.apache.http.conn.scheme.HostNameResolver&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">SSLSocketFactoryRapeConstructor</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">,</span> <span class="nx">v3</span><span class="p">,</span> <span class="nx">v4</span><span class="p">,</span> <span class="nx">v5</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">returnObj</span> <span class="o">=</span> <span class="nx">SSLSocketFactoryRapeConstructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">,</span> <span class="nx">v3</span><span class="p">,</span> <span class="nx">v4</span><span class="p">,</span> <span class="nx">v5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;org.apache.http.conn.ssl.SSLSocketFactory.$init(&#39;java.lang.String&#39;, &#39;java.security.KeyStore&#39;, &#39;java.lang.String&#39;, &#39;java.security.KeyStore&#39;, &#39;java.security.SecureRandom&#39;, &#39;org.apache.http.conn.scheme.HostNameResolver&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">Helper</span><span class="p">.</span><span class="nx">reInitSSLSocketFactory</span><span class="p">(</span><span class="nx">returnObj</span><span class="p">,</span> <span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">,</span> <span class="nx">v3</span><span class="p">,</span> <span class="nx">v4</span><span class="p">,</span> <span class="nx">v5</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;替换trustmanagers参数成功!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;替换trustmanagers参数失败!&#34;</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">returnObj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">SSLSocketFactoryGetSocketFactoryMethod</span> <span class="o">=</span> <span class="nx">SSLSocketFactory</span><span class="p">.</span><span class="nx">getSocketFactory</span><span class="p">.</span><span class="nx">overload</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">SSLSocketFactoryEmptyConstructor</span> <span class="o">=</span> <span class="nx">SSLSocketFactory</span><span class="p">.</span><span class="nx">$init</span><span class="p">.</span><span class="nx">overload</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">SSLSocketFactoryGetSocketFactoryMethod</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//强制用空的构造方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;org.apache.http.conn.ssl.SSLSocketFactory.getSocketFactory() was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">SSLSocketFactoryEmptyConstructor</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">SSLSocketFactoryIsSecure</span> <span class="o">=</span> <span class="nx">SSLSocketFactory</span><span class="p">.</span><span class="nx">isSecure</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;java.net.Socket&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">SSLSocketFactoryIsSecure</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//强制返回true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;org.apache.http.conn.ssl.SSLSocketFactory.isSecure(&#39;java.net.Socket&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">TrustManagerFactory</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;javax.net.ssl.TrustManagerFactory&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">TrustManagerFactoryGetTrustManagers</span> <span class="o">=</span> <span class="nx">TrustManagerFactory</span><span class="p">.</span><span class="nx">getTrustManagers</span><span class="p">.</span><span class="nx">overload</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">TrustManagerFactoryGetTrustManagers</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span> <span class="nx">TrustManagerFactoryGetTrustManagers</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//替换getTrustManagers方法逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;javax.net.ssl.TrustManagerFactory.getTrustManagers() was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">Helper</span><span class="p">.</span><span class="nx">replaceGetTrustManagers</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">ret</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">HttpsURLConnection</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;javax.net.ssl.HttpsURLConnection&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">HttpsURLConnectionSetDefaultHostnameVerifier</span> <span class="o">=</span> <span class="nx">HttpsURLConnection</span><span class="p">.</span><span class="nx">setDefaultHostnameVerifier</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;javax.net.ssl.HostnameVerifier&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">HttpsURLConnectionSetDefaultHostnameVerifier</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//什么都不做
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(&#39;javax.net.ssl.HostnameVerifier&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">HttpsURLConnectionSetHostnameVerifier</span> <span class="o">=</span> <span class="nx">HttpsURLConnection</span><span class="p">.</span><span class="nx">setHostnameVerifier</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;javax.net.ssl.HostnameVerifier&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">HttpsURLConnectionSetHostnameVerifier</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//什么都不做
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;javax.net.ssl.HttpsURLConnection.setHostnameVerifier(&#39;javax.net.ssl.HostnameVerifier&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">HttpsURLConnectionSetSSLSocketFactory</span> <span class="o">=</span> <span class="nx">HttpsURLConnection</span><span class="p">.</span><span class="nx">setSSLSocketFactory</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;javax.net.ssl.SSLSocketFactory&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">HttpsURLConnectionSetSSLSocketFactory</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//什么都不做
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;javax.net.ssl.SSLSocketFactory.setSSLSocketFactory(&#39;javax.net.ssl.SSLSocketFactory&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">SSLContextClz</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;javax.net.ssl.SSLContext&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">SSLContextClzInit</span> <span class="o">=</span> <span class="nx">SSLContextClz</span><span class="p">.</span><span class="nx">init</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;[Ljavax.net.ssl.KeyManager;&#39;</span><span class="p">,</span> <span class="s1">&#39;[Ljavax.net.ssl.TrustManager;&#39;</span><span class="p">,</span> <span class="s1">&#39;java.security.SecureRandom&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">SSLContextClzInit</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//将第二个参数强制替换为我们自己构造的不安全的TrustManagers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">SSLContextClzInit</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">v0</span><span class="p">,</span> <span class="nx">Helper</span><span class="p">.</span><span class="nx">getImSureTrustManagers</span><span class="p">(),</span> <span class="nx">v2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;javax.net.ssl.SSLContext.init(&#39;[Ljavax.net.ssl.KeyManager;&#39;, &#39;[Ljavax.net.ssl.TrustManager;&#39;, &#39;java.security.SecureRandom&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">ApplicationClz</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;android.app.Application&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">ApplicationClzAttach</span> <span class="o">=</span> <span class="nx">ApplicationClz</span><span class="p">.</span><span class="nx">attach</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;android.content.Context&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ApplicationClzAttach</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">ApplicationClzAttach</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//注意justTrustMe使用的是afterHookedMethod，所以我们用frida也必须在原方法call完之后执行我们的代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">classLoader</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">getClassLoader</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">hasTrustManagerImpl</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">TrustManagerImplClz</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;com.android.org.conscrypt.TrustManagerImpl&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">TrustManagerImplCheckServerTrusted_8813</span> <span class="o">=</span> <span class="nx">TrustManagerImplClz</span><span class="p">.</span><span class="nx">checkServerTrusted</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;[Ljava.security.cert.X509Certificate;&#39;</span><span class="p">,</span> <span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;java.lang.String&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">TrustManagerImplCheckServerTrusted_8813</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;com.android.org.conscrypt.TrustManagerImpl.checkServerTrusted(&#39;[Ljava.security.cert.X509Certificate;&#39;, &#39;java.lang.String&#39;, &#39;java.lang.String&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">newArrayList</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">TrustManagerImplCheckServerTrusted_7015</span> <span class="o">=</span> <span class="nx">TrustManagerImplClz</span><span class="p">.</span><span class="nx">checkServerTrusted</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;[Ljava.security.cert.X509Certificate;&#39;</span><span class="p">,</span> <span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;javax.net.ssl.SSLSession&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">TrustManagerImplCheckServerTrusted_7015</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;com.android.org.conscrypt.TrustManagerImpl.checkServerTrusted(&#39;[Ljava.security.cert.X509Certificate;&#39;, &#39;java.lang.String&#39;, &#39;javax.net.ssl.SSLSession&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">newArrayList</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">TrustManagerImplCheckTrusted_5587</span> <span class="o">=</span> <span class="nx">TrustManagerImplClz</span><span class="p">.</span><span class="nx">checkTrusted</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;[Ljava.security.cert.X509Certificate;&#39;</span><span class="p">,</span> <span class="s1">&#39;[B&#39;</span><span class="p">,</span> <span class="s1">&#39;[B&#39;</span><span class="p">,</span> <span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;boolean&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">TrustManagerImplCheckTrusted_5587</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">,</span> <span class="nx">v3</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;com.android.org.conscrypt.TrustManagerImpl.checkTrusted(&#39;[Ljava.security.cert.X509Certificate;&#39;, &#39;java.lang.String&#39;, &#39;java.lang.String&#39;, &#39;boolean&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">newArrayList</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">TrustManagerImplCheckTrusted_9999</span> <span class="o">=</span> <span class="nx">TrustManagerImplClz</span><span class="p">.</span><span class="nx">checkTrusted</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;[Ljava.security.cert.X509Certificate;&#39;</span><span class="p">,</span> <span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;javax.net.ssl.SSLSession&#39;</span><span class="p">,</span> <span class="s1">&#39;javax.net.ssl.SSLParameters&#39;</span><span class="p">,</span> <span class="s1">&#39;boolean&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">TrustManagerImplCheckTrusted_9999</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v0</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span><span class="p">,</span> <span class="nx">v3</span><span class="p">,</span> <span class="nx">v4</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;com.android.org.conscrypt.TrustManagerImpl.checkTrusted(&#39;[Ljava.security.cert.X509Certificate;&#39;, &#39;java.lang.String&#39;, &#39;javax.net.ssl.SSLSession&#39;, &#39;javax.net.ssl.SSLParameters&#39;, &#39;boolean&#39;) was hooked!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">newArrayList</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">processOkHttp</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">processXutils</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">processHttpClientAndroidLib</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//hooker添加的hook点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">processConscryptPlatform</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">processPinningTrustManager</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考链接">参考链接</h2>
+<p>&lt;安卓Frida逆向与抓包实战&gt;</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-14</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%8A%93%E5%8C%85/">抓包</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/" class="prev" rel="prev" title="SSL Pinning案例"><i class="fas fa-angle-left fa-fw"></i>SSL Pinning案例</a>
+            <a href="/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" class="next" rel="next" title="移动设备环境准备">移动设备环境准备<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
