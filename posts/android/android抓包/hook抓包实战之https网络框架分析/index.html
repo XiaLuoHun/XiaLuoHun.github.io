@@ -25,7 +25,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E6%8A%93%E5%8C%85\/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90\/"
-        },"genre": "posts","keywords": "抓包","wordcount":  7711 ,
+        },"genre": "posts","keywords": "抓包","wordcount":  7707 ,
         "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E6%8A%93%E5%8C%85\/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90\/","datePublished": "2022-05-29T00:00:00+00:00","dateModified": "2022-05-29T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "夏洛魂"},"author": {
@@ -102,7 +102,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Http(s)网络框架分析</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android-%E6%8A%93%E5%8C%85/"><i class="far fa-folder fa-fw"></i>Android 抓包</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-29">2022-05-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7711 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-29">2022-05-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7707 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -1722,7 +1722,7 @@
 <p>这里以上方使用的HttpURLConnectionDemo为例,开发Http的Socket&quot;自吐&quot;脚本.</p>
 <h4 id="前期研究-1">前期研究</h4>
 <ol>
-<li>点击App界面上的发送请求按钮后,使用Objection搜索内存中Socket相关的类.</li>
+<li>点击App界面上的发送请求按钮后,使用Objection搜索内存中Socket相关的类</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1743,7 +1743,7 @@
         alt="/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/images/%E6%90%9C%E7%B4%A2Socket%E7%9B%B8%E5%85%B3%E7%B1%BB.png"
         title="搜索Socket相关类" /></p>
 <ol start="2">
-<li>将搜索出来的结果复制到1.txt文件中,并在每一行前添加android hooking watch class.</li>
+<li>将搜索出来的结果复制到1.txt文件中,并在每一行前添加android hooking watch class</li>
 </ol>
 <p><img
         class="lazyload"
@@ -1754,7 +1754,7 @@
         alt="/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/images/%E7%B1%BB%E5%89%8D%E6%B7%BB%E5%8A%A0androidhooking.png"
         title="类前添加androidhooking" /></p>
 <ol start="3">
-<li>利用objection -c参数批量HookSocket相关类.(如果出现崩溃现象,可以删除或将导致崩溃的类移到另一个文件中待下次执行即可)</li>
+<li>利用objection -c参数批量Hook Socket相关类(如果出现崩溃现象,可以删除或将导致崩溃的类移到另一个文件中待下次执行即可)</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1773,7 +1773,7 @@
         alt="/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/images/objection%E6%89%B9%E9%87%8FhookSocket%E7%9B%B8%E5%85%B3%E7%B1%BB.png"
         title="objection批量hookSocket相关类" /></p>
 <ol start="4">
-<li>点击App界面上的&quot;发送请求&quot;按钮,会发现下图中的几个与Socket相关的类被调用了,如此可进一步缩小Socket相关类的范围.</li>
+<li>点击App界面上的&quot;发送请求&quot;按钮,会发现下图中的几个与Socket相关的类被调用了,如此可进一步缩小Socket相关类的范围</li>
 </ol>
 <p><img
         class="lazyload"
@@ -1784,7 +1784,7 @@
         alt="/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/images/%E7%BC%A9%E5%B0%8FSocket%E7%9B%B8%E5%85%B3%E7%B1%BB%E8%8C%83%E5%9B%B4.png"
         title="缩小Socket相关类范围" /></p>
 <ol start="5">
-<li>此时分别对上图中一些可疑的函数进行进一步的Hook并打印调用栈进行观察.这里观察到比较可以的函数是java.net.AbstractPlainSocketImpl.acquireFD</li>
+<li>此时分别对上图中一些可疑的函数进行进一步的Hook并打印调用栈进行观察.这里观察到比较可疑的函数是java.net.AbstractPlainSocketImpl.acquireFD</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1814,7 +1814,7 @@
         title="android源码socketWrite" /></p>
 <p>可以发现java.net.SocketOutputStream.socketWrite这个函数的第一个参数实际上就是网络传输的数据内容.</p>
 <ol start="6">
-<li>同样的在获取response相关函数上找到了java.net.SocketInputStream.read([B, int, int)函数.</li>
+<li>同样的在获取response相关函数上找到了java.net.SocketInputStream.read([B, int, int)函数</li>
 </ol>
 <h4 id="自吐脚本-1">&ldquo;自吐&quot;脚本</h4>
 <div class="highlight"><div class="chroma">
