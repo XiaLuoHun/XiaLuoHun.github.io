@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Android源码环境搭建 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="Android源码环境搭建" />
+<meta property="og:description" content="Android源码环境搭建 虚拟机配置 这里选择的虚拟机是Kali https://www.kali.org/get-kali/#kali-virtual-machines 基本配置 cpu这里给4核2线程,内存一般给12G(这里咱们内存大,直接给20" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-06-26T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Android源码环境搭建"/>
+<meta name="twitter:description" content="Android源码环境搭建 虚拟机配置 这里选择的虚拟机是Kali https://www.kali.org/get-kali/#kali-virtual-machines 基本配置 cpu这里给4核2线程,内存一般给12G(这里咱们内存大,直接给20"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Android源码环境搭建",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-rom\/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA\/"
+        },"genre": "posts","keywords": "Android源码","wordcount":  3092 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-rom\/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA\/","datePublished": "2022-06-26T00:00:00+00:00","dateModified": "2022-06-26T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Android源码环境搭建</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android-rom/"><i class="far fa-folder fa-fw"></i>Android Rom</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-26">2022-06-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3092 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#android源码环境搭建">Android源码环境搭建</a>
+      <ul>
+        <li><a href="#虚拟机配置">虚拟机配置</a>
+          <ul>
+            <li><a href="#基本配置">基本配置</a></li>
+            <li><a href="#以root用户登录">以root用户登录</a></li>
+            <li><a href="#设置时区">设置时区</a></li>
+            <li><a href="#字体安装">字体安装</a></li>
+            <li><a href="#切换shell为bash">切换shell为bash</a></li>
+            <li><a href="#关闭息屏和休眠">关闭息屏和休眠</a></li>
+            <li><a href="#安装小工具">安装小工具</a></li>
+            <li><a href="#新建分区">新建分区</a></li>
+          </ul>
+        </li>
+        <li><a href="#源码下载">源码下载</a>
+          <ul>
+            <li><a href="#概述">概述</a></li>
+            <li><a href="#下载repo">下载Repo</a></li>
+            <li><a href="#配置git">配置Git</a></li>
+            <li><a href="#同步源码">同步源码</a></li>
+          </ul>
+        </li>
+        <li><a href="#下载驱动包">下载驱动包</a></li>
+        <li><a href="#准备编译环境">准备编译环境</a></li>
+        <li><a href="#源码编译">源码编译</a></li>
+        <li><a href="#自编译系统刷机">自编译系统刷机</a>
+          <ul>
+            <li><a href="#方式一">方式一</a></li>
+            <li><a href="#方式二">方式二</a></li>
+          </ul>
+        </li>
+        <li><a href="#将源码导入as工具中">将源码导入AS工具中</a>
+          <ul>
+            <li><a href="#下载as">下载AS</a></li>
+            <li><a href="#源码导入">源码导入</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="android源码环境搭建">Android源码环境搭建</h1>
+<h2 id="虚拟机配置">虚拟机配置</h2>
+<p>这里选择的虚拟机是Kali</p>
+<p><a href="https://www.kali.org/get-kali/#kali-virtual-machines" target="_blank" rel="noopener noreffer">https://www.kali.org/get-kali/#kali-virtual-machines</a></p>
+<h3 id="基本配置">基本配置</h3>
+<p>cpu这里给4核2线程,内存一般给12G(这里咱们内存大,直接给20G,也就是20480M).少于12G会报out of memory错误.</p>
+<p>磁盘空间这里给450G</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%89%a9%e5%b1%95%e7%a3%81%e7%9b%98%e7%a9%ba%e9%97%b4.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%89%A9%E5%B1%95%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4.png, images/%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%89%a9%e5%b1%95%e7%a3%81%e7%9b%98%e7%a9%ba%e9%97%b4.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%89%A9%E5%B1%95%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%89%A9%E5%B1%95%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4.png"
+        title="虚拟机扩展磁盘空间" /></p>
+<h3 id="以root用户登录">以root用户登录</h3>
+<p>Kali Linux虚拟机官方提供了一个默认账号:kali/kali,但是并没有提供root账号.</p>
+<p>可以先用kali/kali进入虚拟机,执行以下命令设置root账号密码.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo passwd root
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进行重置root密码,重置密码需要输入两次.</p>
+<p>重启虚拟机,用root账号登录.</p>
+<h3 id="设置时区">设置时区</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">dpkg-reconfigure tzdata
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在弹出窗口选择 Asia-&gt;shanghai</p>
+<h3 id="字体安装">字体安装</h3>
+<ol>
+<li>在/usr/share/fonts目录下,创建一个文件夹my_fonts</li>
+<li>将ttf格式字体复制到/usr/share/fonts/my_fonts目录下</li>
+</ol>
+<h3 id="切换shell为bash">切换shell为bash</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//这里我们要切换到bash,目前Kali默认是zsh
+</span></span></span><span class="line"><span class="cl"><span class="c1">//切换bash 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">chsh</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启后生效.</p>
+<h3 id="关闭息屏和休眠">关闭息屏和休眠</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%85%b3%e9%97%ad%e6%81%af%e5%b1%8f%e5%92%8c%e4%bc%91%e7%9c%a01.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E5%85%B3%E9%97%AD%E6%81%AF%E5%B1%8F%E5%92%8C%E4%BC%91%E7%9C%A01.png, images/%e5%85%b3%e9%97%ad%e6%81%af%e5%b1%8f%e5%92%8c%e4%bc%91%e7%9c%a01.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E5%85%B3%E9%97%AD%E6%81%AF%E5%B1%8F%E5%92%8C%E4%BC%91%E7%9C%A01.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E5%85%B3%E9%97%AD%E6%81%AF%E5%B1%8F%E5%92%8C%E4%BC%91%E7%9C%A01.png"
+        title="关闭息屏和休眠1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%85%b3%e9%97%ad%e6%81%af%e5%b1%8f%e5%92%8c%e4%bc%91%e7%9c%a02.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E5%85%B3%E9%97%AD%E6%81%AF%E5%B1%8F%E5%92%8C%E4%BC%91%E7%9C%A02.png, images/%e5%85%b3%e9%97%ad%e6%81%af%e5%b1%8f%e5%92%8c%e4%bc%91%e7%9c%a02.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E5%85%B3%E9%97%AD%E6%81%AF%E5%B1%8F%E5%92%8C%E4%BC%91%E7%9C%A02.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E5%85%B3%E9%97%AD%E6%81%AF%E5%B1%8F%E5%92%8C%E4%BC%91%E7%9C%A02.png"
+        title="关闭息屏和休眠2" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%85%b3%e9%97%ad%e6%81%af%e5%b1%8f%e5%92%8c%e4%bc%91%e7%9c%a03.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E5%85%B3%E9%97%AD%E6%81%AF%E5%B1%8F%E5%92%8C%E4%BC%91%E7%9C%A03.png, images/%e5%85%b3%e9%97%ad%e6%81%af%e5%b1%8f%e5%92%8c%e4%bc%91%e7%9c%a03.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E5%85%B3%E9%97%AD%E6%81%AF%E5%B1%8F%E5%92%8C%E4%BC%91%E7%9C%A03.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E5%85%B3%E9%97%AD%E6%81%AF%E5%B1%8F%E5%92%8C%E4%BC%91%E7%9C%A03.png"
+        title="关闭息屏和休眠3" /></p>
+<h3 id="安装小工具">安装小工具</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apt update
+</span></span><span class="line"><span class="cl">apt install htop jnettop tree
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="新建分区">新建分区</h3>
+<p>使用gparted这个软件,在unallocated部分右击,选择&quot;New&quot;,按照默认即可,即可新建一个370G的分区.</p>
+<p>点击选择Apply,应用到磁盘.然后将这个新建的磁盘给mount到某个文件夹:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">cd</span> <span class="n">Desktop</span>
+</span></span><span class="line"><span class="cl"><span class="n">mkdir</span> <span class="n">COMPILE</span>
+</span></span><span class="line"><span class="cl"><span class="n">mount</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span> <span class="n">COMPILE</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="源码下载">源码下载</h2>
+<h3 id="概述">概述</h3>
+<p>谷歌官方提供了Android每个版本的原生源码,其官网为:</p>
+<p><a href="https://android.googlesource.com/" target="_blank" rel="noopener noreffer">https://android.googlesource.com/</a></p>
+<p>由于谷歌官方的源码服务器搭建在国外,国内用户访问很卡顿,幸运的是国内有清华源和中科大源,存储着与谷歌官方提供一致的Android源码供国内开发者使用,其链接分别如下:</p>
+<p><a href="https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/" target="_blank" rel="noopener noreffer">https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/</a></p>
+<p><a href="http://mirrors.ustc.edu.cn/aosp/" target="_blank" rel="noopener noreffer">http://mirrors.ustc.edu.cn/aosp/</a></p>
+<p>接下来以中科大源为例进行Android源码的下载.</p>
+<h3 id="下载repo">下载Repo</h3>
+<p>Repo是Android官方推出的另一个版本管理工具,封装了一系列的Git命令.要想下载Android源码,必须先下载Repo工具.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">mkdir</span> <span class="o">~/</span><span class="n">bin</span>
+</span></span><span class="line"><span class="cl"><span class="n">PATH</span><span class="o">=~/</span><span class="nl">bin</span><span class="p">:</span><span class="err">$</span><span class="n">PATH</span>
+</span></span><span class="line"><span class="cl"><span class="n">curl</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">chmod</span> <span class="n">a</span><span class="o">+</span><span class="n">x</span> <span class="o">~/</span><span class="n">bin</span><span class="o">/</span><span class="n">repo</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置git">配置Git</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git config --global user.name &#34;Your name&#34;
+</span></span><span class="line"><span class="cl">git config --global user.email &#34;you@example.com&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="同步源码">同步源码</h3>
+<p>这里我们以获取特定版本的Android源码为例,可通过如下网址查Android版本.</p>
+<p><a href="https://source.android.com/setup/start/build-numbers#source-code-tags-and-builds" target="_blank" rel="noopener noreffer">https://source.android.com/setup/start/build-numbers#source-code-tags-and-builds</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//先达到指定目录,然后开始同步Android源码.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">cd</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">COMPILE</span>
+</span></span><span class="line"><span class="cl"><span class="n">mkdir</span> <span class="n">aosp810_r1</span>
+</span></span><span class="line"><span class="cl"><span class="n">cd</span> <span class="n">aosp810_r1</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="c1">//下载指定版本的Android源码,这里下载android-8.1.0_r1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">repo</span> <span class="n">init</span> <span class="o">-</span><span class="n">u</span> <span class="nl">git</span><span class="p">:</span><span class="c1">//mirrors.ustc.edu.cn/aosp/platform/manifest -b android-8.1.0_r1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">repo</span> <span class="n">sync</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果提示无法连接到gerrit.googlesource.com,将如下内容复制到你的~/.bashrc里.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="k">export</span> <span class="n">REPO_URL</span><span class="o">=</span><span class="err">&#39;</span><span class="nl">https</span><span class="p">:</span><span class="c1">//mirrors.tuna.tsinghua.edu.cn/git/git-repo&#39;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="下载驱动包">下载驱动包</h2>
+<ol>
+<li>在下述网址搜索上述下载的Android版本(android-8.1.0_r1),找到<strong>build ID</strong>.</li>
+</ol>
+<p><a href="https://source.android.com/setup/start/build-numbers" target="_blank" rel="noopener noreffer">https://source.android.com/setup/start/build-numbers</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%a9%b1%e5%8a%a8%e5%8c%851.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E9%A9%B1%E5%8A%A8%E5%8C%851.png, images/%e9%a9%b1%e5%8a%a8%e5%8c%851.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E9%A9%B1%E5%8A%A8%E5%8C%851.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E9%A9%B1%E5%8A%A8%E5%8C%851.png"
+        title="驱动包1" /></p>
+<p>android-8.1.0_r1对应的<strong>build ID</strong>为<strong>OPM1.171019.011</strong></p>
+<ol start="2">
+<li>在下述网址先定位到要刷入的手机型号(这里我目前使用的手机为<strong>Pixel sailfish</strong>),然后搜索上述<strong>build ID</strong>,定位驱动下载链接.</li>
+</ol>
+<p><a href="https://developers.google.com/android/drivers" target="_blank" rel="noopener noreffer">https://developers.google.com/android/drivers</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%a9%b1%e5%8a%a8%e5%8c%852.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E9%A9%B1%E5%8A%A8%E5%8C%852.png, images/%e9%a9%b1%e5%8a%a8%e5%8c%852.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E9%A9%B1%E5%8A%A8%E5%8C%852.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E9%A9%B1%E5%8A%A8%E5%8C%852.png"
+        title="驱动包2" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//上述两个链接都要下载
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">https</span><span class="p">:</span><span class="c1">//dl.google.com/dl/android/aosp/google_devices-sailfish-opm1.171019.011-f3bafc8b.tgz
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">https</span><span class="p">:</span><span class="c1">//dl.google.com/dl/android/aosp/qcom-sailfish-opm1.171019.011-247af472.tgz
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>下载驱动包到Android源码所在目录.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e9%a9%b1%e5%8a%a8%e5%8c%853.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E9%A9%B1%E5%8A%A8%E5%8C%853.png, images/%e9%a9%b1%e5%8a%a8%e5%8c%853.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E9%A9%B1%E5%8A%A8%E5%8C%853.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E9%A9%B1%E5%8A%A8%E5%8C%853.png"
+        title="驱动包3" /></p>
+<ol start="4">
+<li>解压.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">tar zxvf google_devices-sailfish-opm1.171019.011-f3bafc8b.tgz
+</span></span><span class="line"><span class="cl">tar zxvf qcom-sailfish-opm1.171019.011-247af472.tgz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="准备编译环境">准备编译环境</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">apt</span> <span class="n">update</span>
+</span></span><span class="line"><span class="cl"><span class="n">apt</span> <span class="n">install</span> <span class="n">bison</span> <span class="n">tree</span>
+</span></span><span class="line"><span class="cl"><span class="n">dpkg</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">architecture</span> <span class="n">i386</span>
+</span></span><span class="line"><span class="cl"><span class="n">apt</span> <span class="n">update</span>
+</span></span><span class="line"><span class="cl"><span class="n">apt</span> <span class="n">install</span> <span class="nl">libc6</span><span class="p">:</span><span class="n">i386</span> <span class="nl">libncurses5</span><span class="p">:</span><span class="n">i386</span> <span class="n">libstdc</span><span class="o">++</span><span class="mi">6</span><span class="o">:</span><span class="n">i386</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">utils</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//安装OpenJdk8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">wget</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//download.java.net/openjdk/jdk8u41/ri/openjdk-8u41-b04-linux-x64-14_jan_2020.tar.gz
+</span></span></span><span class="line"><span class="cl"><span class="c1">//解压
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">tar</span> <span class="n">zxvf</span> <span class="n">openjdk</span><span class="o">-</span><span class="mi">8u41</span><span class="o">-</span><span class="n">b04</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="o">-</span><span class="mi">14</span><span class="n">_jan_2020</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">//编写~/.bashrc,添加环境变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">export</span> <span class="n">JAVA_HOME</span><span class="o">=/</span><span class="n">root</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">java</span><span class="o">-</span><span class="n">se</span><span class="o">-</span><span class="mi">8u41</span><span class="o">-</span><span class="n">ri</span>
+</span></span><span class="line"><span class="cl"><span class="k">export</span> <span class="n">PATH</span><span class="o">=</span><span class="err">$</span><span class="n">JAVA_HOME</span><span class="o">/</span><span class="nl">bin</span><span class="p">:</span><span class="err">$</span><span class="n">PATH</span>
+</span></span><span class="line"><span class="cl"><span class="k">export</span> <span class="n">CLASSPATH</span><span class="o">=</span><span class="p">.</span><span class="o">:</span><span class="err">$</span><span class="n">JAVA_HOME</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">dt</span><span class="p">.</span><span class="nl">jar</span><span class="p">:</span><span class="err">$</span><span class="n">JAVA_HOME</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">tools</span><span class="p">.</span><span class="n">jar</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//配置python2环境
+</span></span></span><span class="line"><span class="cl"><span class="c1">//这里使用pyenv来安装python2的版本
+</span></span></span><span class="line"><span class="cl"><span class="c1">//①配置pyenv构建环境
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span><span class="p">;</span> <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">make</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span> \
+</span></span><span class="line"><span class="cl"><span class="n">libbz2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libreadline</span><span class="o">-</span><span class="n">dev</span> <span class="n">libsqlite3</span><span class="o">-</span><span class="n">dev</span> <span class="n">wget</span> <span class="n">curl</span> <span class="n">llvm</span> \
+</span></span><span class="line"><span class="cl"><span class="n">libncursesw5</span><span class="o">-</span><span class="n">dev</span> <span class="n">xz</span><span class="o">-</span><span class="n">utils</span> <span class="n">tk</span><span class="o">-</span><span class="n">dev</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libxmlsec1</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">liblzma</span><span class="o">-</span><span class="n">dev</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//②下载pyenv
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">proxychains</span> <span class="n">git</span> <span class="n">clone</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/yyuu/pyenv.git ~/.pyenv
+</span></span></span><span class="line"><span class="cl"><span class="c1">//③配置pyenv环境变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">echo</span> <span class="err">&#39;</span><span class="k">export</span> <span class="n">PYENV_ROOT</span><span class="o">=</span><span class="s">&#34;$HOME/.pyenv&#34;</span><span class="err">&#39;</span> <span class="o">&gt;&gt;~/</span><span class="p">.</span><span class="n">bashrc</span>
+</span></span><span class="line"><span class="cl"><span class="n">echo</span> <span class="err">&#39;</span><span class="k">export</span> <span class="n">PATH</span><span class="o">=</span><span class="s">&#34;$PYENV_ROOT/bin:$PATH&#34;</span><span class="err">&#39;</span> <span class="o">&gt;&gt;~/</span><span class="p">.</span><span class="n">bashrc</span>
+</span></span><span class="line"><span class="cl"><span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="k">if</span> <span class="n">command</span> <span class="o">-</span><span class="n">v</span> <span class="n">pyenv</span> <span class="mi">1</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span><span class="p">;</span> <span class="n">then</span><span class="err">\</span><span class="n">n</span> <span class="n">eval</span> <span class="s">&#34;$(pyenv init --path)&#34;</span><span class="err">\</span><span class="n">nfi</span><span class="err">&#39;</span><span class="o">&gt;&gt;~/</span><span class="p">.</span><span class="n">bashrc</span>
+</span></span><span class="line"><span class="cl"><span class="n">source</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//④这里安装python2.7.16
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">PYTHON_CONFIGURE_OPTS</span><span class="o">=</span><span class="s">&#34;--disable-ipv6&#34;</span>  <span class="n">proxychains</span> <span class="n">pyenv</span> <span class="n">install</span> <span class="mf">2.7.16</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//⑤配置全局python版本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pyenv</span> <span class="n">global</span> <span class="mf">2.7.16</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>至此环境已经准备好了,到这里我们关机打个快照.</p>
+<h2 id="源码编译">源码编译</h2>
+<ol>
+<li>挂载磁盘.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//重新开机后需要先挂载磁盘.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mount</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span> <span class="n">COMPILE</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>新建10G的交换分区.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">swapfile</span> <span class="n">bs</span><span class="o">=</span><span class="mi">1</span><span class="n">M</span> <span class="n">count</span><span class="o">=</span><span class="mi">10240</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//mkswap创建交换文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mkswap</span> <span class="n">swapfile</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//swapon激活
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sudo</span> <span class="n">swapon</span> <span class="n">swapfile</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>在Android源码目录执行下述命令.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//下述两个文件,就是上面驱动包解压出来的
+</span></span></span><span class="line"><span class="cl"><span class="c1">//执行后,要按一直按着Enter键,直到出现需要用户输入&#34;I ACCEPT&#34;选项,输入I ACCEPT
+</span></span></span><span class="line"><span class="cl"><span class="c1">//如果一直按着Enter键,到了末尾也没见提示用户输入,就先按Ctrl+C然后按Ctrl+D,就可以看到提示用户输入了.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">.</span><span class="o">/</span><span class="n">extract</span><span class="o">-</span><span class="n">google_devices</span><span class="o">-</span><span class="n">sailfish</span><span class="p">.</span><span class="n">sh</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="o">/</span><span class="n">extract</span><span class="o">-</span><span class="n">qcom</span><span class="o">-</span><span class="n">sailfish</span><span class="p">.</span><span class="n">sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//编译安卓源码前执行以下命令
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">export</span> <span class="n">LC_ALL</span><span class="o">=</span><span class="n">C</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//导入环境变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">source</span> <span class="n">build</span><span class="o">/</span><span class="n">envsetup</span><span class="p">.</span><span class="n">sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//选择设备
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">lunch</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//这里我目前使用的手机为Pixel sailfish
+</span></span></span><span class="line"><span class="cl"><span class="c1">//选择的是 24 aosp_sailfish-userdebug
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">24</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//编译
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">m</span> <span class="o">-</span><span class="n">j4</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%ba%90%e7%a0%81%e7%bc%96%e8%af%91%e6%88%90%e5%8a%9f.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E6%88%90%E5%8A%9F.png, images/%e6%ba%90%e7%a0%81%e7%bc%96%e8%af%91%e6%88%90%e5%8a%9f.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E6%88%90%E5%8A%9F.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E6%88%90%E5%8A%9F.png"
+        title="源码编译成功" /></p>
+<p>这里需要提一点的就是与<strong>lunch</strong>命令相关的<strong>构建类型</strong>,根据下述Android官网内容显示,在编译的时候可以选择的类型分为<strong>user</strong>、<strong>userdebug</strong>以及<strong>eng</strong>.其中user类型编译出来的镜像是无Root权限的.</p>
+<p><a href="https://source.android.com/setup/build/building#choose-a-target" target="_blank" rel="noopener noreffer">https://source.android.com/setup/build/building#choose-a-target</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9e%84%e5%bb%ba%e7%b1%bb%e5%9e%8b.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E6%9E%84%E5%BB%BA%E7%B1%BB%E5%9E%8B.png, images/%e6%9e%84%e5%bb%ba%e7%b1%bb%e5%9e%8b.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E6%9E%84%E5%BB%BA%E7%B1%BB%E5%9E%8B.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E6%9E%84%E5%BB%BA%E7%B1%BB%E5%9E%8B.png"
+        title="构建类型" /></p>
+<p>然而在我们执行&quot;lunch&quot;命令之后,似乎没有发现user类型,那我们<strong>是否无法编译出一个无Root权限的镜像?</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/lunch%e5%91%bd%e4%bb%a4.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/lunch%E5%91%BD%E4%BB%A4.png, images/lunch%e5%91%bd%e4%bb%a4.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/lunch%E5%91%BD%E4%BB%A4.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/lunch%E5%91%BD%E4%BB%A4.png"
+        title="lunch命令" /></p>
+<p>经过实践可知,如果在选择编译目标时将带有userdebug文字中的debug字段去掉,就可以编译出不带Root权限的镜像.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//只需将上述编译流程中的lunch替换为下述语句即可.
+</span></span></span><span class="line"><span class="cl"><span class="c1">//下述语句对应的是24,lunch aosp_sailfish-userdebug,这里只是将debug字段去掉.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">lunch</span> <span class="n">aosp_sailfish</span><span class="o">-</span><span class="n">user</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="自编译系统刷机">自编译系统刷机</h2>
+<h3 id="方式一">方式一</h3>
+<ol>
+<li>手机进bootloader模式.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">adb reboot bootloader
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>执行下述命令,进行刷机.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//首先执行完 source build/envsetup.sh
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">fastboot</span> <span class="o">-</span><span class="n">w</span> <span class="n">flashall</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="方式二">方式二</h3>
+<p>上述编译出来的系统镜像默认放在源码根目录的&quot;<strong>out/target/product/设备代号/</strong>&ldquo;目录下(这里的设备代号即为Pixel对应的sailfish代号)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%bc%96%e8%af%91%e5%87%ba%e6%9d%a5%e7%9a%84%e9%95%9c%e5%83%8f.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E7%BC%96%E8%AF%91%E5%87%BA%E6%9D%A5%E7%9A%84%E9%95%9C%E5%83%8F.png, images/%e7%bc%96%e8%af%91%e5%87%ba%e6%9d%a5%e7%9a%84%e9%95%9c%e5%83%8f.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E7%BC%96%E8%AF%91%E5%87%BA%E6%9D%A5%E7%9A%84%E9%95%9C%E5%83%8F.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E7%BC%96%E8%AF%91%E5%87%BA%E6%9D%A5%E7%9A%84%E9%95%9C%E5%83%8F.png"
+        title="编译出来的镜像" /></p>
+<p>如果想要将编译出来的镜像刷入设备,还需要从Android镜像官网下载与我们上述源码编译下载的版本一致的镜像.</p>
+<p>Android镜像官网如下:</p>
+<p><a href="https://developers.google.com/android/images" target="_blank" rel="noopener noreffer">https://developers.google.com/android/images</a></p>
+<p>上面我们源码下载的镜像为android-8.1.0_r1对应的build ID为<strong>OPM1.171019.011</strong>,编译出的镜像适配Google Pixel代号为sailfish的设备.故我们要在上述Android镜像官网中找到Pixel sailfish对应的版本代号为<strong>OPM1.171019.011</strong>的镜像下载地址.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/sailfish%e5%8e%9f%e7%94%9f%e9%95%9c%e5%83%8f%e5%9c%b0%e5%9d%80.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/sailfish%E5%8E%9F%E7%94%9F%E9%95%9C%E5%83%8F%E5%9C%B0%E5%9D%80.png, images/sailfish%e5%8e%9f%e7%94%9f%e9%95%9c%e5%83%8f%e5%9c%b0%e5%9d%80.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/sailfish%E5%8E%9F%E7%94%9F%E9%95%9C%E5%83%8F%E5%9C%B0%E5%9D%80.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/sailfish%E5%8E%9F%E7%94%9F%E9%95%9C%E5%83%8F%E5%9C%B0%E5%9D%80.png"
+        title="sailfish原生镜像地址" /></p>
+<p>对应的链接地址如下:</p>
+<p><a href="https://dl.google.com/dl/android/aosp/sailfish-opm1.171019.011-factory-56d15350.zip" target="_blank" rel="noopener noreffer">https://dl.google.com/dl/android/aosp/sailfish-opm1.171019.011-factory-56d15350.zip</a></p>
+<p>接下来就是下载上述镜像,然后解压,用我们编译出来的img镜像文件进行替换,最后执行flash-all.sh脚本进行刷机.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">adb</span> <span class="n">reboot</span> <span class="n">bootloader</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="o">/</span><span class="n">flash</span><span class="o">-</span><span class="n">all</span><span class="p">.</span><span class="n">sh</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%bf%9b%e8%a1%8c%e9%95%9c%e5%83%8f%e6%9b%bf%e6%8d%a2.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E8%BF%9B%E8%A1%8C%E9%95%9C%E5%83%8F%E6%9B%BF%E6%8D%A2.png, images/%e8%bf%9b%e8%a1%8c%e9%95%9c%e5%83%8f%e6%9b%bf%e6%8d%a2.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E8%BF%9B%E8%A1%8C%E9%95%9C%E5%83%8F%E6%9B%BF%E6%8D%A2.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E8%BF%9B%E8%A1%8C%E9%95%9C%E5%83%8F%E6%9B%BF%E6%8D%A2.png"
+        title="进行镜像替换" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Android%e5%88%b7%e6%9c%ba%e7%89%88%e6%9c%ac.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/Android%E5%88%B7%E6%9C%BA%E7%89%88%E6%9C%AC.png, images/Android%e5%88%b7%e6%9c%ba%e7%89%88%e6%9c%ac.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/Android%E5%88%B7%E6%9C%BA%E7%89%88%E6%9C%AC.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/Android%E5%88%B7%E6%9C%BA%E7%89%88%E6%9C%AC.png"
+        title="Android刷机版本" /></p>
+<p>至此,一个自定义的Android系统就成功编译并刷机成功了.</p>
+<h2 id="将源码导入as工具中">将源码导入AS工具中</h2>
+<p>将Android源码导入Android Studio工具中,可以利用AS的智能提示,帮助我们在源码修改中避免一些拼写以及语法上的错误.</p>
+<h3 id="下载as">下载AS</h3>
+<ol>
+<li>下载AndroidStudio.</li>
+</ol>
+<p><a href="https://developer.android.google.cn/studio" target="_blank" rel="noopener noreffer">https://developer.android.google.cn/studio</a></p>
+<ol start="2">
+<li>解压并运行.</li>
+</ol>
+<p>切换到android-studio/bin目录下,运行当前目录的studio.sh即可启动AndroidStudio.</p>
+<ol start="3">
+<li>创建程序桌面图标.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//创建桌面图标
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">gedit</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">applications</span><span class="o">/</span><span class="n">android</span><span class="o">-</span><span class="n">studio</span><span class="p">.</span><span class="n">desktop</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//添加以下内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">[</span><span class="n">Desktop</span> <span class="n">Entry</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">Name</span><span class="o">=</span><span class="n">AndroidStudio</span>
+</span></span><span class="line"><span class="cl"><span class="n">Encoding</span><span class="o">=</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="n">Exec</span><span class="o">=</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s">&#34;/root/softWares/android-studio/bin/studio.sh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Icon</span><span class="o">=/</span><span class="n">root</span><span class="o">/</span><span class="n">softWares</span><span class="o">/</span><span class="n">android</span><span class="o">-</span><span class="n">studio</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">studio</span><span class="p">.</span><span class="n">png</span>
+</span></span><span class="line"><span class="cl"><span class="n">StartupNotify</span><span class="o">=</span><span class="nb">false</span>
+</span></span><span class="line"><span class="cl"><span class="n">Terminal</span><span class="o">=</span><span class="nb">false</span>
+</span></span><span class="line"><span class="cl"><span class="n">Type</span><span class="o">=</span><span class="n">Application</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行完上述操作后,即可在菜单中找到AndroidStudio的桌面程序图标,右键可以添加到桌面.</p>
+<h3 id="源码导入">源码导入</h3>
+<p>接下来的命令均是在Android源码目录中执行.</p>
+<ol>
+<li>执行下述命令,生成idegen.jar文件.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">source</span> <span class="n">build</span><span class="o">/</span><span class="n">envsetup</span><span class="p">.</span><span class="n">sh</span>
+</span></span><span class="line"><span class="cl"><span class="n">mmm</span> <span class="n">development</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">idegen</span><span class="o">/</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>执行下述命令,在源码根目录生成android.iml和android.ipr文件.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">development/tools/idegen/idegen.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>android.iml</strong>:包含源码导入AS时会被导入和排除的子目录文件夹.</p>
+<p><strong>android.ipr</strong>:包含源码工程的具体配置、代码以及依赖的lib等信息.</p>
+<ol start="3">
+<li>用AS打开上述<strong>android.ipr</strong>文件,等待一会就可以看到导入成功的Android源码.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%ba%90%e7%a0%81%e5%af%bc%e5%85%a5AS%e4%b8%ad.png"
+        data-srcset="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E6%BA%90%E7%A0%81%E5%AF%BC%E5%85%A5AS%E4%B8%AD.png, images/%e6%ba%90%e7%a0%81%e5%af%bc%e5%85%a5AS%e4%b8%ad.png 1.5x, /posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E6%BA%90%E7%A0%81%E5%AF%BC%E5%85%A5AS%E4%B8%AD.png 2x"
+        data-sizes="auto"
+        alt="/posts/android/android-rom/android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/images/%E6%BA%90%E7%A0%81%E5%AF%BC%E5%85%A5AS%E4%B8%AD.png"
+        title="源码导入AS中" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-26</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/android%E6%BA%90%E7%A0%81/">Android源码</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" class="prev" rel="prev" title="移动设备环境准备"><i class="fas fa-angle-left fa-fw"></i>移动设备环境准备</a>
+            <a href="/posts/android/android%E6%8A%93%E5%8C%85/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/" class="next" rel="next" title="网络通讯协议分析">网络通讯协议分析<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
