@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>DEFCON议题解读｜Dll劫持新思路——修改环境变量 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="DEFCON议题解读｜Dll劫持新思路——修改环境变量" />
+<meta property="og:description" content="DEFCON议题解读｜Dll劫持新思路——修改环境变量 简介 在2022年的Defcon大会上,安全研究人员Wietze Beukema通过对进程" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-08-24T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DEFCON议题解读｜Dll劫持新思路——修改环境变量"/>
+<meta name="twitter:description" content="DEFCON议题解读｜Dll劫持新思路——修改环境变量 简介 在2022年的Defcon大会上,安全研究人员Wietze Beukema通过对进程"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "DEFCON议题解读｜Dll劫持新思路——修改环境变量",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F\/"
+        },"genre": "posts","keywords": "Dll劫持","wordcount":  2523 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F\/","datePublished": "2022-08-24T00:00:00+00:00","dateModified": "2022-08-24T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">DEFCON议题解读｜Dll劫持新思路——修改环境变量</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/"><i class="far fa-folder fa-fw"></i>Win相关</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-08-24">2022-08-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2523 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#defcon议题解读dll劫持新思路修改环境变量">DEFCON议题解读｜Dll劫持新思路——修改环境变量</a>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#环境变量">环境变量</a></li>
+        <li><a href="#劫持原因">劫持原因</a></li>
+        <li><a href="#持久化">持久化</a>
+          <ul>
+            <li><a href="#利用注册表修改windows自启服务的环境变量">利用注册表修改Windows自启服务的环境变量</a></li>
+            <li><a href="#常规持久化配合创建子进程">常规持久化配合创建子进程</a></li>
+          </ul>
+        </li>
+        <li><a href="#预防和影响范围">预防和影响范围</a></li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="defcon议题解读dll劫持新思路修改环境变量">DEFCON议题解读｜Dll劫持新思路——修改环境变量</h1>
+<h2 id="简介">简介</h2>
+<p>在2022年的Defcon大会上,安全研究人员Wietze Beukema通过对进程级环境变量的研究,提出了一种Dll劫持新思路,下面就其中涉及的技术点展开介绍.</p>
+<h2 id="环境变量">环境变量</h2>
+<p>每一个进程都有一个环境块,其中包含一组环境变量及其值.有两种类型的环境变量,用户环境变量和系统环境变量.</p>
+<p><strong>用户环境变量</strong>:仅对当前用户有效,位于:HKEY_CURRENT_USER\Environment</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%94%a8%e6%88%b7%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E7%94%A8%E6%88%B7%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png, images/%e7%94%a8%e6%88%b7%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E7%94%A8%E6%88%B7%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E7%94%A8%E6%88%B7%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png"
+        title="用户环境变量" /></p>
+<p><strong>系统环境变量</strong>:对所有用户均有效,位于:HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Environment</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%b3%bb%e7%bb%9f%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png, images/%e7%b3%bb%e7%bb%9f%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png"
+        title="系统环境变量" /></p>
+<p>默认情况下,子进程继承其父进程的环境变量.命令处理器启动的程序继承命令处理器的环境变量.</p>
+<h2 id="劫持原因">劫持原因</h2>
+<p>程序可能会依赖Windows定义好的环境变量来确定某些文件的位置,尤其对于Windows内置程序来说大量依赖环境变量来寻找系统盘文件.如下展示的是Windows系统盘ws2_32.dll中的代码片段:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%88%a9%e7%94%a8%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f%e7%a1%ae%e5%ae%9a%e6%96%87%e4%bb%b6%e4%bd%8d%e7%bd%ae.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E5%88%A9%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%A1%AE%E5%AE%9A%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE.png, images/%e5%88%a9%e7%94%a8%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f%e7%a1%ae%e5%ae%9a%e6%96%87%e4%bb%b6%e4%bd%8d%e7%bd%ae.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E5%88%A9%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%A1%AE%E5%AE%9A%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E5%88%A9%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%A1%AE%E5%AE%9A%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE.png"
+        title="利用环境变量确定文件位置" /></p>
+<p>正常来说&quot;%SystemRoot%/System32/mswsock.dll&quot;会被解析为&quot;C:/Windows/System32/mswsock.dll&quot;,但是这里面有一个不确定的因素就是&quot;%SystemRoot%&quot;,假设我们修改了环境变量&quot;%SystemRoot%&ldquo;的值为其他文件夹路径且在该路径下存放恶意Dll,那么程序就会加载我们设定的Dll,继而完成Dll劫持.</p>
+<p>如果直接更改&rdquo;%SystemRoot%&ldquo;的值,会对整个操作系统上运行的程序产生影响,但是我们可以只修改指定进程的环境变量,如创建以下vbs脚本,利用子进程默认继承其父进程环境变量的特性,修改Windows内置进程hostname.exe的环境变量&quot;SystemRoot&quot;为&quot;C:\Evil&rdquo;.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Set shell = WScript.CreateObject(&#34;WScript.Shell&#34;)
+</span></span><span class="line"><span class="cl">shell.Environment(&#34;Process&#34;)(&#34;SystemRoot&#34;) = &#34;C:\Evil&#34;
+</span></span><span class="line"><span class="cl">shell.Exec(&#34;C:\windows\system32\hostname.exe&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>操作流程如下:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%93%8d%e4%bd%9c%e6%b5%81%e7%a8%8b.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B.png, images/%e6%93%8d%e4%bd%9c%e6%b5%81%e7%a8%8b.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B.png"
+        title="操作流程" /></p>
+<p>然后用Procmon监控hostname.exe,可以看到确实会加载&quot;C:\Evil&quot;路径下的Dll.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/Procmon%e7%9b%91%e6%8e%a7.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/Procmon%E7%9B%91%E6%8E%A7.png, images/Procmon%e7%9b%91%e6%8e%a7.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/Procmon%E7%9B%91%E6%8E%A7.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/Procmon%E7%9B%91%E6%8E%A7.png"
+        title="Procmon监控" /></p>
+<h2 id="持久化">持久化</h2>
+<p>从上面流程可以看到,能够完成Dll劫持的关键在于修改环境变量的值,那么完成持久化的关键就在于维持目标进程环境变量值的修改.下面提供2种持久化方案.</p>
+<h3 id="利用注册表修改windows自启服务的环境变量">利用注册表修改Windows自启服务的环境变量</h3>
+<p>这里先引用下Wietze Beukema文章中提到的修改Windows打印机服务的环境变量,看是否会成功加载指定目录下的Dll文件.</p>
+<ol>
+<li>首先将恶意Dll&quot;mswsock.dll&quot;放到指定目录&quot;C:\Evil\System32&quot;.</li>
+<li>在注册表spoolsv服务下创建&quot;Environment&quot;键值修改环境变量.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e4%bf%ae%e6%94%b9spoolsv%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E4%BF%AE%E6%94%B9spoolsv%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png, images/%e4%bf%ae%e6%94%b9spoolsv%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E4%BF%AE%E6%94%B9spoolsv%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E4%BF%AE%E6%94%B9spoolsv%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png"
+        title="修改spoolsv环境变量" /></p>
+<ol start="3">
+<li>重启spoolsv服务,用Procmon进行监控.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e7%9b%91%e6%8e%a7spoolsv%e6%9c%8d%e5%8a%a1.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E7%9B%91%E6%8E%A7spoolsv%E6%9C%8D%E5%8A%A1.png, images/%e7%9b%91%e6%8e%a7spoolsv%e6%9c%8d%e5%8a%a1.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E7%9B%91%E6%8E%A7spoolsv%E6%9C%8D%E5%8A%A1.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E7%9B%91%E6%8E%A7spoolsv%E6%9C%8D%E5%8A%A1.png"
+        title="监控spoolsv服务" /></p>
+<p>可以看到使用上述方式修改Windows服务的环境变量确实能够加载我们指定目录下的Dll文件.但是需要注意的是,有时候为了保证被修改的服务能够正常运行,我们需要将受环境变量影响的Dll全部移动到我们指定的路径下.</p>
+<p>实际上能够被利用的Windows服务远不止上面一个,通常来说服务对应一个PE文件,这里我们去看看Windows自带服务的PE文件路径是如何写的就明白了.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%8d%e5%8a%a1%e8%b7%af%e5%be%841.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E6%9C%8D%E5%8A%A1%E8%B7%AF%E5%BE%841.png, images/%e6%9c%8d%e5%8a%a1%e8%b7%af%e5%be%841.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E6%9C%8D%E5%8A%A1%E8%B7%AF%E5%BE%841.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E6%9C%8D%E5%8A%A1%E8%B7%AF%E5%BE%841.png"
+        title="服务路径1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e6%9c%8d%e5%8a%a1%e8%b7%af%e5%be%842.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E6%9C%8D%E5%8A%A1%E8%B7%AF%E5%BE%842.png, images/%e6%9c%8d%e5%8a%a1%e8%b7%af%e5%be%842.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E6%9C%8D%E5%8A%A1%E8%B7%AF%E5%BE%842.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E6%9C%8D%E5%8A%A1%E8%B7%AF%E5%BE%842.png"
+        title="服务路径2" /></p>
+<p>可以看到很多服务都依赖环境变量来寻找所对应的PE文件,这里我推荐修改的Windows自启服务是Windows推送通知系统服务(WpnService),修改环境变量后只需移动一个受影响的Dll文件即可,不用管该服务是否能够正常运行.</p>
+<h3 id="常规持久化配合创建子进程">常规持久化配合创建子进程</h3>
+<p>我们也可以使用常规持久化方案如创建计划任务或者写注册表来实现自启,然后程序自启后自修改自身环境变量值,最后创建受环境变量影响的Windows可信进程,利用Dll劫持来完成一次隐匿攻击行为.</p>
+<p>接下来使用Win32 API来展示下如何修改子进程的环境变量.</p>
+<ol>
+<li>子进程Child.exe代码如下:</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;windows.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span><span class="o">*</span> <span class="n">envp</span><span class="p">[])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">szBuf</span><span class="p">[</span><span class="n">MAX_PATH</span><span class="p">]</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">	<span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="s">&#34;SystemRoot&#34;</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">szBuf</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">	<span class="n">MessageBox</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;Child&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>父进程Parent.exe代码如下:</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;windows.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span><span class="o">*</span> <span class="n">envp</span><span class="p">[])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">SetEnvironmentVariable</span><span class="p">(</span><span class="s">&#34;SystemRoot&#34;</span><span class="p">,</span> <span class="s">&#34;C:</span><span class="se">\\</span><span class="s">Evil&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">UINT</span> <span class="n">nRet</span> <span class="o">=</span> <span class="n">WinExec</span><span class="p">(</span><span class="s">&#34;C:/Users/Super/Desktop/Child.exe&#34;</span><span class="p">,</span> <span class="n">SW_HIDE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">nRet</span> <span class="o">&gt;</span> <span class="mi">31</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;创建子进程成功</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;创建子进程失败</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>运行Parent.exe进程,查看结果.</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%bf%9b%e7%a8%8b%e4%bf%ae%e6%94%b91.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E8%BF%9B%E7%A8%8B%E4%BF%AE%E6%94%B91.png, images/%e8%bf%9b%e7%a8%8b%e4%bf%ae%e6%94%b91.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E8%BF%9B%E7%A8%8B%E4%BF%AE%E6%94%B91.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E8%BF%9B%E7%A8%8B%E4%BF%AE%E6%94%B91.png"
+        title="进程修改1" /></p>
+<p>以上需要注意一点的就是,当Child.exe进程需要的权限比Parent.exe进程高时,Parent.exe创建Child.exe进程时会失败,当然也就无法谈起修改其环境变量值了,如下:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e8%bf%9b%e7%a8%8b%e4%bf%ae%e6%94%b92.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E8%BF%9B%E7%A8%8B%E4%BF%AE%E6%94%B92.png, images/%e8%bf%9b%e7%a8%8b%e4%bf%ae%e6%94%b92.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E8%BF%9B%E7%A8%8B%E4%BF%AE%E6%94%B92.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E8%BF%9B%E7%A8%8B%E4%BF%AE%E6%94%B92.png"
+        title="进程修改2" /></p>
+<h2 id="预防和影响范围">预防和影响范围</h2>
+<p>环境变量是Windows的一个历史包袱,随着Windows注册表出现,可以在一定程度上代替环境变量.但是为了考虑兼容性,它依然存在且在Windows内部大量使用.关于这点,我们可以对程序进行简单的调试,对ExpandEnvironmentStringsW API函数下断回溯,就会发现很多Windows内置Dll在使用环境变量来确定某些文件,如下:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="images/%e5%bd%b1%e5%93%8d%e7%a4%ba%e4%be%8b.png"
+        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E5%BD%B1%E5%93%8D%E7%A4%BA%E4%BE%8B.png, images/%e5%bd%b1%e5%93%8d%e7%a4%ba%e4%be%8b.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E5%BD%B1%E5%93%8D%E7%A4%BA%E4%BE%8B.png 2x"
+        data-sizes="auto"
+        alt="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E5%BD%B1%E5%93%8D%E7%A4%BA%E4%BE%8B.png"
+        title="影响示例" /></p>
+<p>我们自己写的程序或者模块可能会引用Windows系统Dll文件,但是Windows内部Dll文件大量引用环境变量,这会让我们的程序可能会受到此类Dll劫持手法的攻击.为了尽可能的减少风险,在编码时我们可以遵循以下规则:</p>
+<ol>
+<li>
+<p>程序代码使用GetWindowsDirectory代替环境变量&quot;%SystemRoot%&quot;,或者使用GetSystemDirectory直接拿系统盘System32路径.</p>
+</li>
+<li>
+<p>对系统Dll进行路径检测.</p>
+</li>
+<li>
+<p>对程序加载的Dll进行签名校验.</p>
+</li>
+</ol>
+<h2 id="总结">总结</h2>
+<ol>
+<li>相对于传统Dll劫持利用Windows加载Dll时的搜索顺序,将恶意Dll存放在目标程序所在文件夹之下来完成Dll劫持.该方式可以保持目标程序所在文件夹的纯净度,可有效规避检测.</li>
+<li>&ldquo;海量&quot;的Windows服务和内置进程均受环境变量的影响,这值得引起我们安全研究人员对环境变量的重视,以应对后面可能出现的此类攻击手法.</li>
+</ol>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.wietzebeukema.nl/blog/save-the-environment-variables" target="_blank" rel="noopener noreffer">https://www.wietzebeukema.nl/blog/save-the-environment-variables</a></p>
+<p><a href="https://docs.microsoft.com/zh-cn/windows/win32/procthread/environment-variables" target="_blank" rel="noopener noreffer">https://docs.microsoft.com/zh-cn/windows/win32/procthread/environment-variables</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-08-24</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/dll%E5%8A%AB%E6%8C%81/">Dll劫持</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="网络通讯协议分析"><i class="fas fa-angle-left fa-fw"></i>网络通讯协议分析</a>
+            <a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" class="next" rel="next" title="Android脱壳核心原理">Android脱壳核心原理<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
