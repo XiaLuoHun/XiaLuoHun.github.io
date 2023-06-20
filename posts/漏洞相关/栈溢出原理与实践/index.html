@@ -11,7 +11,6 @@
 <meta property="og:url" content="https://XiaLuoHun.github.io/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-22T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-02-22T00:00:00+00:00" />
-
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="栈溢出原理与实践"/>
 <meta name="twitter:description" content="栈溢出原理与实践 栈结构 寄存器环境 局部变量 调用方栈 返回地址 参数 实验环境 编译器 VS2022 编译选项 1、属性-&gt;C/C&#43;&#43;-&gt;常规-&gt;SD"/>
@@ -25,7 +24,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/XiaLuoHun.github.io\/posts\/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3\/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5\/"
-        },"genre": "posts","keywords": "栈溢出","wordcount":  1456 ,
+        },"genre": "posts","keywords": "栈溢出","wordcount":  1458 ,
         "url": "https:\/\/XiaLuoHun.github.io\/posts\/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3\/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5\/","datePublished": "2022-02-22T00:00:00+00:00","dateModified": "2022-02-22T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "夏洛魂"},"author": {
@@ -102,7 +101,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">栈溢出原理与实践</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/"><i class="far fa-folder fa-fw"></i>漏洞相关</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-22">2022-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1456 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-22">2022-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1458 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -287,13 +286,13 @@
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">GetKernelBase</span> <span class="no">proc</span>
 </span></span><span class="line"><span class="cl"> <span class="nf">assume</span> <span class="no">fs</span> <span class="p">:</span> <span class="no">nothing</span>
 </span></span><span class="line"><span class="cl"> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">fs</span><span class="p">:[</span><span class="mi">18</span><span class="no">h</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">30</span><span class="no">h</span><span class="p">]</span> <span class="c">;指向PEB结构
-</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">0</span><span class="no">ch</span><span class="p">]</span> <span class="c">;指向LDR Ptr32 _PEB_LDR_DATA
-</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">0</span><span class="no">ch</span><span class="p">]</span> <span class="c">;指向InLoadOrderModuleList _LIST_ENTRY
-</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span><span class="p">]</span>       <span class="c">;移动_LIST_ENTRY
-</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span><span class="p">]</span>       <span class="c">;指向Kernel32
-</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">18</span><span class="no">h</span><span class="p">]</span> <span class="c">;指向DllBase
-</span></span></span><span class="line"><span class="cl"><span class="c"></span> <span class="no">ret</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">30</span><span class="no">h</span><span class="p">]</span> <span class="c1">;指向PEB结构
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">0</span><span class="no">ch</span><span class="p">]</span> <span class="c1">;指向LDR Ptr32 _PEB_LDR_DATA
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">0</span><span class="no">ch</span><span class="p">]</span> <span class="c1">;指向InLoadOrderModuleList _LIST_ENTRY
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span><span class="p">]</span>       <span class="c1">;移动_LIST_ENTRY
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span><span class="p">]</span>       <span class="c1">;指向Kernel32
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">18</span><span class="no">h</span><span class="p">]</span> <span class="c1">;指向DllBase
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nf">ret</span>
 </span></span><span class="line"><span class="cl"><span class="nf">GetKernelBase</span> <span class="no">endp</span>
 </span></span></code></pre></td></tr></table>
 </div>

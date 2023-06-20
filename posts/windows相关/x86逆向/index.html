@@ -11,7 +11,6 @@
 <meta property="og:url" content="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-14T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-02-14T00:00:00+00:00" />
-
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="x86逆向"/>
 <meta name="twitter:description" content="x86逆向 除法 约定 两个无符号相除,结果仍然是无符号. 两个有符号相除,结果是有符号. 有符号数和无符号数混除,结果是无符号的. 基本概念 在C语言和"/>
@@ -25,7 +24,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/x86%E9%80%86%E5%90%91\/"
-        },"genre": "posts","keywords": "C\u002b\u002b逆向","wordcount":  10613 ,
+        },"genre": "posts","keywords": "C\u002b\u002b逆向","wordcount":  10614 ,
         "url": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/x86%E9%80%86%E5%90%91\/","datePublished": "2022-02-14T00:00:00+00:00","dateModified": "2022-02-14T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "夏洛魂"},"author": {
@@ -102,7 +101,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">x86逆向</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/"><i class="far fa-folder fa-fw"></i>Win相关</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-14">2022-02-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 10613 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-14">2022-02-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 10614 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 22 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -903,7 +902,7 @@ $$</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">MagicNumber</span>
 </span></span><span class="line"><span class="cl"><span class="nf">mul</span> <span class="err">被除数</span>
-</span></span><span class="line"><span class="cl"><span class="nf">shr</span> <span class="no">edx</span><span class="p">,</span> <span class="no">n</span> <span class="c">;这条指令可无
+</span></span><span class="line"><span class="cl"><span class="nf">shr</span> <span class="no">edx</span><span class="p">,</span> <span class="no">n</span> <span class="c1">;这条指令可无
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="还原">还原</h6>
@@ -973,15 +972,15 @@ $$</p>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="c">#乘减移加移
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="err">被除数</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="c1">#乘减移加移
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="err">被除数</span>
 </span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">MagicNumber</span>
 </span></span><span class="line"><span class="cl"><span class="nf">mul</span> <span class="no">reg</span>
 </span></span><span class="line"><span class="cl"><span class="nf">sub</span> <span class="no">reg</span><span class="p">,</span> <span class="no">edx</span>
 </span></span><span class="line"><span class="cl"><span class="nf">shr</span> <span class="no">reg</span><span class="p">,</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl"><span class="nf">add</span> <span class="no">reg</span><span class="p">,</span> <span class="no">edx</span>
-</span></span><span class="line"><span class="cl"><span class="nf">shr</span> <span class="no">reg</span><span class="p">,</span> <span class="no">A</span><span class="c">; 这句可能没有
-</span></span></span><span class="line"><span class="cl"><span class="c">;此后直接使用reg的值, eax弃而不用
+</span></span><span class="line"><span class="cl"><span class="nf">shr</span> <span class="no">reg</span><span class="p">,</span> <span class="no">A</span><span class="c1">; 这句可能没有
+</span></span></span><span class="line"><span class="cl"><span class="c1">;此后直接使用reg的值, eax弃而不用
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="还原-1">还原</h6>
@@ -1110,15 +1109,15 @@ $$</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="err">被除数</span>
-</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">MagicNumber</span> <span class="c">;(MagicNumber &lt;= 0x7FFFFFFF)
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">imul</span> <span class="no">reg</span>
-</span></span><span class="line"><span class="cl"><span class="nf">sar</span> <span class="no">edx</span><span class="p">,</span> <span class="no">n</span> <span class="c">;没有这条指令则指数为32
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="no">edx</span>
+</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">MagicNumber</span> <span class="c1">;(MagicNumber &lt;= 0x7FFFFFFF)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">imul</span> <span class="no">reg</span>
+</span></span><span class="line"><span class="cl"><span class="nf">sar</span> <span class="no">edx</span><span class="p">,</span> <span class="no">n</span> <span class="c1">;没有这条指令则指数为32
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="no">edx</span>
 </span></span><span class="line"><span class="cl"><span class="nf">shr</span> <span class="no">reg</span><span class="p">,</span> <span class="mi">1</span><span class="no">Fh</span>
 </span></span><span class="line"><span class="cl"><span class="nf">add</span> <span class="no">edx</span><span class="p">,</span> <span class="no">reg</span>
-</span></span><span class="line"><span class="cl"><span class="c">;此后直接使用edx的值
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>
-</span></span><span class="line"><span class="cl"><span class="nf">MagicNumber为正</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;此后直接使用edx的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nf">MagicNumber</span><span class="err">为正</span>
 </span></span><span class="line"><span class="cl"><span class="err">乘法和移位之间无调整</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1172,7 +1171,7 @@ $$</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="err">在</span><span class="mi">16</span><span class="err">位机器上计算无符号数</span><span class="mh">0x8086</span><span class="err">与有符号数</span><span class="n">A</span><span class="p">,</span><span class="err">保证计算结果正确</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="mh">0x8086</span><span class="err">用</span><span class="n">imul指令会被当做负数</span><span class="p">,</span><span class="err">用补码进行计算</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x8086</span><span class="err">用</span><span class="n">imul</span><span class="err">指令会被当做负数</span><span class="p">,</span><span class="err">用补码进行计算</span>
 </span></span><span class="line"><span class="cl"><span class="err">计算机计算</span><span class="o">=</span> <span class="o">-</span> <span class="o">~</span><span class="mh">0x8086</span> <span class="o">*</span> <span class="n">A</span> 
 </span></span><span class="line"><span class="cl">          <span class="o">=</span> <span class="o">-</span> <span class="p">(</span><span class="mh">0x10000</span> <span class="o">-</span> <span class="mh">0x8086</span><span class="p">)</span> <span class="o">*</span> <span class="n">A</span>
 </span></span><span class="line"><span class="cl">          <span class="o">=</span><span class="p">(</span><span class="mh">0x8086</span> <span class="o">-</span> <span class="mh">0x10000</span><span class="p">)</span> <span class="o">*</span> <span class="n">A</span>
@@ -1199,16 +1198,16 @@ $$</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="err">被除数</span>
-</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">MagicNumber</span> <span class="c">;(MagicNumber &gt; 7FFFFFFFh)
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">imul</span> <span class="no">reg</span>
+</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">MagicNumber</span> <span class="c1">;(MagicNumber &gt; 7FFFFFFFh)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">imul</span> <span class="no">reg</span>
 </span></span><span class="line"><span class="cl"><span class="nf">add</span> <span class="no">edx</span><span class="p">,</span> <span class="no">reg</span>
-</span></span><span class="line"><span class="cl"><span class="nf">sar</span> <span class="no">edx</span><span class="p">,</span> <span class="no">n</span> <span class="c">;没有这条指令则指数为32
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="no">edx</span>
+</span></span><span class="line"><span class="cl"><span class="nf">sar</span> <span class="no">edx</span><span class="p">,</span> <span class="no">n</span> <span class="c1">;没有这条指令则指数为32
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="no">edx</span>
 </span></span><span class="line"><span class="cl"><span class="nf">shr</span> <span class="no">reg</span><span class="p">,</span> <span class="mi">1</span><span class="no">Fh</span>
 </span></span><span class="line"><span class="cl"><span class="nf">add</span> <span class="no">edx</span><span class="p">,</span> <span class="no">reg</span>
-</span></span><span class="line"><span class="cl"><span class="c">;此后直接使用edx的值
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>
-</span></span><span class="line"><span class="cl"><span class="nf">MagicNumber为负</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;此后直接使用edx的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nf">MagicNumber</span><span class="err">为负</span>
 </span></span><span class="line"><span class="cl"><span class="err">乘法和移位之间有加调整</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1330,13 +1329,13 @@ $$</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="err">在</span><span class="mi">16</span><span class="err">位机器上计算无符号数</span><span class="mh">0x8086</span><span class="err">与有符号数</span><span class="n">A</span><span class="p">,</span><span class="err">保证计算结果正确</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="mh">0x8086</span><span class="err">用</span><span class="n">imul指令会被当做负数</span><span class="p">,</span><span class="err">用补码进行计算</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x8086</span><span class="err">用</span><span class="n">imul</span><span class="err">指令会被当做负数</span><span class="p">,</span><span class="err">用补码进行计算</span>
 </span></span><span class="line"><span class="cl"><span class="err">计算机计算</span><span class="o">=</span> <span class="o">-</span> <span class="o">~</span><span class="mh">0x8086</span> <span class="o">*</span> <span class="n">A</span> 
 </span></span><span class="line"><span class="cl">          <span class="o">=</span> <span class="o">-</span> <span class="p">(</span><span class="mh">0x10000</span> <span class="o">-</span> <span class="mh">0x8086</span><span class="p">)</span> <span class="o">*</span> <span class="n">A</span>
 </span></span><span class="line"><span class="cl">          <span class="o">=</span><span class="p">(</span><span class="mh">0x8086</span> <span class="o">-</span> <span class="mh">0x10000</span><span class="p">)</span> <span class="o">*</span> <span class="n">A</span>
 </span></span><span class="line"><span class="cl">          <span class="o">=</span><span class="mh">0x8086</span> <span class="o">*</span> <span class="n">A</span> <span class="o">-</span> <span class="mh">0x10000</span> <span class="o">*</span> <span class="n">A</span>
 </span></span><span class="line"><span class="cl"><span class="err">假设上面</span><span class="mh">0x8086</span><span class="err">为</span><span class="n">MagicNumber</span>
-</span></span><span class="line"><span class="cl"><span class="err">我们的</span><span class="n">MagicNumber为正</span><span class="p">,</span><span class="err">故</span><span class="o">-</span><span class="mh">0x8086</span><span class="err">假定是</span><span class="n">MagicNumber</span>
+</span></span><span class="line"><span class="cl"><span class="err">我们的</span><span class="n">MagicNumber</span><span class="err">为正</span><span class="p">,</span><span class="err">故</span><span class="o">-</span><span class="mh">0x8086</span><span class="err">假定是</span><span class="n">MagicNumber</span>
 </span></span><span class="line"><span class="cl"><span class="err">所以上面的计算机计算结果应加上符号</span><span class="p">,</span><span class="err">变为</span>
 </span></span><span class="line"><span class="cl"><span class="o">-</span><span class="p">(</span><span class="mh">0x8086</span> <span class="o">*</span> <span class="n">A</span> <span class="o">-</span> <span class="mh">0x10000</span> <span class="o">*</span> <span class="n">A</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="o">=-</span><span class="mh">0x8086</span> <span class="o">*</span> <span class="n">A</span> <span class="o">+</span> <span class="mh">0x10000</span> <span class="o">*</span> <span class="n">A</span>
@@ -1365,13 +1364,13 @@ $$</p>
 </span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">MagicNumber</span>
 </span></span><span class="line"><span class="cl"><span class="nf">imul</span> <span class="no">reg</span>
 </span></span><span class="line"><span class="cl"><span class="nf">sub</span> <span class="no">edx</span><span class="p">,</span> <span class="no">reg</span>
-</span></span><span class="line"><span class="cl"><span class="nf">sar</span> <span class="no">edx</span><span class="p">,</span> <span class="no">n</span> <span class="c">;没有这句, 指数为32
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="no">edx</span>
+</span></span><span class="line"><span class="cl"><span class="nf">sar</span> <span class="no">edx</span><span class="p">,</span> <span class="no">n</span> <span class="c1">;没有这句, 指数为32
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="no">edx</span>
 </span></span><span class="line"><span class="cl"><span class="nf">shr</span> <span class="no">reg</span><span class="p">,</span> <span class="mi">1</span><span class="no">Fh</span>
 </span></span><span class="line"><span class="cl"><span class="nf">add</span> <span class="no">edx</span><span class="p">,</span> <span class="no">eax</span>
-</span></span><span class="line"><span class="cl"><span class="c">;此后使用edx的值
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>
-</span></span><span class="line"><span class="cl"><span class="nf">MagicNumber为正</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;此后使用edx的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nf">MagicNumber</span><span class="err">为正</span>
 </span></span><span class="line"><span class="cl"><span class="err">乘法和移位之间有减调整</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1392,12 +1391,12 @@ $$</p>
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">先将</span><span class="n">MagicNumber求补</span><span class="p">(</span><span class="err">取反</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="err">拿到原来的</span><span class="n">MagicNumbeSrc</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">先将</span><span class="n">MagicNumber</span><span class="err">求补</span><span class="p">(</span><span class="err">取反</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="err">拿到原来的</span><span class="n">MagicNumbeSrc</span>
 </span></span><span class="line"><span class="cl"><span class="err">除数的绝对值</span> <span class="o">=</span> <span class="mi">2</span><span class="o">^</span><span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span><span class="n">MagicNumberSrc</span>
 </span></span><span class="line"><span class="cl"><span class="err">结果向上取整</span>
 </span></span><span class="line"><span class="cl"><span class="err">除数为负</span>
-</span></span><span class="line"><span class="cl"><span class="err">由于</span><span class="n">MagicNumber为正</span><span class="p">,</span><span class="err">故求补得到的</span><span class="n">MagicNumberSrc为负</span>
-</span></span><span class="line"><span class="cl"><span class="err">注意参与计算的</span><span class="n">MagicNumSrc应当做无符号数进行计算</span>
+</span></span><span class="line"><span class="cl"><span class="err">由于</span><span class="n">MagicNumber</span><span class="err">为正</span><span class="p">,</span><span class="err">故求补得到的</span><span class="n">MagicNumberSrc</span><span class="err">为负</span>
+</span></span><span class="line"><span class="cl"><span class="err">注意参与计算的</span><span class="n">MagicNumSrc</span><span class="err">应当做无符号数进行计算</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="err">本例中</span><span class="n">MagicNumber</span> <span class="o">=</span> <span class="mh">0x1F8FC7E3</span>
 </span></span><span class="line"><span class="cl"><span class="n">MagicNumberSrc</span> <span class="o">=</span> <span class="mh">0xE070381D</span><span class="p">,</span> <span class="err">对应的无符号十进制数为</span><span class="mi">3765450781</span>
@@ -1443,7 +1442,7 @@ $$</p>
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">A</span><span class="o">/</span><span class="p">(</span><span class="o">-</span><span class="n">C</span><span class="p">),</span><span class="n">C</span><span class="o">&gt;</span><span class="mi">0</span>
 </span></span><span class="line"><span class="cl"><span class="o">-&gt;</span> <span class="o">-</span><span class="n">A</span> <span class="o">*</span> <span class="n">M</span> <span class="o">&gt;&gt;</span> <span class="n">n</span>
 </span></span><span class="line"><span class="cl"><span class="o">-&gt;</span> <span class="n">A</span> <span class="o">*</span> <span class="o">-</span><span class="n">M</span> <span class="o">&gt;&gt;</span> <span class="n">n</span>
-</span></span><span class="line"><span class="cl"><span class="err">故汇编显示的</span><span class="n">MagicNumber为原来MagicNumber求补后的结果</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">故汇编显示的</span><span class="n">MagicNumber</span><span class="err">为原来</span><span class="n">MagicNumber</span><span class="err">求补后的结果</span><span class="p">.</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="特征-7">特征</h6>
@@ -1465,13 +1464,13 @@ $$</p>
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="err">被除数</span>
 </span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">MagicNumber</span>
 </span></span><span class="line"><span class="cl"><span class="nf">imul</span> <span class="no">reg</span>
-</span></span><span class="line"><span class="cl"><span class="nf">sar</span> <span class="no">edx</span><span class="p">,</span> <span class="no">n</span> <span class="c">;没有这句, 指数为32
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="no">edx</span>
+</span></span><span class="line"><span class="cl"><span class="nf">sar</span> <span class="no">edx</span><span class="p">,</span> <span class="no">n</span> <span class="c1">;没有这句, 指数为32
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">reg</span><span class="p">,</span> <span class="no">edx</span>
 </span></span><span class="line"><span class="cl"><span class="nf">shr</span> <span class="no">reg</span><span class="p">,</span> <span class="mi">1</span><span class="no">Fh</span>
 </span></span><span class="line"><span class="cl"><span class="nf">add</span> <span class="no">edx</span><span class="p">,</span> <span class="no">reg</span>
-</span></span><span class="line"><span class="cl"><span class="c">;此后使用edx的值
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>
-</span></span><span class="line"><span class="cl"><span class="nf">MagicNumber为负</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;此后使用edx的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nf">MagicNumber</span><span class="err">为负</span>
 </span></span><span class="line"><span class="cl"><span class="err">乘法和移位之间没有调整</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1484,7 +1483,7 @@ $$</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">先将</span><span class="n">MagicNumber求补</span><span class="p">(</span><span class="err">取反</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="err">拿到原来的</span><span class="n">MagicNumbeSrc</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">先将</span><span class="n">MagicNumber</span><span class="err">求补</span><span class="p">(</span><span class="err">取反</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="err">拿到原来的</span><span class="n">MagicNumbeSrc</span>
 </span></span><span class="line"><span class="cl"><span class="err">除数的绝对值</span> <span class="o">=</span> <span class="mi">2</span><span class="o">^</span><span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span><span class="n">MagicNumberSrc</span>
 </span></span><span class="line"><span class="cl"><span class="err">结果向上取整</span>
 </span></span><span class="line"><span class="cl"><span class="err">除数为负</span>
@@ -1527,7 +1526,7 @@ $$</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">对</span><span class="mi">2</span><span class="err">的</span><span class="n">n次方取模</span><span class="p">,</span><span class="err">实际上是取该数值的二进制低</span><span class="n">n位</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">对</span><span class="mi">2</span><span class="err">的</span><span class="n">n</span><span class="err">次方取模</span><span class="p">,</span><span class="err">实际上是取该数值的二进制低</span><span class="n">n</span><span class="err">位</span>
 </span></span><span class="line"><span class="cl"><span class="err">如</span><span class="mi">10</span><span class="err">进制中</span><span class="p">,</span><span class="mi">321</span><span class="o">%</span><span class="mi">100</span><span class="p">,</span><span class="err">我们取</span><span class="mi">321</span><span class="err">的低</span><span class="mi">2</span><span class="err">位</span><span class="p">,</span><span class="err">就可以知道余数为</span><span class="mi">21</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1644,14 +1643,14 @@ $$</p>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span>     <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">esp</span><span class="err">+</span><span class="no">argc</span><span class="p">]</span>  <span class="c">;将被除数给eax
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">and</span>     <span class="no">eax</span><span class="p">,</span> <span class="mi">80000007</span><span class="no">h</span>   <span class="c">;取被除数的符号位和低n位
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">jns</span>     <span class="no">short</span> <span class="no">loc_401010</span> <span class="c">;如果被除数为正,跳走,直接使用eax
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">dec</span>     <span class="no">eax</span>              <span class="c">;处理负数取模为0的情况 减1后为全f,如果取模不为0的情况是不需要dec和inc指令
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">or</span>      <span class="no">eax</span><span class="p">,</span> <span class="mi">0</span><span class="no">FFFFFFF8h</span>   <span class="c">;被除数为负,需要将模的结果高位填补为1
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">inc</span>     <span class="no">eax</span>                 <span class="c">;处理负数取模为0的情况 上面减后全为f,此处加1,调整为0
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">loc_401010</span><span class="p">:</span>             
-</span></span><span class="line"><span class="cl">  <span class="c">;使用eax
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span>     <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">esp</span><span class="err">+</span><span class="no">argc</span><span class="p">]</span>  <span class="c1">;将被除数给eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">and</span>     <span class="no">eax</span><span class="p">,</span> <span class="mi">80000007</span><span class="no">h</span>   <span class="c1">;取被除数的符号位和低n位
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">jns</span>     <span class="no">short</span> <span class="no">loc_401010</span> <span class="c1">;如果被除数为正,跳走,直接使用eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">dec</span>     <span class="no">eax</span>              <span class="c1">;处理负数取模为0的情况 减1后为全f,如果取模不为0的情况是不需要dec和inc指令
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">or</span>      <span class="no">eax</span><span class="p">,</span> <span class="mi">0</span><span class="no">FFFFFFF8h</span>   <span class="c1">;被除数为负,需要将模的结果高位填补为1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">inc</span>     <span class="no">eax</span>                 <span class="c1">;处理负数取模为0的情况 上面减后全为f,此处加1,调整为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">loc_401010:</span>             
+</span></span><span class="line"><span class="cl">  <span class="c1">;使用eax
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="特征-9">特征</h6>
@@ -1674,7 +1673,7 @@ $$</p>
 </span></span><span class="line"><span class="cl"><span class="nf">or</span> <span class="no">reg</span><span class="p">,</span> <span class="mi">0xFFFFFFF</span><span class="p">(</span><span class="mi">2</span><span class="err">^</span><span class="no">n</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nf">inc</span> <span class="no">reg</span>
 </span></span><span class="line"><span class="cl"><span class="nl">LABLE:</span>
-</span></span><span class="line"><span class="cl">  <span class="c">;使用reg
+</span></span><span class="line"><span class="cl">  <span class="c1">;使用reg
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="还原-10">还原</h6>
@@ -1765,7 +1764,7 @@ $$</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">对</span><span class="mi">2</span><span class="err">的</span><span class="n">n次方取模</span><span class="p">,</span><span class="err">实际上是取该数值的二进制低</span><span class="n">n位</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">对</span><span class="mi">2</span><span class="err">的</span><span class="n">n</span><span class="err">次方取模</span><span class="p">,</span><span class="err">实际上是取该数值的二进制低</span><span class="n">n</span><span class="err">位</span>
 </span></span><span class="line"><span class="cl"><span class="err">模的符号与被除数相同</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -2008,9 +2007,9 @@ $$</p>
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">IF_BEGIN</span>
 </span></span><span class="line"><span class="cl"><span class="nf">jxx</span>  <span class="no">IF_END</span>
 </span></span><span class="line"><span class="cl"><span class="err">.</span>
-</span></span><span class="line"><span class="cl"><span class="err">.</span>                <span class="c">;中间为条件体
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="err">.</span>                <span class="c">;注意语句上面无跳转
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">IF_END</span>
+</span></span><span class="line"><span class="cl"><span class="err">.</span>                <span class="c1">;中间为条件体
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">.</span>                <span class="c1">;注意语句上面无跳转
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">IF_END</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="双分支结构">双分支结构</h4>
@@ -2273,7 +2272,7 @@ $$</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">一个个比较</span><span class="p">,</span><span class="err">中间无代码块</span>
-</span></span><span class="line"><span class="cl"><span class="err">这样的话</span><span class="p">,</span><span class="err">匹配跳转成功时</span><span class="p">,</span><span class="err">没有</span><span class="n">break语句会继续向下执行</span>
+</span></span><span class="line"><span class="cl"><span class="err">这样的话</span><span class="p">,</span><span class="err">匹配跳转成功时</span><span class="p">,</span><span class="err">没有</span><span class="n">break</span><span class="err">语句会继续向下执行</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="case语句3且每两个case值之间的差值6">case语句&gt;3,且每两个Case值之间的差值&lt;=6</h4>
@@ -2352,8 +2351,8 @@ $$</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">编译器会给所有</span><span class="n">case情况做一个表</span>
-</span></span><span class="line"><span class="cl"><span class="err">当提供的序号大于最大索引时</span><span class="p">,</span><span class="err">直接跳转到</span><span class="n">DEFAULT或SWITCH_END</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">编译器会给所有</span><span class="n">case</span><span class="err">情况做一个表</span>
+</span></span><span class="line"><span class="cl"><span class="err">当提供的序号大于最大索引时</span><span class="p">,</span><span class="err">直接跳转到</span><span class="n">DEFAULT</span><span class="err">或</span><span class="n">SWITCH_END</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="case语句3最大case值-最小case值255">case语句&gt;3,最大case值-最小case值&lt;=255</h4>
@@ -2434,8 +2433,8 @@ $$</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="err">编译器会生成两个表</span>
-</span></span><span class="line"><span class="cl"><span class="err">下标表</span><span class="o">:</span><span class="err">记录对应</span><span class="n">case地址表的下标</span>
-</span></span><span class="line"><span class="cl"><span class="nl">case地址表</span><span class="p">:</span><span class="err">记录</span><span class="n">case语句块的地址</span>
+</span></span><span class="line"><span class="cl"><span class="err">下标表</span><span class="o">:</span><span class="err">记录对应</span><span class="n">case</span><span class="err">地址表的下标</span>
+</span></span><span class="line"><span class="cl"><span class="n">case</span><span class="err">地址表</span><span class="o">:</span><span class="err">记录</span><span class="n">case</span><span class="err">语句块的地址</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="还原-14">还原</h5>
@@ -2688,9 +2687,9 @@ $$</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="err">这个地方</span><span class="n">While循环会被优化成DoWhile循环</span>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="err">这个地方</span><span class="n">While</span><span class="err">循环会被优化成</span><span class="n">DoWhile</span><span class="err">循环</span>
 </span></span><span class="line"><span class="cl"><span class="err">多了一个跳转提前进行判断</span>
-</span></span><span class="line"><span class="cl"><span class="err">注意</span><span class="o">:</span><span class="err">跳转的判定条件和循环的判定条件具有相关性时</span><span class="p">,</span><span class="err">才可还原为</span><span class="n">While循环</span>
+</span></span><span class="line"><span class="cl"><span class="err">注意</span><span class="o">:</span><span class="err">跳转的判定条件和循环的判定条件具有相关性时</span><span class="p">,</span><span class="err">才可还原为</span><span class="n">While</span><span class="err">循环</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="for">For</h4>
@@ -2792,9 +2791,9 @@ $$</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//Break语句
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">循环语句中</span><span class="p">,</span><span class="err">跳转循环体</span><span class="p">,</span><span class="err">可识别为</span><span class="n">break语句</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">循环语句中</span><span class="p">,</span><span class="err">跳转循环体</span><span class="p">,</span><span class="err">可识别为</span><span class="n">break</span><span class="err">语句</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//Continue语句
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Release版</span><span class="p">,</span><span class="err">经常会将</span><span class="n">Continue语句优化为If_Else双分支结构</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Release</span><span class="err">版</span><span class="p">,</span><span class="err">经常会将</span><span class="n">Continue</span><span class="err">语句优化为</span><span class="n">If_Else</span><span class="err">双分支结构</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="函数调用方式">函数调用方式</h2>
@@ -3342,8 +3341,8 @@ $$</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">假设数组为</span><span class="n">ary</span><span class="p">[</span><span class="n">M</span><span class="p">][</span><span class="n">N</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="n">ary</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="err">寻址</span>
-</span></span><span class="line"><span class="cl"><span class="nl">Debug版</span><span class="p">:</span><span class="n">ary</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">[</span><span class="n">N</span><span class="p">])</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nl">Release版</span><span class="p">:</span><span class="n">ary</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Debug</span><span class="err">版</span><span class="o">:</span><span class="n">ary</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">[</span><span class="n">N</span><span class="p">])</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Release</span><span class="err">版</span><span class="o">:</span><span class="n">ary</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="三维数组">三维数组</h3>
@@ -3430,8 +3429,8 @@ $$</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">假设数组为</span><span class="n">ary</span><span class="p">[</span><span class="n">M</span><span class="p">][</span><span class="n">N</span><span class="p">][</span><span class="n">K</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="n">ar</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span><span class="p">]</span><span class="err">寻址</span>
-</span></span><span class="line"><span class="cl"><span class="nl">Debug版</span><span class="p">:</span><span class="n">ary</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">K</span><span class="p">])</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">[</span><span class="n">K</span><span class="p">])</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nl">Release版</span><span class="p">:</span><span class="n">ary</span> <span class="o">+</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">K</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Debug</span><span class="err">版</span><span class="o">:</span><span class="n">ary</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">K</span><span class="p">])</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">[</span><span class="n">K</span><span class="p">])</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Release</span><span class="err">版</span><span class="o">:</span><span class="n">ary</span> <span class="o">+</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">K</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="结构体">结构体</h2>
@@ -3735,7 +3734,7 @@ $$</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">多一个参数返回结构体地址</span>
-</span></span><span class="line"><span class="cl"><span class="err">函数退出时</span><span class="p">,</span><span class="err">以参数为目标做</span><span class="n">memcpy复制结构体内容</span>
+</span></span><span class="line"><span class="cl"><span class="err">函数退出时</span><span class="p">,</span><span class="err">以参数为目标做</span><span class="n">memcpy</span><span class="err">复制结构体内容</span>
 </span></span><span class="line"><span class="cl"><span class="err">函数的返回值为参数</span><span class="mi">1</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -3765,7 +3764,7 @@ $$</p>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="err">此时等价于</span>
-</span></span><span class="line"><span class="cl"><span class="n">tagTest</span> <span class="nf">GetObj</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">tagTest</span> <span class="n">GetObj</span><span class="p">();</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="c之变量相关">C++之变量相关</h2>
@@ -3896,9 +3895,9 @@ $$</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">①第一参数为</span><span class="n">this指针</span><span class="p">,</span><span class="err">默认使用</span><span class="n">ecx传参</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="err">②函数内对第一参数</span><span class="n">this指针做间接访问</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="err">注意</span><span class="o">:</span><span class="err">如果成员函数为</span><span class="n">_cdecl或_stdcall调用约定</span><span class="p">,</span><span class="n">this指针通过栈传送且为第一参数</span><span class="p">.</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">①第一参数为</span><span class="n">this</span><span class="err">指针</span><span class="p">,</span><span class="err">默认使用</span><span class="n">ecx</span><span class="err">传参</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">②函数内对第一参数</span><span class="n">this</span><span class="err">指针做间接访问</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">注意</span><span class="o">:</span><span class="err">如果成员函数为</span><span class="n">_cdecl</span><span class="err">或</span><span class="n">_stdcall</span><span class="err">调用约定</span><span class="p">,</span><span class="n">this</span><span class="err">指针通过栈传送且为第一参数</span><span class="p">.</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="识别构造函数">识别构造函数</h4>
@@ -3929,9 +3928,9 @@ $$</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">必要条件</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl"><span class="err">①必为</span><span class="n">thiscall调用约定</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">①必为</span><span class="n">thiscall</span><span class="err">调用约定</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl"><span class="err">②构造函数是该对象进入作用域后的第一次成员函数调用</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="err">③返回</span><span class="n">this指针</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">③返回</span><span class="n">this</span><span class="err">指针</span><span class="p">.</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="识别析构函数">识别析构函数</h4>
@@ -3962,7 +3961,7 @@ $$</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">必要条件</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl"><span class="err">①必为</span><span class="n">thiscall调用约定</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">①必为</span><span class="n">thiscall</span><span class="err">调用约定</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl"><span class="err">②析构函数是该对象进入作用域后的最后一次成员函数调用</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl"><span class="err">③无返回值定义</span><span class="p">.</span>
 </span></span></code></pre></td></tr></table>
@@ -4155,7 +4154,7 @@ $$</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">new和delete函数会自动检查指针是否为空</span><span class="p">.</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">new</span><span class="err">和</span><span class="n">delete</span><span class="err">函数会自动检查指针是否为空</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl"><span class="err">但我们仍然需要自己检查指针是否为空</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl"><span class="err">因为编译器做的检查</span><span class="p">,</span><span class="err">是为了是否执行构造函数或析构函数</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl"><span class="err">而我们做的检查</span><span class="p">,</span><span class="err">是为了让我们在别的地方使用这个指针的时候</span><span class="p">,</span><span class="err">指针不为空</span><span class="p">.</span>
@@ -4531,7 +4530,7 @@ $$</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">①将栈顶作为</span><span class="nf">this指针给ecx</span><span class="p">,</span><span class="err">调用拷贝构造</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">①将栈顶作为</span><span class="nf">this</span><span class="err">指针给</span><span class="no">ecx</span><span class="p">,</span><span class="err">调用拷贝构造</span>
 </span></span><span class="line"><span class="cl"><span class="err">关键语句:</span><span class="nf">mov</span> <span class="no">ecx</span><span class="p">,</span> <span class="no">esp</span>
 </span></span><span class="line"><span class="cl"><span class="err">②函数外调用构造函数,函数内调用析构函数</span>
 </span></span></code></pre></td></tr></table>
@@ -4664,7 +4663,7 @@ $$</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">①调用函数结束后</span><span class="p">,</span><span class="err">会执行以返回值为</span><span class="n">Src</span><span class="p">,</span><span class="err">目标对象为</span><span class="n">Dst的memcpy</span><span class="p">.</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">①调用函数结束后</span><span class="p">,</span><span class="err">会执行以返回值为</span><span class="n">Src</span><span class="p">,</span><span class="err">目标对象为</span><span class="n">Dst</span><span class="err">的</span><span class="n">memcpy</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl"><span class="err">②临时对象</span><span class="p">,</span><span class="err">即多传进去的那个参数会执行析构</span><span class="p">.</span>
 </span></span></code></pre></td></tr></table>
 </div>

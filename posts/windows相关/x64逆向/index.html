@@ -11,7 +11,6 @@
 <meta property="og:url" content="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-15T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-02-15T00:00:00+00:00" />
-
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="x64逆向"/>
 <meta name="twitter:description" content="x64逆向 寄存器 函数调用约定 四寄存器fast-call调用约定,调用方平栈,一般是函数开头申请栈空间,函数结尾平栈. 整型参数 前4个参数传入指"/>
@@ -408,8 +407,8 @@
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="c">#hello.asm
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">includelib</span> <span class="no">user32.lib</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="c1">#hello.asm
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">includelib</span> <span class="no">user32.lib</span>
 </span></span><span class="line"><span class="cl"><span class="nf">includelib</span> <span class="no">kernel32.lib</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">extrn</span> <span class="no">MessageBoxA</span><span class="p">:</span><span class="no">proc</span>
@@ -425,9 +424,9 @@
 </span></span><span class="line"><span class="cl"><span class="na">.code</span> 
 </span></span><span class="line"><span class="cl"><span class="no">START</span> <span class="no">proc</span>
 </span></span><span class="line"><span class="cl"> 
-</span></span><span class="line"><span class="cl">  <span class="c">;栈地址必须保证模16, 申请栈空间保证模8
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>  <span class="c">;栈预留空间32（20h)个字节
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>  <span class="nf">sub</span>  <span class="no">rsp</span><span class="p">,</span> <span class="mi">28</span><span class="no">h</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">;栈地址必须保证模16, 申请栈空间保证模8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">;栈预留空间32（20h)个字节
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nf">sub</span>  <span class="no">rsp</span><span class="p">,</span> <span class="mi">28</span><span class="no">h</span>
 </span></span><span class="line"><span class="cl">   
 </span></span><span class="line"><span class="cl">  <span class="nf">mov</span>   <span class="no">rcx</span><span class="p">,</span> <span class="no">NULL</span>
 </span></span><span class="line"><span class="cl">  <span class="nf">mov</span>   <span class="no">rdx</span><span class="p">,</span> <span class="no">offset</span> <span class="no">MSG1</span>
@@ -467,9 +466,9 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">栈地址必须模</span><span class="mi">16</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="err">因为你函数内调用</span><span class="n">API时</span><span class="p">,</span><span class="n">API内会用到多媒体指令</span><span class="p">,</span><span class="err">极大可能会使用</span><span class="n">movaps这个指令</span><span class="p">,</span><span class="err">这个指令要求栈地址必须模</span><span class="mi">16</span><span class="p">,</span><span class="err">否则程序会崩</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">因为你函数内调用</span><span class="n">API</span><span class="err">时</span><span class="p">,</span><span class="n">API</span><span class="err">内会用到多媒体指令</span><span class="p">,</span><span class="err">极大可能会使用</span><span class="n">movaps</span><span class="err">这个指令</span><span class="p">,</span><span class="err">这个指令要求栈地址必须模</span><span class="mi">16</span><span class="p">,</span><span class="err">否则程序会崩</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl"><span class="err">故申请的栈空间大小要求模</span><span class="mf">8.</span>
-</span></span><span class="line"><span class="cl"><span class="err">其实在系统断点处</span><span class="p">,</span><span class="err">栈地址是模</span><span class="mi">16</span><span class="err">的</span><span class="p">,</span><span class="err">但由于经过了</span><span class="n">CAll指令才到达入口断点</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="err">其实在系统断点处</span><span class="p">,</span><span class="err">栈地址是模</span><span class="mi">16</span><span class="err">的</span><span class="p">,</span><span class="err">但由于经过了</span><span class="n">CAll</span><span class="err">指令才到达入口断点</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="err">此时栈会抬高</span><span class="mi">8</span><span class="err">字节</span><span class="p">,</span><span class="err">变成模</span><span class="mf">8.</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -881,8 +880,8 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">一维数组寻址公式</span><span class="o">:</span> <span class="err">数组元素的地址</span> <span class="o">=</span> <span class="err">数组首地址</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">数组类型</span><span class="p">)</span> <span class="n">x</span> <span class="err">下标</span>
 </span></span><span class="line"><span class="cl"><span class="err">二维数组寻址公式</span><span class="o">:</span> <span class="err">数组元素的地址</span> <span class="o">=</span> <span class="err">数组首地址</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">一维数组类型</span><span class="p">)</span> <span class="n">x</span> <span class="err">下标</span><span class="mi">1</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">数组类型</span><span class="p">)</span> <span class="n">x</span> <span class="err">下标</span><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="n">Debug版和Release版的寻址公式</span><span class="p">,</span><span class="err">同</span><span class="mi">32</span><span class="err">位</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="err">不同的是</span><span class="mi">64</span><span class="err">位</span><span class="n">Release版</span><span class="p">,</span><span class="err">数组初始化使用多媒体指令</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">Debug</span><span class="err">版和</span><span class="n">Release</span><span class="err">版的寻址公式</span><span class="p">,</span><span class="err">同</span><span class="mi">32</span><span class="err">位</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">不同的是</span><span class="mi">64</span><span class="err">位</span><span class="n">Release</span><span class="err">版</span><span class="p">,</span><span class="err">数组初始化使用多媒体指令</span><span class="p">.</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="流程控制语句">流程控制语句</h2>
@@ -947,8 +946,8 @@
 </span></span><span class="line"><span class="cl"><span class="err">实线</span><span class="o">:</span><span class="err">无条件跳转</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl"><span class="err">每一个点代表一行汇编代码</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">if语句中有一个jxx跳转</span><span class="p">,</span><span class="err">因此会有一个向下的虚线箭头</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="err">看到上图中标红区域的图形</span><span class="p">,</span><span class="err">即可判断其为</span><span class="n">if语句</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">if</span><span class="err">语句中有一个</span><span class="n">jxx</span><span class="err">跳转</span><span class="p">,</span><span class="err">因此会有一个向下的虚线箭头</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">看到上图中标红区域的图形</span><span class="p">,</span><span class="err">即可判断其为</span><span class="n">if</span><span class="err">语句</span><span class="p">.</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="双分支">双分支</h4>
@@ -1013,10 +1012,10 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">因为</span><span class="n">if语句中有一个jxx指令用于向下跳转</span><span class="p">,</span><span class="err">所以会有一个向下的虚线箭头</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="err">又因为</span><span class="n">else语句中有jmp跳转</span><span class="p">,</span><span class="err">所以虚线箭头中会有一个向下的实线箭头</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="err">看到上图中标红区域的图形</span><span class="p">,</span><span class="err">即可判断为</span><span class="k">if</span><span class="p">...</span><span class="n">else语句</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="err">虚线箭头之间的代码为</span><span class="n">if代码</span><span class="p">,</span><span class="err">实线箭头之间的代码为</span><span class="n">else代码</span><span class="p">.</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="err">因为</span><span class="n">if</span><span class="err">语句中有一个</span><span class="n">jxx</span><span class="err">指令用于向下跳转</span><span class="p">,</span><span class="err">所以会有一个向下的虚线箭头</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">又因为</span><span class="n">else</span><span class="err">语句中有</span><span class="n">jmp</span><span class="err">跳转</span><span class="p">,</span><span class="err">所以虚线箭头中会有一个向下的实线箭头</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">看到上图中标红区域的图形</span><span class="p">,</span><span class="err">即可判断为</span><span class="k">if</span><span class="p">...</span><span class="n">else</span><span class="err">语句</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="err">虚线箭头之间的代码为</span><span class="n">if</span><span class="err">代码</span><span class="p">,</span><span class="err">实线箭头之间的代码为</span><span class="n">else</span><span class="err">代码</span><span class="p">.</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="多分支">多分支</h4>
@@ -1668,8 +1667,8 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">rax</span><span class="p">,</span> <span class="p">[</span><span class="no">rsp</span><span class="err">+</span><span class="mi">28</span><span class="no">h</span><span class="err">+</span><span class="no">arg_8</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">lea</span> <span class="no">rcx</span><span class="p">,</span> <span class="no">aLld_0</span> <span class="c">; &#34;%lld\n&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">cqo</span>
+</span></span><span class="line"><span class="cl"><span class="nf">lea</span> <span class="no">rcx</span><span class="p">,</span> <span class="no">aLld_0</span> <span class="c1">; &#34;%lld\n&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">cqo</span>
 </span></span><span class="line"><span class="cl"><span class="nf">and</span> <span class="no">edx</span><span class="p">,</span> <span class="mi">511</span>
 </span></span><span class="line"><span class="cl"><span class="nf">add</span> <span class="no">rax</span><span class="p">,</span> <span class="no">rdx</span>
 </span></span><span class="line"><span class="cl"><span class="nf">and</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">511</span>
@@ -1704,11 +1703,11 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">00000000</span> <span class="nf">RUNTIME_FUNCTION</span> <span class="no">struc</span><span class="c">; (sizeof = 0xC, mappedto_5)
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000000</span> <span class="no">FunctionStart</span>   <span class="no">dd</span> <span class="err">?</span> <span class="c">; offset rva
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000004</span> <span class="no">FunctionEnd</span>     <span class="no">dd</span> <span class="err">?</span> <span class="c">; offset rva pastend
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000008</span> <span class="no">UnwindInfo</span>      <span class="no">dd</span> <span class="err">?</span> <span class="c">; offset rva
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">0000000</span><span class="no">C</span> <span class="no">RUNTIME_FUNCTION</span> <span class="no">ends</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">00000000</span> <span class="nf">RUNTIME_FUNCTION</span> <span class="no">struc</span><span class="c1">; (sizeof = 0xC, mappedto_5)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">00000000</span> <span class="nf">FunctionStart</span>   <span class="no">dd</span> <span class="err">?</span> <span class="c1">; offset rva
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">00000004</span> <span class="nf">FunctionEnd</span>     <span class="no">dd</span> <span class="err">?</span> <span class="c1">; offset rva pastend
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">00000008</span> <span class="nf">UnwindInfo</span>      <span class="no">dd</span> <span class="err">?</span> <span class="c1">; offset rva
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">0000000</span><span class="nf">C</span> <span class="no">RUNTIME_FUNCTION</span> <span class="no">ends</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="unwind_info结构体">UNWIND_INFO结构体</h3>
@@ -1774,12 +1773,12 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">00000000</span> <span class="nf">UNWIND_INFO_HDR</span> <span class="no">struc</span><span class="c">; (sizeof = 0x4, mappedto_6)
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000000</span> <span class="no">Ver3_Flags</span>      <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000001</span> <span class="no">PrologSize</span>      <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000002</span> <span class="no">CntUnwindCodes</span>  <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000003</span> <span class="no">FrReg_FrRegOff</span>  <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000004</span> <span class="no">UNWIND_INFO_HDR</span> <span class="no">ends</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">00000000</span> <span class="nf">UNWIND_INFO_HDR</span> <span class="no">struc</span><span class="c1">; (sizeof = 0x4, mappedto_6)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">00000000</span> <span class="nf">Ver3_Flags</span>      <span class="no">db</span> <span class="err">?</span> <span class="c1">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">00000001</span> <span class="nf">PrologSize</span>      <span class="no">db</span> <span class="err">?</span> <span class="c1">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">00000002</span> <span class="nf">CntUnwindCodes</span>  <span class="no">db</span> <span class="err">?</span> <span class="c1">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">00000003</span> <span class="nf">FrReg_FrRegOff</span>  <span class="no">db</span> <span class="err">?</span> <span class="c1">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">00000004</span> <span class="nf">UNWIND_INFO_HDR</span> <span class="no">ends</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
@@ -1821,10 +1820,10 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">00000000</span> <span class="nf">UNWIND_CODE</span>     <span class="no">struc</span><span class="c">; (sizeof = 0x2, mappedto_7)
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000000</span> <span class="no">PrologOff</span>       <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000001</span> <span class="no">OpCode_OpInfo</span>   <span class="no">db</span> <span class="err">?</span> <span class="c">; base 16
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mi">00000002</span> <span class="no">UNWIND_CODE</span>     <span class="no">ends</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">00000000</span> <span class="nf">UNWIND_CODE</span>     <span class="no">struc</span><span class="c1">; (sizeof = 0x2, mappedto_7)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">00000000</span> <span class="nf">PrologOff</span>       <span class="no">db</span> <span class="err">?</span> <span class="c1">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">00000001</span> <span class="nf">OpCode_OpInfo</span>   <span class="no">db</span> <span class="err">?</span> <span class="c1">; base 16
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">00000002</span> <span class="nf">UNWIND_CODE</span>     <span class="no">ends</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="定位catch代码块">定位Catch代码块</h3>

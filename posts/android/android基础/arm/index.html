@@ -11,7 +11,6 @@
 <meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/arm/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-08-29T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-08-29T00:00:00+00:00" />
-
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Arm指令"/>
 <meta name="twitter:description" content="Arm 基本概念 Arm处理器特点 体积小、低功耗、低成本、高性能. 支持Thumb(16位)/ARM(32位)双指令集,能很好的兼容8位/16位器件."/>
@@ -25,7 +24,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/arm\/"
-        },"genre": "posts","keywords": "Arm","wordcount":  8068 ,
+        },"genre": "posts","keywords": "Arm","wordcount":  8075 ,
         "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/arm\/","datePublished": "2021-08-29T00:00:00+00:00","dateModified": "2021-08-29T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "夏洛魂"},"author": {
@@ -102,7 +101,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Arm指令</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/"><i class="far fa-folder fa-fw"></i>Android基础</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-29">2021-08-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8068 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-29">2021-08-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8075 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 17 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -539,7 +538,7 @@
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">	<span class="na">.text</span>
 </span></span><span class="line"><span class="cl">	<span class="na">.globl</span>	<span class="no">main</span>
 </span></span><span class="line"><span class="cl">	<span class="na">.p2align</span>	<span class="mi">2</span>
-</span></span><span class="line"><span class="cl">	<span class="na">.type</span>	<span class="no">main</span><span class="p">,</span><span class="err">%</span><span class="no">function</span>
+</span></span><span class="line"><span class="cl">	<span class="na">.type</span>	<span class="no">main</span><span class="p">,</span><span class="nv">%function</span>
 </span></span><span class="line"><span class="cl">	<span class="na">.code</span>	<span class="mi">32</span>  
 </span></span><span class="line"><span class="cl"><span class="no">main</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">push</span> <span class="err">{</span><span class="no">r11</span><span class="p">,</span> <span class="no">lr</span><span class="err">}</span>
@@ -793,9 +792,9 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span>  <span class="no">r0</span><span class="p">,</span> <span class="c">#1
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">mov</span>  <span class="no">r0</span><span class="p">,</span> <span class="c">#0x5678
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">movt</span> <span class="no">r0</span><span class="p">,</span> <span class="c">#0x1234
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span>  <span class="no">r0</span><span class="p">,</span> <span class="c1">#1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span>  <span class="no">r0</span><span class="p">,</span> <span class="c1">#0x5678
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">movt</span> <span class="no">r0</span><span class="p">,</span> <span class="c1">#0x1234
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="寄存器移位寻址">寄存器移位寻址</h4>
@@ -807,9 +806,9 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">lsl</span> <span class="c">#2
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">add</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">lsl</span> <span class="c">#2
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">add</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">lsl</span> <span class="no">r2</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">lsl</span> <span class="c1">#2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">add</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">lsl</span> <span class="c1">#2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">add</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">lsl</span> <span class="no">r2</span>
 </span></span><span class="line"><span class="cl"><span class="nf">add</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">lsr</span> <span class="no">r2</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -830,9 +829,9 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c">#4] @前基址
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">],</span> <span class="c">#4 @后基址
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="no">r0</span><span class="p">]</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="c1">#4] @前基址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">],</span> <span class="c1">#4 @后基址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">,</span> <span class="no">r0</span><span class="p">]</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="多寄存器寻址">多寄存器寻址</h4>
@@ -842,7 +841,7 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">stmfd</span> <span class="no">sp</span><span class="p">!,</span> <span class="err">{</span><span class="no">r0-r5</span><span class="p">,</span> <span class="no">r8</span><span class="p">,</span> <span class="no">pc</span><span class="err">}</span> <span class="err">@</span><span class="p">!</span><span class="err">回写</span> <span class="err">会自动修改</span><span class="no">sp的值</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">stmfd</span> <span class="no">sp</span><span class="p">!,</span> <span class="err">{</span><span class="no">r0-r5</span><span class="p">,</span> <span class="no">r8</span><span class="p">,</span> <span class="no">pc</span><span class="err">}</span> <span class="err">@</span><span class="p">!</span><span class="err">回写</span> <span class="err">会自动修改</span><span class="no">sp</span><span class="err">的值</span>
 </span></span><span class="line"><span class="cl"><span class="nf">ldmfd</span> <span class="no">sp</span><span class="p">!,</span> <span class="err">{</span><span class="no">r0-r5</span><span class="p">,</span> <span class="no">r8</span><span class="p">,</span> <span class="no">pc</span><span class="err">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -906,7 +905,7 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">stmfd</span> <span class="no">sp</span><span class="p">!,</span> <span class="err">{</span><span class="no">r0-r5</span><span class="p">,</span> <span class="no">r8</span><span class="p">,</span> <span class="no">pc</span><span class="err">}</span> <span class="err">@</span><span class="p">!</span><span class="err">回写</span> <span class="err">会自动修改</span><span class="no">sp的值</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">stmfd</span> <span class="no">sp</span><span class="p">!,</span> <span class="err">{</span><span class="no">r0-r5</span><span class="p">,</span> <span class="no">r8</span><span class="p">,</span> <span class="no">pc</span><span class="err">}</span> <span class="err">@</span><span class="p">!</span><span class="err">回写</span> <span class="err">会自动修改</span><span class="no">sp</span><span class="err">的值</span>
 </span></span><span class="line"><span class="cl"><span class="nf">ldmfd</span> <span class="no">sp</span><span class="p">!,</span> <span class="err">{</span><span class="no">r0-r5</span><span class="p">,</span> <span class="no">r8</span><span class="p">,</span> <span class="no">pc</span><span class="err">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1050,7 +1049,7 @@
 </span></span><span class="line"><span class="cl"><span class="nf">ldrsb</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="err">@</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="mi">1</span><span class="err">字节内容给</span><span class="no">r0</span> <span class="err">高位补符号位</span>
 </span></span><span class="line"><span class="cl"><span class="nf">ldrsh</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="err">@</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="mi">2</span><span class="err">字节内容给</span><span class="no">r0</span> <span class="err">高位补符号位</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">@上述指令加</span><span class="nf">ex版本的表示原子操作</span><span class="p">(</span><span class="err">内存锁</span><span class="p">)</span> <span class="err">加</span><span class="no">t版本的为带用户特权</span><span class="p">(</span><span class="err">内核用</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">@上述指令加</span><span class="nf">ex</span><span class="err">版本的表示原子操作</span><span class="p">(</span><span class="err">内存锁</span><span class="p">)</span> <span class="err">加</span><span class="no">t</span><span class="err">版本的为带用户特权</span><span class="p">(</span><span class="err">内核用</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nf">ldrex</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">]</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1068,8 +1067,8 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">@单寄存器存储</span>
 </span></span><span class="line"><span class="cl"><span class="nf">mov</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">sp</span>
-</span></span><span class="line"><span class="cl"><span class="err">@</span><span class="nf">mov</span>  <span class="no">r1</span><span class="p">,</span> <span class="c">#1
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="err">@</span><span class="no">str</span>  <span class="no">r1</span><span class="p">,</span> <span class="p">[</span><span class="no">r0</span><span class="p">]</span> <span class="err">@</span><span class="no">r1</span>    <span class="mi">4</span><span class="err">字节内容给</span><span class="p">[</span><span class="no">r0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="err">@</span><span class="nf">mov</span>  <span class="no">r1</span><span class="p">,</span> <span class="c1">#1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">@</span><span class="nf">str</span>  <span class="no">r1</span><span class="p">,</span> <span class="p">[</span><span class="no">r0</span><span class="p">]</span> <span class="err">@</span><span class="no">r1</span>    <span class="mi">4</span><span class="err">字节内容给</span><span class="p">[</span><span class="no">r0</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="err">@</span><span class="nf">strb</span> <span class="no">r1</span><span class="p">,</span> <span class="p">[</span><span class="no">r0</span><span class="p">]</span> <span class="err">@</span><span class="no">r1</span>    <span class="mi">1</span><span class="err">字节内容给</span><span class="p">[</span><span class="no">r0</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="err">@</span><span class="nf">strh</span> <span class="no">r1</span><span class="p">,</span> <span class="p">[</span><span class="no">r0</span><span class="p">]</span> <span class="err">@</span><span class="no">r1</span>    <span class="mi">2</span><span class="err">字节内容给</span><span class="p">[</span><span class="no">r0</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="err">@</span><span class="nf">strd</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r0</span><span class="p">]</span> <span class="err">@</span><span class="no">r2</span> <span class="no">r3</span> <span class="mi">8</span><span class="err">字节内容给</span><span class="p">[</span><span class="no">r0</span><span class="p">]</span>
@@ -1095,9 +1094,9 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">@前变址</span>
 </span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">r3</span><span class="p">,</span> <span class="no">sp</span>
-</span></span><span class="line"><span class="cl"><span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">r3</span><span class="p">,</span> <span class="c">#-4] @[r3-4] 4字节内容给r0 r3不变
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="err">@后变址</span>
-</span></span><span class="line"><span class="cl"><span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">r3</span><span class="p">],</span> <span class="c">#-4 @[r3] 4字节内容给r0 r3 = r3 - 4
+</span></span><span class="line"><span class="cl"><span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">r3</span><span class="p">,</span> <span class="c1">#-4] @[r3-4] 4字节内容给r0 r3不变
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">@后变址</span>
+</span></span><span class="line"><span class="cl"><span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">r3</span><span class="p">],</span> <span class="c1">#-4 @[r3] 4字节内容给r0 r3 = r3 - 4
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="多寄存器">多寄存器</h4>
@@ -1186,11 +1185,11 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">@</span><span class="nf">full</span> <span class="no">dec</span> <span class="err">满递减</span> <span class="err">堆栈向下增长</span> <span class="err">与</span><span class="no">x86相同</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">@</span><span class="nf">full</span> <span class="no">dec</span> <span class="err">满递减</span> <span class="err">堆栈向下增长</span> <span class="err">与</span><span class="no">x86</span><span class="err">相同</span>
 </span></span><span class="line"><span class="cl"><span class="err">@入栈</span>
-</span></span><span class="line"><span class="cl"><span class="nf">stmfd</span> <span class="no">sp</span><span class="p">!,</span> <span class="err">{</span><span class="no">r0-r2</span><span class="err">}</span> <span class="err">@等同于</span><span class="no">x86中的</span> <span class="no">push</span> <span class="no">r0</span> <span class="no">push</span> <span class="no">r1</span> <span class="no">push</span> <span class="no">r2</span> <span class="no">sp加</span><span class="p">!(</span><span class="err">回写</span><span class="p">)</span><span class="err">后</span><span class="p">,</span><span class="no">sp会自动修改</span><span class="p">(</span><span class="err">每次先减</span><span class="mi">4</span><span class="p">,</span><span class="err">再存</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">stmfd</span> <span class="no">sp</span><span class="p">!,</span> <span class="err">{</span><span class="no">r0-r2</span><span class="err">}</span> <span class="err">@等同于</span><span class="no">x86</span><span class="err">中的</span> <span class="no">push</span> <span class="no">r0</span> <span class="no">push</span> <span class="no">r1</span> <span class="no">push</span> <span class="no">r2</span> <span class="no">sp</span><span class="err">加</span><span class="p">!(</span><span class="err">回写</span><span class="p">)</span><span class="err">后</span><span class="p">,</span><span class="no">sp</span><span class="err">会自动修改</span><span class="p">(</span><span class="err">每次先减</span><span class="mi">4</span><span class="p">,</span><span class="err">再存</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="err">@出栈</span>
-</span></span><span class="line"><span class="cl"><span class="nf">ldmfd</span> <span class="no">sp</span><span class="p">!,</span> <span class="err">{</span><span class="no">r0-r2</span><span class="err">}</span> <span class="err">@等同于</span><span class="no">x86中的</span> <span class="no">pop</span>  <span class="no">r2</span> <span class="no">pop</span>  <span class="no">r1</span> <span class="no">pop</span>  <span class="no">r0</span> <span class="no">sp加</span><span class="p">!(</span><span class="err">回写</span><span class="p">)</span><span class="err">后</span><span class="p">,</span><span class="no">sp会自动修改</span><span class="p">(</span><span class="err">每次先加</span><span class="mi">4</span><span class="p">,</span><span class="err">再存</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">ldmfd</span> <span class="no">sp</span><span class="p">!,</span> <span class="err">{</span><span class="no">r0-r2</span><span class="err">}</span> <span class="err">@等同于</span><span class="no">x86</span><span class="err">中的</span> <span class="no">pop</span>  <span class="no">r2</span> <span class="no">pop</span>  <span class="no">r1</span> <span class="no">pop</span>  <span class="no">r0</span> <span class="no">sp</span><span class="err">加</span><span class="p">!(</span><span class="err">回写</span><span class="p">)</span><span class="err">后</span><span class="p">,</span><span class="no">sp</span><span class="err">会自动修改</span><span class="p">(</span><span class="err">每次先加</span><span class="mi">4</span><span class="p">,</span><span class="err">再存</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="寄存器和存储器交换">寄存器和存储器交换</h4>
@@ -1211,9 +1210,9 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">@寄存器和存储器交换</span>
-</span></span><span class="line"><span class="cl"><span class="nf">swp</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="err">@将</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span><span class="err">的值给</span><span class="no">r0</span> <span class="no">r1的值给</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">swp</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="err">@将</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span><span class="err">的值给</span><span class="no">r0</span> <span class="no">r0原来的值给</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="err">达到了寄存器和存储器交换的目的</span>
-</span></span><span class="line"><span class="cl"><span class="nf">swpb</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r3</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="err">@将</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span><span class="err">中</span><span class="mi">1</span><span class="err">字节的值给</span><span class="no">r2</span><span class="p">,</span><span class="err">高位补</span><span class="mi">0</span> <span class="no">r3中1字节的值给</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">swp</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="err">@将</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span><span class="err">的值给</span><span class="no">r0</span> <span class="no">r1</span><span class="err">的值给</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">swp</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="err">@将</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span><span class="err">的值给</span><span class="no">r0</span> <span class="no">r0</span><span class="err">原来的值给</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="err">达到了寄存器和存储器交换的目的</span>
+</span></span><span class="line"><span class="cl"><span class="nf">swpb</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r3</span><span class="p">,</span> <span class="p">[</span><span class="no">sp</span><span class="p">]</span> <span class="err">@将</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span><span class="err">中</span><span class="mi">1</span><span class="err">字节的值给</span><span class="no">r2</span><span class="p">,</span><span class="err">高位补</span><span class="mi">0</span> <span class="no">r3</span><span class="err">中</span><span class="mi">1</span><span class="err">字节的值给</span><span class="p">[</span><span class="no">sp</span><span class="p">]</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="数据处理指令">数据处理指令</h3>
@@ -1344,9 +1343,9 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">@数据传送指令</span>
-</span></span><span class="line"><span class="cl"><span class="nf">mov</span>  <span class="no">r0</span><span class="p">,</span> <span class="c">#1   @将1给r0
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">mvn</span>  <span class="no">r1</span><span class="p">,</span> <span class="c">#0   @将0取反后的结果给r1
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">movt</span> <span class="no">r2</span><span class="p">,</span> <span class="c">#123 @将123的值给r2的高16位
+</span></span><span class="line"><span class="cl"><span class="nf">mov</span>  <span class="no">r0</span><span class="p">,</span> <span class="c1">#1   @将1给r0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mvn</span>  <span class="no">r1</span><span class="p">,</span> <span class="c1">#0   @将0取反后的结果给r1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">movt</span> <span class="no">r2</span><span class="p">,</span> <span class="c1">#123 @将123的值给r2的高16位
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="算术逻辑运算指令">算术逻辑运算指令</h4>
@@ -1374,14 +1373,14 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">@算术逻辑指令</span>
 </span></span><span class="line"><span class="cl"><span class="nf">adds</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r2</span> <span class="err">@</span><span class="no">r1</span> <span class="err">=</span> <span class="no">r2</span> <span class="err">+</span> <span class="no">r2</span> <span class="err">影响标志寄存器</span> <span class="err">进位</span> <span class="no">Carry</span> <span class="err">=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="nf">adc</span>  <span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">,</span> <span class="c">#2 @r1 = r2 + 2 + Carry位的值
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">add</span>  <span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r2</span> <span class="err">@</span><span class="no">r1</span> <span class="err">=</span> <span class="no">r2</span> <span class="err">+</span> <span class="no">r2</span> <span class="err">不影响标志寄存器</span>
+</span></span><span class="line"><span class="cl"><span class="nf">adc</span>  <span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">,</span> <span class="c1">#2 @r1 = r2 + 2 + Carry位的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">add</span>  <span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r2</span> <span class="err">@</span><span class="no">r1</span> <span class="err">=</span> <span class="no">r2</span> <span class="err">+</span> <span class="no">r2</span> <span class="err">不影响标志寄存器</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">subs</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="c">#9 @r0 = r1 - 9 影响标志寄存器 借位 Carry = 0
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">sbc</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="c">#5 @r0 = r1 - 5 - (Carry位取反的值)
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">sub</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="c">#5 @r0 = r1 - 5 不影响标志寄存器
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">rsb</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="c">#5 @r0 = 5 - r1
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">rsc</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="c">#5 @r0 = 5 - r1 - (Carry位取反的值)
+</span></span><span class="line"><span class="cl"><span class="nf">subs</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="c1">#9 @r0 = r1 - 9 影响标志寄存器 借位 Carry = 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">sbc</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="c1">#5 @r0 = r1 - 5 - (Carry位取反的值)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">sub</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="c1">#5 @r0 = r1 - 5 不影响标志寄存器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">rsb</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="c1">#5 @r0 = 5 - r1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">rsc</span>  <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="c1">#5 @r0 = 5 - r1 - (Carry位取反的值)
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>注意</strong></p>
@@ -1407,11 +1406,11 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">@逻辑指令</span>
-</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="c">#-1
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">and</span> <span class="no">r0</span><span class="p">,</span> <span class="c">#0x80000001 @r0 = r0 &amp; 0x80000001 清零
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">orr</span> <span class="no">r0</span><span class="p">,</span> <span class="c">#0x80000001 @r0 = r0 | 0x80000001 置位
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">eor</span> <span class="no">r0</span><span class="p">,</span> <span class="c">#0xff       @r0 = r0 ^ 0x80000001 按位取反      
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">bic</span> <span class="no">r0</span><span class="p">,</span> <span class="c">#0xff       @r0 = r0 &amp; (~0xff)
+</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="c1">#-1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">and</span> <span class="no">r0</span><span class="p">,</span> <span class="c1">#0x80000001 @r0 = r0 &amp; 0x80000001 清零
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">orr</span> <span class="no">r0</span><span class="p">,</span> <span class="c1">#0x80000001 @r0 = r0 | 0x80000001 置位
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">eor</span> <span class="no">r0</span><span class="p">,</span> <span class="c1">#0xff       @r0 = r0 ^ 0x80000001 按位取反      
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">bic</span> <span class="no">r0</span><span class="p">,</span> <span class="c1">#0xff       @r0 = r0 &amp; (~0xff)
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="比较指令">比较指令</h4>
@@ -1427,11 +1426,11 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">@比较指令</span>
-</span></span><span class="line"><span class="cl"><span class="nf">cmp</span> <span class="no">r0</span><span class="p">,</span> <span class="c">#3 @r0 - 3
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">cmn</span> <span class="no">r0</span><span class="p">,</span> <span class="c">#3 @r0 - (-3) 负数比较
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">tst</span> <span class="no">r0</span><span class="p">,</span> <span class="c">#3 @r0 &amp; 3
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">tst</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r0</span> <span class="err">@判</span><span class="no">r0是否为0</span>
-</span></span><span class="line"><span class="cl"><span class="nf">teq</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span> <span class="err">@</span><span class="no">r0</span> <span class="err">^</span> <span class="no">r1</span> <span class="err">判</span><span class="no">r0与r1是否相等</span>
+</span></span><span class="line"><span class="cl"><span class="nf">cmp</span> <span class="no">r0</span><span class="p">,</span> <span class="c1">#3 @r0 - 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">cmn</span> <span class="no">r0</span><span class="p">,</span> <span class="c1">#3 @r0 - (-3) 负数比较
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">tst</span> <span class="no">r0</span><span class="p">,</span> <span class="c1">#3 @r0 &amp; 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">tst</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r0</span> <span class="err">@判</span><span class="no">r0</span><span class="err">是否为</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nf">teq</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span> <span class="err">@</span><span class="no">r0</span> <span class="err">^</span> <span class="no">r1</span> <span class="err">判</span><span class="no">r0</span><span class="err">与</span><span class="no">r1</span><span class="err">是否相等</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="乘法指令">乘法指令</h4>
@@ -1468,11 +1467,11 @@
 </span></span><span class="line"><span class="cl"><span class="nf">mls</span>   <span class="no">r2</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r3</span> <span class="err">@</span><span class="mi">32</span><span class="err">位乘法</span> <span class="no">r2</span> <span class="err">=</span> <span class="p">(</span><span class="no">r3</span> <span class="p">-</span> <span class="p">(</span><span class="no">r0</span> <span class="p">*</span> <span class="no">r1</span><span class="p">))</span><span class="err">的结果只取低</span><span class="mi">32</span><span class="err">位</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">umull</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r3</span> <span class="err">@</span><span class="mi">64</span><span class="err">位无符号</span> <span class="p">(</span><span class="no">r1</span> <span class="p">*</span> <span class="no">r3</span><span class="p">)</span><span class="err">的结果</span><span class="p">,</span><span class="err">低</span><span class="mi">32</span><span class="err">位放</span><span class="no">r2</span> <span class="err">高</span><span class="mi">32</span><span class="err">位结果放</span><span class="no">r0</span>
-</span></span><span class="line"><span class="cl"><span class="nf">umlal</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r3</span> <span class="err">@</span><span class="mi">64</span><span class="err">位无符号</span> <span class="no">r2作为低32位</span> <span class="no">r0作为高32位组成64位</span> <span class="err">加上</span><span class="no">r1</span> <span class="p">*</span> <span class="no">r3的结果</span><span class="p">,</span><span class="err">低</span><span class="mi">32</span><span class="err">位放</span><span class="no">r2</span>   <span class="err">高</span><span class="mi">32</span><span class="err">位放</span><span class="no">r0</span>
+</span></span><span class="line"><span class="cl"><span class="nf">umlal</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r3</span> <span class="err">@</span><span class="mi">64</span><span class="err">位无符号</span> <span class="no">r2</span><span class="err">作为低</span><span class="mi">32</span><span class="err">位</span> <span class="no">r0</span><span class="err">作为高</span><span class="mi">32</span><span class="err">位组成</span><span class="mi">64</span><span class="err">位</span> <span class="err">加上</span><span class="no">r1</span> <span class="p">*</span> <span class="no">r3</span><span class="err">的结果</span><span class="p">,</span><span class="err">低</span><span class="mi">32</span><span class="err">位放</span><span class="no">r2</span>   <span class="err">高</span><span class="mi">32</span><span class="err">位放</span><span class="no">r0</span>
 </span></span><span class="line"><span class="cl"><span class="nf">umaal</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r3</span> <span class="err">@</span><span class="mi">64</span><span class="err">位无符号</span> <span class="p">(</span><span class="no">r2</span> <span class="err">+</span> <span class="no">r0</span> <span class="err">+</span> <span class="no">r1</span> <span class="p">*</span> <span class="no">r3</span><span class="p">)</span><span class="err">的结果</span><span class="p">,</span><span class="err">低</span><span class="mi">32</span><span class="err">位放</span><span class="no">r2</span> <span class="err">高</span><span class="mi">32</span><span class="err">位结果放</span><span class="no">r0</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">smull</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r3</span> <span class="err">@</span><span class="mi">64</span><span class="err">位有符号</span> <span class="p">(</span><span class="no">r1</span> <span class="p">*</span> <span class="no">r3</span><span class="p">)</span><span class="err">的结果</span><span class="p">,</span><span class="err">低</span><span class="mi">32</span><span class="err">位放</span><span class="no">r2</span> <span class="err">高</span><span class="mi">32</span><span class="err">位结果放</span><span class="no">r0</span>
-</span></span><span class="line"><span class="cl"><span class="nf">smlal</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r3</span> <span class="err">@</span><span class="mi">64</span><span class="err">位有符号</span> <span class="no">r2作为低32位</span> <span class="no">r0作为高32位组成64位</span> <span class="err">加上</span><span class="no">r1</span> <span class="p">*</span> <span class="no">r3的结果</span><span class="p">,</span><span class="err">低</span><span class="mi">32</span><span class="err">位放</span><span class="no">r2</span>   <span class="err">高</span><span class="mi">32</span><span class="err">位放</span><span class="no">r0</span>
+</span></span><span class="line"><span class="cl"><span class="nf">smlal</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r3</span> <span class="err">@</span><span class="mi">64</span><span class="err">位有符号</span> <span class="no">r2</span><span class="err">作为低</span><span class="mi">32</span><span class="err">位</span> <span class="no">r0</span><span class="err">作为高</span><span class="mi">32</span><span class="err">位组成</span><span class="mi">64</span><span class="err">位</span> <span class="err">加上</span><span class="no">r1</span> <span class="p">*</span> <span class="no">r3</span><span class="err">的结果</span><span class="p">,</span><span class="err">低</span><span class="mi">32</span><span class="err">位放</span><span class="no">r2</span>   <span class="err">高</span><span class="mi">32</span><span class="err">位放</span><span class="no">r0</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">smmul</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r3</span>     <span class="err">@</span><span class="p">(</span><span class="no">r1</span> <span class="p">*</span> <span class="no">r3</span><span class="p">)</span><span class="err">的结果</span><span class="p">,</span><span class="err">高</span><span class="mi">32</span><span class="err">位放</span><span class="no">r2</span>
 </span></span><span class="line"><span class="cl"><span class="nf">smmla</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r3</span> <span class="err">@</span><span class="no">r2</span> <span class="err">=</span> <span class="p">(</span><span class="no">r3</span> <span class="err">+</span> <span class="p">(</span><span class="no">r0</span> <span class="p">*</span> <span class="no">r1</span><span class="p">)</span><span class="err">的高</span><span class="mi">32</span><span class="err">位</span><span class="p">)</span>
@@ -1555,7 +1554,7 @@
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">    <span class="nf">push</span>	<span class="err">{</span><span class="no">r11</span><span class="p">,</span> <span class="no">lr</span><span class="err">}</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">mov</span> <span class="no">r1</span><span class="p">,</span> <span class="mi">2</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">mov</span> <span class="no">lr</span><span class="p">,</span> <span class="no">pc</span>  <span class="err">@使用</span><span class="no">b指令来调用函数</span><span class="p">,</span><span class="err">需要自己设置</span><span class="no">LR寄存器</span><span class="p">,</span><span class="err">十分不方便</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mov</span> <span class="no">lr</span><span class="p">,</span> <span class="no">pc</span>  <span class="err">@使用</span><span class="no">b</span><span class="err">指令来调用函数</span><span class="p">,</span><span class="err">需要自己设置</span><span class="no">LR</span><span class="err">寄存器</span><span class="p">,</span><span class="err">十分不方便</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">b</span> <span class="no">my_add</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="nf">pop</span>	<span class="err">{</span><span class="no">r11</span><span class="p">,</span> <span class="no">pc</span><span class="err">}</span>
@@ -1582,7 +1581,7 @@
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">    <span class="nf">push</span>	<span class="err">{</span><span class="no">r11</span><span class="p">,</span> <span class="no">lr</span><span class="err">}</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="mi">2</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">mov</span> <span class="no">r1</span><span class="p">,</span> <span class="mi">4</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">bl</span> <span class="no">my_add</span>   <span class="err">@使用</span><span class="no">bl指令来调用函数</span><span class="p">,</span><span class="err">不需要自己设置</span><span class="no">LR寄存器</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">bl</span> <span class="no">my_add</span>   <span class="err">@使用</span><span class="no">bl</span><span class="err">指令来调用函数</span><span class="p">,</span><span class="err">不需要自己设置</span><span class="no">LR</span><span class="err">寄存器</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="nf">pop</span>	<span class="err">{</span><span class="no">r11</span><span class="p">,</span> <span class="no">pc</span><span class="err">}</span>
 </span></span><span class="line"><span class="cl"><span class="nl">my_add:</span>
@@ -1609,14 +1608,14 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">	<span class="err">@</span><span class="nf">bl</span> <span class="err">下面所示的调用会崩</span><span class="p">,</span><span class="err">没有切换指令集</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">push</span>	<span class="err">{</span><span class="no">r11</span><span class="p">,</span> <span class="no">lr</span><span class="err">}</span>
-</span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">32</span>      <span class="na">@arm指令集</span>
+</span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">32</span>      <span class="na">@arm</span><span class="err">指令集</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="mi">2</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r1</span><span class="p">,</span> <span class="mi">4</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">bl</span> <span class="no">my_add</span>   <span class="err">@使用</span><span class="no">bl指令来调函数</span><span class="p">,</span><span class="err">不需要自己设置</span><span class="no">LR寄存器</span><span class="p">,</span><span class="err">但是无法自动切换指令集</span><span class="p">,</span><span class="err">即标志寄存器的</span><span class="no">T位.</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">bl</span> <span class="no">my_add</span>   <span class="err">@使用</span><span class="no">bl</span><span class="err">指令来调函数</span><span class="p">,</span><span class="err">不需要自己设置</span><span class="no">LR</span><span class="err">寄存器</span><span class="p">,</span><span class="err">但是无法自动切换指令集</span><span class="p">,</span><span class="err">即标志寄存器的</span><span class="no">T</span><span class="err">位</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">	
 </span></span><span class="line"><span class="cl">	<span class="nf">pop</span>	<span class="err">{</span><span class="no">r11</span><span class="p">,</span> <span class="no">pc</span><span class="err">}</span>
 </span></span><span class="line"><span class="cl"><span class="nl">my_add:</span>
-</span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">16</span>      <span class="na">@thumb指令集</span>
+</span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">16</span>      <span class="na">@thumb</span><span class="err">指令集</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">add</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">pc</span><span class="p">,</span> <span class="no">lr</span>
 </span></span></code></pre></td></tr></table>
@@ -1644,19 +1643,19 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">	<span class="err">@</span><span class="nf">bx</span> <span class="err">后面跟的只能是寄存器</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">push</span>	<span class="err">{</span><span class="no">r11</span><span class="p">,</span> <span class="no">lr</span><span class="err">}</span>
-</span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">32</span>         <span class="na">@arm指令集.</span>
+</span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">32</span>         <span class="na">@arm</span><span class="err">指令集</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="mi">3</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r1</span><span class="p">,</span> <span class="mi">5</span>      <span class="err">@</span>   <span class="no">cpu计算偏移的时候</span><span class="p">,</span><span class="err">会忽略地址的低位</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">add</span> <span class="no">r2</span><span class="p">,</span> <span class="no">pc</span><span class="p">,</span> <span class="c">#9 @1. 需要自己算偏移,状态的切换由地址的最低位来决定,0:arm指令,1:thumb指令
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">mov</span> <span class="no">lr</span><span class="p">,</span> <span class="no">pc</span>     <span class="err">@</span><span class="mi">2</span><span class="p">.</span> <span class="err">需要自己设置</span><span class="no">LR寄存器.</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">bx</span> <span class="no">r2</span>          <span class="err">@</span>   <span class="err">会根据地址的最低位</span><span class="p">,</span><span class="err">自动切换状态</span><span class="p">,</span><span class="err">即标志寄存器</span><span class="no">T位的值.</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r1</span><span class="p">,</span> <span class="mi">5</span>      <span class="err">@</span>   <span class="no">cpu</span><span class="err">计算偏移的时候</span><span class="p">,</span><span class="err">会忽略地址的低位</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">add</span> <span class="no">r2</span><span class="p">,</span> <span class="no">pc</span><span class="p">,</span> <span class="c1">#9 @1. 需要自己算偏移,状态的切换由地址的最低位来决定,0:arm指令,1:thumb指令
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">mov</span> <span class="no">lr</span><span class="p">,</span> <span class="no">pc</span>     <span class="err">@</span><span class="mi">2</span><span class="p">.</span> <span class="err">需要自己设置</span><span class="no">LR</span><span class="err">寄存器</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">bx</span> <span class="no">r2</span>          <span class="err">@</span>   <span class="err">会根据地址的最低位</span><span class="p">,</span><span class="err">自动切换状态</span><span class="p">,</span><span class="err">即标志寄存器</span><span class="no">T</span><span class="err">位的值</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">	
 </span></span><span class="line"><span class="cl">	<span class="nf">pop</span>	<span class="err">{</span><span class="no">r11</span><span class="p">,</span> <span class="no">pc</span><span class="err">}</span>
 </span></span><span class="line"><span class="cl"><span class="nl">my_add:</span>
-</span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">16</span>         <span class="na">@thumb指令集.</span>
+</span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">16</span>         <span class="na">@thumb</span><span class="err">指令集</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">add</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span>
 </span></span><span class="line"><span class="cl">	<span class="err">@</span><span class="nf">mov</span> <span class="no">pc</span><span class="p">,</span> <span class="no">lr</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">bx</span> <span class="no">lr</span>          <span class="err">@</span><span class="mi">3</span><span class="p">.</span> <span class="err">状态切换</span><span class="p">,</span><span class="err">由地址低位来决定</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="no">arm指令</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="no">thumb指令.</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">bx</span> <span class="no">lr</span>          <span class="err">@</span><span class="mi">3</span><span class="p">.</span> <span class="err">状态切换</span><span class="p">,</span><span class="err">由地址低位来决定</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="no">arm</span><span class="err">指令</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="no">thumb</span><span class="err">指令</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">	
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1681,14 +1680,14 @@
 </span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">32</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r1</span><span class="p">,</span> <span class="mi">2</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">blx</span> <span class="no">my_add</span>     <span class="err">@会自动切状态</span><span class="p">,</span><span class="no">T位取反.</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">blx</span> <span class="no">my_add</span>     <span class="err">@会自动切状态</span><span class="p">,</span><span class="no">T</span><span class="err">位取反</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">	
 </span></span><span class="line"><span class="cl">	<span class="nf">pop</span>	<span class="err">{</span><span class="no">r11</span><span class="p">,</span> <span class="no">pc</span><span class="err">}</span>
 </span></span><span class="line"><span class="cl"><span class="nl">my_add:</span>
-</span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">16</span>         <span class="na">@thumb指令集.</span>
+</span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">16</span>         <span class="na">@thumb</span><span class="err">指令集</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">add</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span>
 </span></span><span class="line"><span class="cl">	<span class="err">@</span><span class="nf">mov</span> <span class="no">pc</span><span class="p">,</span> <span class="no">lr</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">bx</span> <span class="no">lr</span>          <span class="err">@</span><span class="mi">3</span><span class="p">.</span> <span class="err">状态切换</span><span class="p">,</span><span class="err">由地址低位来决定</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="no">arm指令</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="no">thumb指令.</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">bx</span> <span class="no">lr</span>          <span class="err">@</span><span class="mi">3</span><span class="p">.</span> <span class="err">状态切换</span><span class="p">,</span><span class="err">由地址低位来决定</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="no">arm</span><span class="err">指令</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="no">thumb</span><span class="err">指令</span><span class="p">.</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="tbb">TBB</h5>
@@ -1713,14 +1712,14 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">	<span class="err">@</span><span class="nf">tbb</span> <span class="no">thumb2指令才可以用</span><span class="p">,</span><span class="err">常用来做</span><span class="no">SwitchCase</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">	<span class="err">@</span><span class="nf">tbb</span> <span class="no">thumb2</span><span class="err">指令才可以用</span><span class="p">,</span><span class="err">常用来做</span><span class="no">SwitchCase</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">push</span>	<span class="err">{</span><span class="no">r11</span><span class="p">,</span> <span class="no">lr</span><span class="err">}</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">blx</span> <span class="no">thumb2</span>
 </span></span><span class="line"><span class="cl"><span class="na">.code</span>	<span class="mi">16</span>
 </span></span><span class="line"><span class="cl"><span class="nl">thumb2:</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">add</span> <span class="no">r2</span><span class="p">,</span> <span class="no">pc</span><span class="p">,</span> <span class="c">#8
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">mov</span> <span class="no">r3</span><span class="p">,</span> <span class="c">#2
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="no">tbb</span> <span class="p">[</span><span class="no">r2</span><span class="p">,</span> <span class="no">r3</span><span class="p">]</span>  <span class="err">@</span><span class="no">PC</span> <span class="err">=</span> <span class="no">PC</span> <span class="err">+</span> <span class="p">(</span><span class="no">R2</span> <span class="err">+</span> <span class="no">R3</span><span class="p">)</span><span class="err">内存地址处取一字节然后乘以</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">add</span> <span class="no">r2</span><span class="p">,</span> <span class="no">pc</span><span class="p">,</span> <span class="c1">#8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">mov</span> <span class="no">r3</span><span class="p">,</span> <span class="c1">#2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">tbb</span> <span class="p">[</span><span class="no">r2</span><span class="p">,</span> <span class="no">r3</span><span class="p">]</span>  <span class="err">@</span><span class="no">PC</span> <span class="err">=</span> <span class="no">PC</span> <span class="err">+</span> <span class="p">(</span><span class="no">R2</span> <span class="err">+</span> <span class="no">R3</span><span class="p">)</span><span class="err">内存地址处取一字节然后乘以</span><span class="mi">2</span>
 </span></span><span class="line"><span class="cl"><span class="nl">table1:</span>
 </span></span><span class="line"><span class="cl">	<span class="na">.byte</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">	<span class="na">.byte</span> <span class="mi">1</span>
@@ -1745,8 +1744,8 @@ H:half</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">swi</span> <span class="c">#中断号
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">svc</span> <span class="c">#中断号
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">swi</span> <span class="c1">#中断号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">svc</span> <span class="c1">#中断号
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="系统调用_exit">系统调用_exit</h5>
@@ -1794,10 +1793,10 @@ ndk编程中不同指令集要包含不同路径下的unistd-common.h.</li>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">@调用</span><span class="nf">_exit示例</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">@调用</span><span class="nf">_exit</span><span class="err">示例</span>
 </span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">r7</span><span class="p">,</span> <span class="c">#0xF8
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">svc</span> <span class="c">#0
+</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">r7</span><span class="p">,</span> <span class="c1">#0xF8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">svc</span> <span class="c1">#0
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="ndk编程调用_exit示例">NDK编程调用_exit示例</h5>
@@ -1888,15 +1887,15 @@ ndk编程中不同指令集要包含不同路径下的unistd-common.h.</li>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">	<span class="err">@</span><span class="nf">add</span> <span class="no">r0</span><span class="p">,</span> <span class="no">pc</span><span class="p">,</span> <span class="c">#8  @计算到code1的偏移.
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>	<span class="err">@上面那种写法的痛点在于</span> <span class="err">如果这条语句和</span><span class="no">code1之间新增了指令</span><span class="p">,</span><span class="err">就需要重新计算偏移</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">adr</span> <span class="no">code1</span>  <span class="err">@我们可以使用</span><span class="no">adr伪指令来代替上面的那条很不舒服的指令</span><span class="p">,</span><span class="err">编译器会帮我们计算偏移</span><span class="p">.</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">	<span class="err">@</span><span class="nf">add</span> <span class="no">r0</span><span class="p">,</span> <span class="no">pc</span><span class="p">,</span> <span class="c1">#8  @计算到code1的偏移.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="err">@上面那种写法的痛点在于</span> <span class="err">如果这条语句和</span><span class="nf">code1</span><span class="err">之间新增了指令</span><span class="p">,</span><span class="err">就需要重新计算偏移</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">adr</span> <span class="no">code1</span>  <span class="err">@我们可以使用</span><span class="no">adr</span><span class="err">伪指令来代替上面的那条很不舒服的指令</span><span class="p">,</span><span class="err">编译器会帮我们计算偏移</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="no">r1</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nl">code1:</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="c">#3
+</span></span><span class="line"><span class="cl">	<span class="nf">mov</span> <span class="no">r0</span><span class="p">,</span> <span class="c1">#3
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h6 id="adrl">ADRL</h6>
@@ -2050,7 +2049,7 @@ ndk编程中不同指令集要包含不同路径下的unistd-common.h.</li>
 </span></span><span class="line"><span class="cl">	<span class="no">.globl</span>  <span class="no">LuoSub</span>
 </span></span><span class="line"><span class="cl">	<span class="err">@</span><span class="na">.extern</span> <span class="no">MySub</span>
 </span></span><span class="line"><span class="cl">	<span class="na">.p2align</span>	<span class="mi">2</span>
-</span></span><span class="line"><span class="cl">	<span class="na">.type</span>	<span class="no">LuoAdd</span><span class="p">,</span><span class="err">%</span><span class="no">function</span>
+</span></span><span class="line"><span class="cl">	<span class="na">.type</span>	<span class="no">LuoAdd</span><span class="p">,</span><span class="nv">%function</span>
 </span></span><span class="line"><span class="cl">	<span class="na">.code</span>	<span class="mi">32</span>                      
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="no">LuoSub</span><span class="p">:</span>

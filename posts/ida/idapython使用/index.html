@@ -11,7 +11,6 @@
 <meta property="og:url" content="https://XiaLuoHun.github.io/posts/ida/idapython%E4%BD%BF%E7%94%A8/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-08-26T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-08-26T00:00:00+00:00" />
-
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="IDAPython使用笔记"/>
 <meta name="twitter:description" content="IDAPython使用笔记 简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提"/>
@@ -25,7 +24,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/XiaLuoHun.github.io\/posts\/ida\/idapython%E4%BD%BF%E7%94%A8\/"
-        },"genre": "posts","keywords": "IDAPython","wordcount":  13048 ,
+        },"genre": "posts","keywords": "IDAPython","wordcount":  13054 ,
         "url": "https:\/\/XiaLuoHun.github.io\/posts\/ida\/idapython%E4%BD%BF%E7%94%A8\/","datePublished": "2021-08-26T00:00:00+00:00","dateModified": "2021-08-26T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "夏洛魂"},"author": {
@@ -102,7 +101,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">IDAPython使用笔记</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ida/"><i class="far fa-folder fa-fw"></i>IDA</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-26">2021-08-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 13048 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-26">2021-08-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 13054 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 27 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -791,10 +790,10 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nl">FUNC_FAR:</span> <span class="err">这个标志非常少的出现,标志程序是否使用分段内存.</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nl">FUNC_USERFAR:</span> <span class="err">这个标志也非常少见,也很少有文档,</span><span class="nf">HexRays把它描述为</span><span class="err">“</span><span class="no">user</span> <span class="no">has</span> <span class="no">specified</span> <span class="no">far-ness</span> <span class="no">of</span> <span class="no">the</span> <span class="no">function</span><span class="err">”</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nl">FUNC_USERFAR:</span> <span class="err">这个标志也非常少见,也很少有文档,</span><span class="nf">HexRays</span><span class="err">把它描述为“</span><span class="no">user</span> <span class="no">has</span> <span class="no">specified</span> <span class="no">far-ness</span> <span class="no">of</span> <span class="no">the</span> <span class="no">function</span><span class="err">”</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nl">FUNC_LIB:</span> <span class="err">这个表示用于寻找库函数的代码</span><span class="nf">.识别库函数代码是非常有必要的</span><span class="p">,</span><span class="err">因为我们在分析的</span>
-</span></span><span class="line"><span class="cl"><span class="err">时候一般将其跳过</span><span class="nf">.下面的例子展示了如何使用这个标志.</span>
+</span></span><span class="line"><span class="cl"><span class="nl">FUNC_LIB:</span> <span class="err">这个表示用于寻找库函数的代码.识别库函数代码是非常有必要的,因为我们在分析的</span>
+</span></span><span class="line"><span class="cl"><span class="err">时候一般将其跳过.下面的例子展示了如何使用这个标志.</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">for</span> <span class="no">func</span> <span class="no">in</span> <span class="no">idautils.Functions</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">flags</span> <span class="err">=</span> <span class="no">idc.get_func_attr</span><span class="p">(</span><span class="no">func</span><span class="p">,</span> <span class="no">FUNCATTR_FLAGS</span><span class="p">)</span>
@@ -802,9 +801,9 @@
 </span></span><span class="line"><span class="cl">    <span class="nf">if</span> <span class="no">flags</span> <span class="err">&amp;</span> <span class="no">FUNC_LIB</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">print</span><span class="p">(</span><span class="no">hex</span><span class="p">(</span><span class="no">func</span><span class="p">),</span> <span class="err">&#34;</span><span class="no">FUNC_LIB</span><span class="err">&#34;</span><span class="p">,</span><span class="no">get_func_name</span><span class="p">(</span><span class="no">func</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">        
-</span></span><span class="line"><span class="cl"><span class="nl">FUNC_STATIC:</span> <span class="err">这个标志作用在于识别该函数在编译的是否是一个静态函数</span><span class="nf">.在C语言中静态函数被默认为是全局的.如果作者把这个函数定义为静态函数</span><span class="p">,</span><span class="err">那么这个函数只能被本文件中的函数访问</span><span class="no">.利用静态函数的判定我们可以更好的理解源代码的结构.</span>
+</span></span><span class="line"><span class="cl"><span class="nl">FUNC_STATIC:</span> <span class="err">这个标志作用在于识别该函数在编译的是否是一个静态函数.在</span><span class="nf">C</span><span class="err">语言中静态函数被默认为是全局的</span><span class="p">.</span><span class="err">如果作者把这个函数定义为静态函数</span><span class="p">,</span><span class="err">那么这个函数只能被本文件中的函数访问</span><span class="p">.</span><span class="err">利用静态函数的判定我们可以更好的理解源代码的结构</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nl">FUNC_FRAME:</span> <span class="err">这个标志表示函数是否使用了</span><span class="nf">ebp寄存器</span><span class="p">(</span><span class="err">帧指针</span><span class="p">),</span><span class="err">使用</span><span class="no">ebp寄存器的函数通常有如下的语法设定</span><span class="p">,</span><span class="err">目的是为了保存栈帧</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nl">FUNC_FRAME:</span> <span class="err">这个标志表示函数是否使用了</span><span class="nf">ebp</span><span class="err">寄存器</span><span class="p">(</span><span class="err">帧指针</span><span class="p">),</span><span class="err">使用</span><span class="no">ebp</span><span class="err">寄存器的函数通常有如下的语法设定</span><span class="p">,</span><span class="err">目的是为了保存栈帧</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nl">.text:</span><span class="err">00404</span><span class="nf">C90</span>                 <span class="no">push</span>    <span class="no">ebp</span>
 </span></span><span class="line"><span class="cl"><span class="nl">.text:</span><span class="err">00404</span><span class="nf">C91</span>                 <span class="no">mov</span>     <span class="no">ebp</span><span class="p">,</span> <span class="no">esp</span>
@@ -812,7 +811,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nl">FUNC_BOTTOMBP:</span> <span class="err">和</span> <span class="nf">FUNC_FRAME</span> <span class="err">一样</span><span class="p">,</span><span class="err">该标志用于跟踪帧指针</span><span class="p">(</span><span class="no">ebp</span><span class="p">).</span><span class="err">它作用是识别函数中帧指针是否等于堆栈指针</span><span class="p">(</span><span class="no">esp</span><span class="p">).</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nl">FUNC_HIDDEN:</span> <span class="err">带有</span> <span class="nf">FUNC_HIDDEN</span> <span class="err">标志的函数意味着它们是隐藏的</span><span class="p">,</span><span class="err">这个函数需要展开才能查看</span><span class="no">.如果我们跳转到一个标记为</span> <span class="no">HIDDEN</span> <span class="err">的地址的话</span><span class="p">,</span><span class="err">它会自动的展开</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nl">FUNC_HIDDEN:</span> <span class="err">带有</span> <span class="nf">FUNC_HIDDEN</span> <span class="err">标志的函数意味着它们是隐藏的</span><span class="p">,</span><span class="err">这个函数需要展开才能查看</span><span class="p">.</span><span class="err">如果我们跳转到一个标记为</span> <span class="no">HIDDEN</span> <span class="err">的地址的话</span><span class="p">,</span><span class="err">它会自动的展开</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nl">FUNC_THUNK:</span> <span class="err">表示这个函数是否是一个</span> <span class="nf">thunk</span> <span class="err">函数</span><span class="p">,</span><span class="no">thunk</span> <span class="err">函数表示的是一个简单的跳转函数</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">
@@ -991,7 +990,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nl">o_void:</span> <span class="err">如果指令没有任何操作数,它将返回</span> <span class="err">0.</span>
 </span></span><span class="line"><span class="cl"><span class="nl">o_reg:</span> <span class="err">如果操作数是寄存器,则返回这种类型,它的值为</span> <span class="err">1.</span>
-</span></span><span class="line"><span class="cl"><span class="nl">o_mem:</span> <span class="err">如果操作数是直接寻址的内存,那么返回这种类型,它的值是</span> <span class="err">2,这种类型对寻找</span><span class="nf">DATA的引用非常有帮助.</span>
+</span></span><span class="line"><span class="cl"><span class="nl">o_mem:</span> <span class="err">如果操作数是直接寻址的内存,那么返回这种类型,它的值是</span> <span class="err">2,这种类型对寻找</span><span class="nf">DATA</span><span class="err">的引用非常有帮助</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">Python</span><span class="err">&gt;</span><span class="no">print</span><span class="p">(</span><span class="no">hex</span><span class="p">(</span><span class="no">idc.here</span><span class="p">()),</span> <span class="no">idc.GetDisasm</span><span class="p">(</span><span class="no">idc.here</span><span class="p">()))</span>
 </span></span><span class="line"><span class="cl"><span class="err">0</span><span class="nf">x40f576</span> <span class="no">cmp</span>     <span class="no">dword_5D0E44</span><span class="p">,</span> <span class="no">edi</span>
@@ -1019,8 +1018,8 @@
 </span></span><span class="line"><span class="cl"><span class="nf">Python</span><span class="err">&gt;</span><span class="no">idc.GetOpType</span><span class="p">(</span><span class="no">idc.here</span><span class="p">(),</span><span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="err">0</span><span class="nf">x5</span>
 </span></span><span class="line"><span class="cl"><span class="err">-------------------------------------------</span>
-</span></span><span class="line"><span class="cl"><span class="nl">o_far:</span> <span class="err">这种返回类型在</span><span class="nf">x86</span> <span class="err">和</span> <span class="no">x86_64的逆向中不常见.它用来判断直接访问远端地址的操作数</span><span class="p">,</span><span class="err">值为</span><span class="mi">6</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="nl">o_near:</span> <span class="err">这种返回类型在</span><span class="nf">x86和x86_64的逆向中不常见.它用来判断直接访问近端地址的操作数</span><span class="p">,</span><span class="err">值为</span><span class="mi">7</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nl">o_far:</span> <span class="err">这种返回类型在</span><span class="nf">x86</span> <span class="err">和</span> <span class="no">x86_64</span><span class="err">的逆向中不常见</span><span class="p">.</span><span class="err">它用来判断直接访问远端地址的操作数</span><span class="p">,</span><span class="err">值为</span><span class="mi">6</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nl">o_near:</span> <span class="err">这种返回类型在</span><span class="nf">x86</span><span class="err">和</span><span class="no">x86_64</span><span class="err">的逆向中不常见</span><span class="p">.</span><span class="err">它用来判断直接访问近端地址的操作数</span><span class="p">,</span><span class="err">值为</span><span class="mi">7</span><span class="p">.</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="例子1">例子1</h3>
@@ -1958,9 +1957,9 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nl">.text:</span><span class="err">005680</span><span class="nf">D7</span> <span class="c">; int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">.text</span><span class="p">:</span><span class="mi">005680</span><span class="no">D7</span> <span class="no">_WinMain@16</span>     <span class="no">proc</span> <span class="no">near</span>               <span class="c">; CODE XREF: __scrt_common_main_seh(void)+F3↑p
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">.text</span><span class="p">:</span><span class="mi">005680</span><span class="no">D7</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nl">.text:</span><span class="err">005680</span><span class="nf">D7</span> <span class="c1">; int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">.text:</span><span class="err">005680</span><span class="nf">D7</span> <span class="no">_WinMain@16</span>     <span class="no">proc</span> <span class="no">near</span>               <span class="c1">; CODE XREF: __scrt_common_main_seh(void)+F3↑p
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">.text:</span><span class="err">005680</span><span class="nf">D7</span>
 </span></span><span class="line"><span class="cl"><span class="nl">.text:</span><span class="err">005680</span><span class="nf">D7</span> <span class="no">var_4</span>           <span class="err">=</span> <span class="no">dword</span> <span class="no">ptr</span> <span class="p">-</span><span class="mi">4</span>
 </span></span><span class="line"><span class="cl"><span class="nl">.text:</span><span class="err">005680</span><span class="nf">D7</span> <span class="no">hInstance</span>       <span class="err">=</span> <span class="no">dword</span> <span class="no">ptr</span>  <span class="mi">8</span>
 </span></span><span class="line"><span class="cl"><span class="nl">.text:</span><span class="err">005680</span><span class="nf">D7</span> <span class="no">hPrevInstance</span>   <span class="err">=</span> <span class="no">dword</span> <span class="no">ptr</span>  <span class="mi">0</span><span class="no">Ch</span>
@@ -2100,7 +2099,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">o_void</span><span class="err">：没有该操作数</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="n">o_reg</span><span class="err">：该操作数是寄存器</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">al</span><span class="p">,</span><span class="n">es</span><span class="p">,</span><span class="n">ds等等</span><span class="p">).</span>
+</span></span><span class="line"><span class="cl"><span class="n">o_reg</span><span class="err">：该操作数是寄存器</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">al</span><span class="p">,</span><span class="n">es</span><span class="p">,</span><span class="n">ds</span><span class="err">等等</span><span class="p">).</span>
 </span></span><span class="line"><span class="cl"><span class="n">o_mem</span><span class="err">：直接寻址</span><span class="p">(</span><span class="err">数据</span><span class="p">).</span>
 </span></span><span class="line"><span class="cl"><span class="n">o_phrase</span><span class="err">：</span><span class="p">[</span><span class="err">基址</span><span class="o">+</span><span class="err">变址</span><span class="p">]</span><span class="err">寻址</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl"><span class="n">o_displ</span><span class="err">：</span><span class="p">[</span><span class="err">基址</span><span class="o">+</span><span class="err">变址</span><span class="o">+</span><span class="err">偏移</span><span class="p">]</span><span class="err">寻址</span><span class="p">.</span>

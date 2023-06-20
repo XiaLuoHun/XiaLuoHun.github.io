@@ -11,7 +11,6 @@
 <meta property="og:url" content="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-10-10T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-10-10T00:00:00+00:00" />
-
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="STL库学习"/>
 <meta name="twitter:description" content="这里以VS2017 Release版本为示例: String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize; //字符串长度 size_t _Myres; //"/>
@@ -149,8 +148,8 @@
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">_Buf</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span><span class="o">*</span> <span class="n">_Ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">size_t</span> <span class="n">_Mysize</span><span class="p">;</span>		<span class="c1">//字符串长度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">size_t</span> <span class="n">_Myres</span><span class="p">;</span>		<span class="c1">//最大字符串长度
+</span></span><span class="line"><span class="cl">    <span class="kt">size_t</span> <span class="n">_Mysize</span><span class="p">;</span>		<span class="c1">//字符串长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">size_t</span> <span class="n">_Myres</span><span class="p">;</span>		<span class="c1">//最大字符串长度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -204,7 +203,7 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">__declspec</span><span class="p">(</span><span class="n">align</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="n">Tree_nod</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">__declspec</span><span class="p">(</span><span class="nf">align</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="n">Tree_nod</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Tree_nod</span><span class="o">*</span> <span class="n">_Left</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Tree_nod</span><span class="o">*</span> <span class="n">_Parent</span><span class="p">;</span>
@@ -243,7 +242,7 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">__declspec</span><span class="p">(</span><span class="n">align</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="n">List_node</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">__declspec</span><span class="p">(</span><span class="nf">align</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="n">List_node</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">List_node</span><span class="o">*</span> <span class="n">_Next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">List_node</span><span class="o">*</span> <span class="n">_Prev</span><span class="p">;</span>

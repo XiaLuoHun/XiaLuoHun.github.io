@@ -11,7 +11,6 @@
 <meta property="og:url" content="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-24T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-03-24T00:00:00+00:00" />
-
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Windows进程注入技术"/>
 <meta name="twitter:description" content="Windows进程注入技术 注册表 AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs 当User32.dll被映射到一个新的进程时,会收到DLL_PROCESS_ATTACH通知,当U"/>
@@ -25,7 +24,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF\/"
-        },"genre": "posts","keywords": "进程注入","wordcount":  13975 ,
+        },"genre": "posts","keywords": "进程注入","wordcount":  14007 ,
         "url": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF\/","datePublished": "2022-03-24T00:00:00+00:00","dateModified": "2022-03-24T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "夏洛魂"},"author": {
@@ -102,7 +101,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Windows进程注入技术</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/"><i class="far fa-folder fa-fw"></i>Win相关</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-24">2022-03-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 13975 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-24">2022-03-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 14007 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 28 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -1814,16 +1813,16 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="c">#x86
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">Push1</span> <span class="no">BufferAddress</span> <span class="c">#将自己的程序Buffer入栈
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">Call</span> <span class="no">CallAddress</span>    <span class="c">#调用x86_PeLoader
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>
-</span></span><span class="line"><span class="cl"><span class="c">#x64
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">sub</span> <span class="no">rsp</span><span class="p">,</span> <span class="p">-</span><span class="mi">0x28</span>
-</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">rcx</span><span class="p">,</span> <span class="no">BufferAddress</span> <span class="c">#将自己的程序Buffer传给rcx
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">mov</span> <span class="no">rax</span><span class="p">,</span> <span class="no">CallAddress</span>
-</span></span><span class="line"><span class="cl"><span class="nf">call</span> <span class="no">rax</span>               <span class="c">#调用x64_PeLoader
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="no">add</span> <span class="no">rsp</span><span class="p">,</span> <span class="mi">0x28</span>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="c1">#x86
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">Push1</span> <span class="no">BufferAddress</span> <span class="c1">#将自己的程序Buffer入栈
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">Call</span> <span class="no">CallAddress</span>    <span class="c1">#调用x86_PeLoader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">#x64
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">sub</span> <span class="no">rsp</span><span class="p">,</span> <span class="p">-</span><span class="mi">0x28</span>
+</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">rcx</span><span class="p">,</span> <span class="no">BufferAddress</span> <span class="c1">#将自己的程序Buffer传给rcx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">rax</span><span class="p">,</span> <span class="no">CallAddress</span>
+</span></span><span class="line"><span class="cl"><span class="nf">call</span> <span class="no">rax</span>               <span class="c1">#调用x64_PeLoader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">add</span> <span class="no">rsp</span><span class="p">,</span> <span class="mi">0x28</span>
 </span></span><span class="line"><span class="cl"><span class="nf">jmp</span> <span class="no">rax</span>
 </span></span></code></pre></td></tr></table>
 </div>
