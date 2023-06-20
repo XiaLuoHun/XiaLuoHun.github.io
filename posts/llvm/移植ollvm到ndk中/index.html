@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>移植OLLVM到NDK中 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="移植OLLVM到NDK中" />
+<meta property="og:description" content="移植OLLVM到NDK中 将OLLVM移植到LLVM源码中 LLVM源码编译 NDK下载 https://developer.android.google.cn/ndk/downloads?hl=zh-cn 这里需要注意一点的是下载的NDK版本要和上述移植的LLV" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-05-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-05-14T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="移植OLLVM到NDK中"/>
+<meta name="twitter:description" content="移植OLLVM到NDK中 将OLLVM移植到LLVM源码中 LLVM源码编译 NDK下载 https://developer.android.google.cn/ndk/downloads?hl=zh-cn 这里需要注意一点的是下载的NDK版本要和上述移植的LLV"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bbcf/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "移植OLLVM到NDK中",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD\/"
+        },"genre": "posts","keywords": "LLVM","wordcount":  316 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD\/","datePublished": "2023-05-14T00:00:00+00:00","dateModified": "2023-05-14T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">移植OLLVM到NDK中</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/llvm/"><i class="far fa-folder fa-fw"></i>LLVM</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-05-14">2023-05-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 316 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#移植ollvm到ndk中">移植OLLVM到NDK中</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="移植ollvm到ndk中">移植OLLVM到NDK中</h1>
+<ol>
+<li>将OLLVM移植到LLVM源码中</li>
+<li>LLVM源码编译</li>
+<li>NDK下载</li>
+</ol>
+<p><a href="https://developer.android.google.cn/ndk/downloads?hl=zh-cn" target="_blank" rel="noopener noreffer">https://developer.android.google.cn/ndk/downloads?hl=zh-cn</a></p>
+<p>这里需要注意一点的是下载的NDK版本要和上述移植的LLVM源码版本相近.</p>
+<p>在NDK中也有clang编译器,可以查看下版本,看看是基于LLVM哪个版本进行编译的.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./images/NDK%e7%89%88%e6%9c%ac.png"
+        data-srcset="./images/NDK%e7%89%88%e6%9c%ac.png, ./images/NDK%e7%89%88%e6%9c%ac.png 1.5x, ./images/NDK%e7%89%88%e6%9c%ac.png 2x"
+        data-sizes="auto"
+        alt="./images/NDK版本.png"
+        title="NDK版本" /></p>
+<ol start="4">
+<li>移植OLLVM到NDK中.</li>
+</ol>
+<p>将OLLVM编译出来的bin、include和lib文件夹复制到上述下载的{NDK目录}/toolchains/llvm/prebuilt/linux-x86_64文件夹下</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./images/%e6%96%87%e4%bb%b6%e5%90%88%e5%b9%b6.png"
+        data-srcset="./images/%e6%96%87%e4%bb%b6%e5%90%88%e5%b9%b6.png, ./images/%e6%96%87%e4%bb%b6%e5%90%88%e5%b9%b6.png 1.5x, ./images/%e6%96%87%e4%bb%b6%e5%90%88%e5%b9%b6.png 2x"
+        data-sizes="auto"
+        alt="./images/文件合并.png"
+        title="文件合并" /></p>
+<ol start="5">
+<li>新建一个Android Native工程</li>
+<li>在local.properties文件中配置NDK目录</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./images/%e9%85%8d%e7%bd%aeNDK%e7%9b%ae%e5%bd%95.png"
+        data-srcset="./images/%e9%85%8d%e7%bd%aeNDK%e7%9b%ae%e5%bd%95.png, ./images/%e9%85%8d%e7%bd%aeNDK%e7%9b%ae%e5%bd%95.png 1.5x, ./images/%e9%85%8d%e7%bd%aeNDK%e7%9b%ae%e5%bd%95.png 2x"
+        data-sizes="auto"
+        alt="./images/配置NDK目录.png"
+        title="配置NDK目录" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ndk.dir=/home/luohun/Android/android-ndk-r21e
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="7">
+<li>在Cpp同目录下的CMakeLists.txt文件中添加OLLVM命令</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./images/%e6%b7%bb%e5%8a%a0OLLVM%e5%91%bd%e4%bb%a4.png"
+        data-srcset="./images/%e6%b7%bb%e5%8a%a0OLLVM%e5%91%bd%e4%bb%a4.png, ./images/%e6%b7%bb%e5%8a%a0OLLVM%e5%91%bd%e4%bb%a4.png 1.5x, ./images/%e6%b7%bb%e5%8a%a0OLLVM%e5%91%bd%e4%bb%a4.png 2x"
+        data-sizes="auto"
+        alt="./images/添加OLLVM命令.png"
+        title="添加OLLVM命令" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">add_definitions(&#34;-mllvm -fla&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="8">
+<li>正常进行工程编译即可</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-05-14</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/llvm/">LLVM</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bbcf/" class="prev" rel="prev" title="OLLVM研究之BCF"><i class="fas fa-angle-left fa-fw"></i>OLLVM研究之BCF</a>
+            <a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" class="next" rel="next" title="Android-DexVMP快速分析">Android-DexVMP快速分析<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Android-DexVMP快速分析 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="Android-DexVMP快速分析" />
+<meta property="og:description" content="Android-DexVMP快速分析 概述 Android DexVMP主要有以下两种表现形式: 抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护 onCreate N" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-06-19T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Android-DexVMP快速分析"/>
+<meta name="twitter:description" content="Android-DexVMP快速分析 概述 Android DexVMP主要有以下两种表现形式: 抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护 onCreate N"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Android-DexVMP快速分析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90\/"
+        },"genre": "posts","keywords": "DexVMP","wordcount":  2378 ,
+        "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90\/","datePublished": "2023-06-19T00:00:00+00:00","dateModified": "2023-06-19T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "夏洛魂"},"author": {
+                "@type": "Person",
+                "name": "夏洛魂"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="夏洛魂的个人博客">主页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="夏洛魂的个人博客">主页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Android-DexVMP快速分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android%E5%A3%B3%E4%B8%96%E7%95%8C/"><i class="far fa-folder fa-fw"></i>Android壳世界</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-06-19">2023-06-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2378 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#android-dexvmp快速分析">Android-DexVMP快速分析</a>
+      <ul>
+        <li><a href="#概述">概述</a></li>
+        <li><a href="#定制art">定制ART</a>
+          <ul>
+            <li><a href="#java调用关系">Java调用关系</a></li>
+            <li><a href="#jni调用关系">Jni调用关系</a></li>
+          </ul>
+        </li>
+        <li><a href="#frida代码">Frida代码</a></li>
+        <li><a href="#示例">示例</a></li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="android-dexvmp快速分析">Android-DexVMP快速分析</h1>
+<h2 id="概述">概述</h2>
+<p>Android DexVMP主要有以下两种表现形式:</p>
+<ol>
+<li>抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png"
+        data-srcset="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png 1.5x, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png 2x"
+        data-sizes="auto"
+        alt="./images/DexVMP表现形式1.png"
+        title="DexVMP表现形式1" /></p>
+<ol start="2">
+<li>onCreate Native化,对其进行VMP保护</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png"
+        data-srcset="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png 1.5x, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png 2x"
+        data-sizes="auto"
+        alt="./images/DexVMP表现形式2.png"
+        title="DexVMP表现形式2" /></p>
+<p>Android DexVMP的实现原理就是对ART解释器进行自定义,壳代码运行在传统ART解释器下,被加固应用运行在自定义解释器下.对于这种情况,我们可以对其函数调用过程进行trace,通过分析某个函数内部调用的其他函数,然后借助Frida进行关键函数的Hook来帮助我们完成对VMP保护的函数进行快速分析,接下来将以Android13为例,进行ART的定制来完成函数调用关系的打印.</p>
+<h2 id="定制art">定制ART</h2>
+<h3 id="java调用关系">Java调用关系</h3>
+<p>Java函数有以下两种执行模式:</p>
+<ol>
+<li>
+<p>解释模式</p>
+</li>
+<li>
+<p>经过dex2oat编译后在quick模式执行</p>
+</li>
+</ol>
+<p>对于所有在解释模式下执行的函数都会经过interpreter.cc中的Execute函数.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//http://aospxref.com/android-13.0.0_r3/xref/art/runtime/interpreter/interpreter.cc
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kr">inline</span> <span class="n">JValue</span> <span class="nf">Execute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Thread</span><span class="o">*</span> <span class="n">self</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">CodeItemDataAccessor</span><span class="o">&amp;</span> <span class="n">accessor</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ShadowFrame</span><span class="o">&amp;</span> <span class="n">shadow_frame</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JValue</span> <span class="n">result_register</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">stay_in_interpreter</span> <span class="o">=</span> <span class="nb">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">from_deoptimize</span> <span class="o">=</span> <span class="nb">false</span><span class="p">)</span> <span class="n">REQUIRES_SHARED</span><span class="p">(</span><span class="n">Locks</span><span class="o">::</span><span class="n">mutator_lock_</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">DCHECK</span><span class="p">(</span><span class="o">!</span><span class="n">shadow_frame</span><span class="p">.</span><span class="n">GetMethod</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">IsAbstract</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="n">DCHECK</span><span class="p">(</span><span class="o">!</span><span class="n">shadow_frame</span><span class="p">.</span><span class="n">GetMethod</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">IsNative</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//----------------------------------------------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">stay_in_interpreter</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">self</span><span class="o">-&gt;</span><span class="n">IsForceInterpreter</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">jit</span><span class="o">::</span><span class="n">Jit</span><span class="o">*</span> <span class="n">jit</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">::</span><span class="n">Current</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetJit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">jit</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">jit</span><span class="o">-&gt;</span><span class="n">MethodEntered</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">shadow_frame</span><span class="p">.</span><span class="n">GetMethod</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">jit</span><span class="o">-&gt;</span><span class="n">CanInvokeCompiledCode</span><span class="p">(</span><span class="n">method</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">JValue</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="c1">// Pop the shadow frame before calling into compiled code.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="n">self</span><span class="o">-&gt;</span><span class="n">PopShadowFrame</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// Calculate the offset of the first input reg. The input registers are in the high regs.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="c1">// It&#39;s ok to access the code item here since JIT code will have been touched by the
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="c1">// interpreter and compiler already.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="kt">uint16_t</span> <span class="n">arg_offset</span> <span class="o">=</span> <span class="n">accessor</span><span class="p">.</span><span class="n">RegistersSize</span><span class="p">()</span> <span class="o">-</span> <span class="n">accessor</span><span class="p">.</span><span class="n">InsSize</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">          <span class="n">ArtInterpreterToCompiledCodeBridge</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">shadow_frame</span><span class="p">,</span> <span class="n">arg_offset</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// Push the shadow frame back as the caller will expect it.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="n">self</span><span class="o">-&gt;</span><span class="n">PushShadowFrame</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shadow_frame</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">ArtMethod</span><span class="o">*</span> <span class="n">method</span> <span class="o">=</span> <span class="n">shadow_frame</span><span class="p">.</span><span class="n">GetMethod</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">DCheckStaticState</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">method</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// Lock counting is a special version of accessibility checks, and for simplicity and
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// reduction of template parameters, we gate it behind access-checks mode.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">DCHECK_IMPLIES</span><span class="p">(</span><span class="n">method</span><span class="o">-&gt;</span><span class="n">SkipAccessChecks</span><span class="p">(),</span> <span class="o">!</span><span class="n">method</span><span class="o">-&gt;</span><span class="n">MustCountLocks</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">VLOG</span><span class="p">(</span><span class="n">interpreter</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Interpreting &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">method</span><span class="o">-&gt;</span><span class="n">PrettyMethod</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">ExecuteSwitch</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="n">self</span><span class="p">,</span> <span class="n">accessor</span><span class="p">,</span> <span class="n">shadow_frame</span><span class="p">,</span> <span class="n">result_register</span><span class="p">,</span> <span class="cm">/*interpret_one_instruction=*/</span> <span class="nb">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>从Android13的Execute函数源码中可以看到,如果Java函数始终运行在解释模式下,那么最终所有流程会走到ExecuteSwitch函数中.</p>
+<p>ExecuteSwitch函数的调用流程如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//http://aospxref.com/android-13.0.0_r3/xref/art/runtime/interpreter/interpreter.cc#ExecuteSwitch
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="n">JValue</span> <span class="nf">ExecuteSwitch</span><span class="p">(</span><span class="n">Thread</span><span class="o">*</span> <span class="n">self</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="k">const</span> <span class="n">CodeItemDataAccessor</span><span class="o">&amp;</span> <span class="n">accessor</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">ShadowFrame</span><span class="o">&amp;</span> <span class="n">shadow_frame</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">JValue</span> <span class="n">result_register</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="kt">bool</span> <span class="n">interpret_one_instruction</span><span class="p">)</span> <span class="n">REQUIRES_SHARED</span><span class="p">(</span><span class="n">Locks</span><span class="o">::</span><span class="n">mutator_lock_</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//http://aospxref.com/android-13.0.0_r3/xref/art/runtime/interpreter/interpreter_switch_impl.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">-&gt;</span><span class="n">ALWAYS_INLINE</span> <span class="n">JValue</span> <span class="n">ExecuteSwitchImpl</span><span class="p">(</span><span class="n">Thread</span><span class="o">*</span> <span class="n">self</span><span class="p">,</span> <span class="k">const</span> <span class="n">CodeItemDataAccessor</span><span class="o">&amp;</span> <span class="n">accessor</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                       <span class="n">ShadowFrame</span><span class="o">&amp;</span> <span class="n">shadow_frame</span><span class="p">,</span> <span class="n">JValue</span> <span class="n">result_register</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                       <span class="kt">bool</span> <span class="n">interpret_one_instruction</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//http://aospxref.com/android-13.0.0_r3/xref/art/runtime/interpreter/interpreter_switch_impl-inl.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">-&gt;</span><span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span> <span class="n">do_access_check</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">transaction_active</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">ExecuteSwitchImplCpp</span><span class="p">(</span><span class="n">SwitchImplContext</span><span class="o">*</span> <span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span><span class="o">*</span> <span class="n">self</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">self</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">CodeItemDataAccessor</span><span class="o">&amp;</span> <span class="n">accessor</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">accessor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ShadowFrame</span><span class="o">&amp;</span> <span class="n">shadow_frame</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">shadow_frame</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">self</span><span class="o">-&gt;</span><span class="n">VerifyStack</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">uint32_t</span> <span class="n">dex_pc</span> <span class="o">=</span> <span class="n">shadow_frame</span><span class="p">.</span><span class="n">GetDexPC</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="k">auto</span><span class="o">*</span> <span class="k">const</span> <span class="n">instrumentation</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">::</span><span class="n">Current</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetInstrumentation</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="kt">uint16_t</span><span class="o">*</span> <span class="k">const</span> <span class="n">insns</span> <span class="o">=</span> <span class="n">accessor</span><span class="p">.</span><span class="n">Insns</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">Instruction</span><span class="o">*</span> <span class="n">next</span> <span class="o">=</span> <span class="n">Instruction</span><span class="o">::</span><span class="n">At</span><span class="p">(</span><span class="n">insns</span> <span class="o">+</span> <span class="n">dex_pc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">DCHECK</span><span class="p">(</span><span class="o">!</span><span class="n">shadow_frame</span><span class="p">.</span><span class="n">GetForceRetryInstruction</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;&lt;</span> <span class="s">&#34;Entered interpreter from invoke without retry instruction being handled!&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="k">const</span> <span class="n">interpret_one_instruction</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">interpret_one_instruction</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">Instruction</span><span class="o">*</span> <span class="k">const</span> <span class="n">inst</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dex_pc</span> <span class="o">=</span> <span class="n">inst</span><span class="o">-&gt;</span><span class="n">GetDexPc</span><span class="p">(</span><span class="n">insns</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shadow_frame</span><span class="p">.</span><span class="n">SetDexPC</span><span class="p">(</span><span class="n">dex_pc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TraceExecution</span><span class="p">(</span><span class="n">shadow_frame</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span> <span class="n">dex_pc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">inst_data</span> <span class="o">=</span> <span class="n">inst</span><span class="o">-&gt;</span><span class="n">Fetch16</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">exit</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">success</span><span class="p">;</span>  <span class="c1">// Moved outside to keep frames small under asan.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">InstructionHandler</span><span class="o">&lt;</span><span class="n">do_access_check</span><span class="p">,</span> <span class="n">transaction_active</span><span class="p">,</span> <span class="n">Instruction</span><span class="o">::</span><span class="n">kInvalidFormat</span><span class="o">&gt;</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ctx</span><span class="p">,</span> <span class="n">instrumentation</span><span class="p">,</span> <span class="n">self</span><span class="p">,</span> <span class="n">shadow_frame</span><span class="p">,</span> <span class="n">dex_pc</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span> <span class="n">inst_data</span><span class="p">,</span> <span class="n">next</span><span class="p">,</span> <span class="n">exit</span><span class="p">).</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Preamble</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">DCHECK_EQ</span><span class="p">(</span><span class="n">self</span><span class="o">-&gt;</span><span class="n">IsExceptionPending</span><span class="p">(),</span> <span class="n">inst</span><span class="o">-&gt;</span><span class="n">Opcode</span><span class="p">(</span><span class="n">inst_data</span><span class="p">)</span> <span class="o">==</span> <span class="n">Instruction</span><span class="o">::</span><span class="n">MOVE_EXCEPTION</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">switch</span> <span class="p">(</span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">Opcode</span><span class="p">(</span><span class="n">inst_data</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">//这里可以看到对不同的OPCODE进行处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define OPCODE_CASE(OPCODE, OPCODE_NAME, NAME, FORMAT, i, a, e, v)                                \
+</span></span></span><span class="line"><span class="cl"><span class="cp">        case OPCODE: {                                                                            \
+</span></span></span><span class="line"><span class="cl"><span class="cp">          next = inst-&gt;RelativeAt(Instruction::SizeInCodeUnits(Instruction::FORMAT));             \
+</span></span></span><span class="line"><span class="cl"><span class="cp">          success = OP_##OPCODE_NAME&lt;do_access_check, transaction_active&gt;(                        \
+</span></span></span><span class="line"><span class="cl"><span class="cp">              ctx, instrumentation, self, shadow_frame, dex_pc, inst, inst_data, next, exit);     \
+</span></span></span><span class="line"><span class="cl"><span class="cp">          if (success &amp;&amp; LIKELY(!interpret_one_instruction)) {                                    \
+</span></span></span><span class="line"><span class="cl"><span class="cp">            continue;                                                                             \
+</span></span></span><span class="line"><span class="cl"><span class="cp">          }                                                                                       \
+</span></span></span><span class="line"><span class="cl"><span class="cp">          break;                                                                                  \
+</span></span></span><span class="line"><span class="cl"><span class="cp">        }
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="n">DEX_INSTRUCTION_LIST</span><span class="p">(</span><span class="n">OPCODE_CASE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#undef OPCODE_CASE
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">exit</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">shadow_frame</span><span class="p">.</span><span class="n">SetDexPC</span><span class="p">(</span><span class="n">dex</span><span class="o">::</span><span class="n">kDexNoIndex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span><span class="p">;</span>  <span class="c1">// Return statement or debugger forced exit.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="o">-&gt;</span><span class="n">IsExceptionPending</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">InstructionHandler</span><span class="o">&lt;</span><span class="n">do_access_check</span><span class="p">,</span> <span class="n">transaction_active</span><span class="p">,</span> <span class="n">Instruction</span><span class="o">::</span><span class="n">kInvalidFormat</span><span class="o">&gt;</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">              <span class="n">ctx</span><span class="p">,</span> <span class="n">instrumentation</span><span class="p">,</span> <span class="n">self</span><span class="p">,</span> <span class="n">shadow_frame</span><span class="p">,</span> <span class="n">dex_pc</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span> <span class="n">inst_data</span><span class="p">,</span> <span class="n">next</span><span class="p">,</span> <span class="n">exit</span><span class="p">).</span>
+</span></span><span class="line"><span class="cl">              <span class="n">HandlePendingException</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">shadow_frame</span><span class="p">.</span><span class="n">SetDexPC</span><span class="p">(</span><span class="n">dex</span><span class="o">::</span><span class="n">kDexNoIndex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>  <span class="c1">// Locally unhandled exception - return to caller.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// Continue execution in the catch block.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">interpret_one_instruction</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">shadow_frame</span><span class="p">.</span><span class="n">SetDexPC</span><span class="p">(</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">GetDexPc</span><span class="p">(</span><span class="n">insns</span><span class="p">));</span>  <span class="c1">// Record where we stopped.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">result</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">result_register</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>  <span class="c1">// NOLINT(readability/fn_size)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>接下来我们来看下ART解释器对invoke指令即函数调用指令是如何进行处理的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//http://aospxref.com/android-13.0.0_r3/xref/art/runtime/interpreter/interpreter_switch_impl-inl.h
+</span></span></span><span class="line"><span class="cl"><span class="c1">//其他invoke指令同理,它们调用的流程相同
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">HANDLER_ATTRIBUTES</span> <span class="kt">bool</span> <span class="n">INVOKE_STATIC</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="n">HANDLER_ATTRIBUTES</span> <span class="kt">bool</span> <span class="n">HandleInvoke</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//http://aospxref.com/android-13.0.0_r3/xref/art/runtime/interpreter/interpreter_common.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">-&gt;</span><span class="k">static</span> <span class="n">ALWAYS_INLINE</span> <span class="kt">bool</span> <span class="n">DoInvoke</span><span class="p">(</span><span class="n">Thread</span><span class="o">*</span> <span class="n">self</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                   <span class="n">ShadowFrame</span><span class="o">&amp;</span> <span class="n">shadow_frame</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                   <span class="k">const</span> <span class="n">Instruction</span><span class="o">*</span> <span class="n">inst</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                   <span class="kt">uint16_t</span> <span class="n">inst_data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                   <span class="n">JValue</span><span class="o">*</span> <span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="kt">bool</span> <span class="n">DoCall</span><span class="p">(</span><span class="n">ArtMethod</span><span class="o">*</span> <span class="n">called_method</span><span class="p">,</span> <span class="n">Thread</span><span class="o">*</span> <span class="n">self</span><span class="p">,</span> <span class="n">ShadowFrame</span><span class="o">&amp;</span> <span class="n">shadow_frame</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="k">const</span> <span class="n">Instruction</span><span class="o">*</span> <span class="n">inst</span><span class="p">,</span> <span class="kt">uint16_t</span> <span class="n">inst_data</span><span class="p">,</span> <span class="n">JValue</span><span class="o">*</span> <span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="k">static</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">DoCallCommon</span><span class="p">(</span><span class="n">ArtMethod</span><span class="o">*</span> <span class="n">called_method</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">Thread</span><span class="o">*</span> <span class="n">self</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">ShadowFrame</span><span class="o">&amp;</span> <span class="n">shadow_frame</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">JValue</span><span class="o">*</span> <span class="n">result</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                <span class="kt">uint16_t</span> <span class="n">number_of_inputs</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                <span class="kt">uint32_t</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">arg</span><span class="p">)[</span><span class="n">Instruction</span><span class="o">::</span><span class="n">kMaxVarArgRegs</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                                <span class="kt">uint32_t</span> <span class="n">vregC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//http://aospxref.com/android-13.0.0_r3/xref/art/runtime/common_dex_operations.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">-&gt;</span><span class="kr">inline</span> <span class="kt">void</span> <span class="n">PerformCall</span><span class="p">(</span><span class="n">Thread</span><span class="o">*</span> <span class="n">self</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">const</span> <span class="n">CodeItemDataAccessor</span><span class="o">&amp;</span> <span class="n">accessor</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">ArtMethod</span><span class="o">*</span> <span class="n">caller_method</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">const</span> <span class="n">size_t</span> <span class="n">first_dest_reg</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">ShadowFrame</span><span class="o">*</span> <span class="n">callee_frame</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">JValue</span><span class="o">*</span> <span class="n">result</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="kt">bool</span> <span class="n">use_interpreter_entrypoint</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在PerformCall这个函数中,通过其参数传递,我们可以拿到调用方和被调方的函数名,因此我们在这个地方进行插桩.</p>
+<p>插桩代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">void</span> <span class="nf">PerformCall</span><span class="p">(</span><span class="n">Thread</span><span class="o">*</span> <span class="n">self</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">const</span> <span class="n">CodeItemDataAccessor</span><span class="o">&amp;</span> <span class="n">accessor</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">ArtMethod</span><span class="o">*</span> <span class="n">caller_method</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">const</span> <span class="n">size_t</span> <span class="n">first_dest_reg</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">ShadowFrame</span><span class="o">*</span> <span class="n">callee_frame</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">JValue</span><span class="o">*</span> <span class="n">result</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="kt">bool</span> <span class="n">use_interpreter_entrypoint</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">REQUIRES_SHARED</span><span class="p">(</span><span class="n">Locks</span><span class="o">::</span><span class="n">mutator_lock_</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">ArtMethod</span><span class="o">*</span> <span class="n">called</span> <span class="o">=</span> <span class="n">callee_frame</span><span class="o">-&gt;</span><span class="n">GetMethod</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">oss</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">oss</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;[PerformCall] caller:</span><span class="se">\t</span><span class="s">&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">caller_method</span><span class="o">-&gt;</span><span class="n">PrettyMethod</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\t</span><span class="s">--&gt;called:</span><span class="se">\t</span><span class="s">&#34;</span><span class="o">&lt;&lt;</span> <span class="n">called</span><span class="o">-&gt;</span><span class="n">PrettyMethod</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">oss</span><span class="p">.</span><span class="n">str</span><span class="p">().</span><span class="n">c_str</span><span class="p">(),</span><span class="s">&#34;PerformCallFlag&#34;</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LOG</span><span class="p">(</span><span class="n">ERROR</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">oss</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">LIKELY</span><span class="p">(</span><span class="n">Runtime</span><span class="o">::</span><span class="n">Current</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">IsStarted</span><span class="p">()))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">use_interpreter_entrypoint</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">interpreter</span><span class="o">::</span><span class="n">ArtInterpreterToInterpreterBridge</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">accessor</span><span class="p">,</span> <span class="n">callee_frame</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">interpreter</span><span class="o">::</span><span class="n">ArtInterpreterToCompiledCodeBridge</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="n">self</span><span class="p">,</span> <span class="n">caller_method</span><span class="p">,</span> <span class="n">callee_frame</span><span class="p">,</span> <span class="n">first_dest_reg</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">interpreter</span><span class="o">::</span><span class="n">UnstartedRuntime</span><span class="o">::</span><span class="n">Invoke</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">accessor</span><span class="p">,</span> <span class="n">callee_frame</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">first_dest_reg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>另外为了让Java函数始终运行在解释模式下,我们还需要导出一个接口供Frida进行调用.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//http://aospxref.com/android-13.0.0_r3/xref/art/runtime/interpreter/interpreter.cc
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="n">art</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="kt">void</span> <span class="n">forceinterpreter</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Runtime</span><span class="o">*</span> <span class="n">runtime</span><span class="o">=</span><span class="n">Runtime</span><span class="o">::</span><span class="n">Current</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">runtime</span><span class="o">-&gt;</span><span class="n">GetInstrumentation</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ForceInterpretOnly</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LOG</span><span class="p">(</span><span class="n">WARNING</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="s">&#34;forceinterpreter is called&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">//---
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="jni调用关系">Jni调用关系</h3>
+<p>为了解决VMP实现的兼容性和复杂性问题,VMP会使用标准Jni调用java函数的流程来实现对invoke类型指令的解释执行.</p>
+<ol>
+<li>解析invoke指令的参数部分,得到Methodldx</li>
+<li>解析Dex结构,获得当前要调用的Methodldx的类名和函数属性</li>
+<li>调用Jni的Findclass函数,获得对应类的JClass</li>
+<li>调用Jni的GetMethodID或GetStaticMethodID得到函数的MethodID</li>
+<li>调用Jni的CalIXXXMethod,完成对函数的调用</li>
+</ol>
+<p>接下来我们以CallStaticIntMethod为例,来看下其内部调用流程.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//http://aospxref.com/android-13.0.0_r3/xref/art/runtime/jni/jni_internal.cc
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="n">jint</span> <span class="n">CallStaticIntMethod</span><span class="p">(</span><span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">jclass</span><span class="p">,</span> <span class="n">jmethodID</span> <span class="n">mid</span><span class="p">,</span> <span class="p">...)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//http://aospxref.com/android-13.0.0_r3/xref/art/runtime/reflection.cc
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">-&gt;</span><span class="n">JValue</span> <span class="n">InvokeWithVarArgs</span><span class="p">(</span><span class="k">const</span> <span class="n">ScopedObjectAccessAlreadyRunnable</span><span class="o">&amp;</span> <span class="n">soa</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="n">jobject</span> <span class="n">obj</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="n">ArtMethod</span><span class="o">*</span> <span class="n">method</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="n">va_list</span> <span class="n">args</span><span class="p">)</span> <span class="n">REQUIRES_SHARED</span><span class="p">(</span><span class="n">Locks</span><span class="o">::</span><span class="n">mutator_lock_</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="kt">void</span> <span class="n">InvokeWithArgArray</span><span class="p">(</span><span class="k">const</span> <span class="n">ScopedObjectAccessAlreadyRunnable</span><span class="o">&amp;</span> <span class="n">soa</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                               <span class="n">ArtMethod</span><span class="o">*</span> <span class="n">method</span><span class="p">,</span> <span class="n">ArgArray</span><span class="o">*</span> <span class="n">arg_array</span><span class="p">,</span> <span class="n">JValue</span><span class="o">*</span> <span class="n">result</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                               <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">shorty</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们可以在InvokeWithArgArray这个函数中进行插桩,来完成函数调用关系的打印.</p>
+<p>插桩代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">InvokeWithArgArray</span><span class="p">(</span><span class="k">const</span> <span class="n">ScopedObjectAccessAlreadyRunnable</span><span class="o">&amp;</span> <span class="n">soa</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                               <span class="n">ArtMethod</span><span class="o">*</span> <span class="n">method</span><span class="p">,</span> <span class="n">ArgArray</span><span class="o">*</span> <span class="n">arg_array</span><span class="p">,</span> <span class="n">JValue</span><span class="o">*</span> <span class="n">result</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                               <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">shorty</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">REQUIRES_SHARED</span><span class="p">(</span><span class="n">Locks</span><span class="o">::</span><span class="n">mutator_lock_</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">uint32_t</span><span class="o">*</span> <span class="n">args</span> <span class="o">=</span> <span class="n">arg_array</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">UNLIKELY</span><span class="p">(</span><span class="n">soa</span><span class="p">.</span><span class="n">Env</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">IsCheckJniEnabled</span><span class="p">()))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CheckMethodArguments</span><span class="p">(</span><span class="n">soa</span><span class="p">.</span><span class="n">Vm</span><span class="p">(),</span> <span class="n">method</span><span class="o">-&gt;</span><span class="n">GetInterfaceMethodIfProxy</span><span class="p">(</span><span class="n">kRuntimePointerSize</span><span class="p">),</span> <span class="n">args</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">//ArtMethod* native_method = *self-&gt;GetManagedStack()-&gt;GetTopQuickFrame();
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">ArtMethod</span><span class="o">*</span> <span class="n">artMethod</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Thread</span><span class="o">*</span> <span class="n">self</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">::</span><span class="n">Current</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">ManagedStack</span><span class="o">*</span> <span class="n">managedStack</span><span class="o">=</span> <span class="n">self</span><span class="o">-&gt;</span><span class="n">GetManagedStack</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">managedStack</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ArtMethod</span><span class="o">**</span> <span class="n">tmpartmethod</span><span class="o">=</span> <span class="n">managedStack</span><span class="o">-&gt;</span><span class="n">GetTopQuickFrame</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">tmpartmethod</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">artMethod</span> <span class="o">=</span> <span class="o">*</span><span class="n">tmpartmethod</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">artMethod</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">oss</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">oss</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;[InvokeWithArgArray]beforeCall caller:</span><span class="se">\t</span><span class="s">&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">artMethod</span><span class="o">-&gt;</span><span class="n">PrettyMethod</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\t</span><span class="s">--&gt;called:</span><span class="se">\t</span><span class="s">&#34;</span><span class="o">&lt;&lt;</span> <span class="n">method</span><span class="o">-&gt;</span><span class="n">PrettyMethod</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">oss</span><span class="p">.</span><span class="n">str</span><span class="p">().</span><span class="n">c_str</span><span class="p">(),</span><span class="s">&#34;InvokeWithArgArrayFlag&#34;</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LOG</span><span class="p">(</span><span class="n">ERROR</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">oss</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">method</span><span class="o">-&gt;</span><span class="n">Invoke</span><span class="p">(</span><span class="n">soa</span><span class="p">.</span><span class="n">Self</span><span class="p">(),</span> <span class="n">args</span><span class="p">,</span> <span class="n">arg_array</span><span class="o">-&gt;</span><span class="n">GetNumBytes</span><span class="p">(),</span> <span class="n">result</span><span class="p">,</span> <span class="n">shorty</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span><span class="p">(</span><span class="n">artMethod</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">oss</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">oss</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;[InvokeWithArgArray]after Call caller:</span><span class="se">\t</span><span class="s">&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">artMethod</span><span class="o">-&gt;</span><span class="n">PrettyMethod</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\t</span><span class="s">--&gt;called:</span><span class="se">\t</span><span class="s">&#34;</span><span class="o">&lt;&lt;</span> <span class="n">method</span><span class="o">-&gt;</span><span class="n">PrettyMethod</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">oss</span><span class="p">.</span><span class="n">str</span><span class="p">().</span><span class="n">c_str</span><span class="p">(),</span><span class="s">&#34;InvokeWithArgArrayFlag&#34;</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LOG</span><span class="p">(</span><span class="n">ERROR</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">oss</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="frida代码">Frida代码</h2>
+<p>上面我们对Android源码进行了修改,还需要借助Frida来完成函数调用关系的打印,对应的代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">function</span> <span class="nf">forceinterpreter</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">var</span> <span class="n">libartmodule</span> <span class="o">=</span> <span class="n">Process</span><span class="p">.</span><span class="n">getModuleByName</span><span class="p">(</span><span class="s">&#34;libart.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">var</span> <span class="n">forceinterpreter_addr</span> <span class="o">=</span> <span class="n">libartmodule</span><span class="p">.</span><span class="n">getExportByName</span><span class="p">(</span><span class="s">&#34;forceinterpreter&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;forceinterpreter:&#34;</span> <span class="o">+</span> <span class="n">forceinterpreter_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">var</span> <span class="n">forceinterpreter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NativeFunction</span><span class="p">(</span><span class="n">forceinterpreter_addr</span><span class="p">,</span> <span class="s">&#34;void&#34;</span><span class="p">,</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Interceptor</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">forceinterpreter_addr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">onEnter</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;go into forceinterpreter&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">onLeave</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;leave forceinterpreter&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="n">forceinterpreter</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">function</span> <span class="nf">hook_start</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">var</span> <span class="n">libcModule</span> <span class="o">=</span> <span class="n">Process</span><span class="p">.</span><span class="n">getModuleByName</span><span class="p">(</span><span class="s">&#34;libc.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">var</span> <span class="n">strstr</span> <span class="o">=</span> <span class="n">libcModule</span><span class="p">.</span><span class="n">getExportByName</span><span class="p">(</span><span class="s">&#34;strstr&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Interceptor</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">strstr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">onEnter</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">arg0</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">arg1</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">method_name</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">arg0</span><span class="p">).</span><span class="n">readUtf8String</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">call_name</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">arg1</span><span class="p">).</span><span class="n">readUtf8String</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">call_name</span><span class="p">.</span><span class="n">indexOf</span><span class="p">(</span><span class="s">&#34;PerformCallFlag&#34;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">method_name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">call_name</span><span class="p">.</span><span class="n">indexOf</span><span class="p">(</span><span class="s">&#34;InvokeWithArgArrayFlag&#34;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">method_name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">onLeave</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">call_name</span><span class="p">.</span><span class="n">indexOf</span><span class="p">(</span><span class="s">&#34;InvokeWithArgArrayFlag&#34;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="n">call_name</span><span class="p">.</span><span class="n">indexOf</span><span class="p">(</span><span class="s">&#34;PerformCallFlag&#34;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">retval</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">function</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">forceinterpreter</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">hook_start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">setImmediate</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="示例">示例</h2>
+<p>这里我们以某VMP样本为例,进行函数调用关系的trace.</p>
+<p>加固前代码如下:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png"
+        data-srcset="./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png, ./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png 1.5x, ./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png 2x"
+        data-sizes="auto"
+        alt="./images/加固前.png"
+        title="加固前" /></p>
+<p>加固后代码如下:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png"
+        data-srcset="./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png, ./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png 1.5x, ./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png 2x"
+        data-sizes="auto"
+        alt="./images/加固后.png"
+        title="加固后" /></p>
+<p>函数trace如下:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png"
+        data-srcset="./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png, ./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png 1.5x, ./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png 2x"
+        data-sizes="auto"
+        alt="./images/函数调用trace.png"
+        title="函数调用trace" /></p>
+<h2 id="总结">总结</h2>
+<p>VMP的加固强度很强,但是我们可以通过对Android解释模式以及Jni调用流程进行分析,在其中某些流程进行插桩并且和Frida进行结合,打印出被VMP保护函数的函数调用.然后再进一步分析,对关键函数进行Hook拿到我们想要的信息.</p>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.cnblogs.com/theseventhson/p/14961107.html" target="_blank" rel="noopener noreffer">https://www.cnblogs.com/theseventhson/p/14961107.html</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-06-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/dexvmp/">DexVMP</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/" class="prev" rel="prev" title="移植OLLVM到NDK中"><i class="fas fa-angle-left fa-fw"></i>移植OLLVM到NDK中</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
