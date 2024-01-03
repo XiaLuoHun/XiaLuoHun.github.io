@@ -24,7 +24,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA\/kali%E9%85%8D%E7%BD%AE\/"
-        },"genre": "posts","keywords": "Kali","wordcount":  1110 ,
+        },"genre": "posts","keywords": "Kali","wordcount":  1312 ,
         "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA\/kali%E9%85%8D%E7%BD%AE\/","datePublished": "2021-11-25T00:00:00+00:00","dateModified": "2021-11-25T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "夏洛魂"},"author": {
@@ -101,7 +101,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Kali配置</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"><i class="far fa-folder fa-fw"></i>环境搭建</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-25">2021-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1110 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-25">2021-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1312 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -140,6 +140,12 @@
           <ul>
             <li><a href="#androidstudio">AndroidStudio</a></li>
             <li><a href="#vscode">VSCode</a></li>
+            <li><a href="#调试工具">调试工具</a>
+              <ul>
+                <li><a href="#gdb">GDB</a></li>
+                <li><a href="#hyperpwn">Hyperpwn</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
@@ -217,9 +223,9 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//这里我们要切换到bash,目前Kali默认是zsh
-</span></span></span><span class="line"><span class="cl"><span class="c1">//切换bash 
+</span></span></span><span class="line"><span class="cl"><span class="c1">//切换bash
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">chsh</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//切换zsh 
+</span></span><span class="line"><span class="cl"><span class="c1">//切换zsh
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">chsh</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">zsh</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -326,15 +332,15 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//列出可供安装的python版本 
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//列出可供安装的python版本
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pyenv</span> <span class="n">install</span> <span class="o">--</span><span class="n">list</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//安装指定版本的 
+</span></span><span class="line"><span class="cl"><span class="c1">//安装指定版本的
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pyenv</span> <span class="n">install</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//在当前目录下设置python版本 
+</span></span><span class="line"><span class="cl"><span class="c1">//在当前目录下设置python版本
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pyenv</span> <span class="n">local</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//全局设置python版本
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pyenv</span> <span class="n">global</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//列出系统中安装的python版本 
+</span></span><span class="line"><span class="cl"><span class="c1">//列出系统中安装的python版本
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pyenv</span> <span class="n">versions</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//显示当前目录下采用的python
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pyenv</span> <span class="n">version</span>
@@ -452,7 +458,103 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">code</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">sandbox</span> <span class="o">--</span><span class="n">unity</span><span class="o">-</span><span class="n">launch</span> <span class="o">%</span><span class="n">F</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><h3 id="调试工具">调试工具</h3>
+<h4 id="gdb">GDB</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">apt</span> <span class="n">install</span> <span class="n">gdb</span><span class="o">-</span><span class="n">multiarch</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="hyperpwn">Hyperpwn</h4>
+<ol>
+<li>配置Hyper</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">proxychains</span> <span class="n">wget</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/vercel/Hyper/releases/download/v3.1.0-canary.4/Hyper-3.1.0-canary.4.AppImage
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">chmod</span> <span class="mi">777</span> <span class="p">.</span><span class="o">/</span><span class="n">Hyper</span><span class="o">-</span><span class="mf">3.1.0</span><span class="o">-</span><span class="n">canary</span><span class="mf">.4</span><span class="p">.</span><span class="n">AppImage</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">gedit</span> <span class="o">~/</span><span class="p">.</span><span class="n">zshrc</span>
+</span></span><span class="line"><span class="cl"><span class="n">alias</span> <span class="n">hyper</span><span class="o">=</span><span class="err">&#39;</span><span class="o">/</span><span class="n">Android</span><span class="o">/</span><span class="n">HyperPwn</span><span class="o">/</span><span class="n">Hyper</span><span class="o">-</span><span class="mf">3.1.0</span><span class="o">-</span><span class="n">canary</span><span class="mf">.4</span><span class="p">.</span><span class="n">AppImage</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">sandbox</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">source</span> <span class="o">~/</span><span class="p">.</span><span class="n">zshrc</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>退出Hyper,安装插件</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install hyperinator
+</span></span><span class="line"><span class="cl">npm install hyperpwn
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>安装pwndbg</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+</span></span><span class="line"><span class="cl">proxychains git clone https://github.com/pwndbg/pwndbg
+</span></span><span class="line"><span class="cl">cd pwndbg
+</span></span><span class="line"><span class="cl">./setup.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>修改Hyper配置文件(~/.hyper.js)</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">plugins: [&#34;hyperinator&#34;,&#34;hyperpwn&#34;]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./images/Hyper%e9%85%8d%e7%bd%ae.png"
+        data-srcset="./images/Hyper%e9%85%8d%e7%bd%ae.png, ./images/Hyper%e9%85%8d%e7%bd%ae.png 1.5x, ./images/Hyper%e9%85%8d%e7%bd%ae.png 2x"
+        data-sizes="auto"
+        alt="./images/Hyper配置.png"
+        title="Hyper配置" /></p>
+<ol start="5">
+<li>启动Hyper,更新插件</li>
+</ol>
+<p>依次点击Plugins-&gt;Update,然后再依次点击View-&gt;Reload</p>
+<ol start="6">
+<li>重启Hyper,运行gdb-multiarch,当出现下面的界面表示配置成功</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./images/HyperPwn.png"
+        data-srcset="./images/HyperPwn.png, ./images/HyperPwn.png 1.5x, ./images/HyperPwn.png 2x"
+        data-sizes="auto"
+        alt="./images/HyperPwn.png"
+        title="HyperPwn" /></p>
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -480,7 +582,7 @@
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
+        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
         </div>
     </footer></div>
 
