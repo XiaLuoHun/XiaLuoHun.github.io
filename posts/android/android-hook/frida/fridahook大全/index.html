@@ -7,16 +7,16 @@
     <meta name="robots" content="noodp" />
     <title>Frida Hook大全 - 夏洛魂的个人博客</title><meta name="author" content="">
 <meta name="author-link" content="">
-<meta name="description" content="Frida Hook大全 Frida脱壳 这里以脱一代整体壳为例. 优点:调试简单,java层的所有功能都能轻易实现. 缺点:native层的部分系统函数是i" /><meta name="keywords" content='Frida' />
+<meta name="description" content="Frida脱壳 这里以脱一代整体壳为例. 优点:调试简单,java层的所有功能都能轻易实现. 缺点:native层的部分系统函数是inline函数" /><meta name="keywords" content='Frida' />
   <meta itemprop="name" content="Frida Hook大全">
-  <meta itemprop="description" content="Frida Hook大全 Frida脱壳 这里以脱一代整体壳为例. 优点:调试简单,java层的所有功能都能轻易实现. 缺点:native层的部分系统函数是i">
+  <meta itemprop="description" content="Frida脱壳 这里以脱一代整体壳为例. 优点:调试简单,java层的所有功能都能轻易实现. 缺点:native层的部分系统函数是inline函数">
   <meta itemprop="datePublished" content="2022-03-27T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-03-27T00:00:00+00:00">
-  <meta itemprop="wordCount" content="5122">
+  <meta itemprop="wordCount" content="5115">
   <meta itemprop="keywords" content="Frida"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android-hook/frida/fridahook%E5%A4%A7%E5%85%A8/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="Frida Hook大全">
-  <meta property="og:description" content="Frida Hook大全 Frida脱壳 这里以脱一代整体壳为例. 优点:调试简单,java层的所有功能都能轻易实现. 缺点:native层的部分系统函数是i">
+  <meta property="og:description" content="Frida脱壳 这里以脱一代整体壳为例. 优点:调试简单,java层的所有功能都能轻易实现. 缺点:native层的部分系统函数是inline函数">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -26,7 +26,7 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Frida Hook大全">
-  <meta name="twitter:description" content="Frida Hook大全 Frida脱壳 这里以脱一代整体壳为例. 优点:调试简单,java层的所有功能都能轻易实现. 缺点:native层的部分系统函数是i">
+  <meta name="twitter:description" content="Frida脱壳 这里以脱一代整体壳为例. 优点:调试简单,java层的所有功能都能轻易实现. 缺点:native层的部分系统函数是inline函数">
 <meta name="application-name" content="LuoHun">
 <meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android-hook/frida/fridahook%E5%A4%A7%E5%85%A8/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android-hook/frida/frida%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -39,7 +39,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-hook\/frida\/fridahook%E5%A4%A7%E5%85%A8\/"
-    },"genre": "posts","keywords": "Frida","wordcount":  5122 ,
+    },"genre": "posts","keywords": "Frida","wordcount":  5115 ,
     "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-hook\/frida\/fridahook%E5%A4%A7%E5%85%A8\/","datePublished": "2022-03-27T00:00:00+00:00","dateModified": "2022-03-27T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -176,7 +176,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Frida Hook大全</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android-frida/" class="post-category" title="分类 - Android Frida"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android Frida</a></span></div><div class="post-meta-line"><span title="发布于 2022-03-27 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-03-27">2022-03-27</time></span>&nbsp;<span title="5122 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 5200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 11 分钟</span>&nbsp;</div>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android-frida/" class="post-category" title="分类 - Android Frida"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android Frida</a></span></div><div class="post-meta-line"><span title="发布于 2022-03-27 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-03-27">2022-03-27</time></span>&nbsp;<span title="5115 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 5200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 11 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -184,7 +184,7 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#frida-hook大全">Frida Hook大全</a>
+    <li>
       <ul>
         <li><a href="#frida脱壳">Frida脱壳</a>
           <ul>
@@ -264,11 +264,7 @@
     </li>
   </ul>
 </nav></div>
-      </div><div class="content" id="content"><h1 id="frida-hook大全" class="heading-element"><span>Frida Hook大全</span>
-  <a href="#frida-hook%e5%a4%a7%e5%85%a8" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h1><h2 id="frida脱壳" class="heading-element"><span>Frida脱壳</span>
+      </div><div class="content" id="content"><h2 id="frida脱壳" class="heading-element"><span>Frida脱壳</span>
   <a href="#frida%e8%84%b1%e5%a3%b3" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -2441,9 +2437,7 @@
     <div class="post-info-line">
       <div class="post-info-mod">
         <span title="更新于 2022-03-27 00:00:00">更新于 2022-03-27&nbsp;</span>
-      </div><div class="post-info-license">
-            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
-          </div></div><div class="post-info-line">
+      </div></div><div class="post-info-line">
         <div class="post-info-md"></div>
         <div class="post-info-share">
           <span></span>
@@ -2466,7 +2460,7 @@
       <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
     <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
             <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
-              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+              <a href="/"></a></span></div></div>
   </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
         </div></div><div id="mask"></div><noscript>
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>

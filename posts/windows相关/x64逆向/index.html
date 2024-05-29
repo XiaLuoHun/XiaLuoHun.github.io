@@ -7,16 +7,16 @@
     <meta name="robots" content="noodp" />
     <title>X64逆向 - 夏洛魂的个人博客</title><meta name="author" content="">
 <meta name="author-link" content="">
-<meta name="description" content="x64逆向 寄存器 函数调用约定 四寄存器fast-call调用约定,调用方平栈,一般是函数开头申请栈空间,函数结尾平栈. 整型参数 前4个参数传入指" /><meta name="keywords" content='C&#43;&#43;逆向' />
+<meta name="description" content="寄存器 函数调用约定 四寄存器fast-call调用约定,调用方平栈,一般是函数开头申请栈空间,函数结尾平栈. 整型参数 前4个参数传入指定的寄存器" /><meta name="keywords" content='C&#43;&#43;逆向' />
   <meta itemprop="name" content="x64逆向">
-  <meta itemprop="description" content="x64逆向 寄存器 函数调用约定 四寄存器fast-call调用约定,调用方平栈,一般是函数开头申请栈空间,函数结尾平栈. 整型参数 前4个参数传入指">
+  <meta itemprop="description" content="寄存器 函数调用约定 四寄存器fast-call调用约定,调用方平栈,一般是函数开头申请栈空间,函数结尾平栈. 整型参数 前4个参数传入指定的寄存器">
   <meta itemprop="datePublished" content="2022-02-15T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-02-15T00:00:00+00:00">
-  <meta itemprop="wordCount" content="3638">
+  <meta itemprop="wordCount" content="3633">
   <meta itemprop="keywords" content="C&#43;&#43;逆向"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="x64逆向">
-  <meta property="og:description" content="x64逆向 寄存器 函数调用约定 四寄存器fast-call调用约定,调用方平栈,一般是函数开头申请栈空间,函数结尾平栈. 整型参数 前4个参数传入指">
+  <meta property="og:description" content="寄存器 函数调用约定 四寄存器fast-call调用约定,调用方平栈,一般是函数开头申请栈空间,函数结尾平栈. 整型参数 前4个参数传入指定的寄存器">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -26,7 +26,7 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="x64逆向">
-  <meta name="twitter:description" content="x64逆向 寄存器 函数调用约定 四寄存器fast-call调用约定,调用方平栈,一般是函数开头申请栈空间,函数结尾平栈. 整型参数 前4个参数传入指">
+  <meta name="twitter:description" content="寄存器 函数调用约定 四寄存器fast-call调用约定,调用方平栈,一般是函数开头申请栈空间,函数结尾平栈. 整型参数 前4个参数传入指定的寄存器">
 <meta name="application-name" content="LuoHun">
 <meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -39,7 +39,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/x64%E9%80%86%E5%90%91\/"
-    },"genre": "posts","keywords": "C\u002b\u002b逆向","wordcount":  3638 ,
+    },"genre": "posts","keywords": "C\u002b\u002b逆向","wordcount":  3633 ,
     "url": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/x64%E9%80%86%E5%90%91\/","datePublished": "2022-02-15T00:00:00+00:00","dateModified": "2022-02-15T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -176,7 +176,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>X64逆向</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a></span></div><div class="post-meta-line"><span title="发布于 2022-02-15 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-02-15">2022-02-15</time></span>&nbsp;<span title="3638 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a></span></div><div class="post-meta-line"><span title="发布于 2022-02-15 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-02-15">2022-02-15</time></span>&nbsp;<span title="3633 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -184,7 +184,7 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#x64逆向">x64逆向</a>
+    <li>
       <ul>
         <li><a href="#寄存器">寄存器</a></li>
         <li><a href="#函数调用约定">函数调用约定</a>
@@ -407,11 +407,7 @@
     </li>
   </ul>
 </nav></div>
-      </div><div class="content" id="content"><h1 id="x64逆向" class="heading-element"><span>x64逆向</span>
-  <a href="#x64%e9%80%86%e5%90%91" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h1><h2 id="寄存器" class="heading-element"><span>寄存器</span>
+      </div><div class="content" id="content"><h2 id="寄存器" class="heading-element"><span>寄存器</span>
   <a href="#%e5%af%84%e5%ad%98%e5%99%a8" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -1957,9 +1953,7 @@
     <div class="post-info-line">
       <div class="post-info-mod">
         <span title="更新于 2022-02-15 00:00:00">更新于 2022-02-15&nbsp;</span>
-      </div><div class="post-info-license">
-            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
-          </div></div><div class="post-info-line">
+      </div></div><div class="post-info-line">
         <div class="post-info-md"></div>
         <div class="post-info-share">
           <span></span>
@@ -1982,7 +1976,7 @@
       <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
     <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
             <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
-              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+              <a href="/"></a></span></div></div>
   </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
         </div></div><div id="mask"></div><noscript>
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>

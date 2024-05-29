@@ -7,16 +7,16 @@
     <meta name="robots" content="noodp" />
     <title>OLLVM移植和使用 - 夏洛魂的个人博客</title><meta name="author" content="">
 <meta name="author-link" content="">
-<meta name="description" content="OLLVM移植和使用 ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对" /><meta name="keywords" content='LLVM' />
+<meta name="description" content="ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种" /><meta name="keywords" content='LLVM' />
   <meta itemprop="name" content="OLLVM移植和使用">
-  <meta itemprop="description" content="OLLVM移植和使用 ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对">
+  <meta itemprop="description" content="ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种">
   <meta itemprop="datePublished" content="2023-03-21T00:00:00+00:00">
   <meta itemprop="dateModified" content="2023-03-21T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1795">
+  <meta itemprop="wordCount" content="1785">
   <meta itemprop="keywords" content="LLVM"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="OLLVM移植和使用">
-  <meta property="og:description" content="OLLVM移植和使用 ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对">
+  <meta property="og:description" content="ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -26,7 +26,7 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="OLLVM移植和使用">
-  <meta name="twitter:description" content="OLLVM移植和使用 ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对">
+  <meta name="twitter:description" content="ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种">
 <meta name="application-name" content="LuoHun">
 <meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/llvm/ollvm%E8%B0%83%E8%AF%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -39,7 +39,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8\/"
-    },"genre": "posts","keywords": "LLVM","wordcount":  1795 ,
+    },"genre": "posts","keywords": "LLVM","wordcount":  1785 ,
     "url": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8\/","datePublished": "2023-03-21T00:00:00+00:00","dateModified": "2023-03-21T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -176,7 +176,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>OLLVM移植和使用</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/llvm/" class="post-category" title="分类 - LLVM"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> LLVM</a></span></div><div class="post-meta-line"><span title="发布于 2023-03-21 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-03-21">2023-03-21</time></span>&nbsp;<span title="1795 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1800 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/llvm/" class="post-category" title="分类 - LLVM"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> LLVM</a></span></div><div class="post-meta-line"><span title="发布于 2023-03-21 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-03-21">2023-03-21</time></span>&nbsp;<span title="1785 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1800 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -184,7 +184,7 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#ollvm移植和使用">OLLVM移植和使用</a>
+    <li>
       <ul>
         <li><a href="#高版本移植">高版本移植</a></li>
         <li><a href="#ollvm使用">ollvm使用</a>
@@ -200,11 +200,7 @@
     </li>
   </ul>
 </nav></div>
-      </div><div class="content" id="content"><h1 id="ollvm移植和使用" class="heading-element"><span>OLLVM移植和使用</span>
-  <a href="#ollvm%e7%a7%bb%e6%a4%8d%e5%92%8c%e4%bd%bf%e7%94%a8" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h1><p>ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种优化是为了让代码更加复杂,达到混淆的目的.主要有以下3种混淆手段:</p>
+      </div><div class="content" id="content"><p>ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种优化是为了让代码更加复杂,达到混淆的目的.主要有以下3种混淆手段:</p>
 <ol>
 <li>指令替换(Substitution)</li>
 <li>虚假控制流(Bogus Control Flow)</li>
@@ -698,9 +694,7 @@
     <div class="post-info-line">
       <div class="post-info-mod">
         <span title="更新于 2023-03-21 00:00:00">更新于 2023-03-21&nbsp;</span>
-      </div><div class="post-info-license">
-            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
-          </div></div><div class="post-info-line">
+      </div></div><div class="post-info-line">
         <div class="post-info-md"></div>
         <div class="post-info-share">
           <span></span>
@@ -723,7 +717,7 @@
       <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
     <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
             <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
-              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+              <a href="/"></a></span></div></div>
   </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
         </div></div><div id="mask"></div><noscript>
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
