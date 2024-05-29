@@ -1,114 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>OLLVM移植和使用 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="OLLVM移植和使用" />
-<meta property="og:description" content="OLLVM移植和使用 ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-03-21T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-03-21T00:00:00+00:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="OLLVM移植和使用"/>
-<meta name="twitter:description" content="OLLVM移植和使用 ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/llvm/ollvm%E8%B0%83%E8%AF%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "OLLVM移植和使用",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8\/"
-        },"genre": "posts","keywords": "LLVM","wordcount":  1795 ,
-        "url": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8\/","datePublished": "2023-03-21T00:00:00+00:00","dateModified": "2023-03-21T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": "夏洛魂"},"author": {
-                "@type": "Person",
-                "name": "夏洛魂"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>OLLVM移植和使用 - 夏洛魂的个人博客</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="OLLVM移植和使用 ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对" /><meta name="keywords" content='LLVM' />
+  <meta itemprop="name" content="OLLVM移植和使用">
+  <meta itemprop="description" content="OLLVM移植和使用 ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对">
+  <meta itemprop="datePublished" content="2023-03-21T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2023-03-21T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1795">
+  <meta itemprop="keywords" content="LLVM"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="OLLVM移植和使用">
+  <meta property="og:description" content="OLLVM移植和使用 ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-03-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-03-21T00:00:00+00:00">
+    <meta property="article:tag" content="LLVM">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="OLLVM移植和使用">
+  <meta name="twitter:description" content="OLLVM移植和使用 ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对">
+<meta name="application-name" content="LuoHun">
+<meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/llvm/ollvm%E8%B0%83%E8%AF%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "OLLVM移植和使用",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8\/"
+    },"genre": "posts","keywords": "LLVM","wordcount":  1795 ,
+    "url": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8\/","datePublished": "2023-03-21T00:00:00+00:00","dateModified": "2023-03-21T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "作者"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/excalidraw/"
+                
+                
+              >在线绘图</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="夏洛魂的个人博客">主页</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="夏洛魂的个人博客">主页</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/excalidraw/"
+                  
+                  
+                >在线绘图</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">OLLVM移植和使用</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/llvm/"><i class="far fa-folder fa-fw"></i>LLVM</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-03-21">2023-03-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1795 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>OLLVM移植和使用</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/llvm/" class="post-category" title="分类 - LLVM"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> LLVM</a></span></div><div class="post-meta-line"><span title="发布于 2023-03-21 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-03-21">2023-03-21</time></span>&nbsp;<span title="1795 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1800 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#ollvm移植和使用">OLLVM移植和使用</a>
       <ul>
@@ -126,15 +200,21 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="ollvm移植和使用">OLLVM移植和使用</h1>
-<p>ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种优化是为了让代码更加复杂,达到混淆的目的.主要有以下3种混淆手段:</p>
+      </div><div class="content" id="content"><h1 id="ollvm移植和使用" class="heading-element"><span>OLLVM移植和使用</span>
+  <a href="#ollvm%e7%a7%bb%e6%a4%8d%e5%92%8c%e4%bd%bf%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种优化是为了让代码更加复杂,达到混淆的目的.主要有以下3种混淆手段:</p>
 <ol>
 <li>指令替换(Substitution)</li>
 <li>虚假控制流(Bogus Control Flow)</li>
 <li>控制流平坦化(Control Flow Flattening)</li>
 </ol>
-<h2 id="高版本移植">高版本移植</h2>
-<p>ollvm目前官方版本是基于llvm4.0,现在我们将其移植到llvm9.0.1</p>
+<h2 id="高版本移植" class="heading-element"><span>高版本移植</span>
+  <a href="#%e9%ab%98%e7%89%88%e6%9c%ac%e7%a7%bb%e6%a4%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>ollvm目前官方版本是基于llvm4.0,现在我们将其移植到llvm9.0.1</p>
 <ol>
 <li>下载官方的ollvm最新版</li>
 </ol>
@@ -143,74 +223,31 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>复制原版ollvm,{obfuscator}/include/llvm/Transforms/Obfuscation文件夹到llvm9.0.1同等目录下</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png"
-        data-srcset="./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png, ./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png 1.5x, ./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png 2x"
-        data-sizes="auto"
-        alt="./images/ollvm头文件.png"
-        title="ollvm头文件" /></p>
+<p><img loading="lazy" src="./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png" alt="ollvm头文件" srcset="./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png?size=small, ./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png?size=medium 1.5x, ./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png?size=large 2x" data-title="ollvm头文件" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="3">
 <li>将CryptoUtils.h复制到llvm9.0.1的同等目录下</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png"
-        data-srcset="./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png, ./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png 1.5x, ./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png 2x"
-        data-sizes="auto"
-        alt="./images/头文件移植.png"
-        title="头文件移植" /></p>
+<p><img loading="lazy" src="./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png" alt="头文件移植" srcset="./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png?size=small, ./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png?size=medium 1.5x, ./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png?size=large 2x" data-title="头文件移植" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="4">
 <li>复制原版ollvm,{obfuscator}/lib/llvm/Transforms/Obfuscation文件夹到llvm9.0.1同等目录下.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png"
-        data-srcset="./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png, ./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png 1.5x, ./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png 2x"
-        data-sizes="auto"
-        alt="./images/ollvm实现文件.png"
-        title="ollvm实现文件" /></p>
+<p><img loading="lazy" src="./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png" alt="ollvm实现文件" srcset="./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png?size=small, ./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png?size=medium 1.5x, ./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png?size=large 2x" data-title="ollvm实现文件" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="5">
 <li>按照官方提交的commit记录来修改CMakeLists.txt以及LLVMBuild.txt文件.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png"
-        data-srcset="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png 1.5x, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png 2x"
-        data-sizes="auto"
-        alt="./images/C文件修改.png"
-        title="C文件修改" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png"
-        data-srcset="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png 1.5x, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png 2x"
-        data-sizes="auto"
-        alt="./images/C文件修改2.png"
-        title="C文件修改2" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png"
-        data-srcset="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png 1.5x, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png 2x"
-        data-sizes="auto"
-        alt="./images/C文件修改3.png"
-        title="C文件修改3" /></p>
+<p><img loading="lazy" src="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png" alt="C文件修改" srcset="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png?size=small, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png?size=medium 1.5x, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png?size=large 2x" data-title="C文件修改" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png" alt="C文件修改2" srcset="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png?size=small, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png?size=medium 1.5x, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png?size=large 2x" data-title="C文件修改2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png" alt="C文件修改3" srcset="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png?size=small, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png?size=medium 1.5x, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png?size=large 2x" data-title="C文件修改3" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="6">
 <li>按照ollvm最新的4.0版本,进行llvm9.0.1的{llvm-project}/llvm/lib/Transforms/IPO/PassManagerBuilder.cpp文件修改</li>
 </ol>
 <p>可以看下方官方提交的记录来进行修改,绿色的就是新增的.</p>
-<p><a href="https://github.com/obfuscator-llvm/obfuscator/commit/adbe45b199d4e42400ee646ad62a781f34b07860#diff-243d2d7bcf5596188ce66141702e60b552ed8af141b9c2b9d0209fb8e9c81fac" target="_blank" rel="noopener noreffer">https://github.com/obfuscator-llvm/obfuscator/commit/adbe45b199d4e42400ee646ad62a781f34b07860#diff-243d2d7bcf5596188ce66141702e60b552ed8af141b9c2b9d0209fb8e9c81fac</a></p>
+<p><a href="https://github.com/obfuscator-llvm/obfuscator/commit/adbe45b199d4e42400ee646ad62a781f34b07860#diff-243d2d7bcf5596188ce66141702e60b552ed8af141b9c2b9d0209fb8e9c81fac"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/obfuscator-llvm/obfuscator/commit/adbe45b199d4e42400ee646ad62a781f34b07860#diff-243d2d7bcf5596188ce66141702e60b552ed8af141b9c2b9d0209fb8e9c81fac</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -312,25 +349,17 @@
 </span></span><span class="line"><span class="cl">  <span class="n">MPM</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">createFlattening</span><span class="p">(</span><span class="n">Flattening</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  <span class="n">MPM</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">createSubstitution</span><span class="p">(</span><span class="n">Substitution</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">//--------------
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="7">
 <li>按照下方的链接,进行bcf bug修复.</li>
 </ol>
-<p><a href="https://github.com/obfuscator-llvm/obfuscator/pull/76/files" target="_blank" rel="noopener noreffer">https://github.com/obfuscator-llvm/obfuscator/pull/76/files</a></p>
+<p><a href="https://github.com/obfuscator-llvm/obfuscator/pull/76/files"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/obfuscator-llvm/obfuscator/pull/76/files</a></p>
 <ol start="8">
 <li>此时进行编译,会出错,我们继续进行修改.</li>
 </ol>
 <p>注释掉下方的2行.然后在PassManagerBuilder.cpp文件中进行修改.(上方已修改过)</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/bug1.png"
-        data-srcset="./images/bug1.png, ./images/bug1.png 1.5x, ./images/bug1.png 2x"
-        data-sizes="auto"
-        alt="./images/bug1.png"
-        title="bug1" /></p>
+<p><img loading="lazy" src="./images/bug1.png" alt="bug1" srcset="./images/bug1.png?size=small, ./images/bug1.png?size=medium 1.5x, ./images/bug1.png?size=large 2x" data-title="bug1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>还有一处是返回类型的修改,如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -353,8 +382,7 @@
 </span></span><span class="line"><span class="cl">	<span class="c1">//修改后
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Instruction</span> <span class="o">*</span> <span class="n">tbb</span><span class="o">=</span> <span class="n">fi</span><span class="o">-&gt;</span><span class="n">getTerminator</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//------
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="9">
 <li>此时进行编译即可.</li>
@@ -366,14 +394,19 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ninja LLVMObfuscation
-</span></span><span class="line"><span class="cl">ninja clang
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">ninja clang</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="ollvm使用">ollvm使用</h2>
-<p>下面按照官方给的例子,来进行ollvm特性的学习.</p>
-<p><a href="https://github.com/obfuscator-llvm/obfuscator/wiki/Features" target="_blank" rel="noopener noreffer">https://github.com/obfuscator-llvm/obfuscator/wiki/Features</a></p>
-<h3 id="指令替换sub">指令替换(sub)</h3>
-<p>原理:将一条运算指令,替换为多条等价运算指令.</p>
+</div><h2 id="ollvm使用" class="heading-element"><span>ollvm使用</span>
+  <a href="#ollvm%e4%bd%bf%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>下面按照官方给的例子,来进行ollvm特性的学习.</p>
+<p><a href="https://github.com/obfuscator-llvm/obfuscator/wiki/Features"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/obfuscator-llvm/obfuscator/wiki/Features</a></p>
+<h3 id="指令替换sub" class="heading-element"><span>指令替换(sub)</span>
+  <a href="#%e6%8c%87%e4%bb%a4%e6%9b%bf%e6%8d%a2sub" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>原理:将一条运算指令,替换为多条等价运算指令.</p>
 <p>测试代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -402,8 +435,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;hello World</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用下述命令进行编译,会等价替换1次</p>
 <div class="highlight"><div class="chroma">
@@ -411,36 +443,23 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -sub luoTst.c -o luoTst_sub
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -sub luoTst.c -o luoTst_sub</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a21.png"
-        data-srcset="./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a21.png, ./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a21.png 1.5x, ./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a21.png 2x"
-        data-sizes="auto"
-        alt="./images/等价替换1.png"
-        title="等价替换1" /></p>
+</div><p><img loading="lazy" src="./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a21.png" alt="等价替换1" srcset="./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a21.png?size=small, ./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a21.png?size=medium 1.5x, ./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a21.png?size=large 2x" data-title="等价替换1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>使用下述命令进行编译,会等价替换3次</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -sub -mllvm -sub_loop=3 luoTst.c -o luoTst_sub3
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -sub -mllvm -sub_loop=3 luoTst.c -o luoTst_sub3</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png"
-        data-srcset="./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png, ./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png 1.5x, ./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png 2x"
-        data-sizes="auto"
-        alt="./images/等价替换2.png"
-        title="等价替换2" /></p>
-<h3 id="虚假控制流bcf">虚假控制流(bcf)</h3>
-<p>原理:克隆一个真实块,并随机替换其中的一些指令,然后用一个永远为真的条件建立一个分支,克隆后的块是不会被执行的.</p>
+</div><p><img loading="lazy" src="./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png" alt="等价替换2" srcset="./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png?size=small, ./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png?size=medium 1.5x, ./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png?size=large 2x" data-title="等价替换2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="虚假控制流bcf" class="heading-element"><span>虚假控制流(bcf)</span>
+  <a href="#%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%81bcf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>原理:克隆一个真实块,并随机替换其中的一些指令,然后用一个永远为真的条件建立一个分支,克隆后的块是不会被执行的.</p>
 <p>测试代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -465,46 +484,26 @@
 </span></span><span class="line"><span class="cl">  <span class="k">else</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>上述代码转成中间语言表示如下:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%812.png"
-        data-srcset="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%812.png, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%812.png 1.5x, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%812.png 2x"
-        data-sizes="auto"
-        alt="./images/虚假控制流2.png"
-        title="虚假控制流2" /></p>
+<p><img loading="lazy" src="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%812.png" alt="虚假控制流2" srcset="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%812.png?size=small, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%812.png?size=medium 1.5x, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%812.png?size=large 2x" data-title="虚假控制流2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>经过虚假控制流Pass处理后,流程可能如下:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%813.png"
-        data-srcset="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%813.png, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%813.png 1.5x, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%813.png 2x"
-        data-sizes="auto"
-        alt="./images/虚假控制流3.png"
-        title="虚假控制流3" /></p>
+<p><img loading="lazy" src="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%813.png" alt="虚假控制流3" srcset="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%813.png?size=small, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%813.png?size=medium 1.5x, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%813.png?size=large 2x" data-title="虚假控制流3" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这里我们使用如下命令使用进行编译,在IDA中看下代码.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -bcf luoTst.c -o luoTst_bcf
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -bcf luoTst.c -o luoTst_bcf</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png"
-        data-srcset="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png 1.5x, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png 2x"
-        data-sizes="auto"
-        alt="./images/虚假控制流1.png"
-        title="虚假控制流1" /></p>
-<h3 id="控制流平坦化fla">控制流平坦化(fla)</h3>
-<p>原理:先实现一个永真循环,然后在这个循环中放入switch语句,将代码中除了开始块的所有BasicBlock放入这个switch语句的不同case中,通过修改switch的条件,来实现BasicBlock之间的跳转.</p>
+</div><p><img loading="lazy" src="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png" alt="虚假控制流1" srcset="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png?size=small, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png?size=medium 1.5x, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png?size=large 2x" data-title="虚假控制流1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="控制流平坦化fla" class="heading-element"><span>控制流平坦化(fla)</span>
+  <a href="#%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%96fla" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>原理:先实现一个永真循环,然后在这个循环中放入switch语句,将代码中除了开始块的所有BasicBlock放入这个switch语句的不同case中,通过修改switch的条件,来实现BasicBlock之间的跳转.</p>
 <p>测试代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -529,8 +528,7 @@
 </span></span><span class="line"><span class="cl">  <span class="k">else</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>上述代码经过控制流平坦化Pass处理后,代码会转成如下所示:</p>
 <div class="highlight"><div class="chroma">
@@ -580,71 +578,36 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>未经过处理前的流程如下:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%961.png"
-        data-srcset="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%961.png, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%961.png 1.5x, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%961.png 2x"
-        data-sizes="auto"
-        alt="./images/控制流平坦化1.png"
-        title="控制流平坦化1" /></p>
+<p><img loading="lazy" src="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%961.png" alt="控制流平坦化1" srcset="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%961.png?size=small, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%961.png?size=medium 1.5x, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%961.png?size=large 2x" data-title="控制流平坦化1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>经过处理后的流程如下:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%962.png"
-        data-srcset="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%962.png, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%962.png 1.5x, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%962.png 2x"
-        data-sizes="auto"
-        alt="./images/控制流平坦化2.png"
-        title="控制流平坦化2" /></p>
+<p><img loading="lazy" src="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%962.png" alt="控制流平坦化2" srcset="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%962.png?size=small, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%962.png?size=medium 1.5x, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%962.png?size=large 2x" data-title="控制流平坦化2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>接下来我们使用如下命令进行编译,在IDA中体会下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -fla luoTst.c -o luoTst_fla
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -fla luoTst.c -o luoTst_fla</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%963.png"
-        data-srcset="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%963.png, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%963.png 1.5x, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%963.png 2x"
-        data-sizes="auto"
-        alt="./images/控制流平坦化3.png"
-        title="控制流平坦化3" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%964.png"
-        data-srcset="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%964.png, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%964.png 1.5x, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%964.png 2x"
-        data-sizes="auto"
-        alt="./images/控制流平坦化4.png"
-        title="控制流平坦化4" /></p>
+</div><p><img loading="lazy" src="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%963.png" alt="控制流平坦化3" srcset="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%963.png?size=small, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%963.png?size=medium 1.5x, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%963.png?size=large 2x" data-title="控制流平坦化3" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%964.png" alt="控制流平坦化4" srcset="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%964.png?size=small, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%964.png?size=medium 1.5x, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%964.png?size=large 2x" data-title="控制流平坦化4" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>上面的编译选项比较简单,生成的代码,从IDA反汇编结果来看好像还可以,下面使用如下命令进行编译,来体会下控制流平坦化的强大.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -fla -mllvm -split -mllvm -split_num=10 luoTst.c -o luoTst_fla_split10
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -fla -mllvm -split -mllvm -split_num=10 luoTst.c -o luoTst_fla_split10</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png"
-        data-srcset="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png 1.5x, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png 2x"
-        data-sizes="auto"
-        alt="./images/控制流平坦化5.png"
-        title="控制流平坦化5" /></p>
-<h3 id="函数注解">函数注解</h3>
-<p>可以使用注解的方式对指定函数进行指定的混淆方式.</p>
+</div><p><img loading="lazy" src="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png" alt="控制流平坦化5" srcset="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png?size=small, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png?size=medium 1.5x, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png?size=large 2x" data-title="控制流平坦化5" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="函数注解" class="heading-element"><span>函数注解</span>
+  <a href="#%e5%87%bd%e6%95%b0%e6%b3%a8%e8%a7%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>可以使用注解的方式对指定函数进行指定的混淆方式.</p>
 <p>测试代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -715,8 +678,7 @@
 </span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;fun1:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">fun1</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;fun2:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">fun2</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="mi">8</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用如下命令进行编译即可:</p>
 <div class="highlight"><div class="chroma">
@@ -724,47 +686,48 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang luoTst.c -o luoTst
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang luoTst.c -o luoTst</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="参考链接">参考链接</h2>
-<p><a href="https://github.com/obfuscator-llvm/obfuscator" target="_blank" rel="noopener noreffer">https://github.com/obfuscator-llvm/obfuscator</a></p>
+</div><h2 id="参考链接" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://github.com/obfuscator-llvm/obfuscator"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/obfuscator-llvm/obfuscator</a></p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2023-03-21</span>
-            </div>
-            <div class="post-info-license"></div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-03-21 00:00:00">更新于 2023-03-21&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
         </div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span></span>
-            </div>
-        </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/llvm/">LLVM</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/llvm/" class="post-tag" title="标签 - LLVM">LLVM</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" class="prev" rel="prev" title="LLVM基础"><i class="fas fa-angle-left fa-fw"></i>LLVM基础</a>
-            <a href="/posts/llvm/ollvm%E8%B0%83%E8%AF%95/" class="next" rel="next" title="OLLVM调试">OLLVM调试<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" class="post-nav-item" rel="prev" title="LLVM基础"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>LLVM基础</a>
+      <a href="/posts/llvm/ollvm%E8%B0%83%E8%AF%95/" class="post-nav-item" rel="next" title="OLLVM调试">OLLVM调试<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":150},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

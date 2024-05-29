@@ -1,114 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>函数名称加密Pass开发 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="函数名称加密Pass开发" />
-<meta property="og:description" content="函数名称加密Pass开发 测试代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 //luoTst.c #include &lt;stdio.h&gt; void fun1() { printf(&#34;hello clang: fun1\r\n&#34;); } void fun2() { printf(&#34;hello clang: fun2\r\n&#34;); } int main(int argc, char const *argv[]) { if (argc &gt; 2) { printf(&#34;hello world!\r\n&#34;); }" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://XiaLuoHun.github.io/posts/llvm/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-03-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-03-15T00:00:00+00:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="函数名称加密Pass开发"/>
-<meta name="twitter:description" content="函数名称加密Pass开发 测试代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 //luoTst.c #include &lt;stdio.h&gt; void fun1() { printf(&#34;hello clang: fun1\r\n&#34;); } void fun2() { printf(&#34;hello clang: fun2\r\n&#34;); } int main(int argc, char const *argv[]) { if (argc &gt; 2) { printf(&#34;hello world!\r\n&#34;); }"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/llvm/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/llvm/%E5%88%9D%E8%AF%86llvm/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "函数名称加密Pass开发",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91\/"
-        },"genre": "posts","keywords": "LLVM","wordcount":  2093 ,
-        "url": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91\/","datePublished": "2023-03-15T00:00:00+00:00","dateModified": "2023-03-15T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": "夏洛魂"},"author": {
-                "@type": "Person",
-                "name": "夏洛魂"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>函数名称加密Pass开发 - 夏洛魂的个人博客</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="函数名称加密Pass开发 测试代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 //luoTst.c #include &lt;stdio.h&gt; void fun1() { printf(&#34;hello clang: fun1\r\n&#34;); } void fun2() { printf(&#34;hello clang: fun2\r\n&#34;); } int main(int argc, char const *argv[]) { if (argc &gt; 2) { printf(&#34;hello world!\r\n&#34;); }" /><meta name="keywords" content='LLVM' />
+  <meta itemprop="name" content="函数名称加密Pass开发">
+  <meta itemprop="description" content="函数名称加密Pass开发 测试代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 //luoTst.c #include &lt;stdio.h&gt; void fun1() { printf(&#34;hello clang: fun1\r\n&#34;); } void fun2() { printf(&#34;hello clang: fun2\r\n&#34;); } int main(int argc, char const *argv[]) { if (argc &gt; 2) { printf(&#34;hello world!\r\n&#34;); }">
+  <meta itemprop="datePublished" content="2023-03-15T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2023-03-15T00:00:00+00:00">
+  <meta itemprop="wordCount" content="2093">
+  <meta itemprop="keywords" content="LLVM"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/llvm/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="函数名称加密Pass开发">
+  <meta property="og:description" content="函数名称加密Pass开发 测试代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 //luoTst.c #include &lt;stdio.h&gt; void fun1() { printf(&#34;hello clang: fun1\r\n&#34;); } void fun2() { printf(&#34;hello clang: fun2\r\n&#34;); } int main(int argc, char const *argv[]) { if (argc &gt; 2) { printf(&#34;hello world!\r\n&#34;); }">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-03-15T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-03-15T00:00:00+00:00">
+    <meta property="article:tag" content="LLVM">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="函数名称加密Pass开发">
+  <meta name="twitter:description" content="函数名称加密Pass开发 测试代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 //luoTst.c #include &lt;stdio.h&gt; void fun1() { printf(&#34;hello clang: fun1\r\n&#34;); } void fun2() { printf(&#34;hello clang: fun2\r\n&#34;); } int main(int argc, char const *argv[]) { if (argc &gt; 2) { printf(&#34;hello world!\r\n&#34;); }">
+<meta name="application-name" content="LuoHun">
+<meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/llvm/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/llvm/%E5%88%9D%E8%AF%86llvm/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "函数名称加密Pass开发",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91\/"
+    },"genre": "posts","keywords": "LLVM","wordcount":  2093 ,
+    "url": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91\/","datePublished": "2023-03-15T00:00:00+00:00","dateModified": "2023-03-15T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "作者"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/excalidraw/"
+                
+                
+              >在线绘图</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="夏洛魂的个人博客">主页</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="夏洛魂的个人博客">主页</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/excalidraw/"
+                  
+                  
+                >在线绘图</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">函数名称加密Pass开发</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/llvm/"><i class="far fa-folder fa-fw"></i>LLVM</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-03-15">2023-03-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2093 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>函数名称加密Pass开发</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/llvm/" class="post-category" title="分类 - LLVM"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> LLVM</a></span></div><div class="post-meta-line"><span title="发布于 2023-03-15 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-03-15">2023-03-15</time></span>&nbsp;<span title="2093 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 2100 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#函数名称加密pass开发">函数名称加密Pass开发</a>
       <ul>
@@ -121,9 +195,15 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="函数名称加密pass开发">函数名称加密Pass开发</h1>
-<h2 id="测试代码">测试代码</h2>
-<div class="highlight"><div class="chroma">
+      </div><div class="content" id="content"><h1 id="函数名称加密pass开发" class="heading-element"><span>函数名称加密Pass开发</span>
+  <a href="#%e5%87%bd%e6%95%b0%e5%90%8d%e7%a7%b0%e5%8a%a0%e5%af%86pass%e5%bc%80%e5%8f%91" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 id="测试代码" class="heading-element"><span>测试代码</span>
+  <a href="#%e6%b5%8b%e8%af%95%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -170,11 +250,13 @@
 </span></span><span class="line"><span class="cl">    <span class="n">fun1</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="n">fun2</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="基于源码编写pass">基于源码编写Pass</h2>
-<ol>
+</div><h2 id="基于源码编写pass" class="heading-element"><span>基于源码编写Pass</span>
+  <a href="#%e5%9f%ba%e4%ba%8e%e6%ba%90%e7%a0%81%e7%bc%96%e5%86%99pass" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>在{llvm-project}/llvm/lib/Transforms目录下新建一个文件夹EncodeFunctionName</li>
 <li>在EncodeFunctionName文件夹下新建一个CMakeLists.txt文件</li>
 </ol>
@@ -193,8 +275,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="s">PLUGIN_TOOL</span>
 </span></span><span class="line"><span class="cl">        <span class="s">opt</span>
-</span></span><span class="line"><span class="cl">        <span class="p">)</span><span class="err">
-</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>在新建文件夹的上层即lib/Transforms/CMakeLists.txt文件中填入下面内容</li>
@@ -204,20 +285,12 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">add_subdirectory(EncodeFunctionName)
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">add_subdirectory(EncodeFunctionName)</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="4">
 <li>Reload Cmake Project</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/reloadCmake.png"
-        data-srcset="./images/reloadCmake.png, ./images/reloadCmake.png 1.5x, ./images/reloadCmake.png 2x"
-        data-sizes="auto"
-        alt="./images/reloadCmake.png"
-        title="reloadCmake" /></p>
+<p><img loading="lazy" src="./images/reloadCmake.png" alt="reloadCmake" srcset="./images/reloadCmake.png?size=small, ./images/reloadCmake.png?size=medium 1.5x, ./images/reloadCmake.png?size=large 2x" data-title="reloadCmake" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="5">
 <li>在EncodeFunctionName文件夹下新建一个EncodeFunctionName.cpp文件.</li>
 </ol>
@@ -294,8 +367,7 @@
 </span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">EncodeFunctionName</span><span class="o">::</span><span class="n">ID</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">RegisterPass</span><span class="o">&lt;</span><span class="n">EncodeFunctionName</span><span class="o">&gt;</span> <span class="n">X</span><span class="p">(</span><span class="s">&#34;encode&#34;</span><span class="p">,</span> <span class="s">&#34;Encode Function Name Pass&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                                          <span class="nb">false</span> <span class="cm">/* Only looks at CFG */</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                                          <span class="nb">false</span> <span class="cm">/* Analysis Pass */</span><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">                                          <span class="nb">false</span> <span class="cm">/* Analysis Pass */</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="6">
 <li>在{llvm-project}/llvm/cmake-build-release目录下执行下述命令即可进行编译</li>
@@ -305,8 +377,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="err">ninja</span> <span class="err">LLVMEncodeFunctionName
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="err">ninja</span> <span class="err">LLVMEncodeFunctionName</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="7">
 <li>使用opt来测试pass</li>
@@ -322,11 +393,13 @@
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//生成.ll文件
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">clang</span> <span class="o">-</span><span class="n">emit</span><span class="o">-</span><span class="n">llvm</span> <span class="o">-</span><span class="n">S</span> <span class="n">luoTst</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">luoTst</span><span class="p">.</span><span class="n">ll</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//使用opt进行测试
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">opt</span> <span class="o">-</span><span class="n">load</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">luohun</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">llvm</span><span class="o">-</span><span class="n">project</span><span class="o">-</span><span class="mf">9.0.1</span><span class="o">/</span><span class="n">llvm</span><span class="o">/</span><span class="n">cmake</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">release</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">LLVMEncodeFunctionName</span><span class="p">.</span><span class="n">so</span> <span class="o">-</span><span class="n">encode</span> <span class="n">luoTst</span><span class="p">.</span><span class="n">ll</span> <span class="o">-</span><span class="n">o</span> <span class="n">luoTst</span><span class="p">.</span><span class="n">bc</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">opt</span> <span class="o">-</span><span class="n">load</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">luohun</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">llvm</span><span class="o">-</span><span class="n">project</span><span class="o">-</span><span class="mf">9.0.1</span><span class="o">/</span><span class="n">llvm</span><span class="o">/</span><span class="n">cmake</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">release</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">LLVMEncodeFunctionName</span><span class="p">.</span><span class="n">so</span> <span class="o">-</span><span class="n">encode</span> <span class="n">luoTst</span><span class="p">.</span><span class="n">ll</span> <span class="o">-</span><span class="n">o</span> <span class="n">luoTst</span><span class="p">.</span><span class="n">bc</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="脱离源码编写pass">脱离源码编写Pass</h2>
-<p>项目布局如下:</p>
+</div><h2 id="脱离源码编写pass" class="heading-element"><span>脱离源码编写Pass</span>
+  <a href="#%e8%84%b1%e7%a6%bb%e6%ba%90%e7%a0%81%e7%bc%96%e5%86%99pass" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>项目布局如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -346,8 +419,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="err">|
 </span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="err">CMakeLists.txt
 </span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="err">Pass.cpp
-</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="err">...
-</span></span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="err">...</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol>
 <li>新建一个项目文件夹如 passDev</li>
@@ -386,8 +458,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">add_definitions</span><span class="p">(</span><span class="o">${</span><span class="nv">LLVM_DEFINITIONS_LIST</span><span class="o">}</span><span class="p">)</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">LLVM_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">EncodeFunctionName</span><span class="p">)</span><span class="err">
-</span></span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">EncodeFunctionName</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>在passDev文件夹下新建一个Pass文件夹如 EncodeFunctionName</li>
@@ -402,8 +473,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="nb">add_llvm_library</span><span class="p">(</span><span class="s">LLVMEncodeFunctionName2</span> <span class="s">MODULE</span>
 </span></span><span class="line"><span class="cl">  <span class="s">EncodeFunctionName.cpp</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span><span class="err">
-</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="5">
 <li>在EncodeFunctionName文件夹下新建一个EncodeFunctionName.cpp文件,内容如下:</li>
@@ -481,20 +551,12 @@
 </span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">EncodeFunctionName</span><span class="o">::</span><span class="n">ID</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">RegisterPass</span><span class="o">&lt;</span><span class="n">EncodeFunctionName</span><span class="o">&gt;</span> <span class="n">X</span><span class="p">(</span><span class="s">&#34;encode&#34;</span><span class="p">,</span> <span class="s">&#34;Encode Function Name Pass&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                                          <span class="nb">false</span> <span class="cm">/* Only looks at CFG */</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                                          <span class="nb">false</span> <span class="cm">/* Analysis Pass */</span><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">                                          <span class="nb">false</span> <span class="cm">/* Analysis Pass */</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="6">
 <li>用CLion打开该项目,点击build即可进行编译.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/Clion%e7%bc%96%e8%af%91.png"
-        data-srcset="./images/Clion%e7%bc%96%e8%af%91.png, ./images/Clion%e7%bc%96%e8%af%91.png 1.5x, ./images/Clion%e7%bc%96%e8%af%91.png 2x"
-        data-sizes="auto"
-        alt="./images/Clion编译.png"
-        title="Clion编译" /></p>
+<p><img loading="lazy" src="./images/Clion%e7%bc%96%e8%af%91.png" alt="Clion编译" srcset="./images/Clion%e7%bc%96%e8%af%91.png?size=small, ./images/Clion%e7%bc%96%e8%af%91.png?size=medium 1.5x, ./images/Clion%e7%bc%96%e8%af%91.png?size=large 2x" data-title="Clion编译" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="7">
 <li>接下来就可以使用下述命令来进行混淆并生成bc文件</li>
 </ol>
@@ -503,11 +565,13 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">opt</span> <span class="o">-</span><span class="n">load</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">luohun</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">luo</span><span class="o">/</span><span class="n">passDev</span><span class="o">/</span><span class="n">cmake</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">debug</span><span class="o">/</span><span class="n">EncodeFunctionName</span><span class="o">/</span><span class="n">LLVMEncodeFunctionName2</span><span class="p">.</span><span class="n">so</span> <span class="o">-</span><span class="n">encode</span> <span class="n">luoTst</span><span class="p">.</span><span class="n">ll</span> <span class="o">-</span><span class="n">o</span> <span class="n">luoTst</span><span class="p">.</span><span class="n">bc</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">opt</span> <span class="o">-</span><span class="n">load</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">luohun</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">luo</span><span class="o">/</span><span class="n">passDev</span><span class="o">/</span><span class="n">cmake</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">debug</span><span class="o">/</span><span class="n">EncodeFunctionName</span><span class="o">/</span><span class="n">LLVMEncodeFunctionName2</span><span class="p">.</span><span class="n">so</span> <span class="o">-</span><span class="n">encode</span> <span class="n">luoTst</span><span class="p">.</span><span class="n">ll</span> <span class="o">-</span><span class="n">o</span> <span class="n">luoTst</span><span class="p">.</span><span class="n">bc</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="pass注册到clang中">Pass注册到Clang中</h2>
-<p>编译llvm自定义混淆的Pass后,使用opt进行pass加载混淆bc文件这个步骤很麻烦,下面以llvm9.0.1为例将llvm pass添加到clang的命令行</p>
+</div><h2 id="pass注册到clang中" class="heading-element"><span>Pass注册到Clang中</span>
+  <a href="#pass%e6%b3%a8%e5%86%8c%e5%88%b0clang%e4%b8%ad" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>编译llvm自定义混淆的Pass后,使用opt进行pass加载混淆bc文件这个步骤很麻烦,下面以llvm9.0.1为例将llvm pass添加到clang的命令行</p>
 <ol>
 <li>创建头文件,在{llvm-project}/llvm/include/llvm/Transforms目录下,新建一个EncodeFunctionName文件夹,在里面再新建一个EncodeFunctionName.h</li>
 </ol>
@@ -621,8 +685,7 @@
 </span></span><span class="line"><span class="cl">                                          <span class="nb">false</span> <span class="cm">/* Analysis Pass */</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//实现该函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Pass</span><span class="o">*</span> <span class="n">llvm</span><span class="o">::</span><span class="n">createEncodeFunctionName</span><span class="p">(){</span><span class="k">return</span> <span class="k">new</span> <span class="nf">EncodeFunctionName</span><span class="p">();}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Pass</span><span class="o">*</span> <span class="n">llvm</span><span class="o">::</span><span class="n">createEncodeFunctionName</span><span class="p">(){</span><span class="k">return</span> <span class="k">new</span> <span class="nf">EncodeFunctionName</span><span class="p">();}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>修改{llvm-project}/llvm/lib/Transforms/EncodeFunctionName/CMakeLists.txt内容如下:</li>
@@ -650,8 +713,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">DEPENDS</span>
 </span></span><span class="line"><span class="cl">        <span class="n">intrinsics_gen</span>
-</span></span><span class="line"><span class="cl">        <span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="4">
 <li>在{llvm-project}/llvm/lib/Transforms/EncodeFunctionName下新建一个LLVMBuild.txt</li>
@@ -669,8 +731,7 @@
 </span></span><span class="line"><span class="cl">type = Library
 </span></span><span class="line"><span class="cl">name = EncodeFunctionName
 </span></span><span class="line"><span class="cl">parent = Transforms
-</span></span><span class="line"><span class="cl">library_name = EncodeFunctionName
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">library_name = EncodeFunctionName</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="5">
 <li>在{llvm-project}/llvm/lib/Transforms/LLVMBuild.txt文件中添加<strong>EncodeFunctionName</strong></li>
@@ -682,8 +743,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="p">[</span><span class="n">common</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">subdirectories</span> <span class="o">=</span> <span class="n">AggressiveInstCombine</span> <span class="n">Coroutines</span> <span class="n">IPO</span> <span class="n">InstCombine</span> <span class="n">Instrumentation</span> <span class="n">Scalar</span> <span class="n">Utils</span> <span class="n">Vectorize</span> <span class="n">ObjCARC</span> <span class="n">EncodeFunctionName</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">subdirectories</span> <span class="o">=</span> <span class="n">AggressiveInstCombine</span> <span class="n">Coroutines</span> <span class="n">IPO</span> <span class="n">InstCombine</span> <span class="n">Instrumentation</span> <span class="n">Scalar</span> <span class="n">Utils</span> <span class="n">Vectorize</span> <span class="n">ObjCARC</span> <span class="n">EncodeFunctionName</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="6">
 <li>在{llvm-project}/llvm/lib/Transforms/IPO/LLVMBuild.txt文件中添加<strong>EncodeFunctionName</strong></li>
@@ -693,8 +753,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">required_libraries = AggressiveInstCombine Analysis BitReader BitWriter Core InstCombine IRReader Linker Object ProfileData Scalar Support TransformUtils Vectorize Instrumentation EncodeFunctionName
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">required_libraries = AggressiveInstCombine Analysis BitReader BitWriter Core InstCombine IRReader Linker Object ProfileData Scalar Support TransformUtils Vectorize Instrumentation EncodeFunctionName</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="7">
 <li>修改{llvm-project}/llvm/lib/Transforms/IPO/PassManagerBuilder.cpp文件,添加启动参数识别</li>
@@ -730,8 +789,7 @@
 </span></span><span class="line"><span class="cl">    	<span class="n">MPM</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">createEncodeFunctionName</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">  	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//---
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="8">
 <li>在{llvm-project}/llvm/cmake-build-release进行编译</li>
@@ -743,8 +801,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ninja LLVMEncodeFunctionName
-</span></span><span class="line"><span class="cl">ninja clang
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">ninja clang</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="9">
 <li>用编译出的clang去编译上面的测试文件</li>
@@ -754,58 +811,52 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -encode luoTst.ll -o luoTst.bc
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -encode luoTst.ll -o luoTst.bc</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/clang%e7%bc%96%e8%af%91%e6%b5%8b%e8%af%95.png"
-        data-srcset="./images/clang%e7%bc%96%e8%af%91%e6%b5%8b%e8%af%95.png, ./images/clang%e7%bc%96%e8%af%91%e6%b5%8b%e8%af%95.png 1.5x, ./images/clang%e7%bc%96%e8%af%91%e6%b5%8b%e8%af%95.png 2x"
-        data-sizes="auto"
-        alt="./images/clang编译测试.png"
-        title="clang编译测试" /></p>
+</div><p><img loading="lazy" src="./images/clang%e7%bc%96%e8%af%91%e6%b5%8b%e8%af%95.png" alt="clang编译测试" srcset="./images/clang%e7%bc%96%e8%af%91%e6%b5%8b%e8%af%95.png?size=small, ./images/clang%e7%bc%96%e8%af%91%e6%b5%8b%e8%af%95.png?size=medium 1.5x, ./images/clang%e7%bc%96%e8%af%91%e6%b5%8b%e8%af%95.png?size=large 2x" data-title="clang编译测试" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>需要注意的是上面的方法从llvm12.0.0开始已不再适用,因为从llvm12.0.0版本开始已经将<strong>LLVMBuild.txt</strong>文件删除了,取而代之的是一种纯粹的CMake方法.</p>
-<h2 id="参考链接">参考链接</h2>
-<p><a href="https://llvm.org/docs/WritingAnLLVMPass.html" target="_blank" rel="noopener noreffer">https://llvm.org/docs/WritingAnLLVMPass.html</a></p>
-<p><a href="https://llvm.org/docs/CMake.html#developing-llvm-passes-out-of-source" target="_blank" rel="noopener noreffer">https://llvm.org/docs/CMake.html#developing-llvm-passes-out-of-source</a></p>
-<p><a href="https://www.oschina.net/news/138105/llvm-12-0-0-released" target="_blank" rel="noopener noreffer">https://www.oschina.net/news/138105/llvm-12-0-0-released</a></p>
+<h2 id="参考链接" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://llvm.org/docs/WritingAnLLVMPass.html"target="_blank" rel="external nofollow noopener noreferrer">https://llvm.org/docs/WritingAnLLVMPass.html</a></p>
+<p><a href="https://llvm.org/docs/CMake.html#developing-llvm-passes-out-of-source"target="_blank" rel="external nofollow noopener noreferrer">https://llvm.org/docs/CMake.html#developing-llvm-passes-out-of-source</a></p>
+<p><a href="https://www.oschina.net/news/138105/llvm-12-0-0-released"target="_blank" rel="external nofollow noopener noreferrer">https://www.oschina.net/news/138105/llvm-12-0-0-released</a></p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2023-03-15</span>
-            </div>
-            <div class="post-info-license"></div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-03-15 00:00:00">更新于 2023-03-15&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
         </div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span></span>
-            </div>
-        </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/llvm/">LLVM</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/llvm/" class="post-tag" title="标签 - LLVM">LLVM</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/posts/llvm/%E5%88%9D%E8%AF%86llvm/" class="prev" rel="prev" title="初识LLVM"><i class="fas fa-angle-left fa-fw"></i>初识LLVM</a>
-            <a href="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" class="next" rel="next" title="LLVM基础">LLVM基础<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/posts/llvm/%E5%88%9D%E8%AF%86llvm/" class="post-nav-item" rel="prev" title="初识LLVM"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>初识LLVM</a>
+      <a href="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" class="post-nav-item" rel="next" title="LLVM基础">LLVM基础<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":150},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

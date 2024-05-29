@@ -1,114 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>AES - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="AES" />
-<meta property="og:description" content="AES 算法描述 在AES算法中密钥长度、分组长度和轮数的对应关系如下: 密钥长度(Nk个32位双字) 分组长度(Nb个32位双字) 轮数(Nr) AES-128 4 4 10" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://XiaLuoHun.github.io/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-06-02T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-06-02T00:00:00+00:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="AES"/>
-<meta name="twitter:description" content="AES 算法描述 在AES算法中密钥长度、分组长度和轮数的对应关系如下: 密钥长度(Nk个32位双字) 分组长度(Nb个32位双字) 轮数(Nr) AES-128 4 4 10"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "AES",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95\/aes\/"
-        },"genre": "posts","keywords": "AES","wordcount":  4716 ,
-        "url": "https:\/\/XiaLuoHun.github.io\/posts\/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95\/aes\/","datePublished": "2022-06-02T00:00:00+00:00","dateModified": "2022-06-02T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": "夏洛魂"},"author": {
-                "@type": "Person",
-                "name": "夏洛魂"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>AES - 夏洛魂的个人博客</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="AES 算法描述 在AES算法中密钥长度、分组长度和轮数的对应关系如下: 密钥长度(Nk个32位双字) 分组长度(Nb个32位双字) 轮数(Nr) AES-128 4 4 10" /><meta name="keywords" content='AES' />
+  <meta itemprop="name" content="AES">
+  <meta itemprop="description" content="AES 算法描述 在AES算法中密钥长度、分组长度和轮数的对应关系如下: 密钥长度(Nk个32位双字) 分组长度(Nb个32位双字) 轮数(Nr) AES-128 4 4 10">
+  <meta itemprop="datePublished" content="2022-06-02T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-06-02T00:00:00+00:00">
+  <meta itemprop="wordCount" content="4716">
+  <meta itemprop="keywords" content="AES"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="AES">
+  <meta property="og:description" content="AES 算法描述 在AES算法中密钥长度、分组长度和轮数的对应关系如下: 密钥长度(Nk个32位双字) 分组长度(Nb个32位双字) 轮数(Nr) AES-128 4 4 10">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-06-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-06-02T00:00:00+00:00">
+    <meta property="article:tag" content="AES">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AES">
+  <meta name="twitter:description" content="AES 算法描述 在AES算法中密钥长度、分组长度和轮数的对应关系如下: 密钥长度(Nk个32位双字) 分组长度(Nb个32位双字) 轮数(Nr) AES-128 4 4 10">
+<meta name="application-name" content="LuoHun">
+<meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "AES",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.github.io\/posts\/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95\/aes\/"
+    },"genre": "posts","keywords": "AES","wordcount":  4716 ,
+    "url": "https:\/\/XiaLuoHun.github.io\/posts\/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95\/aes\/","datePublished": "2022-06-02T00:00:00+00:00","dateModified": "2022-06-02T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "作者"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/excalidraw/"
+                
+                
+              >在线绘图</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="夏洛魂的个人博客">主页</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="夏洛魂的个人博客">主页</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/excalidraw/"
+                  
+                  
+                >在线绘图</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">AES</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/"><i class="far fa-folder fa-fw"></i>加密算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-02">2022-06-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4716 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>AES</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" class="post-category" title="分类 - 加密算法"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 加密算法</a></span></div><div class="post-meta-line"><span title="发布于 2022-06-02 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-06-02">2022-06-02</time></span>&nbsp;<span title="4716 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 4800 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 10 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#aes">AES</a>
       <ul>
@@ -155,9 +229,15 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="aes">AES</h1>
-<h2 id="算法描述">算法描述</h2>
-<p>在AES算法中密钥长度、分组长度和轮数的对应关系如下:</p>
+      </div><div class="content" id="content"><h1 id="aes" class="heading-element"><span>AES</span>
+  <a href="#aes" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 id="算法描述" class="heading-element"><span>算法描述</span>
+  <a href="#%e7%ae%97%e6%b3%95%e6%8f%8f%e8%bf%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在AES算法中密钥长度、分组长度和轮数的对应关系如下:</p>
 <table>
 <thead>
 <tr>
@@ -189,9 +269,15 @@
 </tbody>
 </table>
 <p>对AES算法来说,输入分组、输出分组及状态分组的长度都是128比特,即Nb = 4.</p>
-<h2 id="加密过程">加密过程</h2>
-<h3 id="总体">总体</h3>
-<p>将输入复制到状态数组中,在进行一次初始轮密钥相加操作之后,执行Nr次轮函数,对状态数组进行变换,其中最后一轮不同于前Nr-1轮.将最终的状态数组复制到输出数组中,即得到最终的密文.</p>
+<h2 id="加密过程" class="heading-element"><span>加密过程</span>
+  <a href="#%e5%8a%a0%e5%af%86%e8%bf%87%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="总体" class="heading-element"><span>总体</span>
+  <a href="#%e6%80%bb%e4%bd%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>将输入复制到状态数组中,在进行一次初始轮密钥相加操作之后,执行Nr次轮函数,对状态数组进行变换,其中最后一轮不同于前Nr-1轮.将最终的状态数组复制到输出数组中,即得到最终的密文.</p>
 <p>轮函数由4部分组成,分别是subBytes(),shiftRows(),mixColumns(),addRoundKey().</p>
 <p>其加密过程的伪代码如下:</p>
 <div class="highlight"><div class="chroma">
@@ -241,11 +327,13 @@
 </span></span><span class="line"><span class="cl">	<span class="n">shiftRows</span><span class="p">(</span><span class="n">state</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">addRoundKey</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dw</span><span class="p">[</span><span class="n">Nr</span><span class="o">*</span><span class="n">Nb</span><span class="p">,(</span><span class="n">Nr</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Nb</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">out</span> <span class="o">=</span> <span class="n">state</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="密钥扩展keyexpansion">密钥扩展(keyExpansion)</h3>
-<p>通过对用户输入的128位、192位或者256位的密钥进行处理,共生成Nb*(Nr+1)个32位双字,为加解密算法的轮函数提供轮密钥.</p>
+</div><h3 id="密钥扩展keyexpansion" class="heading-element"><span>密钥扩展(keyExpansion)</span>
+  <a href="#%e5%af%86%e9%92%a5%e6%89%a9%e5%b1%95keyexpansion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>通过对用户输入的128位、192位或者256位的密钥进行处理,共生成Nb*(Nr+1)个32位双字,为加解密算法的轮函数提供轮密钥.</p>
 <p>其代码表示如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -426,19 +514,14 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">delete</span><span class="p">[]</span><span class="n">rcon</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">delete</span><span class="p">[]</span><span class="n">temp</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="字节代换subbytes">字节代换(subBytes)</h3>
-<p>实际上就是一个简单的查表操作.AES定义了一个16x16字节的S-box,以状态数组中的每个字节元素的高4位为行标,低4位为列标,取出相应的元素作为subBytes操作的结果.例如,16进制值{21},高4位为2,低4位为1,取S-box中行标为2、列表为1的值组成16进制值{FD},则{21}被替换为{FD}.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/AES-S-Box.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-S-Box.png, images/AES-S-Box.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-S-Box.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-S-Box.png"
-        title="AES-S-Box" /></p>
+</div><h3 id="字节代换subbytes" class="heading-element"><span>字节代换(subBytes)</span>
+  <a href="#%e5%ad%97%e8%8a%82%e4%bb%a3%e6%8d%a2subbytes" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>实际上就是一个简单的查表操作.AES定义了一个16x16字节的S-box,以状态数组中的每个字节元素的高4位为行标,低4位为列标,取出相应的元素作为subBytes操作的结果.例如,16进制值{21},高4位为2,低4位为1,取S-box中行标为2、列表为1的值组成16进制值{FD},则{21}被替换为{FD}.</p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-S-Box.png" alt="AES-S-Box" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-S-Box.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-S-Box.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-S-Box.png?size=large 2x" data-title="AES-S-Box" style="--width: 1039px;--aspect-ratio: 1039 / 467;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>其代码表示如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -459,11 +542,13 @@
 </span></span><span class="line"><span class="cl">			<span class="n">state</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">state</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]];</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="行移位shiftrows">行移位(shiftRows)</h3>
-<p>状态数组的第1行保持不变,第2行循环左移1字节,第3行循环左移2字节,第4行循环左移3字节.例如,对状态:</p>
+</div><h3 id="行移位shiftrows" class="heading-element"><span>行移位(shiftRows)</span>
+  <a href="#%e8%a1%8c%e7%a7%bb%e4%bd%8dshiftrows" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>状态数组的第1行保持不变,第2行循环左移1字节,第3行循环左移2字节,第4行循环左移3字节.例如,对状态:</p>
 <table>
 <thead>
 <tr>
@@ -599,11 +684,13 @@
 </span></span><span class="line"><span class="cl">		<span class="n">array</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rowThree</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">		<span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rowFour</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="列混合mixcolumns">列混合(mixColumns)</h3>
-<p>先把状态矩阵初始状态复制一份到tmpArray中,然后将tmpArray与M矩阵相乘,其中M存放的是要乘的常数矩阵数组,GMul函数定义了矩阵相乘时的乘法,加法则直接通过异或来实现.</p>
+</div><h3 id="列混合mixcolumns" class="heading-element"><span>列混合(mixColumns)</span>
+  <a href="#%e5%88%97%e6%b7%b7%e5%90%88mixcolumns" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>先把状态矩阵初始状态复制一份到tmpArray中,然后将tmpArray与M矩阵相乘,其中M存放的是要乘的常数矩阵数组,GMul函数定义了矩阵相乘时的乘法,加法则直接通过异或来实现.</p>
 <p>其代码表示如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -694,11 +781,13 @@
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="轮密相加addroundkey">轮密相加(addRoundKey)</h3>
-<p>将状态数组中的元素与轮密钥通过简单的异或运算相加.轮密钥是由用户输入的密钥通过密钥扩展生成的,同样可以看成一个状态数组.</p>
+</div><h3 id="轮密相加addroundkey" class="heading-element"><span>轮密相加(addRoundKey)</span>
+  <a href="#%e8%bd%ae%e5%af%86%e7%9b%b8%e5%8a%a0addroundkey" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>将状态数组中的元素与轮密钥通过简单的异或运算相加.轮密钥是由用户输入的密钥通过密钥扩展生成的,同样可以看成一个状态数组.</p>
 <p>其代码表示如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -727,12 +816,17 @@
 </span></span><span class="line"><span class="cl">			<span class="n">state</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">^=</span> <span class="n">k</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="解密过程">解密过程</h2>
-<h3 id="总体-1">总体</h3>
-<p>加密算法的逆过程就是解密算法.因此,解密算法的轮函数也是由4部分组成,分别是invShiftRows、invSubBytes、invMixColumns、addRoundKey.</p>
+</div><h2 id="解密过程" class="heading-element"><span>解密过程</span>
+  <a href="#%e8%a7%a3%e5%af%86%e8%bf%87%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="总体-1" class="heading-element"><span>总体</span>
+  <a href="#%e6%80%bb%e4%bd%93-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>加密算法的逆过程就是解密算法.因此,解密算法的轮函数也是由4部分组成,分别是invShiftRows、invSubBytes、invMixColumns、addRoundKey.</p>
 <p>其解密过程的伪代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -785,26 +879,30 @@
 </span></span><span class="line"><span class="cl">	<span class="n">invShiftRows</span><span class="p">(</span><span class="n">state</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">addRoundKey</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dw</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">out</span> <span class="o">=</span> <span class="n">state</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="密钥扩展keyexpansion-1">密钥扩展(keyExpansion)</h3>
-<p>加密过程中的密钥扩展结果倒序就是解密过程中使用的密钥.</p>
-<h3 id="逆字节代换invsubbytes">逆字节代换(invSubBytes)</h3>
-<p>是字节代换的逆过程,和字节代换一样,逆字节代换只进行简单的查表操作.</p>
+</div><h3 id="密钥扩展keyexpansion-1" class="heading-element"><span>密钥扩展(keyExpansion)</span>
+  <a href="#%e5%af%86%e9%92%a5%e6%89%a9%e5%b1%95keyexpansion-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>加密过程中的密钥扩展结果倒序就是解密过程中使用的密钥.</p>
+<h3 id="逆字节代换invsubbytes" class="heading-element"><span>逆字节代换(invSubBytes)</span>
+  <a href="#%e9%80%86%e5%ad%97%e8%8a%82%e4%bb%a3%e6%8d%a2invsubbytes" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>是字节代换的逆过程,和字节代换一样,逆字节代换只进行简单的查表操作.</p>
 <p>AES同时定义了一个逆S盒(Inverse S-Box).</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/AES-inv-S-Box.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-inv-S-Box.png, images/AES-inv-S-Box.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-inv-S-Box.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-inv-S-Box.png"
-        title="AES-inv-S-Box" /></p>
-<h3 id="逆行移位invshiftrows">逆行移位(invShiftRows)</h3>
-<p>是行移位的逆过程,即状态数组中的后3行执行相应的右移操作.</p>
-<h3 id="逆列混合invmixcolumns">逆列混合(invMixColumns)</h3>
-<p>和列混合的原理相同,区别在于它们使用了不同的多项式.逆列混合使用的系数矩阵如下:</p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-inv-S-Box.png" alt="AES-inv-S-Box" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-inv-S-Box.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-inv-S-Box.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/AES-inv-S-Box.png?size=large 2x" data-title="AES-inv-S-Box" style="--width: 1038px;--aspect-ratio: 1038 / 467;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="逆行移位invshiftrows" class="heading-element"><span>逆行移位(invShiftRows)</span>
+  <a href="#%e9%80%86%e8%a1%8c%e7%a7%bb%e4%bd%8dinvshiftrows" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>是行移位的逆过程,即状态数组中的后3行执行相应的右移操作.</p>
+<h3 id="逆列混合invmixcolumns" class="heading-element"><span>逆列混合(invMixColumns)</span>
+  <a href="#%e9%80%86%e5%88%97%e6%b7%b7%e5%90%88invmixcolumns" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>和列混合的原理相同,区别在于它们使用了不同的多项式.逆列混合使用的系数矩阵如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -816,18 +914,29 @@
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">uint8_t</span> <span class="n">M</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{{</span><span class="mh">0x0E</span><span class="p">,</span> <span class="mh">0x0B</span><span class="p">,</span> <span class="mh">0x0D</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">},</span>
 </span></span><span class="line"><span class="cl">                   <span class="p">{</span><span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x0E</span><span class="p">,</span> <span class="mh">0x0B</span><span class="p">,</span> <span class="mh">0x0D</span><span class="p">},</span>
 </span></span><span class="line"><span class="cl">                   <span class="p">{</span><span class="mh">0x0D</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x0E</span><span class="p">,</span> <span class="mh">0x0B</span><span class="p">},</span>
-</span></span><span class="line"><span class="cl">                   <span class="p">{</span><span class="mh">0x0B</span><span class="p">,</span> <span class="mh">0x0D</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x0E</span><span class="p">}};</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">                   <span class="p">{</span><span class="mh">0x0B</span><span class="p">,</span> <span class="mh">0x0D</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x0E</span><span class="p">}};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>它与列混合使用的矩阵互为逆矩阵.</p>
-<h3 id="轮密相加addroundkey-1">轮密相加(addRoundKey)</h3>
-<p>轮密相加的逆过程就是它本身,因为异或操作是其本身的逆.</p>
-<h2 id="实战演练">实战演练</h2>
-<h3 id="选题">选题</h3>
-<p>本题选自2022年看雪KCTF的第三题-石像病毒.这是一道利用Windows异常机制来修改标准算法,考察选手对加密算法的熟悉程度.</p>
-<p><a href="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/2022-KCTF-%E7%AC%AC%E4%B8%89%E9%A2%98-%E7%9F%B3%E5%83%8F%E7%97%85%E6%AF%92.rar" rel="">2022-KCTF-第三题-石像病毒.rar</a></p>
-<h3 id="总体-2">总体</h3>
-<p>首先经过简单动态调试,去掉Main函数异常干扰代码,IDA反编译结果如下:</p>
+<h3 id="轮密相加addroundkey-1" class="heading-element"><span>轮密相加(addRoundKey)</span>
+  <a href="#%e8%bd%ae%e5%af%86%e7%9b%b8%e5%8a%a0addroundkey-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>轮密相加的逆过程就是它本身,因为异或操作是其本身的逆.</p>
+<h2 id="实战演练" class="heading-element"><span>实战演练</span>
+  <a href="#%e5%ae%9e%e6%88%98%e6%bc%94%e7%bb%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="选题" class="heading-element"><span>选题</span>
+  <a href="#%e9%80%89%e9%a2%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>本题选自2022年看雪KCTF的第三题-石像病毒.这是一道利用Windows异常机制来修改标准算法,考察选手对加密算法的熟悉程度.</p>
+<p><a href="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/2022-KCTF-%E7%AC%AC%E4%B8%89%E9%A2%98-%E7%9F%B3%E5%83%8F%E7%97%85%E6%AF%92.rar">2022-KCTF-第三题-石像病毒.rar</a></p>
+<h3 id="总体-2" class="heading-element"><span>总体</span>
+  <a href="#%e6%80%bb%e4%bd%93-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>首先经过简单动态调试,去掉Main函数异常干扰代码,IDA反编译结果如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -931,33 +1040,21 @@
 </span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到本题简单明了,首先要求我们输入的字符串长度等于0x20,然后通过对字符串&quot;Enj0y_1t_4_fuuuN&quot;计算MD5值,将其作为密钥,利用AES算法加密我们输入的值,看是否和内置的值相同.若相同,则正确.不过需要注意的是,这里用到MD5和AES都是利用了Windows异常机制对其标准过程进行了修改.</p>
-<h3 id="md5">MD5</h3>
-<ol>
+<h3 id="md5" class="heading-element"><span>MD5</span>
+  <a href="#md5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>利用IDA插件Findcrypt查找算法常量.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%9f%a5%e6%89%be%e7%ae%97%e6%b3%95%e5%b8%b8%e9%87%8f.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png, images/%e6%9f%a5%e6%89%be%e7%ae%97%e6%b3%95%e5%b8%b8%e9%87%8f.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png"
-        title="查找算法常量" /></p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png" alt="查找算法常量" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png?size=large 2x" data-title="查找算法常量" style="--width: 1494px;--aspect-ratio: 1494 / 278;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="2">
 <li>交叉引用MD5相关算法常量.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e4%ba%a4%e5%8f%89%e5%bc%95%e7%94%a8MD5%e7%ae%97%e6%b3%95%e5%b8%b8%e9%87%8f.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8MD5%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png, images/%e4%ba%a4%e5%8f%89%e5%bc%95%e7%94%a8MD5%e7%ae%97%e6%b3%95%e5%b8%b8%e9%87%8f.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8MD5%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8MD5%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png"
-        title="交叉引用MD5算法常量" /></p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8MD5%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png" alt="交叉引用MD5算法常量" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8MD5%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8MD5%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8MD5%E7%AE%97%E6%B3%95%E5%B8%B8%E9%87%8F.png?size=large 2x" data-title="交叉引用MD5算法常量" style="--width: 1239px;--aspect-ratio: 1239 / 229;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -981,47 +1078,31 @@
 </span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00402</span><span class="n">C75</span>                 <span class="n">mov</span>     <span class="n">eax</span><span class="p">,</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00402</span><span class="n">C7A</span>                 <span class="n">pop</span>     <span class="n">ebp</span>
 </span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00402</span><span class="n">C7B</span>                 <span class="n">retn</span>
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00402</span><span class="n">C7B</span> <span class="n">sub_402C60</span>      <span class="n">endp</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00402</span><span class="n">C7B</span> <span class="n">sub_402C60</span>      <span class="n">endp</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>发现这里修改了MD5常量表中的第(0x2A + 1 = 43)项的值为0x0D4AF3085.</p>
 <ol start="3">
 <li>验证.</li>
 </ol>
 <p>在x64Dbg中定位到sub_401109函数,看魔改后的MD5计算出来的值.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e5%8a%a8%e6%80%81%e6%9f%a5%e7%9c%8bMD5%e8%ae%a1%e7%ae%97%e5%87%ba%e6%9d%a5%e7%9a%84%e5%80%bc.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%8A%A8%E6%80%81%E6%9F%A5%E7%9C%8BMD5%E8%AE%A1%E7%AE%97%E5%87%BA%E6%9D%A5%E7%9A%84%E5%80%BC.png, images/%e5%8a%a8%e6%80%81%e6%9f%a5%e7%9c%8bMD5%e8%ae%a1%e7%ae%97%e5%87%ba%e6%9d%a5%e7%9a%84%e5%80%bc.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%8A%A8%E6%80%81%E6%9F%A5%E7%9C%8BMD5%E8%AE%A1%E7%AE%97%E5%87%BA%E6%9D%A5%E7%9A%84%E5%80%BC.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%8A%A8%E6%80%81%E6%9F%A5%E7%9C%8BMD5%E8%AE%A1%E7%AE%97%E5%87%BA%E6%9D%A5%E7%9A%84%E5%80%BC.png"
-        title="动态查看MD5计算出来的值" /></p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%8A%A8%E6%80%81%E6%9F%A5%E7%9C%8BMD5%E8%AE%A1%E7%AE%97%E5%87%BA%E6%9D%A5%E7%9A%84%E5%80%BC.png" alt="动态查看MD5计算出来的值" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%8A%A8%E6%80%81%E6%9F%A5%E7%9C%8BMD5%E8%AE%A1%E7%AE%97%E5%87%BA%E6%9D%A5%E7%9A%84%E5%80%BC.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%8A%A8%E6%80%81%E6%9F%A5%E7%9C%8BMD5%E8%AE%A1%E7%AE%97%E5%87%BA%E6%9D%A5%E7%9A%84%E5%80%BC.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%8A%A8%E6%80%81%E6%9F%A5%E7%9C%8BMD5%E8%AE%A1%E7%AE%97%E5%87%BA%E6%9D%A5%E7%9A%84%E5%80%BC.png?size=large 2x" data-title="动态查看MD5计算出来的值" style="--width: 1435px;--aspect-ratio: 1435 / 740;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>可以看到上面计算出来的值为:2F65B1FF31ED86D09A285C0F4048059D</p>
 <p>找一份标准MD5算法,修改常量表的第43项值为0x0D4AF3085,然后查看是否和上面计算出来的结果相同.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/MD5%e9%aa%8c%e8%af%811.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%811.png, images/MD5%e9%aa%8c%e8%af%811.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%811.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%811.png"
-        title="MD5验证1" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/MD5%e9%aa%8c%e8%af%812.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%812.png, images/MD5%e9%aa%8c%e8%af%812.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%812.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%812.png"
-        title="MD5验证2" /></p>
-<h3 id="aes-1">AES</h3>
-<h4 id="总体-3">总体</h4>
-<ol>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%811.png" alt="MD5验证1" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%811.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%811.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%811.png?size=large 2x" data-title="MD5验证1" style="--width: 841px;--aspect-ratio: 841 / 607;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%812.png" alt="MD5验证2" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%812.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%812.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/MD5%E9%AA%8C%E8%AF%812.png?size=large 2x" data-title="MD5验证2" style="--width: 1317px;--aspect-ratio: 1317 / 420;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="aes-1" class="heading-element"><span>AES</span>
+  <a href="#aes-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 id="总体-3" class="heading-element"><span>总体</span>
+  <a href="#%e6%80%bb%e4%bd%93-3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ol>
 <li>首先利用程序中的特征,在Github上搜索一份跟程序中相近的AES源码.</li>
 </ol>
-<p><a href="https://github.com/lmshao/AES" target="_blank" rel="noopener noreffer">https://github.com/lmshao/AES</a></p>
-<p><a href="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/AES-master.zip" rel="">AES-master.zip</a></p>
+<p><a href="https://github.com/lmshao/AES"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/lmshao/AES</a></p>
+<p><a href="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/AES-master.zip">AES-master.zip</a></p>
 <ol start="2">
 <li>在IDA中查看下AES相关函数.</li>
 </ol>
@@ -1146,39 +1227,20 @@
 </span></span><span class="line"><span class="cl">    <span class="n">v10</span> <span class="o">=</span> <span class="n">v12</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里我们输入的字符串是&quot;XiaLuoHun12345675434567876543Hun&quot;,长度是0x20.</p>
-<h4 id="密钥扩展">密钥扩展</h4>
-<ol>
+<h4 id="密钥扩展" class="heading-element"><span>密钥扩展</span>
+  <a href="#%e5%af%86%e9%92%a5%e6%89%a9%e5%b1%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ol>
 <li>用IDA查看密钥扩展函数.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/IDA%e5%af%86%e9%92%a5%e6%89%a9%e5%b1%95%e5%87%bd%e6%95%b0.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0.png, images/IDA%e5%af%86%e9%92%a5%e6%89%a9%e5%b1%95%e5%87%bd%e6%95%b0.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0.png"
-        title="IDA密钥扩展函数" /></p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0.png" alt="IDA密钥扩展函数" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0.png?size=large 2x" data-title="IDA密钥扩展函数" style="--width: 856px;--aspect-ratio: 856 / 148;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>切换到反汇编窗口,可以看到有两处异常.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e5%af%86%e9%92%a5%e6%89%a9%e5%b1%95%e5%bc%82%e5%b8%b81.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B81.png, images/%e5%af%86%e9%92%a5%e6%89%a9%e5%b1%95%e5%bc%82%e5%b8%b81.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B81.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B81.png"
-        title="密钥扩展异常1" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e5%af%86%e9%92%a5%e6%89%a9%e5%b1%95%e5%bc%82%e5%b8%b82.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B82.png, images/%e5%af%86%e9%92%a5%e6%89%a9%e5%b1%95%e5%bc%82%e5%b8%b82.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B82.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B82.png"
-        title="密钥扩展异常2" /></p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B81.png" alt="密钥扩展异常1" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B81.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B81.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B81.png?size=large 2x" data-title="密钥扩展异常1" style="--width: 1006px;--aspect-ratio: 1006 / 653;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B82.png" alt="密钥扩展异常2" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B82.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B82.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E5%AF%86%E9%92%A5%E6%89%A9%E5%B1%95%E5%BC%82%E5%B8%B82.png?size=large 2x" data-title="密钥扩展异常2" style="--width: 980px;--aspect-ratio: 980 / 654;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>接下来查看下异常处理代码.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1207,8 +1269,7 @@
 </span></span><span class="line"><span class="cl">  <span class="n">RijnDael_AES_LONG_40B000</span><span class="p">[</span><span class="mh">0xA3</span><span class="p">]</span> <span class="o">^=</span> <span class="n">RijnDael_AES_LONG_40B000</span><span class="p">[</span><span class="mh">0x71</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">  <span class="n">RijnDael_AES_LONG_40B000</span><span class="p">[</span><span class="mh">0x71</span><span class="p">]</span> <span class="o">^=</span> <span class="n">RijnDael_AES_LONG_40B000</span><span class="p">[</span><span class="mh">0xA3</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以发现这里修改了AES的S-Box,以上修改相当于在标准AES算法源码中修改如下:</p>
 <div class="highlight"><div class="chroma">
@@ -1334,8 +1395,7 @@
 </span></span><span class="line"><span class="cl">	<span class="c1">//修改结束-----------
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>需要注意的是修改了AES的S-Box,我们也要同步修改AES的inv_S-Box.</p>
 <div class="highlight"><div class="chroma">
@@ -1359,47 +1419,24 @@
 </span></span><span class="line"><span class="cl">		<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">temp1</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">		<span class="n">inv_S</span><span class="p">[</span><span class="n">temp1</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="行移位">行移位</h4>
-<p>用IDA查看下与行移位相关的代码.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e8%a1%8c%e7%a7%bb%e4%bd%8d1.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D1.png, images/%e8%a1%8c%e7%a7%bb%e4%bd%8d1.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D1.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D1.png"
-        title="行移位1" /></p>
+</div><h4 id="行移位" class="heading-element"><span>行移位</span>
+  <a href="#%e8%a1%8c%e7%a7%bb%e4%bd%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>用IDA查看下与行移位相关的代码.</p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D1.png" alt="行移位1" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D1.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D1.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D1.png?size=large 2x" data-title="行移位1" style="--width: 901px;--aspect-ratio: 901 / 521;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>既然F5不行,那就切换到反汇编窗口看下.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e8%a1%8c%e7%a7%bb%e4%bd%8d2.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D2.png, images/%e8%a1%8c%e7%a7%bb%e4%bd%8d2.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D2.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D2.png"
-        title="行移位2" /></p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D2.png" alt="行移位2" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D2.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D2.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%A1%8C%E7%A7%BB%E4%BD%8D2.png?size=large 2x" data-title="行移位2" style="--width: 1001px;--aspect-ratio: 1001 / 651;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这里我们注意到用到了右移,正常来说加密过程中的行移位用的是左移,解密过程中用的是右移.再加上动态调试结果,确认这里是将标准AES加密过程中的行移位修改为了逆行移位.与此同时需要修改解密过程中的逆行移位为行移位.</p>
-<h4 id="列混合">列混合</h4>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/IDA%e5%88%97%e6%b7%b7%e5%90%88GMUL.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88GMUL.png, images/IDA%e5%88%97%e6%b7%b7%e5%90%88GMUL.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88GMUL.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88GMUL.png"
-        title="IDA列混合GMUL" /></p>
+<h4 id="列混合" class="heading-element"><span>列混合</span>
+  <a href="#%e5%88%97%e6%b7%b7%e5%90%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88GMUL.png" alt="IDA列混合GMUL" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88GMUL.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88GMUL.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88GMUL.png?size=large 2x" data-title="IDA列混合GMUL" style="--width: 550px;--aspect-ratio: 550 / 480;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>用IDA伪代码查看列混合中的Gmul函数好像没问题,但切到汇编窗口就会看到有异常处理.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/IDA%e5%88%97%e6%b7%b7%e5%90%88Gmul%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88Gmul%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.png, images/IDA%e5%88%97%e6%b7%b7%e5%90%88Gmul%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88Gmul%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88Gmul%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.png"
-        title="IDA列混合Gmul异常处理" /></p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88Gmul%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.png" alt="IDA列混合Gmul异常处理" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88Gmul%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88Gmul%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/IDA%E5%88%97%E6%B7%B7%E5%90%88Gmul%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.png?size=large 2x" data-title="IDA列混合Gmul异常处理" style="--width: 995px;--aspect-ratio: 995 / 651;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1425,74 +1462,67 @@
 </span></span><span class="line"><span class="cl">  <span class="n">byte_40B200</span><span class="p">[</span><span class="mh">0x10</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xF4</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">byte_40B200</span><span class="p">[</span><span class="mh">0x11</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xF2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>byte_40B200里面存放的是最终AES计算出来的结果要比对的值,在这里进行了修改.</p>
-<h4 id="计算flag">计算Flag</h4>
-<p>既然知道了程序修改标准算法的地方,那我们就来写代码计算下Flag.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e8%ae%a1%e7%ae%97Flag.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag.png, images/%e8%ae%a1%e7%ae%97Flag.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag.png"
-        title="计算Flag" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e8%ae%a1%e7%ae%97Flag2.png"
-        data-srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag2.png, images/%e8%ae%a1%e7%ae%97Flag2.png 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag2.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag2.png"
-        title="计算Flag2" /></p>
+<h4 id="计算flag" class="heading-element"><span>计算Flag</span>
+  <a href="#%e8%ae%a1%e7%ae%97flag" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>既然知道了程序修改标准算法的地方,那我们就来写代码计算下Flag.</p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag.png" alt="计算Flag" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag.png?size=large 2x" data-title="计算Flag" style="--width: 1266px;--aspect-ratio: 1266 / 436;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag2.png" alt="计算Flag2" srcset="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag2.png?size=small, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag2.png?size=medium 1.5x, /posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/images/%E8%AE%A1%E7%AE%97Flag2.png?size=large 2x" data-title="计算Flag2" style="--width: 896px;--aspect-ratio: 896 / 158;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>最终得到的Flag为:flag{db5c6a8dfec4d0ec5569899640}</p>
-<h4 id="相关资料">相关资料</h4>
-<p><a href="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/%E6%BA%90%E7%A0%81%E5%92%8CIDB.7z" rel="">源码和IDB.7z</a></p>
-<h2 id="参考链接">参考链接</h2>
-<p>&lt;加密与解密第4版&gt;</p>
-<p><a href="https://www.csdn.net/tags/MtTaEgwsNTY5MTQyLWJsb2cO0O0O.html" target="_blank" rel="noopener noreffer">https://www.csdn.net/tags/MtTaEgwsNTY5MTQyLWJsb2cO0O0O.html</a></p>
-<p><a href="https://blog.csdn.net/shaosunrise/article/details/80219950" target="_blank" rel="noopener noreffer">https://blog.csdn.net/shaosunrise/article/details/80219950</a></p>
-<p><a href="https://blog.csdn.net/qq_28205153/article/details/55798628" target="_blank" rel="noopener noreffer">https://blog.csdn.net/qq_28205153/article/details/55798628</a></p>
-<p><a href="https://github.com/lmshao/AES" target="_blank" rel="noopener noreffer">https://github.com/lmshao/AES</a></p>
-<p><a href="https://github.com/SergeyBel/AES" target="_blank" rel="noopener noreffer">https://github.com/SergeyBel/AES</a></p>
+<h4 id="相关资料" class="heading-element"><span>相关资料</span>
+  <a href="#%e7%9b%b8%e5%85%b3%e8%b5%84%e6%96%99" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><a href="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/%E6%BA%90%E7%A0%81%E5%92%8CIDB.7z">源码和IDB.7z</a></p>
+<h2 id="参考链接" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>&lt;加密与解密第4版&gt;</p>
+<p><a href="https://www.csdn.net/tags/MtTaEgwsNTY5MTQyLWJsb2cO0O0O.html"target="_blank" rel="external nofollow noopener noreferrer">https://www.csdn.net/tags/MtTaEgwsNTY5MTQyLWJsb2cO0O0O.html</a></p>
+<p><a href="https://blog.csdn.net/shaosunrise/article/details/80219950"target="_blank" rel="external nofollow noopener noreferrer">https://blog.csdn.net/shaosunrise/article/details/80219950</a></p>
+<p><a href="https://blog.csdn.net/qq_28205153/article/details/55798628"target="_blank" rel="external nofollow noopener noreferrer">https://blog.csdn.net/qq_28205153/article/details/55798628</a></p>
+<p><a href="https://github.com/lmshao/AES"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/lmshao/AES</a></p>
+<p><a href="https://github.com/SergeyBel/AES"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/SergeyBel/AES</a></p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2022-06-02</span>
-            </div>
-            <div class="post-info-license"></div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2022-06-02 00:00:00">更新于 2022-06-02&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
         </div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span></span>
-            </div>
-        </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/aes/">AES</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/aes/" class="post-tag" title="标签 - AES">AES</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="Http(s)网络框架分析"><i class="fas fa-angle-left fa-fw"></i>Http(s)网络框架分析</a>
-            <a href="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/" class="next" rel="next" title="SSL Pinning案例">SSL Pinning案例<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/" class="post-nav-item" rel="prev" title="Http(s)网络框架分析"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Http(s)网络框架分析</a>
+      <a href="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/" class="post-nav-item" rel="next" title="SSL Pinning案例">SSL Pinning案例<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":150},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

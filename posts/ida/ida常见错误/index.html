@@ -1,114 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>IDA常见错误 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="IDA常见错误" />
-<meta property="og:description" content="IDA常见错误 JUMPOUT(xxxx) 样本 修复我1.exe 原因 Jmp到一个未知值的时候,IDA就会出现这种错误. 修复 将上图内红框中的汇编,nop掉即可. 修复调用约" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://XiaLuoHun.github.io/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-02-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-02-15T00:00:00+00:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="IDA常见错误"/>
-<meta name="twitter:description" content="IDA常见错误 JUMPOUT(xxxx) 样本 修复我1.exe 原因 Jmp到一个未知值的时候,IDA就会出现这种错误. 修复 将上图内红框中的汇编,nop掉即可. 修复调用约"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "IDA常见错误",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/ida\/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF\/"
-        },"genre": "posts","keywords": "IDA","wordcount":  240 ,
-        "url": "https:\/\/XiaLuoHun.github.io\/posts\/ida\/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF\/","datePublished": "2022-02-15T00:00:00+00:00","dateModified": "2022-02-15T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": "夏洛魂"},"author": {
-                "@type": "Person",
-                "name": "夏洛魂"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>IDA常见错误 - 夏洛魂的个人博客</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="IDA常见错误 JUMPOUT(xxxx) 样本 修复我1.exe 原因 Jmp到一个未知值的时候,IDA就会出现这种错误. 修复 将上图内红框中的汇编,nop掉即可. 修复调用约" /><meta name="keywords" content='IDA' />
+  <meta itemprop="name" content="IDA常见错误">
+  <meta itemprop="description" content="IDA常见错误 JUMPOUT(xxxx) 样本 修复我1.exe 原因 Jmp到一个未知值的时候,IDA就会出现这种错误. 修复 将上图内红框中的汇编,nop掉即可. 修复调用约">
+  <meta itemprop="datePublished" content="2022-02-15T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-02-15T00:00:00+00:00">
+  <meta itemprop="wordCount" content="240">
+  <meta itemprop="keywords" content="IDA"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="IDA常见错误">
+  <meta property="og:description" content="IDA常见错误 JUMPOUT(xxxx) 样本 修复我1.exe 原因 Jmp到一个未知值的时候,IDA就会出现这种错误. 修复 将上图内红框中的汇编,nop掉即可. 修复调用约">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-02-15T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-02-15T00:00:00+00:00">
+    <meta property="article:tag" content="IDA">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="IDA常见错误">
+  <meta name="twitter:description" content="IDA常见错误 JUMPOUT(xxxx) 样本 修复我1.exe 原因 Jmp到一个未知值的时候,IDA就会出现这种错误. 修复 将上图内红框中的汇编,nop掉即可. 修复调用约">
+<meta name="application-name" content="LuoHun">
+<meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "IDA常见错误",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.github.io\/posts\/ida\/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF\/"
+    },"genre": "posts","keywords": "IDA","wordcount":  240 ,
+    "url": "https:\/\/XiaLuoHun.github.io\/posts\/ida\/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF\/","datePublished": "2022-02-15T00:00:00+00:00","dateModified": "2022-02-15T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "作者"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/excalidraw/"
+                
+                
+              >在线绘图</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="夏洛魂的个人博客">主页</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="夏洛魂的个人博客">主页</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/excalidraw/"
+                  
+                  
+                >在线绘图</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">IDA常见错误</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ida/"><i class="far fa-folder fa-fw"></i>IDA</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-15">2022-02-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 240 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>IDA常见错误</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ida/" class="post-category" title="分类 - IDA"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> IDA</a></span></div><div class="post-meta-line"><span title="发布于 2022-02-15 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-02-15">2022-02-15</time></span>&nbsp;<span title="240 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 300 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#ida常见错误">IDA常见错误</a>
       <ul>
@@ -137,160 +211,121 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="ida常见错误">IDA常见错误</h1>
-<h2 id="jumpoutxxxx">JUMPOUT(xxxx)</h2>
-<h3 id="样本">样本</h3>
-<p><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/%E4%BF%AE%E5%A4%8D%E6%88%911.exe" rel="">修复我1.exe</a></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/JUMPOUT1.png"
-        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT1.png, images/JUMPOUT1.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT1.png 2x"
-        data-sizes="auto"
-        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT1.png"
-        title="JUMPOUT1" /></p>
-<h3 id="原因">原因</h3>
-<p>Jmp到一个未知值的时候,IDA就会出现这种错误.</p>
-<h3 id="修复">修复</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/JUMPOUT2.png"
-        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT2.png, images/JUMPOUT2.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT2.png 2x"
-        data-sizes="auto"
-        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT2.png"
-        title="JUMPOUT2" /></p>
+      </div><div class="content" id="content"><h1 id="ida常见错误" class="heading-element"><span>IDA常见错误</span>
+  <a href="#ida%e5%b8%b8%e8%a7%81%e9%94%99%e8%af%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 id="jumpoutxxxx" class="heading-element"><span>JUMPOUT(xxxx)</span>
+  <a href="#jumpoutxxxx" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="样本" class="heading-element"><span>样本</span>
+  <a href="#%e6%a0%b7%e6%9c%ac" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/%E4%BF%AE%E5%A4%8D%E6%88%911.exe">修复我1.exe</a></p>
+<p><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT1.png" alt="JUMPOUT1" srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT1.png?size=small, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT1.png?size=medium 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT1.png?size=large 2x" data-title="JUMPOUT1" style="--width: 684px;--aspect-ratio: 684 / 158;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="原因" class="heading-element"><span>原因</span>
+  <a href="#%e5%8e%9f%e5%9b%a0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Jmp到一个未知值的时候,IDA就会出现这种错误.</p>
+<h3 id="修复" class="heading-element"><span>修复</span>
+  <a href="#%e4%bf%ae%e5%a4%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT2.png" alt="JUMPOUT2" srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT2.png?size=small, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT2.png?size=medium 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT2.png?size=large 2x" data-title="JUMPOUT2" style="--width: 883px;--aspect-ratio: 883 / 408;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>将上图内红框中的汇编,nop掉即可.</p>
-<h2 id="修复调用约定">修复调用约定</h2>
-<h3 id="样本-1">样本</h3>
-<p><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/%E4%BF%AE%E5%A4%8D%E6%88%912.exe" rel="">修复我2.exe</a></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a1.png"
-        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A1.png, images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a1.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A1.png 2x"
-        data-sizes="auto"
-        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A1.png"
-        title="修复调用约定1" /></p>
-<h3 id="原因-1">原因</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a2.png"
-        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A2.png, images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a2.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A2.png 2x"
-        data-sizes="auto"
-        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A2.png"
-        title="修复调用约定2" /></p>
+<h2 id="修复调用约定" class="heading-element"><span>修复调用约定</span>
+  <a href="#%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="样本-1" class="heading-element"><span>样本</span>
+  <a href="#%e6%a0%b7%e6%9c%ac-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/%E4%BF%AE%E5%A4%8D%E6%88%912.exe">修复我2.exe</a></p>
+<p><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A1.png" alt="修复调用约定1" srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A1.png?size=small, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A1.png?size=medium 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A1.png?size=large 2x" data-title="修复调用约定1" style="--width: 660px;--aspect-ratio: 660 / 212;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="原因-1" class="heading-element"><span>原因</span>
+  <a href="#%e5%8e%9f%e5%9b%a0-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A2.png" alt="修复调用约定2" srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A2.png?size=small, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A2.png?size=medium 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A2.png?size=large 2x" data-title="修复调用约定2" style="--width: 693px;--aspect-ratio: 693 / 408;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>从上图发现,v3的值来自edx.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a3.png"
-        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A3.png, images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a3.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A3.png 2x"
-        data-sizes="auto"
-        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A3.png"
-        title="修复调用约定3" /></p>
+<p><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A3.png" alt="修复调用约定3" srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A3.png?size=small, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A3.png?size=medium 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A3.png?size=large 2x" data-title="修复调用约定3" style="--width: 850px;--aspect-ratio: 850 / 191;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>从上图可以看到,edx是sub_401020函数的返回值.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a4.png"
-        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A4.png, images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a4.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A4.png 2x"
-        data-sizes="auto"
-        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A4.png"
-        title="修复调用约定4" /></p>
-<h3 id="修复-1">修复</h3>
-<p>指明函数的返回值是edx.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a5.png"
-        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A5.png, images/%e4%bf%ae%e5%a4%8d%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a5.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A5.png 2x"
-        data-sizes="auto"
-        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A5.png"
-        title="修复调用约定5" /></p>
-<h2 id="sp-analysis-failed">sp-analysis failed</h2>
-<h3 id="样本-2">样本</h3>
-<p><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/%E4%BF%AE%E5%A4%8D%E6%88%913.exe" rel="">修复我3.exe</a></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/sp-analysis1.png"
-        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis1.png, images/sp-analysis1.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis1.png 2x"
-        data-sizes="auto"
-        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis1.png"
-        title="sp-analysis1" /></p>
-<h3 id="原因-2">原因</h3>
-<p>这种情况通常是由Call造成的.</p>
-<h3 id="修复-2">修复</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/sp-analysis2.png"
-        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis2.png, images/sp-analysis2.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis2.png 2x"
-        data-sizes="auto"
-        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis2.png"
-        title="sp-analysis2" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/sp-analysis3.png"
-        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis3.png, images/sp-analysis3.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis3.png 2x"
-        data-sizes="auto"
-        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis3.png"
-        title="sp-analysis3" /></p>
+<p><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A4.png" alt="修复调用约定4" srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A4.png?size=small, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A4.png?size=medium 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A4.png?size=large 2x" data-title="修复调用约定4" style="--width: 479px;--aspect-ratio: 479 / 113;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="修复-1" class="heading-element"><span>修复</span>
+  <a href="#%e4%bf%ae%e5%a4%8d-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>指明函数的返回值是edx.</p>
+<p><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A5.png" alt="修复调用约定5" srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A5.png?size=small, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A5.png?size=medium 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/%E4%BF%AE%E5%A4%8D%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A5.png?size=large 2x" data-title="修复调用约定5" style="--width: 416px;--aspect-ratio: 416 / 135;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="sp-analysis-failed" class="heading-element"><span>sp-analysis failed</span>
+  <a href="#sp-analysis-failed" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="样本-2" class="heading-element"><span>样本</span>
+  <a href="#%e6%a0%b7%e6%9c%ac-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/%E4%BF%AE%E5%A4%8D%E6%88%913.exe">修复我3.exe</a></p>
+<p><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis1.png" alt="sp-analysis1" srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis1.png?size=small, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis1.png?size=medium 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis1.png?size=large 2x" data-title="sp-analysis1" style="--width: 694px;--aspect-ratio: 694 / 405;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="原因-2" class="heading-element"><span>原因</span>
+  <a href="#%e5%8e%9f%e5%9b%a0-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>这种情况通常是由Call造成的.</p>
+<h3 id="修复-2" class="heading-element"><span>修复</span>
+  <a href="#%e4%bf%ae%e5%a4%8d-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis2.png" alt="sp-analysis2" srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis2.png?size=small, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis2.png?size=medium 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis2.png?size=large 2x" data-title="sp-analysis2" style="--width: 823px;--aspect-ratio: 823 / 407;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis3.png" alt="sp-analysis3" srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis3.png?size=small, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis3.png?size=medium 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis3.png?size=large 2x" data-title="sp-analysis3" style="--width: 858px;--aspect-ratio: 858 / 410;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>loc_xxxx是指一段未知的指令集.</p>
 <p>sub_xxxx是指函数.</p>
 <ol>
 <li>将上述Call指令修改为JMP.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/sp-analysis4.png"
-        data-srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis4.png, images/sp-analysis4.png 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis4.png 2x"
-        data-sizes="auto"
-        alt="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis4.png"
-        title="sp-analysis4" /></p>
+<p><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis4.png" alt="sp-analysis4" srcset="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis4.png?size=small, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis4.png?size=medium 1.5x, /posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/sp-analysis4.png?size=large 2x" data-title="sp-analysis4" style="--width: 1271px;--aspect-ratio: 1271 / 691;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="2">
 <li>最后在ret的地方,设置为函数尾.</li>
 </ol>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2022-02-15</span>
-            </div>
-            <div class="post-info-license"></div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2022-02-15 00:00:00">更新于 2022-02-15&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
         </div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span></span>
-            </div>
-        </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ida/">IDA</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/ida/" class="post-tag" title="标签 - IDA">IDA</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" class="prev" rel="prev" title="x64逆向"><i class="fas fa-angle-left fa-fw"></i>x64逆向</a>
-            <a href="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/" class="next" rel="next" title="栈溢出原理与实践">栈溢出原理与实践<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" class="post-nav-item" rel="prev" title="X64逆向"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>X64逆向</a>
+      <a href="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/" class="post-nav-item" rel="next" title="栈溢出原理与实践">栈溢出原理与实践<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":150},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

@@ -1,114 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>栈溢出原理与实践 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="栈溢出原理与实践" />
-<meta property="og:description" content="栈溢出原理与实践 栈结构 寄存器环境 局部变量 调用方栈 返回地址 参数 实验环境 编译器 VS2022 编译选项 1、属性-&gt;C/C&#43;&#43;-&gt;常规-&gt;SD" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://XiaLuoHun.github.io/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-02-22T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-02-22T00:00:00+00:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="栈溢出原理与实践"/>
-<meta name="twitter:description" content="栈溢出原理与实践 栈结构 寄存器环境 局部变量 调用方栈 返回地址 参数 实验环境 编译器 VS2022 编译选项 1、属性-&gt;C/C&#43;&#43;-&gt;常规-&gt;SD"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "栈溢出原理与实践",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3\/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5\/"
-        },"genre": "posts","keywords": "栈溢出","wordcount":  1458 ,
-        "url": "https:\/\/XiaLuoHun.github.io\/posts\/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3\/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5\/","datePublished": "2022-02-22T00:00:00+00:00","dateModified": "2022-02-22T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": "夏洛魂"},"author": {
-                "@type": "Person",
-                "name": "夏洛魂"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>栈溢出原理与实践 - 夏洛魂的个人博客</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="栈溢出原理与实践 栈结构 寄存器环境 局部变量 调用方栈 返回地址 参数 实验环境 编译器 VS2022 编译选项 1、属性-&gt;C/C&#43;&#43;-&gt;常规-&gt;SD" /><meta name="keywords" content='栈溢出' />
+  <meta itemprop="name" content="栈溢出原理与实践">
+  <meta itemprop="description" content="栈溢出原理与实践 栈结构 寄存器环境 局部变量 调用方栈 返回地址 参数 实验环境 编译器 VS2022 编译选项 1、属性-&gt;C/C&#43;&#43;-&gt;常规-&gt;SD">
+  <meta itemprop="datePublished" content="2022-02-22T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-02-22T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1458">
+  <meta itemprop="keywords" content="栈溢出"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="栈溢出原理与实践">
+  <meta property="og:description" content="栈溢出原理与实践 栈结构 寄存器环境 局部变量 调用方栈 返回地址 参数 实验环境 编译器 VS2022 编译选项 1、属性-&gt;C/C&#43;&#43;-&gt;常规-&gt;SD">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-02-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-02-22T00:00:00+00:00">
+    <meta property="article:tag" content="栈溢出">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="栈溢出原理与实践">
+  <meta name="twitter:description" content="栈溢出原理与实践 栈结构 寄存器环境 局部变量 调用方栈 返回地址 参数 实验环境 编译器 VS2022 编译选项 1、属性-&gt;C/C&#43;&#43;-&gt;常规-&gt;SD">
+<meta name="application-name" content="LuoHun">
+<meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "栈溢出原理与实践",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.github.io\/posts\/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3\/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5\/"
+    },"genre": "posts","keywords": "栈溢出","wordcount":  1458 ,
+    "url": "https:\/\/XiaLuoHun.github.io\/posts\/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3\/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5\/","datePublished": "2022-02-22T00:00:00+00:00","dateModified": "2022-02-22T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "作者"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/excalidraw/"
+                
+                
+              >在线绘图</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="夏洛魂的个人博客">主页</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="夏洛魂的个人博客">主页</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/excalidraw/"
+                  
+                  
+                >在线绘图</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">栈溢出原理与实践</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/"><i class="far fa-folder fa-fw"></i>漏洞相关</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-22">2022-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1458 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>栈溢出原理与实践</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - 漏洞相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 漏洞相关</a></span></div><div class="post-meta-line"><span title="发布于 2022-02-22 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-02-22">2022-02-22</time></span>&nbsp;<span title="1458 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1500 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#栈溢出原理与实践">栈溢出原理与实践</a>
       <ul>
@@ -132,9 +206,15 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="栈溢出原理与实践">栈溢出原理与实践</h1>
-<h2 id="栈结构">栈结构</h2>
-<table>
+      </div><div class="content" id="content"><h1 id="栈溢出原理与实践" class="heading-element"><span>栈溢出原理与实践</span>
+  <a href="#%e6%a0%88%e6%ba%a2%e5%87%ba%e5%8e%9f%e7%90%86%e4%b8%8e%e5%ae%9e%e8%b7%b5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 id="栈结构" class="heading-element"><span>栈结构</span>
+  <a href="#%e6%a0%88%e7%bb%93%e6%9e%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><table>
 <thead>
 <tr>
 <th style="text-align:center">寄存器环境</th>
@@ -155,8 +235,11 @@
 </tr>
 </tbody>
 </table>
-<h2 id="实验环境">实验环境</h2>
-<table>
+<h2 id="实验环境" class="heading-element"><span>实验环境</span>
+  <a href="#%e5%ae%9e%e9%aa%8c%e7%8e%af%e5%a2%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><table>
 <thead>
 <tr>
 <th style="text-align:left">编译器</th>
@@ -174,8 +257,11 @@
 </tr>
 </tbody>
 </table>
-<h2 id="实验例子">实验例子</h2>
-<div class="highlight"><div class="chroma">
+<h2 id="实验例子" class="heading-element"><span>实验例子</span>
+  <a href="#%e5%ae%9e%e9%aa%8c%e4%be%8b%e5%ad%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -222,51 +308,43 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="漏洞利用">漏洞利用</h2>
-<p>上述代码中fscanf没有长度检查,所以会造成栈溢出,可以被我们利用.</p>
-<h3 id="修改函数返回地址">修改函数返回地址</h3>
-<p>我们在x64Dbg中定位到fscanf函数.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba1.png"
-        data-srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA1.png, images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba1.png 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA1.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA1.png"
-        title="栈溢出1" /></p>
+</div><h2 id="漏洞利用" class="heading-element"><span>漏洞利用</span>
+  <a href="#%e6%bc%8f%e6%b4%9e%e5%88%a9%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>上述代码中fscanf没有长度检查,所以会造成栈溢出,可以被我们利用.</p>
+<h3 id="修改函数返回地址" class="heading-element"><span>修改函数返回地址</span>
+  <a href="#%e4%bf%ae%e6%94%b9%e5%87%bd%e6%95%b0%e8%bf%94%e5%9b%9e%e5%9c%b0%e5%9d%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>我们在x64Dbg中定位到fscanf函数.</p>
+<p><img loading="lazy" src="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA1.png" alt="栈溢出1" srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA1.png?size=small, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA1.png?size=medium 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA1.png?size=large 2x" data-title="栈溢出1" style="--width: 1440px;--aspect-ratio: 1440 / 698;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>现在我们想让Main函数执行完后,在返回地址的下个单元即0x19FF34这个地方执行我们的代码,我们需要构造下fscanf读的文件内容.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba2.png"
-        data-srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA2.png, images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba2.png 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA2.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA2.png"
-        title="栈溢出2" /></p>
-<h3 id="执行我们自己的代码">执行我们自己的代码</h3>
-<p>现在我们来让这个程序弹个MessageBox.</p>
-<h4 id="改善环境增大我们写代码的空间">改善环境,增大我们写代码的空间.</h4>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba3.png"
-        data-srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA3.png, images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba3.png 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA3.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA3.png"
-        title="栈溢出3" /></p>
+<p><img loading="lazy" src="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA2.png" alt="栈溢出2" srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA2.png?size=small, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA2.png?size=medium 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA2.png?size=large 2x" data-title="栈溢出2" style="--width: 1050px;--aspect-ratio: 1050 / 107;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="执行我们自己的代码" class="heading-element"><span>执行我们自己的代码</span>
+  <a href="#%e6%89%a7%e8%a1%8c%e6%88%91%e4%bb%ac%e8%87%aa%e5%b7%b1%e7%9a%84%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>现在我们来让这个程序弹个MessageBox.</p>
+<h4 id="改善环境增大我们写代码的空间" class="heading-element"><span>改善环境,增大我们写代码的空间.</span>
+  <a href="#%e6%94%b9%e5%96%84%e7%8e%af%e5%a2%83%e5%a2%9e%e5%a4%a7%e6%88%91%e4%bb%ac%e5%86%99%e4%bb%a3%e7%a0%81%e7%9a%84%e7%a9%ba%e9%97%b4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><img loading="lazy" src="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA3.png" alt="栈溢出3" srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA3.png?size=small, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA3.png?size=medium 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA3.png?size=large 2x" data-title="栈溢出3" style="--width: 1440px;--aspect-ratio: 1440 / 730;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">72</span> <span class="err">00</span> <span class="err">6</span><span class="nf">C</span> <span class="mi">6</span><span class="no">C</span> <span class="mi">6</span><span class="no">F</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">74</span> <span class="no">FF</span> <span class="mi">19</span> <span class="mi">00</span> <span class="mi">34</span> <span class="no">FF</span> <span class="mi">19</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">B</span> <span class="no">DC</span> <span class="mi">81</span> <span class="no">EC</span> <span class="mi">00</span> <span class="mi">02</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">43</span> <span class="no">F0</span> <span class="mi">50</span> <span class="mi">50</span> <span class="no">B8</span> <span class="no">A0</span> <span class="mi">7</span><span class="no">B</span> <span class="no">E2</span> <span class="mi">76</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">5</span><span class="no">C</span> <span class="mi">24</span> <span class="mi">08</span> <span class="mi">53</span> <span class="mi">68</span> <span class="mi">1</span><span class="no">C</span> <span class="mi">21</span> <span class="mi">40</span> <span class="mi">00</span> <span class="mi">50</span> <span class="no">B8</span> <span class="mi">50</span> <span class="mi">10</span> <span class="mi">40</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="no">FF</span> <span class="no">E3</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">72</span> <span class="err">00</span> <span class="err">6</span><span class="nf">C</span> <span class="mi">6</span><span class="no">C</span> <span class="mi">6</span><span class="no">F</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">74</span> <span class="no">FF</span> <span class="mi">19</span> <span class="mi">00</span> <span class="mi">34</span> <span class="no">FF</span> <span class="mi">19</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">B</span> <span class="no">DC</span> <span class="mi">81</span> <span class="no">EC</span> <span class="mi">00</span> <span class="mi">02</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">43</span> <span class="no">F0</span> <span class="mi">50</span> <span class="mi">50</span> <span class="no">B8</span> <span class="no">A0</span> <span class="mi">7</span><span class="no">B</span> <span class="no">E2</span> <span class="mi">76</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">5</span><span class="no">C</span> <span class="mi">24</span> <span class="mi">08</span> <span class="mi">53</span> <span class="mi">68</span> <span class="mi">1</span><span class="no">C</span> <span class="mi">21</span> <span class="mi">40</span> <span class="mi">00</span> <span class="mi">50</span> <span class="no">B8</span> <span class="mi">50</span> <span class="mi">10</span> <span class="mi">40</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="no">FF</span> <span class="no">E3</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="我们在r文件中填写内容">我们在r文件中填写内容.</h4>
-<p>上面开辟的空间就是r文件的大小,0x200字节.</p>
+</div><h4 id="我们在r文件中填写内容" class="heading-element"><span>我们在r文件中填写内容.</span>
+  <a href="#%e6%88%91%e4%bb%ac%e5%9c%a8r%e6%96%87%e4%bb%b6%e4%b8%ad%e5%a1%ab%e5%86%99%e5%86%85%e5%ae%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>上面开辟的空间就是r文件的大小,0x200字节.</p>
 <p>弹MessageBox的话,我们通过GetProcAddr(hUser32,&ldquo;MessageBoxA&rdquo;)拿函数地址,但hUser32需要通过LoadLibraryA(&ldquo;user32.dll&rdquo;)得到.又LoadLibraryA这个函数需要通过GetProcAddr(hKernel32,&ldquo;LoadLibraryA&rdquo;)拿函数地址,但hKernel32需要通过LoadLibraryA(&ldquo;kernel32.dll&rdquo;)得到,这就陷入了一个循环.但我们可以通过teb结构得到Kernel32的句柄.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -293,134 +371,94 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span><span class="p">]</span>       <span class="c1">;指向Kernel32
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="p">[</span><span class="no">eax</span> <span class="err">+</span> <span class="mi">18</span><span class="no">h</span><span class="p">]</span> <span class="c1">;指向DllBase
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nf">ret</span>
-</span></span><span class="line"><span class="cl"><span class="nf">GetKernelBase</span> <span class="no">endp</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nf">GetKernelBase</span> <span class="no">endp</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol>
 <li>在r文件中准备函数和字符串.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba4.png"
-        data-srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA4.png, images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba4.png 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA4.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA4.png"
-        title="栈溢出4" /></p>
+<p><img loading="lazy" src="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA4.png" alt="栈溢出4" srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA4.png?size=small, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA4.png?size=medium 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA4.png?size=large 2x" data-title="栈溢出4" style="--width: 1006px;--aspect-ratio: 1006 / 479;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">558</span><span class="nf">BEC5653578B750803763C8D76788B360375088B450C250000FFFF0BC075168B450C2B46103B4614766D33C05F5B5EC9C20800EB628B450C8B5E20035D0833C9EB388B3C8B037D085157568BF7B000B9FFFFFFFFF2AEF7D18BFE8B750CF3A68A46FF3A47FF750433C0EB051BC0D1E0405E5F590BC07502EB06413B4E1872C33B4E18720933C05F5B5EC9C208008B5E24035D080FB7044B8B5E1C035D088B04830BC0750933C05F5B5EC9C208000345085F5B5EC9C2080064A1180000008B40308B400C8B400C8B008B008B4018C3904C6F61644C69627261727941004D657373616765426F78410048656C6C6F576F726C6421007573657233322E646C6C00</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">558</span><span class="nf">BEC5653578B750803763C8D76788B360375088B450C250000FFFF0BC075168B450C2B46103B4614766D33C05F5B5EC9C20800EB628B450C8B5E20035D0833C9EB388B3C8B037D085157568BF7B000B9FFFFFFFFF2AEF7D18BFE8B750CF3A68A46FF3A47FF750433C0EB051BC0D1E0405E5F590BC07502EB06413B4E1872C33B4E18720933C05F5B5EC9C208008B5E24035D080FB7044B8B5E1C035D088B04830BC0750933C05F5B5EC9C208000345085F5B5EC9C2080064A1180000008B40308B400C8B400C8B008B008B4018C3904C6F61644C69627261727941004D657373616765426F78410048656C6C6F576F726C6421007573657233322E646C6C00</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>但是这里有个问题,fscanf遇到特定字符就会截断,如0d,0a,0c,0b,20这样的内容,我们需要做个工具,对这些内容进行加密,加密后不允许出现上述字符,如异或加密,我们需要找个一个异或值,使其我们的内容异或后没有敏感字符.</p>
 <ol start="2">
 <li>获取异或值.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba5.png"
-        data-srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA5.png, images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba5.png 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA5.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA5.png"
-        title="栈溢出5" /></p>
+<p><img loading="lazy" src="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA5.png" alt="栈溢出5" srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA5.png?size=small, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA5.png?size=medium 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA5.png?size=large 2x" data-title="栈溢出5" style="--width: 533px;--aspect-ratio: 533 / 216;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="3">
 <li>异或加密.</li>
 </ol>
 <p>用Winhex将r文件中的函数和字符串用此异或值进行加密.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba6.png"
-        data-srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA6.png, images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba6.png 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA6.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA6.png"
-        title="栈溢出6" /></p>
+<p><img loading="lazy" src="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA6.png" alt="栈溢出6" srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA6.png?size=small, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA6.png?size=medium 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA6.png?size=large 2x" data-title="栈溢出6" style="--width: 1018px;--aspect-ratio: 1018 / 476;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="3">
 <li>开始写代码.</li>
 </ol>
 <p><strong>注意</strong>:我们写的代码二进制中不能有敏感字符.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba7.png"
-        data-srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA7.png, images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba7.png 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA7.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA7.png"
-        title="栈溢出7" /></p>
+<p><img loading="lazy" src="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA7.png" alt="栈溢出7" srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA7.png?size=small, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA7.png?size=medium 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA7.png?size=large 2x" data-title="栈溢出7" style="--width: 1440px;--aspect-ratio: 1440 / 698;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">8</span><span class="nf">D</span> <span class="no">B3</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">B9</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">80</span> <span class="mi">74</span> <span class="mi">31</span> <span class="no">FF</span> <span class="mi">85</span> <span class="no">E2</span> <span class="no">F9</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="no">B8</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">D0</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">50</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">F5</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">DD</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">50</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">6</span><span class="no">A</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">F5</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">E9</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">6</span><span class="no">A</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="no">E8</span> <span class="no">A0</span> <span class="mi">88</span> <span class="no">A6</span> <span class="mi">76</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">8</span><span class="nf">D</span> <span class="no">B3</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">B9</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">80</span> <span class="mi">74</span> <span class="mi">31</span> <span class="no">FF</span> <span class="mi">85</span> <span class="no">E2</span> <span class="no">F9</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="no">B8</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">D0</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">50</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">F5</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">DD</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">50</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">83</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="mi">6</span><span class="no">A</span> <span class="mi">00</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">F5</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">8</span><span class="no">D</span> <span class="mi">8</span><span class="no">B</span> <span class="no">E9</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">51</span> <span class="mi">6</span><span class="no">A</span> <span class="mi">00</span> <span class="no">FF</span> <span class="no">D0</span> <span class="no">E8</span> <span class="no">A0</span> <span class="mi">88</span> <span class="no">A6</span> <span class="mi">76</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>将上述二进制数据存到r文件开始即可.</p>
 <ol start="4">
 <li>成果展示.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba8.png"
-        data-srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA8.png, images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba8.png 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA8.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA8.png"
-        title="栈溢出8" /></p>
-<h3 id="注意">注意</h3>
-<p>如果换个电脑环境,上述程序就运行不起来了,因为我们写了绝对地址.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba9.png"
-        data-srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA9.png, images/%e6%a0%88%e6%ba%a2%e5%87%ba/%e6%a0%88%e6%ba%a2%e5%87%ba9.png 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA9.png 2x"
-        data-sizes="auto"
-        alt="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA9.png"
-        title="栈溢出9" /></p>
+<p><img loading="lazy" src="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA8.png" alt="栈溢出8" srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA8.png?size=small, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA8.png?size=medium 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA8.png?size=large 2x" data-title="栈溢出8" style="--width: 1440px;--aspect-ratio: 1440 / 698;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="注意" class="heading-element"><span>注意</span>
+  <a href="#%e6%b3%a8%e6%84%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>如果换个电脑环境,上述程序就运行不起来了,因为我们写了绝对地址.</p>
+<p><img loading="lazy" src="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA9.png" alt="栈溢出9" srcset="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA9.png?size=small, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA9.png?size=medium 1.5x, /posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA9.png?size=large 2x" data-title="栈溢出9" style="--width: 1440px;--aspect-ratio: 1440 / 698;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>其中调用方栈位置的数据我们可以随便填,返回地址的地方我们可以找一个跳板地址,里面指令是FFE4(jmp esp),或者是其他的如jmp eax等,这样的话,我们就可以缓解环境问题.</p>
 <p><strong>通用跳板</strong>:0x7FFA4512(里面指令是FFE4(jmp esp),Win2000,Xp,Win10均可使用.</p>
-<h2 id="资料下载">资料下载</h2>
-<p><a href="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/%E6%A0%88%E6%BA%A2%E5%87%BA%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99.7z" rel="">栈溢出相关资料.7z</a></p>
+<h2 id="资料下载" class="heading-element"><span>资料下载</span>
+  <a href="#%e8%b5%84%e6%96%99%e4%b8%8b%e8%bd%bd" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/%E6%A0%88%E6%BA%A2%E5%87%BA%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99.7z">栈溢出相关资料.7z</a></p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2022-02-22</span>
-            </div>
-            <div class="post-info-license"></div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2022-02-22 00:00:00">更新于 2022-02-22&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
         </div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span></span>
-            </div>
-        </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/">栈溢出</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/" class="post-tag" title="标签 - 栈溢出">栈溢出</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" class="prev" rel="prev" title="IDA常见错误"><i class="fas fa-angle-left fa-fw"></i>IDA常见错误</a>
-            <a href="/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/" class="next" rel="next" title="Python之FileNotFoundError">Python之FileNotFoundError<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" class="post-nav-item" rel="prev" title="IDA常见错误"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>IDA常见错误</a>
+      <a href="/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/" class="post-nav-item" rel="next" title="Python之FileNotFoundError">Python之FileNotFoundError<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":150},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

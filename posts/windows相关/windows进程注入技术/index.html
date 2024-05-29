@@ -1,114 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Windows进程注入技术 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="Windows进程注入技术" />
-<meta property="og:description" content="Windows进程注入技术 注册表 AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs 当User32.dll被映射到一个新的进程时,会收到DLL_PROCESS_ATTACH通知,当U" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-03-24T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-03-24T00:00:00+00:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Windows进程注入技术"/>
-<meta name="twitter:description" content="Windows进程注入技术 注册表 AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs 当User32.dll被映射到一个新的进程时,会收到DLL_PROCESS_ATTACH通知,当U"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android-hook/frida/fridahook%E5%A4%A7%E5%85%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Windows进程注入技术",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF\/"
-        },"genre": "posts","keywords": "进程注入","wordcount":  14007 ,
-        "url": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF\/","datePublished": "2022-03-24T00:00:00+00:00","dateModified": "2022-03-24T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": "夏洛魂"},"author": {
-                "@type": "Person",
-                "name": "夏洛魂"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Windows进程注入技术 - 夏洛魂的个人博客</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="Windows进程注入技术 注册表 AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs 当User32.dll被映射到一个新的进程时,会收到DLL_PROCESS_ATTACH通知,当U" /><meta name="keywords" content='进程注入' />
+  <meta itemprop="name" content="Windows进程注入技术">
+  <meta itemprop="description" content="Windows进程注入技术 注册表 AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs 当User32.dll被映射到一个新的进程时,会收到DLL_PROCESS_ATTACH通知,当U">
+  <meta itemprop="datePublished" content="2022-03-24T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-03-24T00:00:00+00:00">
+  <meta itemprop="wordCount" content="14007">
+  <meta itemprop="keywords" content="进程注入"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="Windows进程注入技术">
+  <meta property="og:description" content="Windows进程注入技术 注册表 AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs 当User32.dll被映射到一个新的进程时,会收到DLL_PROCESS_ATTACH通知,当U">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-03-24T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-03-24T00:00:00+00:00">
+    <meta property="article:tag" content="进程注入">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Windows进程注入技术">
+  <meta name="twitter:description" content="Windows进程注入技术 注册表 AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs 当User32.dll被映射到一个新的进程时,会收到DLL_PROCESS_ATTACH通知,当U">
+<meta name="application-name" content="LuoHun">
+<meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android-hook/frida/fridahook%E5%A4%A7%E5%85%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Windows进程注入技术",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF\/"
+    },"genre": "posts","keywords": "进程注入","wordcount":  14007 ,
+    "url": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF\/","datePublished": "2022-03-24T00:00:00+00:00","dateModified": "2022-03-24T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "作者"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/excalidraw/"
+                
+                
+              >在线绘图</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="夏洛魂的个人博客">主页</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="夏洛魂的个人博客">主页</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/excalidraw/"
+                  
+                  
+                >在线绘图</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Windows进程注入技术</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/"><i class="far fa-folder fa-fw"></i>Win相关</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-24">2022-03-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 14007 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 28 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Windows进程注入技术</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a></span></div><div class="post-meta-line"><span title="发布于 2022-03-24 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-03-24">2022-03-24</time></span>&nbsp;<span title="14007 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 14100 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 28 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#windows进程注入技术">Windows进程注入技术</a>
       <ul>
@@ -209,19 +283,21 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="windows进程注入技术">Windows进程注入技术</h1>
-<h2 id="注册表">注册表</h2>
-<h3 id="appinit_dlls">AppInit_DLLs</h3>
-<p>HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs
+      </div><div class="content" id="content"><h1 id="windows进程注入技术" class="heading-element"><span>Windows进程注入技术</span>
+  <a href="#windows%e8%bf%9b%e7%a8%8b%e6%b3%a8%e5%85%a5%e6%8a%80%e6%9c%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 id="注册表" class="heading-element"><span>注册表</span>
+  <a href="#%e6%b3%a8%e5%86%8c%e8%a1%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="appinit_dlls" class="heading-element"><span>AppInit_DLLs</span>
+  <a href="#appinit_dlls" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs
 HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%b3%a8%e5%86%8c%e8%a1%a8%e4%b9%8bAppInit_DLLs.png"
-        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppInit_DLLs.png, images/%e6%b3%a8%e5%86%8c%e8%a1%a8%e4%b9%8bAppInit_DLLs.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppInit_DLLs.png 2x"
-        data-sizes="auto"
-        alt="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppInit_DLLs.png"
-        title="注册表之AppInit_DLLs" /></p>
+<p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppInit_DLLs.png" alt="注册表之AppInit_DLLs" srcset="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppInit_DLLs.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppInit_DLLs.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppInit_DLLs.png?size=large 2x" data-title="注册表之AppInit_DLLs" style="--width: 1209px;--aspect-ratio: 1209 / 486;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>当User32.dll被映射到一个新的进程时,会收到DLL_PROCESS_ATTACH通知,当User32.dll对它进行处理的时候,会取得上述注册表键的值,并调用LoadLibary来载入这个字符串中指定的每个DLL.</p>
 <p>AppInit_Dlls:该键的值可能会包含一个DLL的文件名或一组DLL的文件名(通过空格或逗号分隔)(由于空格是用来分隔文件名的,所以我们必须避免在文件名中包含空格).第一个DLL的文件名可以包含路径,但其他DLL包含的路径则会被忽略,出于这个原因,我们最好是将自己的DLL放到windows的系统目录中,这样就不必指定路径了.</p>
 <p>User32.dll是一个非常常见的库,用于存储对话框等图形元素.因此,当恶意软件修改此子键时,大多数进程将加载恶意库.</p>
@@ -230,37 +306,38 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 <li>LoadAppInit_DLLs为1开启,为0关闭.</li>
 <li>RequireSignedAppInit_DLLs值为1表明模块需要签名才能加载.</li>
 </ul>
-<h3 id="appcertdlls">AppCertDlls</h3>
-<p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDlls</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%b3%a8%e5%86%8c%e8%a1%a8%e4%b9%8bAppCertDlls.png"
-        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppCertDlls.png, images/%e6%b3%a8%e5%86%8c%e8%a1%a8%e4%b9%8bAppCertDlls.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppCertDlls.png 2x"
-        data-sizes="auto"
-        alt="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppCertDlls.png"
-        title="注册表之AppCertDlls" /></p>
+<h3 id="appcertdlls" class="heading-element"><span>AppCertDlls</span>
+  <a href="#appcertdlls" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDlls</p>
+<p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppCertDlls.png" alt="注册表之AppCertDlls" srcset="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppCertDlls.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppCertDlls.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppCertDlls.png?size=large 2x" data-title="注册表之AppCertDlls" style="--width: 1421px;--aspect-ratio: 1421 / 493;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>此注册表项下的DLL被加载到调用Win32 API函数CreateProcess,CreateProcessAsUser,CreateProcessWithLogonW,CreateProcessWithTokenW和WinExec的每个进程中.</p>
-<h3 id="映像文件执行选项ifeo">映像文件执行选项(IFEO)</h3>
-<p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%b3%a8%e5%86%8c%e8%a1%a8%e4%b9%8bIFEO.png"
-        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BIFEO.png, images/%e6%b3%a8%e5%86%8c%e8%a1%a8%e4%b9%8bIFEO.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BIFEO.png 2x"
-        data-sizes="auto"
-        alt="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BIFEO.png"
-        title="注册表之IFEO" /></p>
+<h3 id="映像文件执行选项ifeo" class="heading-element"><span>映像文件执行选项(IFEO)</span>
+  <a href="#%e6%98%a0%e5%83%8f%e6%96%87%e4%bb%b6%e6%89%a7%e8%a1%8c%e9%80%89%e9%a1%b9ifeo" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</p>
+<p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BIFEO.png" alt="注册表之IFEO" srcset="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BIFEO.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BIFEO.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BIFEO.png?size=large 2x" data-title="注册表之IFEO" style="--width: 1358px;--aspect-ratio: 1358 / 598;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>IFEO通常用于调试目的.开发人员可以在此注册表项下设置&quot;调试器值&quot;,以将程序附加到另一个可执行文件以进行调试.</p>
 <p>如上图中新建了一个LuoDst.exe项,又添加了Debugger项.这样的话,当我们运行LuoDst.exe实际上运行的是Debugger项中的程序.</p>
-<h3 id="相关源码">相关源码</h3>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B3%A8%E5%86%8C%E8%A1%A8.7z" rel="">进程注入之注册表.7z</a></p>
-<h2 id="setwindowshookex">SetWindowsHookEx</h2>
-<p>钩子实际上是一个处理消息的程序段,通过系统调用,把它挂入系统.每当特定的消息发出,在没有到达目的窗口前,钩子程序就先捕获该消息,亦即钩子函数先得到控制权.</p>
+<h3 id="相关源码" class="heading-element"><span>相关源码</span>
+  <a href="#%e7%9b%b8%e5%85%b3%e6%ba%90%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B3%A8%E5%86%8C%E8%A1%A8.7z">进程注入之注册表.7z</a></p>
+<h2 id="setwindowshookex" class="heading-element"><span>SetWindowsHookEx</span>
+  <a href="#setwindowshookex" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>钩子实际上是一个处理消息的程序段,通过系统调用,把它挂入系统.每当特定的消息发出,在没有到达目的窗口前,钩子程序就先捕获该消息,亦即钩子函数先得到控制权.</p>
 <p>需要注意的是钩子无法更改具体消息携带的数据,只能做监视使用.</p>
 <p>钩子分为局部钩子和全局钩子.</p>
-<h3 id="局部钩子">局部钩子</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="局部钩子" class="heading-element"><span>局部钩子</span>
+  <a href="#%e5%b1%80%e9%83%a8%e9%92%a9%e5%ad%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -299,8 +376,7 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//把消息传递给下一个钩子
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="n">CallNextHookEx</span><span class="p">(</span><span class="n">g_hHook</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">wParam</span><span class="p">,</span> <span class="n">lParam</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -319,13 +395,18 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">MyKeyboardProc</span><span class="p">,</span> <span class="c1">//钩子回调函数
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nb">NULL</span><span class="p">,</span> <span class="c1">//局部钩子,填NULL;全局钩子,填DLL的模块句柄
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">GetCurrentThreadId</span><span class="p">()</span> <span class="c1">//钩本线程的窗口;填NULL则勾所有窗口线程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">);</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="全局钩子">全局钩子</h3>
-<p>钩子回调函数必须写在Dll中.</p>
-<h4 id="dll">DLL</h4>
-<div class="highlight"><div class="chroma">
+</div><h3 id="全局钩子" class="heading-element"><span>全局钩子</span>
+  <a href="#%e5%85%a8%e5%b1%80%e9%92%a9%e5%ad%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>钩子回调函数必须写在Dll中.</p>
+<h4 id="dll" class="heading-element"><span>DLL</span>
+  <a href="#dll" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -380,11 +461,13 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="设置钩子">设置钩子</h4>
-<div class="highlight"><div class="chroma">
+</div><h4 id="设置钩子" class="heading-element"><span>设置钩子</span>
+  <a href="#%e8%ae%be%e7%bd%ae%e9%92%a9%e5%ad%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -635,14 +718,22 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">Process32Next</span><span class="p">(</span><span class="n">hSnapShot</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">pInfo</span><span class="p">)</span> <span class="o">!=</span> <span class="n">FALSE</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">id</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="相关源码-1">相关源码</h3>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/SetWindowsHookEx.7z" rel="">SetWindowsHookEx.7z</a></p>
-<h2 id="远程线程注入">远程线程注入</h2>
-<h3 id="原理">原理</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="相关源码-1" class="heading-element"><span>相关源码</span>
+  <a href="#%e7%9b%b8%e5%85%b3%e6%ba%90%e7%a0%81-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/SetWindowsHookEx.7z">SetWindowsHookEx.7z</a></p>
+<h2 id="远程线程注入" class="heading-element"><span>远程线程注入</span>
+  <a href="#%e8%bf%9c%e7%a8%8b%e7%ba%bf%e7%a8%8b%e6%b3%a8%e5%85%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="原理" class="heading-element"><span>原理</span>
+  <a href="#%e5%8e%9f%e7%90%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -663,16 +754,14 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">in</span><span class="p">]</span>  <span class="n">LPVOID</span>                 <span class="n">lpParameter</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">in</span><span class="p">]</span>  <span class="n">DWORD</span>                  <span class="n">dwCreationFlags</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">out</span><span class="p">]</span> <span class="n">LPDWORD</span>                <span class="n">lpThreadId</span>
-</span></span><span class="line"><span class="cl"><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="nf">DWORD</span> <span class="p">(</span><span class="kr">__stdcall</span> <span class="o">*</span><span class="n">LPTHREAD_START_ROUTINE</span><span class="p">)</span> <span class="p">(</span> <span class="p">[</span><span class="n">in</span><span class="p">]</span> <span class="n">LPVOID</span> <span class="n">lpThreadParameter</span><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="nf">DWORD</span> <span class="p">(</span><span class="kr">__stdcall</span> <span class="o">*</span><span class="n">LPTHREAD_START_ROUTINE</span><span class="p">)</span> <span class="p">(</span> <span class="p">[</span><span class="n">in</span><span class="p">]</span> <span class="n">LPVOID</span> <span class="n">lpThreadParameter</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -683,12 +772,14 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">HMODULE</span> <span class="nf">LoadLibraryA</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">in</span><span class="p">]</span> <span class="n">LPCSTR</span> <span class="n">lpLibFileName</span>
-</span></span><span class="line"><span class="cl"><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>远程线程注入主要是利用了CreateRemoteThread这个API,这API的第四个参数,线程函数的起始地址与LoadLibrary的函数定义相同,又因为LoadLibrary在Kernel32.dll中,kernel32,ntdll,同一台机器,不同进程,加载这两个Dll的位置固定,故可直接填本进程的LoadLibrary地址,从而可以利用CreateRemoteThread这个API在远程进程中加载一个Dll.</p>
-<h3 id="相关源码-2">相关源码</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="相关源码-2" class="heading-element"><span>相关源码</span>
+  <a href="#%e7%9b%b8%e5%85%b3%e6%ba%90%e7%a0%81-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -1237,37 +1328,57 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/LuoRemoteInjectDll.7z" rel="">LuoRemoteInjectDll.7z</a></p>
-<h3 id="进阶">进阶</h3>
-<p>可参考下方链接中的加强版远程线程注入.</p>
-<p><a href="https://bbs.pediy.com/thread-269910.htm#msg_header_h1_3" target="_blank" rel="noopener noreffer">https://bbs.pediy.com/thread-269910.htm#msg_header_h1_3</a></p>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8DDLL%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF-%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF.mhtml" rel="">常见的几种DLL注入技术-编程技术.mhtml</a></p>
-<h2 id="反射dll注入">反射Dll注入</h2>
-<h3 id="dll编写">Dll编写</h3>
-<ol>
+</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/LuoRemoteInjectDll.7z">LuoRemoteInjectDll.7z</a></p>
+<h3 id="进阶" class="heading-element"><span>进阶</span>
+  <a href="#%e8%bf%9b%e9%98%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>可参考下方链接中的加强版远程线程注入.</p>
+<p><a href="https://bbs.pediy.com/thread-269910.htm#msg_header_h1_3"target="_blank" rel="external nofollow noopener noreferrer">https://bbs.pediy.com/thread-269910.htm#msg_header_h1_3</a></p>
+<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8DDLL%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF-%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF.mhtml">常见的几种DLL注入技术-编程技术.mhtml</a></p>
+<h2 id="反射dll注入" class="heading-element"><span>反射Dll注入</span>
+  <a href="#%e5%8f%8d%e5%b0%84dll%e6%b3%a8%e5%85%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="dll编写" class="heading-element"><span>Dll编写</span>
+  <a href="#dll%e7%bc%96%e5%86%99" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>导出一个函数,如ReflectiveLoader.</li>
 <li>借助caller()函数(获得当前指令的下条指令的地址),找到当前映射到内存的地址,然后逐字节向上遍历,当查找到符合PE格式的文件头之后，就可以认为找到了DLL文件在内存中的地址了.</li>
 <li>新申请一片内存,用于存放当前Dll文件.</li>
 <li>修复上述内存中Dll,导入表,重定位表等.</li>
 <li>调用Dll入口函数.</li>
 </ol>
-<h3 id="注入工具编写">注入工具编写</h3>
-<ol>
+<h3 id="注入工具编写" class="heading-element"><span>注入工具编写</span>
+  <a href="#%e6%b3%a8%e5%85%a5%e5%b7%a5%e5%85%b7%e7%bc%96%e5%86%99" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>用CreateFile,ReadFile读取上述DLL到缓冲区中.</li>
 <li>解析上述缓冲区中的PE格式,通过导出表拿上述导出函数偏移地址,ReflectiveLoader.</li>
 <li>利用OpenProcess,VirtualAllocEx,WriteProcessMemory将上述Dll写入到远程进程中.</li>
 <li>利用CreateRemoteThread,传Base+上述导出函数ReflectiveLoader的偏移地址,执行Dll中的导出函数.</li>
 </ol>
-<h3 id="相关源码-3">相关源码</h3>
-<p><a href="https://github.com/stephenfewer/ReflectiveDLLInjection" target="_blank" rel="noopener noreffer">https://github.com/stephenfewer/ReflectiveDLLInjection</a></p>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/ReflectiveDLLInjection.7z" rel="">ReflectiveDLLInjection.7z</a></p>
-<h2 id="dll劫持">Dll劫持</h2>
-<h3 id="原理-1">原理</h3>
-<p>如果在进程尝试加载一个DLL时,并没有指定DLL的绝对路径,那么Windows会尝试按照顺序搜索这些特定目录来查找这个DLL,如果攻击者能够将恶意的DLL放在优先于正常DLL所在的目录,那么就能够欺骗系统去加载恶意的DLL,形成&quot;劫持&quot;.</p>
-<p><a href="https://docs.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order" target="_blank" rel="noopener noreffer">https://docs.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order</a></p>
+<h3 id="相关源码-3" class="heading-element"><span>相关源码</span>
+  <a href="#%e7%9b%b8%e5%85%b3%e6%ba%90%e7%a0%81-3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="https://github.com/stephenfewer/ReflectiveDLLInjection"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/stephenfewer/ReflectiveDLLInjection</a></p>
+<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/ReflectiveDLLInjection.7z">ReflectiveDLLInjection.7z</a></p>
+<h2 id="dll劫持" class="heading-element"><span>Dll劫持</span>
+  <a href="#dll%e5%8a%ab%e6%8c%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="原理-1" class="heading-element"><span>原理</span>
+  <a href="#%e5%8e%9f%e7%90%86-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>如果在进程尝试加载一个DLL时,并没有指定DLL的绝对路径,那么Windows会尝试按照顺序搜索这些特定目录来查找这个DLL,如果攻击者能够将恶意的DLL放在优先于正常DLL所在的目录,那么就能够欺骗系统去加载恶意的DLL,形成&quot;劫持&quot;.</p>
+<p><a href="https://docs.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order"target="_blank" rel="external nofollow noopener noreferrer">https://docs.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order</a></p>
 <p>默认情况下启用安全DLL搜索模式.要禁用此功能,可以创建HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\SafeDllSearchMode注册表值并将其设置为0.</p>
 <p>如果启用SafeDllSearchMode,搜索顺序如下:</p>
 <ol>
@@ -1299,41 +1410,55 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 <li>Windwos目录.</li>
 <li>PATH环境变量中列出的目录.</li>
 </ol>
-<h3 id="方式">方式</h3>
-<ol>
+<h3 id="方式" class="heading-element"><span>方式</span>
+  <a href="#%e6%96%b9%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>在自己的dll中导出和劫持的目标dll相同的函数接口,然后在自己的接口函数中调用原始dll的函数,如此使得原始dll的功能能够被正常使用.</li>
 <li>在自己的dll的dllmian中加载被劫持dll,然后修改loadlibrary的返回值为被劫持dll加载后的模块句柄.</li>
 </ol>
-<h3 id="相关源码-4">相关源码</h3>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/SuperDllHijack.7z" rel="">SuperDllHijack.7z</a></p>
-<h3 id="防护方法">防护方法</h3>
-<ol>
+<h3 id="相关源码-4" class="heading-element"><span>相关源码</span>
+  <a href="#%e7%9b%b8%e5%85%b3%e6%ba%90%e7%a0%81-4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/SuperDllHijack.7z">SuperDllHijack.7z</a></p>
+<h3 id="防护方法" class="heading-element"><span>防护方法</span>
+  <a href="#%e9%98%b2%e6%8a%a4%e6%96%b9%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>添加KnownDLL.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%b3%a8%e5%86%8c%e8%a1%a8%e4%b9%8bKnownDLL.png"
-        data-srcset="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BKnownDLL.png, images/%e6%b3%a8%e5%86%8c%e8%a1%a8%e4%b9%8bKnownDLL.png 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BKnownDLL.png 2x"
-        data-sizes="auto"
-        alt="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BKnownDLL.png"
-        title="注册表之KnownDLL" /></p>
+<p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BKnownDLL.png" alt="注册表之KnownDLL" srcset="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BKnownDLL.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BKnownDLL.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BKnownDLL.png?size=large 2x" data-title="注册表之KnownDLL" style="--width: 926px;--aspect-ratio: 926 / 737;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\KnownDLLs
 该项下的子键代表了dll的名字,如果这里存在user32.dll,则系统不会加载当前目录下的user.dll,而是会去系统盘加载.</p>
 <ol start="2">
 <li>对于系统DLL,不通过修改本机KnownDLLs进行单机防护,而是通过修改文件manifest属性进行定向加载DLL来解决通用系统DLL劫持问题.</li>
 <li>对于非系统第三方DLL,上面的方法就不太适用了,可以使用动态加载方式,不要使用静态导入方式加载,通过动态加载对文件进行校验,如数字签名校验通过后再进行加载,来保证程序的安全性.</li>
 </ol>
-<h3 id="参考链接">参考链接</h3>
-<p>[如何禁用软件DLL劫持][https://www.52pojie.cn/thread-1499316-1-1.html]</p>
+<h3 id="参考链接" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>[如何禁用软件DLL劫持][https://www.52pojie.cn/thread-1499316-1-1.html]</p>
 <p>[一种通用DLL劫持技术研究][https://bbs.pediy.com/thread-248050.htm]</p>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E5%A6%82%E4%BD%95%E7%A6%81%E7%94%A8%E8%BD%AF%E4%BB%B6DLL%E5%8A%AB%E6%8C%81.mhtml" rel="">如何禁用软件DLL劫持.mhtml</a></p>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E4%B8%80%E7%A7%8D%E9%80%9A%E7%94%A8DLL%E5%8A%AB%E6%8C%81%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6.mhtml" rel="">一种通用DLL劫持技术研究.mhtml</a></p>
-<h2 id="apc注入">APC注入</h2>
-<h3 id="原理-2">原理</h3>
-<p>利用当线程被唤醒时APC中的注册函数会被执行的机制,并以此去执行我们的DLL加载代码,进而完成DLL注入.</p>
-<h3 id="apc示例">APC示例</h3>
-<div class="highlight"><div class="chroma">
+<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E5%A6%82%E4%BD%95%E7%A6%81%E7%94%A8%E8%BD%AF%E4%BB%B6DLL%E5%8A%AB%E6%8C%81.mhtml">如何禁用软件DLL劫持.mhtml</a></p>
+<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E4%B8%80%E7%A7%8D%E9%80%9A%E7%94%A8DLL%E5%8A%AB%E6%8C%81%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6.mhtml">一种通用DLL劫持技术研究.mhtml</a></p>
+<h2 id="apc注入" class="heading-element"><span>APC注入</span>
+  <a href="#apc%e6%b3%a8%e5%85%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="原理-2" class="heading-element"><span>原理</span>
+  <a href="#%e5%8e%9f%e7%90%86-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>利用当线程被唤醒时APC中的注册函数会被执行的机制,并以此去执行我们的DLL加载代码,进而完成DLL注入.</p>
+<h3 id="apc示例" class="heading-element"><span>APC示例</span>
+  <a href="#apc%e7%a4%ba%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -1780,19 +1905,33 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="相关源码-5">相关源码</h3>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/APC%E6%B3%A8%E5%85%A5.7z" rel="">APC注入.7z</a></p>
-<h2 id="iat-hook">IAT Hook</h2>
-<p>IAT Hook是恶意软件用于更改导入地址表的技术.当合法应用程序调用位于DLL中的API时,其会执行替换的函数,而不是原始函数.</p>
-<h3 id="实现示例">实现示例</h3>
-<p><a href="http://hasherezade.github.io/IAT_patcher/" target="_blank" rel="noopener noreffer">http://hasherezade.github.io/IAT_patcher/</a></p>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/IAT_patcher.zip" rel="">IAT_patcher.zip</a></p>
-<h2 id="傀儡进程">傀儡进程</h2>
-<h3 id="原理-3">原理</h3>
-<p>借助正常的软件进程或系统进程的外壳来执行非正常的恶意操作.</p>
+</div><h3 id="相关源码-5" class="heading-element"><span>相关源码</span>
+  <a href="#%e7%9b%b8%e5%85%b3%e6%ba%90%e7%a0%81-5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/APC%E6%B3%A8%E5%85%A5.7z">APC注入.7z</a></p>
+<h2 id="iat-hook" class="heading-element"><span>IAT Hook</span>
+  <a href="#iat-hook" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>IAT Hook是恶意软件用于更改导入地址表的技术.当合法应用程序调用位于DLL中的API时,其会执行替换的函数,而不是原始函数.</p>
+<h3 id="实现示例" class="heading-element"><span>实现示例</span>
+  <a href="#%e5%ae%9e%e7%8e%b0%e7%a4%ba%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="http://hasherezade.github.io/IAT_patcher/"target="_blank" rel="external nofollow noopener noreferrer">http://hasherezade.github.io/IAT_patcher/</a></p>
+<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/IAT_patcher.zip">IAT_patcher.zip</a></p>
+<h2 id="傀儡进程" class="heading-element"><span>傀儡进程</span>
+  <a href="#%e5%82%80%e5%84%a1%e8%bf%9b%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="原理-3" class="heading-element"><span>原理</span>
+  <a href="#%e5%8e%9f%e7%90%86-3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>借助正常的软件进程或系统进程的外壳来执行非正常的恶意操作.</p>
 <ol>
 <li>挂起创建一个正常程序,如svchost.exe.</li>
 <li>利用VirtualAllocEx,WriteProcessMemory将自己的PeLoader,自己的程序写入上述挂起的进程中.</li>
@@ -1823,14 +1962,16 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">rax</span><span class="p">,</span> <span class="no">CallAddress</span>
 </span></span><span class="line"><span class="cl"><span class="nf">call</span> <span class="no">rax</span>               <span class="c1">#调用x64_PeLoader
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">add</span> <span class="no">rsp</span><span class="p">,</span> <span class="mi">0x28</span>
-</span></span><span class="line"><span class="cl"><span class="nf">jmp</span> <span class="no">rax</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nf">jmp</span> <span class="no">rax</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="4">
 <li>恢复上述挂起的进程.</li>
 </ol>
-<h3 id="相关源码-6">相关源码</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="相关源码-6" class="heading-element"><span>相关源码</span>
+  <a href="#%e7%9b%b8%e5%85%b3%e6%ba%90%e7%a0%81-6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -2325,14 +2466,19 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E5%82%80%E5%84%A1%E8%BF%9B%E7%A8%8B.7z" rel="">傀儡进程.7z</a></p>
-<h2 id="process-hollowing">Process Hollowing</h2>
-<p>此技术也可称为傀儡进程,亦可称为PE映像切换技术.</p>
-<h3 id="原理-4">原理</h3>
-<p>借助正常的软件进程或系统进程的外壳来执行非正常的恶意操作.</p>
+</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E5%82%80%E5%84%A1%E8%BF%9B%E7%A8%8B.7z">傀儡进程.7z</a></p>
+<h2 id="process-hollowing" class="heading-element"><span>Process Hollowing</span>
+  <a href="#process-hollowing" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>此技术也可称为傀儡进程,亦可称为PE映像切换技术.</p>
+<h3 id="原理-4" class="heading-element"><span>原理</span>
+  <a href="#%e5%8e%9f%e7%90%86-4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>借助正常的软件进程或系统进程的外壳来执行非正常的恶意操作.</p>
 <ol>
 <li>挂起创建一个正常程序,如svchost.exe.</li>
 <li>利用NtQueryInformationProcess拿到上述挂起进程的PEB结构.</li>
@@ -2342,8 +2488,11 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 <li>如果上述挂起进程的ImageBaseAddress与我们写的程序的ImageBaseAddress有差别,那就根据重定位表进行修复.</li>
 <li>恢复上述挂起的进程.</li>
 </ol>
-<h3 id="相关源码-7">相关源码</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="相关源码-7" class="heading-element"><span>相关源码</span>
+  <a href="#%e7%9b%b8%e5%85%b3%e6%ba%90%e7%a0%81-7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -2796,20 +2945,28 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">hProcess</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/HollowingDropper.7z" rel="">HollowingDropper.7z</a></p>
-<h3 id="参考链接-1">参考链接</h3>
-<p><a href="https://bbs.pediy.com/thread-224706-1.htm" target="_blank" rel="noopener noreffer">https://bbs.pediy.com/thread-224706-1.htm</a></p>
-<p><a href="https://bbs.pediy.com/thread-246023.htm" target="_blank" rel="noopener noreffer">https://bbs.pediy.com/thread-246023.htm</a></p>
-<p><a href="https://github.com/m0n0ph1/Process-Hollowing" target="_blank" rel="noopener noreffer">https://github.com/m0n0ph1/Process-Hollowing</a></p>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/Process-Hollowing.zip" rel="">Process-Hollowing.zip</a></p>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%86%85%E5%AD%98dump%E5%88%86%E6%9E%90.mhtml" rel="">常见进程注入的实现及内存dump分析.mhtml</a></p>
-<h2 id="module-stomping">Module Stomping</h2>
-<p>该方法通过在目标进程中加载一个合法DLL,然后将shellcode或恶意DLL覆写到这个合法DLL的地址空间里.</p>
-<h3 id="原理-5">原理</h3>
-<ol>
+</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/HollowingDropper.7z">HollowingDropper.7z</a></p>
+<h3 id="参考链接-1" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="https://bbs.pediy.com/thread-224706-1.htm"target="_blank" rel="external nofollow noopener noreferrer">https://bbs.pediy.com/thread-224706-1.htm</a></p>
+<p><a href="https://bbs.pediy.com/thread-246023.htm"target="_blank" rel="external nofollow noopener noreferrer">https://bbs.pediy.com/thread-246023.htm</a></p>
+<p><a href="https://github.com/m0n0ph1/Process-Hollowing"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/m0n0ph1/Process-Hollowing</a></p>
+<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/Process-Hollowing.zip">Process-Hollowing.zip</a></p>
+<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8F%8A%E5%86%85%E5%AD%98dump%E5%88%86%E6%9E%90.mhtml">常见进程注入的实现及内存dump分析.mhtml</a></p>
+<h2 id="module-stomping" class="heading-element"><span>Module Stomping</span>
+  <a href="#module-stomping" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>该方法通过在目标进程中加载一个合法DLL,然后将shellcode或恶意DLL覆写到这个合法DLL的地址空间里.</p>
+<h3 id="原理-5" class="heading-element"><span>原理</span>
+  <a href="#%e5%8e%9f%e7%90%86-5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>利用OpenProcess,VirtualAllocEx在目标进程中申请一片内存.</li>
 <li>利用WriteProcessMemory将合法Dll的路径写入目标进程中.</li>
 <li>利用CreateRemoteThread传入LoadLibraryA以及上述合法Dll的路径,在目标进程中加载上述合法Dll.</li>
@@ -2817,8 +2974,11 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 <li>利用WriteProcessMemory在目标进程合法Dll的EP处写入ShellCode.</li>
 <li>利用CreateRemoteThread传入上述合法Dll的EP,进而执行我们的ShellCode.</li>
 </ol>
-<h3 id="相关源码-8">相关源码</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="相关源码-8" class="heading-element"><span>相关源码</span>
+  <a href="#%e7%9b%b8%e5%85%b3%e6%ba%90%e7%a0%81-8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -3227,13 +3387,18 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="n">SIZE_T</span> <span class="n">payload_size</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">isSuccess</span> <span class="o">=</span> <span class="n">ModuleStomp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">payload_size</span><span class="p">,</span> <span class="n">pid</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/ModuleStomping.7z" rel="">ModuleStomping.7z</a></p>
-<h2 id="transacted-hollowing">Transacted Hollowing</h2>
-<h3 id="原理-6">原理</h3>
-<ol>
+</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/ModuleStomping.7z">ModuleStomping.7z</a></p>
+<h2 id="transacted-hollowing" class="heading-element"><span>Transacted Hollowing</span>
+  <a href="#transacted-hollowing" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="原理-6" class="heading-element"><span>原理</span>
+  <a href="#%e5%8e%9f%e7%90%86-6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>利用NtCreateTransaction创建事务.</li>
 <li>利用CreateFileTransacted以事务特性打开一个文件.</li>
 <li>利用WriteFile向上述打开的文件写入恶意代码payload.</li>
@@ -3243,8 +3408,11 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 <li>利用NtMapViewOfSection将恶意代码的section映射到目标进程中,可以得到一个映射的地址sectionBaseAddress.</li>
 <li>利用WriteProcessMemory以及ResumeThread执行恶意代码.</li>
 </ol>
-<h3 id="代码">代码</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="代码" class="heading-element"><span>代码</span>
+  <a href="#%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -3727,17 +3895,25 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">	<span class="n">BYTE</span><span class="o">*</span> <span class="n">payloadBuffer</span> <span class="o">=</span> <span class="n">GetPayloadBuffer</span><span class="p">(</span><span class="n">payloadSize</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">BOOL</span> <span class="n">isSuccess</span> <span class="o">=</span> <span class="n">TransactHollowing</span><span class="p">(</span><span class="n">payloadBuffer</span><span class="p">,</span> <span class="p">(</span><span class="n">DWORD</span><span class="p">)</span><span class="n">payloadSize</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/TransactHollowing.7z" rel="">TransactHollowing.7z</a></p>
-<h2 id="process-ghosting">Process Ghosting</h2>
-<h3 id="原理-7">原理</h3>
-<p>该方法与Process Doppelganging从实现上几乎一样,唯一的区别就是处理不落地文件的方式:</p>
+</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/TransactHollowing.7z">TransactHollowing.7z</a></p>
+<h2 id="process-ghosting" class="heading-element"><span>Process Ghosting</span>
+  <a href="#process-ghosting" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="原理-7" class="heading-element"><span>原理</span>
+  <a href="#%e5%8e%9f%e7%90%86-7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>该方法与Process Doppelganging从实现上几乎一样,唯一的区别就是处理不落地文件的方式:</p>
 <p>Process Doppelganging: 通过事务API打开文件,修改文件(写入payload),创建section,再回滚修改的内容.</p>
 <p>Process Ghosting: 打开文件,设置删除标志,修改文件(写入payload),创建section,删除文件.这样进程运行时,反病毒软件打不开文件,因此无法做检测.</p>
-<h3 id="代码-1">代码</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="代码-1" class="heading-element"><span>代码</span>
+  <a href="#%e4%bb%a3%e7%a0%81-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -4326,13 +4502,18 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">	<span class="n">BYTE</span><span class="o">*</span> <span class="n">payloadBuffer</span> <span class="o">=</span> <span class="n">GetPayloadBuffer</span><span class="p">(</span><span class="n">payloadSize</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">BOOL</span> <span class="n">isSuccess</span> <span class="o">=</span> <span class="n">ProcessGhosting</span><span class="p">(</span><span class="n">payloadBuffer</span><span class="p">,</span> <span class="n">payloadSize</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/ProcessGhosting.7z" rel="">ProcessGhosting.7z</a></p>
-<h2 id="herpaderping">Herpaderping</h2>
-<h3 id="原理-8">原理</h3>
-<ol>
+</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/ProcessGhosting.7z">ProcessGhosting.7z</a></p>
+<h2 id="herpaderping" class="heading-element"><span>Herpaderping</span>
+  <a href="#herpaderping" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="原理-8" class="heading-element"><span>原理</span>
+  <a href="#%e5%8e%9f%e7%90%86-8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>利用CreateFile创建一个临时文件.</li>
 <li>利用WriteFile将恶意代码payload写到上述的临时文件中.</li>
 <li>利用NtCreateSection根据上述文件创建一个section.</li>
@@ -4343,8 +4524,11 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 <li>利用WriteProcessMemory修改上述进程的进程环境变量块.</li>
 <li>利用NtCreateThreadEx在上述进程的入口点创建一个线程,运行恶意代码.</li>
 </ol>
-<h3 id="代码-2">代码</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="代码-2" class="heading-element"><span>代码</span>
+  <a href="#%e4%bb%a3%e7%a0%81-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -4807,51 +4991,52 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_
 </span></span><span class="line"><span class="cl">	<span class="n">size_t</span> <span class="n">payloadSize</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">BYTE</span><span class="o">*</span> <span class="n">payloadBuffer</span> <span class="o">=</span> <span class="n">GetPayloadBuffer</span><span class="p">(</span><span class="n">payloadSize</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">BOOL</span> <span class="n">isSuccess</span> <span class="o">=</span> <span class="n">Herpaderping</span><span class="p">(</span><span class="n">payloadBuffer</span><span class="p">,</span> <span class="n">payloadSize</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/Herpaderping.7z" rel="">Herpaderping.7z</a></p>
-<h2 id="参考链接-2">参考链接</h2>
-<p><a href="https://bbs.pediy.com/thread-271554.htm" target="_blank" rel="noopener noreffer">https://bbs.pediy.com/thread-271554.htm</a></p>
-<p><a href="https://www.cnblogs.com/LittleHann/p/6336950.html" target="_blank" rel="noopener noreffer">https://www.cnblogs.com/LittleHann/p/6336950.html</a></p>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E9%AB%98%E7%BA%A7%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%80%BB%E7%BB%93.mhtml" rel="">高级进程注入总结.mhtml</a></p>
-<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/Windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6.mhtml" rel="">Windows进程注入技术研究.mhtml</a></p>
+</div><p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/Herpaderping.7z">Herpaderping.7z</a></p>
+<h2 id="参考链接-2" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://bbs.pediy.com/thread-271554.htm"target="_blank" rel="external nofollow noopener noreferrer">https://bbs.pediy.com/thread-271554.htm</a></p>
+<p><a href="https://www.cnblogs.com/LittleHann/p/6336950.html"target="_blank" rel="external nofollow noopener noreferrer">https://www.cnblogs.com/LittleHann/p/6336950.html</a></p>
+<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/%E9%AB%98%E7%BA%A7%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%80%BB%E7%BB%93.mhtml">高级进程注入总结.mhtml</a></p>
+<p><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/Windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6.mhtml">Windows进程注入技术研究.mhtml</a></p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2022-03-24</span>
-            </div>
-            <div class="post-info-license"></div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2022-03-24 00:00:00">更新于 2022-03-24&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
         </div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span></span>
-            </div>
-        </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5/">进程注入</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5/" class="post-tag" title="标签 - 进程注入">进程注入</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/" class="prev" rel="prev" title="Python之FileNotFoundError"><i class="fas fa-angle-left fa-fw"></i>Python之FileNotFoundError</a>
-            <a href="/posts/android/android-hook/frida/fridahook%E5%A4%A7%E5%85%A8/" class="next" rel="next" title="Frida Hook大全">Frida Hook大全<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/" class="post-nav-item" rel="prev" title="Python之FileNotFoundError"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Python之FileNotFoundError</a>
+      <a href="/posts/android/android-hook/frida/fridahook%E5%A4%A7%E5%85%A8/" class="post-nav-item" rel="next" title="Frida Hook大全">Frida Hook大全<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":150},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

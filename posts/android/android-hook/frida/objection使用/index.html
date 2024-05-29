@@ -1,114 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Objection使用 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="Objection使用" />
-<meta property="og:description" content="Objection使用 Frida只是提供了各种API供我们调用,在此基础上可以实现具体的功能,有大佬将各种常见的、常用的功能整合进一个工具," />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-11-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-11-25T00:00:00+00:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Objection使用"/>
-<meta name="twitter:description" content="Objection使用 Frida只是提供了各种API供我们调用,在此基础上可以实现具体的功能,有大佬将各种常见的、常用的功能整合进一个工具,"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kali%E9%85%8D%E7%BD%AE/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Objection使用",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-hook\/frida\/objection%E4%BD%BF%E7%94%A8\/"
-        },"genre": "posts","keywords": "Frida","wordcount":  1108 ,
-        "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-hook\/frida\/objection%E4%BD%BF%E7%94%A8\/","datePublished": "2021-11-25T00:00:00+00:00","dateModified": "2021-11-25T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": "夏洛魂"},"author": {
-                "@type": "Person",
-                "name": "夏洛魂"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Objection使用 - 夏洛魂的个人博客</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="Objection使用 Frida只是提供了各种API供我们调用,在此基础上可以实现具体的功能,有大佬将各种常见的、常用的功能整合进一个工具," /><meta name="keywords" content='Frida' />
+  <meta itemprop="name" content="Objection使用">
+  <meta itemprop="description" content="Objection使用 Frida只是提供了各种API供我们调用,在此基础上可以实现具体的功能,有大佬将各种常见的、常用的功能整合进一个工具,">
+  <meta itemprop="datePublished" content="2021-11-25T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-11-25T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1108">
+  <meta itemprop="keywords" content="Frida"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="Objection使用">
+  <meta property="og:description" content="Objection使用 Frida只是提供了各种API供我们调用,在此基础上可以实现具体的功能,有大佬将各种常见的、常用的功能整合进一个工具,">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-11-25T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-11-25T00:00:00+00:00">
+    <meta property="article:tag" content="Frida">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Objection使用">
+  <meta name="twitter:description" content="Objection使用 Frida只是提供了各种API供我们调用,在此基础上可以实现具体的功能,有大佬将各种常见的、常用的功能整合进一个工具,">
+<meta name="application-name" content="LuoHun">
+<meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kali%E9%85%8D%E7%BD%AE/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Objection使用",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-hook\/frida\/objection%E4%BD%BF%E7%94%A8\/"
+    },"genre": "posts","keywords": "Frida","wordcount":  1108 ,
+    "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android-hook\/frida\/objection%E4%BD%BF%E7%94%A8\/","datePublished": "2021-11-25T00:00:00+00:00","dateModified": "2021-11-25T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "作者"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/excalidraw/"
+                
+                
+              >在线绘图</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="夏洛魂的个人博客">主页</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="夏洛魂的个人博客">主页</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/excalidraw/"
+                  
+                  
+                >在线绘图</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Objection使用</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android-frida/"><i class="far fa-folder fa-fw"></i>Android Frida</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-25">2021-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1108 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Objection使用</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android-frida/" class="post-category" title="分类 - Android Frida"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android Frida</a></span></div><div class="post-meta-line"><span title="发布于 2021-11-25 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-11-25">2021-11-25</time></span>&nbsp;<span title="1108 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#objection使用">Objection使用</a>
       <ul>
@@ -157,11 +231,17 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="objection使用">Objection使用</h1>
-<p>Frida只是提供了各种API供我们调用,在此基础上可以实现具体的功能,有大佬将各种常见的、常用的功能整合进一个工具,供我们在命令行中使用,这个工具就是Objection.</p>
-<h2 id="安装">安装</h2>
-<p>由于Objection是基于Frida的,所以我们要安装与Frida发布日期相近的版本.</p>
-<p><a href="https://pypi.org/project/objection/#history" target="_blank" rel="noopener noreffer">https://pypi.org/project/objection/#history</a></p>
+      </div><div class="content" id="content"><h1 id="objection使用" class="heading-element"><span>Objection使用</span>
+  <a href="#objection%e4%bd%bf%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>Frida只是提供了各种API供我们调用,在此基础上可以实现具体的功能,有大佬将各种常见的、常用的功能整合进一个工具,供我们在命令行中使用,这个工具就是Objection.</p>
+<h2 id="安装" class="heading-element"><span>安装</span>
+  <a href="#%e5%ae%89%e8%a3%85" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>由于Objection是基于Frida的,所以我们要安装与Frida发布日期相近的版本.</p>
+<p><a href="https://pypi.org/project/objection/#history"target="_blank" rel="external nofollow noopener noreferrer">https://pypi.org/project/objection/#history</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -175,32 +255,41 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#pip install frida-tools==9.2.1</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#下载指定版本的objection</span>
-</span></span><span class="line"><span class="cl"><span class="n">pip</span> <span class="n">install</span> <span class="n">objection</span><span class="o">==</span><span class="mf">1.11.0</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">pip</span> <span class="n">install</span> <span class="n">objection</span><span class="o">==</span><span class="mf">1.11.0</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="连接非标准端口">连接非标准端口</h2>
-<div class="highlight"><div class="chroma">
+</div><h2 id="连接非标准端口" class="heading-element"><span>连接非标准端口</span>
+  <a href="#%e8%bf%9e%e6%8e%a5%e9%9d%9e%e6%a0%87%e5%87%86%e7%ab%af%e5%8f%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#objection -N -h 192.168.2.111 -p 6666 -g com.android.settings explore</span>
-</span></span><span class="line"><span class="cl"><span class="n">objection</span> <span class="o">-</span><span class="n">N</span> <span class="o">-</span><span class="n">h</span> <span class="n">手机的ip</span> <span class="o">-</span><span class="n">p</span> <span class="n">frida监听的端口</span> <span class="o">-</span><span class="n">g</span> <span class="n">安卓应用</span> <span class="n">explore</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">objection</span> <span class="o">-</span><span class="n">N</span> <span class="o">-</span><span class="n">h</span> <span class="n">手机的ip</span> <span class="o">-</span><span class="n">p</span> <span class="n">frida监听的端口</span> <span class="o">-</span><span class="n">g</span> <span class="n">安卓应用</span> <span class="n">explore</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="内存漫游相关命令">内存漫游相关命令</h2>
-<h3 id="查看内存加载的库">查看内存加载的库</h3>
-<div class="highlight"><div class="chroma">
+</div><h2 id="内存漫游相关命令" class="heading-element"><span>内存漫游相关命令</span>
+  <a href="#%e5%86%85%e5%ad%98%e6%bc%ab%e6%b8%b8%e7%9b%b8%e5%85%b3%e5%91%bd%e4%bb%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="查看内存加载的库" class="heading-element"><span>查看内存加载的库</span>
+  <a href="#%e6%9f%a5%e7%9c%8b%e5%86%85%e5%ad%98%e5%8a%a0%e8%bd%bd%e7%9a%84%e5%ba%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">memory list modules
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">memory list modules</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="查看库的导出函数">查看库的导出函数</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="查看库的导出函数" class="heading-element"><span>查看库的导出函数</span>
+  <a href="#%e6%9f%a5%e7%9c%8b%e5%ba%93%e7%9a%84%e5%af%bc%e5%87%ba%e5%87%bd%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -209,20 +298,24 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">memory</span> <span class="nb">list</span> <span class="n">exports</span> <span class="n">libssl</span><span class="o">.</span><span class="n">so</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#写文件</span>
-</span></span><span class="line"><span class="cl"><span class="n">memory</span> <span class="nb">list</span> <span class="n">exports</span> <span class="n">libssl</span><span class="o">.</span><span class="n">so</span> <span class="o">--</span><span class="n">json</span> <span class="n">tst</span><span class="o">.</span><span class="n">json</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">memory</span> <span class="nb">list</span> <span class="n">exports</span> <span class="n">libssl</span><span class="o">.</span><span class="n">so</span> <span class="o">--</span><span class="n">json</span> <span class="n">tst</span><span class="o">.</span><span class="n">json</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="列出内存中所有类">列出内存中所有类</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="列出内存中所有类" class="heading-element"><span>列出内存中所有类</span>
+  <a href="#%e5%88%97%e5%87%ba%e5%86%85%e5%ad%98%e4%b8%ad%e6%89%80%e6%9c%89%e7%b1%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android hooking list classes
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android hooking list classes</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="内存中搜索所有的类">内存中搜索所有的类</h3>
-<p>在内存中所有已加载的类中搜索包含特定关键词的类.</p>
+</div><h3 id="内存中搜索所有的类" class="heading-element"><span>内存中搜索所有的类</span>
+  <a href="#%e5%86%85%e5%ad%98%e4%b8%ad%e6%90%9c%e7%b4%a2%e6%89%80%e6%9c%89%e7%9a%84%e7%b1%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在内存中所有已加载的类中搜索包含特定关键词的类.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -230,11 +323,13 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#搜索包含display关键词的类</span>
-</span></span><span class="line"><span class="cl"><span class="n">android</span> <span class="n">hooking</span> <span class="n">search</span> <span class="n">classes</span> <span class="n">display</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">android</span> <span class="n">hooking</span> <span class="n">search</span> <span class="n">classes</span> <span class="n">display</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="内存中搜索所有的方法">内存中搜索所有的方法</h3>
-<p>在内存中所有已加载的类的方法中搜索包含特定关键词的方法.</p>
+</div><h3 id="内存中搜索所有的方法" class="heading-element"><span>内存中搜索所有的方法</span>
+  <a href="#%e5%86%85%e5%ad%98%e4%b8%ad%e6%90%9c%e7%b4%a2%e6%89%80%e6%9c%89%e7%9a%84%e6%96%b9%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在内存中所有已加载的类的方法中搜索包含特定关键词的方法.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -242,60 +337,75 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#搜索包含display关键词的方法</span>
-</span></span><span class="line"><span class="cl"><span class="n">android</span> <span class="n">hooking</span> <span class="n">search</span> <span class="n">methods</span> <span class="n">display</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">android</span> <span class="n">hooking</span> <span class="n">search</span> <span class="n">methods</span> <span class="n">display</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="列出类的所有方法">列出类的所有方法</h3>
-<p>当搜索到了比较关心的类之后,就可以直接查看它有哪些方法.</p>
+</div><h3 id="列出类的所有方法" class="heading-element"><span>列出类的所有方法</span>
+  <a href="#%e5%88%97%e5%87%ba%e7%b1%bb%e7%9a%84%e6%89%80%e6%9c%89%e6%96%b9%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>当搜索到了比较关心的类之后,就可以直接查看它有哪些方法.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android hooking list class_methods com.android.settings.DisplaySettings
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android hooking list class_methods com.android.settings.DisplaySettings</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="列出进程所有的activity">列出进程所有的activity</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="列出进程所有的activity" class="heading-element"><span>列出进程所有的activity</span>
+  <a href="#%e5%88%97%e5%87%ba%e8%bf%9b%e7%a8%8b%e6%89%80%e6%9c%89%e7%9a%84activity" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android hooking list activities
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android hooking list activities</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="启动activity">启动activity</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="启动activity" class="heading-element"><span>启动activity</span>
+  <a href="#%e5%90%af%e5%8a%a8activity" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android intent launch_activity com.android.settings.DisplaySettings
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android intent launch_activity com.android.settings.DisplaySettings</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="列出进程所有的service">列出进程所有的service</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="列出进程所有的service" class="heading-element"><span>列出进程所有的service</span>
+  <a href="#%e5%88%97%e5%87%ba%e8%bf%9b%e7%a8%8b%e6%89%80%e6%9c%89%e7%9a%84service" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android hooking list services
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android hooking list services</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="启动service">启动service</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="启动service" class="heading-element"><span>启动service</span>
+  <a href="#%e5%90%af%e5%8a%a8service" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android intent launch_service com.android.settings.bluetooth.BluetoothPairingService
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android intent launch_service com.android.settings.bluetooth.BluetoothPairingService</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="hook相关命令">Hook相关命令</h2>
-<p>上述操作均是基于在内存中直接枚举搜索,已经可以获取到大量有用的静态信息,我们再来介绍几个方法,可以获取到执行时动态的信息.</p>
+</div><h2 id="hook相关命令" class="heading-element"><span>Hook相关命令</span>
+  <a href="#hook%e7%9b%b8%e5%85%b3%e5%91%bd%e4%bb%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>上述操作均是基于在内存中直接枚举搜索,已经可以获取到大量有用的静态信息,我们再来介绍几个方法,可以获取到执行时动态的信息.</p>
 <p>在以下命令中加上&ndash;dump-args &ndash;dump-return &ndash;dump-backtrace三个参数,分别用于打印函数的参数、返回值、以及调用栈.</p>
-<h3 id="对指定方法进行hook">对指定方法进行Hook</h3>
-<p>比如想看getName()方法,则运行以下命令:</p>
+<h3 id="对指定方法进行hook" class="heading-element"><span>对指定方法进行Hook</span>
+  <a href="#%e5%af%b9%e6%8c%87%e5%ae%9a%e6%96%b9%e6%b3%95%e8%bf%9b%e8%a1%8chook" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>比如想看getName()方法,则运行以下命令:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -303,20 +413,24 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#android hooking watch class_method java.io.File.$init --dump-args</span>
-</span></span><span class="line"><span class="cl"><span class="n">android</span> <span class="n">hooking</span> <span class="n">watch</span> <span class="n">class_method</span> <span class="n">android</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="n">BluetoothDevice</span><span class="o">.</span><span class="n">getName</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="n">args</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="k">return</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="n">backtrace</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">android</span> <span class="n">hooking</span> <span class="n">watch</span> <span class="n">class_method</span> <span class="n">android</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="n">BluetoothDevice</span><span class="o">.</span><span class="n">getName</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="n">args</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="k">return</span> <span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="n">backtrace</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="hook类的所有方法">hook类的所有方法</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="hook类的所有方法" class="heading-element"><span>hook类的所有方法</span>
+  <a href="#hook%e7%b1%bb%e7%9a%84%e6%89%80%e6%9c%89%e6%96%b9%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">android</span> <span class="n">hooking</span> <span class="n">watch</span> <span class="k">class</span> <span class="nc">android</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="n">BluetoothDevice</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">android</span> <span class="n">hooking</span> <span class="n">watch</span> <span class="k">class</span> <span class="nc">android</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="n">BluetoothDevice</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="jobs命令">Jobs命令</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="jobs命令" class="heading-element"><span>Jobs命令</span>
+  <a href="#jobs%e5%91%bd%e4%bb%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -327,30 +441,33 @@
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#可以看到objection为我们创建的Hooks数</span>
 </span></span><span class="line"><span class="cl"><span class="n">jobs</span> <span class="nb">list</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#删除作业</span>
-</span></span><span class="line"><span class="cl"><span class="n">jobs</span> <span class="n">kill</span> <span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">jobs</span> <span class="n">kill</span> <span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="主动调用">主动调用</h2>
-<h3 id="在堆上搜索实例">在堆上搜索实例</h3>
-<div class="highlight"><div class="chroma">
+</div><h2 id="主动调用" class="heading-element"><span>主动调用</span>
+  <a href="#%e4%b8%bb%e5%8a%a8%e8%b0%83%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="在堆上搜索实例" class="heading-element"><span>在堆上搜索实例</span>
+  <a href="#%e5%9c%a8%e5%a0%86%e4%b8%8a%e6%90%9c%e7%b4%a2%e5%ae%9e%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android heap search instances com.android.settings.DisplaySettings
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android heap search instances com.android.settings.DisplaySettings</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e5%9c%a8%e5%a0%86%e4%b8%8a%e6%90%9c%e7%b4%a2%e5%ae%9e%e4%be%8b.png"
-        data-srcset="/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/images/%E5%9C%A8%E5%A0%86%E4%B8%8A%E6%90%9C%E7%B4%A2%E5%AE%9E%E4%BE%8B.png, images/%e5%9c%a8%e5%a0%86%e4%b8%8a%e6%90%9c%e7%b4%a2%e5%ae%9e%e4%be%8b.png 1.5x, /posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/images/%E5%9C%A8%E5%A0%86%E4%B8%8A%E6%90%9C%E7%B4%A2%E5%AE%9E%E4%BE%8B.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/images/%E5%9C%A8%E5%A0%86%E4%B8%8A%E6%90%9C%E7%B4%A2%E5%AE%9E%E4%BE%8B.png"
-        title="在堆上搜索实例" /></p>
-<h3 id="调用实例的方法">调用实例的方法</h3>
-<h4 id="无参调用">无参调用</h4>
-<p>查看源码得知com.android.settings.DisplaySettings类有getPreferenceScreenResId()方法.</p>
+</div><p><img loading="lazy" src="/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/images/%E5%9C%A8%E5%A0%86%E4%B8%8A%E6%90%9C%E7%B4%A2%E5%AE%9E%E4%BE%8B.png" alt="在堆上搜索实例" srcset="/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/images/%E5%9C%A8%E5%A0%86%E4%B8%8A%E6%90%9C%E7%B4%A2%E5%AE%9E%E4%BE%8B.png?size=small, /posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/images/%E5%9C%A8%E5%A0%86%E4%B8%8A%E6%90%9C%E7%B4%A2%E5%AE%9E%E4%BE%8B.png?size=medium 1.5x, /posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/images/%E5%9C%A8%E5%A0%86%E4%B8%8A%E6%90%9C%E7%B4%A2%E5%AE%9E%E4%BE%8B.png?size=large 2x" data-title="在堆上搜索实例" style="--width: 1738px;--aspect-ratio: 1738 / 952;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="调用实例的方法" class="heading-element"><span>调用实例的方法</span>
+  <a href="#%e8%b0%83%e7%94%a8%e5%ae%9e%e4%be%8b%e7%9a%84%e6%96%b9%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 id="无参调用" class="heading-element"><span>无参调用</span>
+  <a href="#%e6%97%a0%e5%8f%82%e8%b0%83%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>查看源码得知com.android.settings.DisplaySettings类有getPreferenceScreenResId()方法.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -360,31 +477,31 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#无参调用</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#android heap execute &lt;handle&gt; &lt;methodname&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="n">android</span> <span class="n">heap</span> <span class="n">execute</span> <span class="mh">0x225a</span> <span class="n">getPreferenceScreenResId</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">android</span> <span class="n">heap</span> <span class="n">execute</span> <span class="mh">0x225a</span> <span class="n">getPreferenceScreenResId</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e8%b0%83%e7%94%a8%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95.png"
-        data-srcset="images/%e8%b0%83%e7%94%a8%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95.png, images/%e8%b0%83%e7%94%a8%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95.png 1.5x, images/%e8%b0%83%e7%94%a8%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95.png 2x"
-        data-sizes="auto"
-        alt="images/调用实例方法.png"
-        title="调用实例方法" /></p>
-<h4 id="有参调用">有参调用</h4>
-<div class="highlight"><div class="chroma">
+</div><p><img loading="lazy" src="images/%e8%b0%83%e7%94%a8%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95.png" alt="调用实例方法" srcset="images/%e8%b0%83%e7%94%a8%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95.png?size=small, images/%e8%b0%83%e7%94%a8%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95.png?size=medium 1.5x, images/%e8%b0%83%e7%94%a8%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95.png?size=large 2x" data-title="调用实例方法" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h4 id="有参调用" class="heading-element"><span>有参调用</span>
+  <a href="#%e6%9c%89%e5%8f%82%e8%b0%83%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android heap evaluate &lt;handle&gt;
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">android heap evaluate &lt;handle&gt;</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在进入一个迷你编辑器环境后,输入想要执行的脚本内容,确认编辑完成,然后按Esc键退出编辑,最后按回车键,即会开始执行这行脚本并输出结果.这里的脚本内容和在编辑器中直接编写的脚本内容是一样的.</p>
 <p>heap evaluate既可以执行有参函数,也可以执行无参函数.</p>
-<h2 id="插件">插件</h2>
-<h3 id="wallbreaker">Wallbreaker</h3>
-<p><a href="https://github.com/hluwa/Wallbreaker" target="_blank" rel="noopener noreffer">https://github.com/hluwa/Wallbreaker</a></p>
+<h2 id="插件" class="heading-element"><span>插件</span>
+  <a href="#%e6%8f%92%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="wallbreaker" class="heading-element"><span>Wallbreaker</span>
+  <a href="#wallbreaker" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="https://github.com/hluwa/Wallbreaker"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/hluwa/Wallbreaker</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -408,11 +525,13 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#寻找类的实例对象并查看</span>
 </span></span><span class="line"><span class="cl"><span class="n">plugin</span> <span class="n">wallbreaker</span> <span class="n">objectsearch</span> <span class="n">android</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="n">BluetoothDevice</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#[xxx]</span>
-</span></span><span class="line"><span class="cl"><span class="n">plugin</span> <span class="n">wallbreaker</span> <span class="n">objectdump</span> <span class="n">xxx</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">plugin</span> <span class="n">wallbreaker</span> <span class="n">objectdump</span> <span class="n">xxx</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="dexdump">DexDump</h3>
-<p><a href="https://github.com/hluwa/FRIDA-DEXDump" target="_blank" rel="noopener noreffer">https://github.com/hluwa/FRIDA-DEXDump</a></p>
+</div><h3 id="dexdump" class="heading-element"><span>DexDump</span>
+  <a href="#dexdump" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="https://github.com/hluwa/FRIDA-DEXDump"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/hluwa/FRIDA-DEXDump</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -428,48 +547,49 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#Dump</span>
 </span></span><span class="line"><span class="cl"><span class="n">plugin</span> <span class="n">dexdump</span> <span class="n">search</span>
-</span></span><span class="line"><span class="cl"><span class="n">plugin</span> <span class="n">dexdump</span> <span class="n">dump</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">plugin</span> <span class="n">dexdump</span> <span class="n">dump</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="参考链接">参考链接</h2>
-<p><a href="https://www.anquanke.com/post/id/197657#3-7" target="_blank" rel="noopener noreffer">https://www.anquanke.com/post/id/197657#3-7</a></p>
-<p><a href="/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/%E5%AE%9E%E7%94%A8FRIDA%E8%BF%9B%E9%98%B6.pdf" rel="">实用FRIDA进阶.pdf</a></p>
+</div><h2 id="参考链接" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://www.anquanke.com/post/id/197657#3-7"target="_blank" rel="external nofollow noopener noreferrer">https://www.anquanke.com/post/id/197657#3-7</a></p>
+<p><a href="/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/%E5%AE%9E%E7%94%A8FRIDA%E8%BF%9B%E9%98%B6.pdf">实用FRIDA进阶.pdf</a></p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-11-25</span>
-            </div>
-            <div class="post-info-license"></div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2021-11-25 00:00:00">更新于 2021-11-25&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
         </div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span></span>
-            </div>
-        </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/frida/">Frida</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/frida/" class="post-tag" title="标签 - Frida">Frida</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/posts/android/android%E5%9F%BA%E7%A1%80/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="prev" rel="prev" title="Android逆向常用命令"><i class="fas fa-angle-left fa-fw"></i>Android逆向常用命令</a>
-            <a href="/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kali%E9%85%8D%E7%BD%AE/" class="next" rel="next" title="Kali配置">Kali配置<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/posts/android/android%E5%9F%BA%E7%A1%80/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/android%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-nav-item" rel="prev" title="Android逆向常用命令"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Android逆向常用命令</a>
+      <a href="/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kali%E9%85%8D%E7%BD%AE/" class="post-nav-item" rel="next" title="Kali配置">Kali配置<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":150},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

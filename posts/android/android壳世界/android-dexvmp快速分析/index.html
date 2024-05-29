@@ -1,114 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Android-DexVMP快速分析 - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="Android-DexVMP快速分析" />
-<meta property="og:description" content="Android-DexVMP快速分析 概述 Android DexVMP主要有以下两种表现形式: 抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护 onCreate N" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-06-19T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-06-19T00:00:00+00:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Android-DexVMP快速分析"/>
-<meta name="twitter:description" content="Android-DexVMP快速分析 概述 Android DexVMP主要有以下两种表现形式: 抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护 onCreate N"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Android-DexVMP快速分析",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90\/"
-        },"genre": "posts","keywords": "DexVMP","wordcount":  2378 ,
-        "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90\/","datePublished": "2023-06-19T00:00:00+00:00","dateModified": "2023-06-19T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": "夏洛魂"},"author": {
-                "@type": "Person",
-                "name": "夏洛魂"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Android-DexVMP快速分析 - 夏洛魂的个人博客</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="Android-DexVMP快速分析 概述 Android DexVMP主要有以下两种表现形式: 抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护 onCreate N" /><meta name="keywords" content='DexVMP' />
+  <meta itemprop="name" content="Android-DexVMP快速分析">
+  <meta itemprop="description" content="Android-DexVMP快速分析 概述 Android DexVMP主要有以下两种表现形式: 抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护 onCreate N">
+  <meta itemprop="datePublished" content="2023-06-19T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2023-06-19T00:00:00+00:00">
+  <meta itemprop="wordCount" content="2378">
+  <meta itemprop="keywords" content="DexVMP"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="Android-DexVMP快速分析">
+  <meta property="og:description" content="Android-DexVMP快速分析 概述 Android DexVMP主要有以下两种表现形式: 抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护 onCreate N">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-06-19T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-06-19T00:00:00+00:00">
+    <meta property="article:tag" content="DexVMP">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Android-DexVMP快速分析">
+  <meta name="twitter:description" content="Android-DexVMP快速分析 概述 Android DexVMP主要有以下两种表现形式: 抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护 onCreate N">
+<meta name="application-name" content="LuoHun">
+<meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Android-DexVMP快速分析",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90\/"
+    },"genre": "posts","keywords": "DexVMP","wordcount":  2378 ,
+    "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90\/","datePublished": "2023-06-19T00:00:00+00:00","dateModified": "2023-06-19T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "作者"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/excalidraw/"
+                
+                
+              >在线绘图</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="夏洛魂的个人博客">主页</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="夏洛魂的个人博客">主页</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/excalidraw/"
+                  
+                  
+                >在线绘图</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Android-DexVMP快速分析</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android%E5%A3%B3%E4%B8%96%E7%95%8C/"><i class="far fa-folder fa-fw"></i>Android壳世界</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-06-19">2023-06-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2378 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Android-DexVMP快速分析</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%A3%B3%E4%B8%96%E7%95%8C/" class="post-category" title="分类 - Android壳世界"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android壳世界</a></span></div><div class="post-meta-line"><span title="发布于 2023-06-19 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-06-19">2023-06-19</time></span>&nbsp;<span title="2378 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 2400 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#android-dexvmp快速分析">Android-DexVMP快速分析</a>
       <ul>
@@ -127,35 +201,33 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="android-dexvmp快速分析">Android-DexVMP快速分析</h1>
-<h2 id="概述">概述</h2>
-<p>Android DexVMP主要有以下两种表现形式:</p>
+      </div><div class="content" id="content"><h1 id="android-dexvmp快速分析" class="heading-element"><span>Android-DexVMP快速分析</span>
+  <a href="#android-dexvmp%e5%bf%ab%e9%80%9f%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 id="概述" class="heading-element"><span>概述</span>
+  <a href="#%e6%a6%82%e8%bf%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Android DexVMP主要有以下两种表现形式:</p>
 <ol>
 <li>抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png"
-        data-srcset="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png 1.5x, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png 2x"
-        data-sizes="auto"
-        alt="./images/DexVMP表现形式1.png"
-        title="DexVMP表现形式1" /></p>
+<p><img loading="lazy" src="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png" alt="DexVMP表现形式1" srcset="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png?size=small, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png?size=medium 1.5x, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f1.png?size=large 2x" data-title="DexVMP表现形式1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="2">
 <li>onCreate Native化,对其进行VMP保护</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png"
-        data-srcset="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png 1.5x, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png 2x"
-        data-sizes="auto"
-        alt="./images/DexVMP表现形式2.png"
-        title="DexVMP表现形式2" /></p>
+<p><img loading="lazy" src="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png" alt="DexVMP表现形式2" srcset="./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png?size=small, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png?size=medium 1.5x, ./images/DexVMP%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f2.png?size=large 2x" data-title="DexVMP表现形式2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>Android DexVMP的实现原理就是对ART解释器进行自定义,壳代码运行在传统ART解释器下,被加固应用运行在自定义解释器下.对于这种情况,我们可以对其函数调用过程进行trace,通过分析某个函数内部调用的其他函数,然后借助Frida进行关键函数的Hook来帮助我们完成对VMP保护的函数进行快速分析,接下来将以Android13为例,进行ART的定制来完成函数调用关系的打印.</p>
-<h2 id="定制art">定制ART</h2>
-<h3 id="java调用关系">Java调用关系</h3>
-<p>Java函数有以下两种执行模式:</p>
+<h2 id="定制art" class="heading-element"><span>定制ART</span>
+  <a href="#%e5%ae%9a%e5%88%b6art" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="java调用关系" class="heading-element"><span>Java调用关系</span>
+  <a href="#java%e8%b0%83%e7%94%a8%e5%85%b3%e7%b3%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Java函数有以下两种执行模式:</p>
 <ol>
 <li>
 <p>解释模式</p>
@@ -264,8 +336,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">ExecuteSwitch</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">      <span class="n">self</span><span class="p">,</span> <span class="n">accessor</span><span class="p">,</span> <span class="n">shadow_frame</span><span class="p">,</span> <span class="n">result_register</span><span class="p">,</span> <span class="cm">/*interpret_one_instruction=*/</span> <span class="nb">false</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>从Android13的Execute函数源码中可以看到,如果Java函数始终运行在解释模式下,那么最终所有流程会走到ExecuteSwitch函数中.</p>
 <p>ExecuteSwitch函数的内部流程如下:</p>
@@ -483,8 +554,7 @@
 </span></span><span class="line"><span class="cl">                        <span class="k">const</span> <span class="n">size_t</span> <span class="n">first_dest_reg</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                        <span class="n">ShadowFrame</span><span class="o">*</span> <span class="n">callee_frame</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                        <span class="n">JValue</span><span class="o">*</span> <span class="n">result</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                        <span class="kt">bool</span> <span class="n">use_interpreter_entrypoint</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">                        <span class="kt">bool</span> <span class="n">use_interpreter_entrypoint</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>在PerformCall这个函数中,通过其参数传递,我们可以拿到调用方和被调方的函数名,因此我们在这个地方进行插桩.</p>
 <p>插桩代码如下:</p>
@@ -549,8 +619,7 @@
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">interpreter</span><span class="o">::</span><span class="n">UnstartedRuntime</span><span class="o">::</span><span class="n">Invoke</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">accessor</span><span class="p">,</span> <span class="n">callee_frame</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">first_dest_reg</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>另外为了让Java函数始终运行在解释模式下,我们还需要导出一个接口供Frida进行调用.</p>
 <div class="highlight"><div class="chroma">
@@ -578,11 +647,13 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">//add
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">//---
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="jni调用关系">Jni调用关系</h3>
-<p>为了解决VMP实现的兼容性和复杂性问题,VMP会使用标准Jni调用java函数的流程来实现对invoke类型指令的解释执行.</p>
+</div><h3 id="jni调用关系" class="heading-element"><span>Jni调用关系</span>
+  <a href="#jni%e8%b0%83%e7%94%a8%e5%85%b3%e7%b3%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>为了解决VMP实现的兼容性和复杂性问题,VMP会使用标准Jni调用java函数的流程来实现对invoke类型指令的解释执行.</p>
 <ol>
 <li>解析invoke指令的参数部分,得到Methodldx</li>
 <li>解析Dex结构,获得当前要调用的Methodldx的类名和函数属性</li>
@@ -614,8 +685,7 @@
 </span></span><span class="line"><span class="cl">                         <span class="n">va_list</span> <span class="n">args</span><span class="p">)</span> <span class="n">REQUIRES_SHARED</span><span class="p">(</span><span class="n">Locks</span><span class="o">::</span><span class="n">mutator_lock_</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="o">-&gt;</span><span class="kt">void</span> <span class="n">InvokeWithArgArray</span><span class="p">(</span><span class="k">const</span> <span class="n">ScopedObjectAccessAlreadyRunnable</span><span class="o">&amp;</span> <span class="n">soa</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                               <span class="n">ArtMethod</span><span class="o">*</span> <span class="n">method</span><span class="p">,</span> <span class="n">ArgArray</span><span class="o">*</span> <span class="n">arg_array</span><span class="p">,</span> <span class="n">JValue</span><span class="o">*</span> <span class="n">result</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                               <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">shorty</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">                               <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">shorty</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>我们可以在InvokeWithArgArray这个函数中进行插桩,来完成函数调用关系的打印.</p>
 <p>插桩代码如下:</p>
@@ -704,11 +774,13 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">//add
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="frida代码">Frida代码</h2>
-<p>上面我们对Android源码进行了修改,还需要借助Frida来完成函数调用关系的打印,对应的代码如下:</p>
+</div><h2 id="frida代码" class="heading-element"><span>Frida代码</span>
+  <a href="#frida%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>上面我们对Android源码进行了修改,还需要借助Frida来完成函数调用关系的打印,对应的代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -812,77 +884,63 @@
 </span></span><span class="line"><span class="cl">    <span class="n">hook_start</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">setImmediate</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">setImmediate</span><span class="p">(</span><span class="n">main</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="示例">示例</h2>
-<p>这里我们以某VMP样本为例,进行函数调用关系的trace.</p>
+</div><h2 id="示例" class="heading-element"><span>示例</span>
+  <a href="#%e7%a4%ba%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>这里我们以某VMP样本为例,进行函数调用关系的trace.</p>
 <p>加固前代码如下:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png"
-        data-srcset="./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png, ./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png 1.5x, ./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png 2x"
-        data-sizes="auto"
-        alt="./images/加固前.png"
-        title="加固前" /></p>
+<p><img loading="lazy" src="./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png" alt="加固前" srcset="./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png?size=small, ./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png?size=medium 1.5x, ./images/%e5%8a%a0%e5%9b%ba%e5%89%8d.png?size=large 2x" data-title="加固前" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>加固后代码如下:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png"
-        data-srcset="./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png, ./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png 1.5x, ./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png 2x"
-        data-sizes="auto"
-        alt="./images/加固后.png"
-        title="加固后" /></p>
+<p><img loading="lazy" src="./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png" alt="加固后" srcset="./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png?size=small, ./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png?size=medium 1.5x, ./images/%e5%8a%a0%e5%9b%ba%e5%90%8e.png?size=large 2x" data-title="加固后" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>函数trace如下:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png"
-        data-srcset="./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png, ./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png 1.5x, ./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png 2x"
-        data-sizes="auto"
-        alt="./images/函数调用trace.png"
-        title="函数调用trace" /></p>
-<h2 id="总结">总结</h2>
-<p>VMP的加固强度很强,但是我们可以通过对Android解释模式以及Jni调用流程进行分析,在其中某些流程进行插桩并且和Frida进行结合,打印出被VMP保护函数的函数调用.然后再进一步分析,对关键函数进行Hook拿到我们想要的信息.</p>
-<h2 id="参考链接">参考链接</h2>
-<p><a href="https://www.cnblogs.com/theseventhson/p/14961107.html" target="_blank" rel="noopener noreffer">https://www.cnblogs.com/theseventhson/p/14961107.html</a></p>
+<p><img loading="lazy" src="./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png" alt="函数调用trace" srcset="./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png?size=small, ./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png?size=medium 1.5x, ./images/%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8trace.png?size=large 2x" data-title="函数调用trace" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="总结" class="heading-element"><span>总结</span>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>VMP的加固强度很强,但是我们可以通过对Android解释模式以及Jni调用流程进行分析,在其中某些流程进行插桩并且和Frida进行结合,打印出被VMP保护函数的函数调用.然后再进一步分析,对关键函数进行Hook拿到我们想要的信息.</p>
+<h2 id="参考链接" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://www.cnblogs.com/theseventhson/p/14961107.html"target="_blank" rel="external nofollow noopener noreferrer">https://www.cnblogs.com/theseventhson/p/14961107.html</a></p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2023-06-19</span>
-            </div>
-            <div class="post-info-license"></div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-06-19 00:00:00">更新于 2023-06-19&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
         </div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span></span>
-            </div>
-        </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/dexvmp/">DexVMP</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/dexvmp/" class="post-tag" title="标签 - DexVMP">DexVMP</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/" class="prev" rel="prev" title="移植OLLVM到NDK中"><i class="fas fa-angle-left fa-fw"></i>移植OLLVM到NDK中</a></div>
+  <div class="post-nav"><a href="/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/" class="post-nav-item" rel="prev" title="移植OLLVM到NDK中"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>移植OLLVM到NDK中</a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":150},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

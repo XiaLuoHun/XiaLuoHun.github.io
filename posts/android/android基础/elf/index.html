@@ -1,114 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>ELF - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="ELF" />
-<meta property="og:description" content="ELF 是UNIX系统实验室(USL)作为应用程序二进制接口(Application Binary Interface,ABI)而开发和发布的,也是Linux的" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/elf/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-10-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-10-20T00:00:00+00:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="ELF"/>
-<meta name="twitter:description" content="ELF 是UNIX系统实验室(USL)作为应用程序二进制接口(Application Binary Interface,ABI)而开发和发布的,也是Linux的"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/elf/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/mfc/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/android%E5%BC%80%E5%8F%91/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "ELF",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/elf\/"
-        },"genre": "posts","keywords": "ELF","wordcount":  9692 ,
-        "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/elf\/","datePublished": "2021-10-20T00:00:00+00:00","dateModified": "2021-10-20T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": "夏洛魂"},"author": {
-                "@type": "Person",
-                "name": "夏洛魂"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>ELF - 夏洛魂的个人博客</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="ELF 是UNIX系统实验室(USL)作为应用程序二进制接口(Application Binary Interface,ABI)而开发和发布的,也是Linux的" /><meta name="keywords" content='ELF' />
+  <meta itemprop="name" content="ELF">
+  <meta itemprop="description" content="ELF 是UNIX系统实验室(USL)作为应用程序二进制接口(Application Binary Interface,ABI)而开发和发布的,也是Linux的">
+  <meta itemprop="datePublished" content="2021-10-20T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-10-20T00:00:00+00:00">
+  <meta itemprop="wordCount" content="9692">
+  <meta itemprop="keywords" content="ELF"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/elf/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="ELF">
+  <meta property="og:description" content="ELF 是UNIX系统实验室(USL)作为应用程序二进制接口(Application Binary Interface,ABI)而开发和发布的,也是Linux的">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-10-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-10-20T00:00:00+00:00">
+    <meta property="article:tag" content="ELF">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ELF">
+  <meta name="twitter:description" content="ELF 是UNIX系统实验室(USL)作为应用程序二进制接口(Application Binary Interface,ABI)而开发和发布的,也是Linux的">
+<meta name="application-name" content="LuoHun">
+<meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/elf/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/mfc/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/android%E5%BC%80%E5%8F%91/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ELF",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/elf\/"
+    },"genre": "posts","keywords": "ELF","wordcount":  9692 ,
+    "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/elf\/","datePublished": "2021-10-20T00:00:00+00:00","dateModified": "2021-10-20T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "作者"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/excalidraw/"
+                
+                
+              >在线绘图</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="夏洛魂的个人博客">主页</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="夏洛魂的个人博客">主页</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/excalidraw/"
+                  
+                  
+                >在线绘图</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">ELF</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/"><i class="far fa-folder fa-fw"></i>Android基础</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-20">2021-10-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9692 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 20 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ELF</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/" class="post-category" title="分类 - Android基础"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android基础</a></span></div><div class="post-meta-line"><span title="发布于 2021-10-20 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-10-20">2021-10-20</time></span>&nbsp;<span title="9692 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 9700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 20 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#elf">ELF</a>
       <ul>
@@ -301,11 +375,20 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="elf">ELF</h1>
-<p>是UNIX系统实验室(USL)作为应用程序二进制接口(Application Binary Interface,ABI)而开发和发布的,也是Linux的主要可执行文件格式.全称是Executable and Linking Format,这个名字相当关键,包含了ELF所需要支持的两个功能——执行和链接.</p>
-<h2 id="准备工作">准备工作</h2>
-<h3 id="准备一个elf文件">准备一个Elf文件</h3>
-<div class="highlight"><div class="chroma">
+      </div><div class="content" id="content"><h1 id="elf" class="heading-element"><span>ELF</span>
+  <a href="#elf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>是UNIX系统实验室(USL)作为应用程序二进制接口(Application Binary Interface,ABI)而开发和发布的,也是Linux的主要可执行文件格式.全称是Executable and Linking Format,这个名字相当关键,包含了ELF所需要支持的两个功能——执行和链接.</p>
+<h2 id="准备工作" class="heading-element"><span>准备工作</span>
+  <a href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="准备一个elf文件" class="heading-element"><span>准备一个Elf文件</span>
+  <a href="#%e5%87%86%e5%a4%87%e4%b8%80%e4%b8%aaelf%e6%96%87%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -316,11 +399,13 @@
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[]){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Hello ELF!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="makefile脚本">makefile脚本</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="makefile脚本" class="heading-element"><span>makefile脚本</span>
+  <a href="#makefile%e8%84%9a%e6%9c%ac" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -342,31 +427,29 @@
 </span></span><span class="line"><span class="cl"> adb shell <span class="k">$(</span>AS_PATH<span class="k">)</span>/<span class="k">$(</span>ELF_NAME<span class="k">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="文件格式">文件格式</h2>
-<h3 id="概述">概述</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f%e6%a6%82%e8%bf%b0.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%A6%82%E8%BF%B0.png, images/%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f%e6%a6%82%e8%bf%b0.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%A6%82%E8%BF%B0.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%A6%82%E8%BF%B0.png"
-        title="文件格式概述" /></p>
+</div><h2 id="文件格式" class="heading-element"><span>文件格式</span>
+  <a href="#%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="概述" class="heading-element"><span>概述</span>
+  <a href="#%e6%a6%82%e8%bf%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%A6%82%E8%BF%B0.png" alt="文件格式概述" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%A6%82%E8%BF%B0.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%A6%82%E8%BF%B0.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%A6%82%E8%BF%B0.png?size=large 2x" data-title="文件格式概述" style="--width: 822px;--aspect-ratio: 822 / 779;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>程序头表指向段,等价于PE中的节,用来描述内存映射.
 节头表指向节,类似PE的数据目录,指向各种表.
 在Obj文件中段是可选的,在可执行文件中节是可选的,但是NDK编译出的ELF文件,段和节都是有的.</p>
 <p>总体来说就是一个ELF文件包含3部分,ELF文件头、节、段.</p>
-<h4 id="数据类型">数据类型</h4>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png, images/%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png"
-        title="数据类型" /></p>
-<h3 id="elf文件头">ELF文件头</h3>
-<div class="highlight"><div class="chroma">
+<h4 id="数据类型" class="heading-element"><span>数据类型</span>
+  <a href="#%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png" alt="数据类型" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png?size=large 2x" data-title="数据类型" style="--width: 1116px;--aspect-ratio: 1116 / 604;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="elf文件头" class="heading-element"><span>ELF文件头</span>
+  <a href="#elf%e6%96%87%e4%bb%b6%e5%a4%b4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -403,117 +486,121 @@
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Half</span> <span class="n">e_shentsize</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Half</span> <span class="n">e_shnum</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Half</span> <span class="n">e_shstrndx</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Ehdr</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Ehdr</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="e_ident">e_ident</h4>
-<p>这16字节是ELF标识,前4字节是文件标志,不可修改.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/e_ident.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_ident.png, images/e_ident.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_ident.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_ident.png"
-        title="e_ident" /></p>
-<h5 id="ei_class">EI_CLASS</h5>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/EI_CLASS.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png, images/EI_CLASS.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png"
-        title="EI_CLASS" /></p>
+</div><h4 id="e_ident" class="heading-element"><span>e_ident</span>
+  <a href="#e_ident" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>这16字节是ELF标识,前4字节是文件标志,不可修改.</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_ident.png" alt="e_ident" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_ident.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_ident.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_ident.png?size=large 2x" data-title="e_ident" style="--width: 703px;--aspect-ratio: 703 / 902;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h5 id="ei_class" class="heading-element"><span>EI_CLASS</span>
+  <a href="#ei_class" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png" alt="EI_CLASS" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png?size=large 2x" data-title="EI_CLASS" style="--width: 675px;--aspect-ratio: 675 / 347;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这个字节指明了文件类型.
 Android系统不检查这个字节,它是通过判断指令集v7a,v8a来确定是32位还是64位.
 IDA检查了这个字节,如果修改了这个字节,IDA就无法反汇编.</p>
-<h5 id="ei_data">EI_DATA</h5>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/EI_DATA.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png, images/EI_DATA.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png"
-        title="EI_DATA" /></p>
+<h5 id="ei_data" class="heading-element"><span>EI_DATA</span>
+  <a href="#ei_data" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png" alt="EI_DATA" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png?size=large 2x" data-title="EI_DATA" style="--width: 750px;--aspect-ratio: 750 / 348;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这个字节决定了接下来ELF文件结构体的解析是按大尾方式还是小尾方式.
 Android系统不检查这个字节,默认为小尾方式.
 IDA检查了这个字节,如果修改了这个字节,IDA就无法反汇编.</p>
-<h5 id="ei_version">EI_VERSION</h5>
-<p>ELF文件头的版本.</p>
-<h4 id="e_type">e_type</h4>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/e_type.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png, images/e_type.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png"
-        title="e_type" /></p>
+<h5 id="ei_version" class="heading-element"><span>EI_VERSION</span>
+  <a href="#ei_version" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>ELF文件头的版本.</p>
+<h4 id="e_type" class="heading-element"><span>e_type</span>
+  <a href="#e_type" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png" alt="e_type" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png?size=large 2x" data-title="e_type" style="--width: 944px;--aspect-ratio: 944 / 696;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这2字节是文件类型.
 Android5.0之后,可执行文件全部为so文件.
 Android高版本,这2字节只能是03,不能修改.</p>
-<h4 id="e_machine">e_machine</h4>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/e_machine1.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png, images/e_machine1.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png"
-        title="e_machine1" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/e_machine2.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine2.png, images/e_machine2.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine2.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine2.png"
-        title="e_machine2" /></p>
+<h4 id="e_machine" class="heading-element"><span>e_machine</span>
+  <a href="#e_machine" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png" alt="e_machine1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png?size=large 2x" data-title="e_machine1" style="--width: 1049px;--aspect-ratio: 1049 / 916;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine2.png" alt="e_machine2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine2.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine2.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine2.png?size=large 2x" data-title="e_machine2" style="--width: 1374px;--aspect-ratio: 1374 / 675;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这2字节是指令集,可在elf-em.h这个头文件中,查看扩展指令集.
 这2字节不可修改.</p>
-<h4 id="e_version">e_version</h4>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/e_version.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png, images/e_version.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png"
-        title="e_version" /></p>
+<h4 id="e_version" class="heading-element"><span>e_version</span>
+  <a href="#e_version" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png" alt="e_version" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png?size=large 2x" data-title="e_version" style="--width: 628px;--aspect-ratio: 628 / 265;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这4字节指明目标文件的版本.
 Android系统不检查这4字节.
 IDA检查了这4字节,不过影响不大,如果修改了,IDA还是可以反汇编.</p>
-<h4 id="e_entry">e_entry</h4>
-<p>这4字节是程序入口点(OEP),是个RVA.
+<h4 id="e_entry" class="heading-element"><span>e_entry</span>
+  <a href="#e_entry" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>这4字节是程序入口点(OEP),是个RVA.
 但如果上面e_type的值是02,这个值就是VA.
 如果是共享库文件,这4字节是0.
 如果是可执行文件,这4字节不是0.
 这是共享库文件和可执行文件很重要的差别.</p>
-<h4 id="e_phoff">e_phoff</h4>
-<p>这4字节是程序头表偏移,如果没有程序头表,该值应为0.</p>
-<h4 id="e_shoff">e_shoff</h4>
-<p>这4字节是节头表偏移,如果没有节头表,该值应为0.
+<h4 id="e_phoff" class="heading-element"><span>e_phoff</span>
+  <a href="#e_phoff" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>这4字节是程序头表偏移,如果没有程序头表,该值应为0.</p>
+<h4 id="e_shoff" class="heading-element"><span>e_shoff</span>
+  <a href="#e_shoff" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>这4字节是节头表偏移,如果没有节头表,该值应为0.
 在Android对抗中,删节表是很常见的.</p>
-<h4 id="e_flags">e_flags</h4>
-<p>这4字节是个标志,没什么用.</p>
-<h4 id="e_ehsize">e_ehsize</h4>
-<p>这2字节是ELF文件头大小,以字节为单位.
+<h4 id="e_flags" class="heading-element"><span>e_flags</span>
+  <a href="#e_flags" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>这4字节是个标志,没什么用.</p>
+<h4 id="e_ehsize" class="heading-element"><span>e_ehsize</span>
+  <a href="#e_ehsize" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>这2字节是ELF文件头大小,以字节为单位.
 Android系统,不检查这2字节,默认ELF文件头大小为52字节.
 IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警告,影响不大,仍然可以反汇编.</p>
-<h4 id="e_phentsize">e_phentsize</h4>
-<p>这2字节表明程序头表每一个表项的大小,以字节为单位.</p>
-<h4 id="e_phnum">e_phnum</h4>
-<p>这2字节表明程序头表总共有多少表项,如果没有程序头表,该值应设为0.</p>
-<h4 id="e_shentsize">e_shentsize</h4>
-<p>这2字节表明节头表每一个表项的大小,以字节为单位.</p>
-<h4 id="e_shnum">e_shnum</h4>
-<p>这2字节表明节头表总共有多少表项,如果没有节头表,该值应设为0.</p>
-<h4 id="e_shstrndx">e_shstrndx</h4>
-<p>这2字节是节头表中与节名字表相对应表项的索引.</p>
-<h3 id="节">节</h3>
-<div class="highlight"><div class="chroma">
+<h4 id="e_phentsize" class="heading-element"><span>e_phentsize</span>
+  <a href="#e_phentsize" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>这2字节表明程序头表每一个表项的大小,以字节为单位.</p>
+<h4 id="e_phnum" class="heading-element"><span>e_phnum</span>
+  <a href="#e_phnum" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>这2字节表明程序头表总共有多少表项,如果没有程序头表,该值应设为0.</p>
+<h4 id="e_shentsize" class="heading-element"><span>e_shentsize</span>
+  <a href="#e_shentsize" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>这2字节表明节头表每一个表项的大小,以字节为单位.</p>
+<h4 id="e_shnum" class="heading-element"><span>e_shnum</span>
+  <a href="#e_shnum" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>这2字节表明节头表总共有多少表项,如果没有节头表,该值应设为0.</p>
+<h4 id="e_shstrndx" class="heading-element"><span>e_shstrndx</span>
+  <a href="#e_shstrndx" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>这2字节是节头表中与节名字表相对应表项的索引.</p>
+<h3 id="节" class="heading-element"><span>节</span>
+  <a href="#%e8%8a%82" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -540,16 +627,21 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">Elf32_Word</span> <span class="n">sh_info</span><span class="p">;</span>       <span class="c1">//节的附加信息,根据节的类型不同,本成员的意义也有所不同
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">Elf32_Word</span> <span class="n">sh_addralign</span><span class="p">;</span>  <span class="c1">//对齐值
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">Elf32_Word</span> <span class="n">sh_entsize</span><span class="p">;</span>    <span class="c1">//有一些节的内容是一张表,其中每一个表项的大小是固定的,比如符号表.对于这种表来说,本成员指定其每一个表项的大小
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">Elf32_Shdr</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">Elf32_Shdr</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="sh_name">sh_name</h4>
-<p>4字节,是个偏移值,暂记为P1.
+</div><h4 id="sh_name" class="heading-element"><span>sh_name</span>
+  <a href="#sh_name" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>4字节,是个偏移值,暂记为P1.
 首先通过ELF文件头最后一项e_shstrndx拿到节表中节名称表对应表项的索引,
 然后在节表中找到该项,找到sh_offset文件偏移值,暂记为P2
 最后将P1 + P2,即可得到该节名字的字符串文件偏移值.</p>
-<h4 id="sh_type">sh_type</h4>
-<p>4字节,节类型.</p>
+<h4 id="sh_type" class="heading-element"><span>sh_type</span>
+  <a href="#sh_type" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>4字节,节类型.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -631,43 +723,55 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span><span class="line"><span class="cl"> <span class="n">SHT_HIPROC</span> <span class="o">=</span> <span class="mh">0x7fffffff</span><span class="p">,</span> <span class="cm">/* End of processor-specific section type */</span>
 </span></span><span class="line"><span class="cl"> <span class="n">SHT_LOUSER</span> <span class="o">=</span> <span class="mh">0x80000000</span><span class="p">,</span> <span class="cm">/* Start of application-specific */</span>
 </span></span><span class="line"><span class="cl"> <span class="n">SHT_HIUSER</span> <span class="o">=</span> <span class="mh">0x8fffffff</span> <span class="cm">/* Ennd of application-specific */</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">s_type32_e</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">s_type32_e</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="sh_flags">sh_flags</h4>
-<p>4字节,由一系列标志比特位组成.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/sh_flags.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_flags.png, images/sh_flags.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_flags.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_flags.png"
-        title="sh_flags" /></p>
-<h4 id="sh_addr">sh_addr</h4>
-<p>4字节,内存地址.</p>
-<h4 id="sh_offset">sh_offset</h4>
-<p>4字节,文件偏移.</p>
-<h4 id="sh_size">sh_size</h4>
-<p>4字节,节大小.</p>
-<h4 id="sh_link">sh_link</h4>
-<p>4字节,一个索引值,指向节头表中本节所对应的位置.</p>
-<h4 id="sh_info">sh_info</h4>
-<p>4字节,节的附加信息,根据节的类型不同,本成员的意义也有所不同.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/sh_info.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_info.png, images/sh_info.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_info.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_info.png"
-        title="sh_info" /></p>
-<h4 id="sh_addralign">sh_addralign</h4>
-<p>4字节, 对齐值.</p>
-<h4 id="sh_entsize">sh_entsize</h4>
-<p>4字节,有一些节的内容是一张表,其中每一个表项的大小是固定的,比如符号表,对于这种表来说,本成员指定其每一个表项的大小.</p>
-<h3 id="特殊节">特殊节</h3>
-<div class="highlight"><div class="chroma">
+</div><h4 id="sh_flags" class="heading-element"><span>sh_flags</span>
+  <a href="#sh_flags" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>4字节,由一系列标志比特位组成.</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_flags.png" alt="sh_flags" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_flags.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_flags.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_flags.png?size=large 2x" data-title="sh_flags" style="--width: 807px;--aspect-ratio: 807 / 416;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h4 id="sh_addr" class="heading-element"><span>sh_addr</span>
+  <a href="#sh_addr" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>4字节,内存地址.</p>
+<h4 id="sh_offset" class="heading-element"><span>sh_offset</span>
+  <a href="#sh_offset" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>4字节,文件偏移.</p>
+<h4 id="sh_size" class="heading-element"><span>sh_size</span>
+  <a href="#sh_size" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>4字节,节大小.</p>
+<h4 id="sh_link" class="heading-element"><span>sh_link</span>
+  <a href="#sh_link" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>4字节,一个索引值,指向节头表中本节所对应的位置.</p>
+<h4 id="sh_info" class="heading-element"><span>sh_info</span>
+  <a href="#sh_info" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>4字节,节的附加信息,根据节的类型不同,本成员的意义也有所不同.</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_info.png" alt="sh_info" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_info.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_info.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_info.png?size=large 2x" data-title="sh_info" style="--width: 1340px;--aspect-ratio: 1340 / 695;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h4 id="sh_addralign" class="heading-element"><span>sh_addralign</span>
+  <a href="#sh_addralign" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>4字节, 对齐值.</p>
+<h4 id="sh_entsize" class="heading-element"><span>sh_entsize</span>
+  <a href="#sh_entsize" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>4字节,有一些节的内容是一张表,其中每一个表项的大小是固定的,比如符号表,对于这种表来说,本成员指定其每一个表项的大小.</p>
+<h3 id="特殊节" class="heading-element"><span>特殊节</span>
+  <a href="#%e7%89%b9%e6%ae%8a%e8%8a%82" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -749,8 +853,11 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">.</span><span class="n">ARM</span><span class="p">.</span><span class="n">extab</span>  <span class="c1">//异常表
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="符号表">符号表</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="符号表" class="heading-element"><span>符号表</span>
+  <a href="#%e7%ac%a6%e5%8f%b7%e8%a1%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -769,11 +876,13 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//符号表字符串
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">.</span><span class="n">dynstr</span>
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="n">strtab</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="n">strtab</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="符号表项结构">符号表项结构</h4>
-<div class="highlight"><div class="chroma">
+</div><h4 id="符号表项结构" class="heading-element"><span>符号表项结构</span>
+  <a href="#%e7%ac%a6%e5%8f%b7%e8%a1%a8%e9%a1%b9%e7%bb%93%e6%9e%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -792,22 +901,20 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">st_info</span><span class="p">;</span>  <span class="c1">//符号的类型和属性
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">st_other</span><span class="p">;</span> <span class="c1">//暂未使用
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">Elf32_Half</span> <span class="n">st_shndx</span><span class="p">;</span>    <span class="c1">//一个索引值,指向相关联的节在节头表中的索引
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">Elf32_Sym</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">Elf32_Sym</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>符号表描述了导入和导出,st_value的值为非0,表示是导出为0,则表示是导入.</p>
-<h5 id="st_name">st_name</h5>
-<p>指向字符串表的索引,节头表中的link值说明了是哪个字符串表.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/st_name.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_name.png, images/st_name.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_name.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_name.png"
-        title="st_name" /></p>
-<h5 id="st_info">st_info</h5>
-<div class="highlight"><div class="chroma">
+<h5 id="st_name" class="heading-element"><span>st_name</span>
+  <a href="#st_name" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>指向字符串表的索引,节头表中的link值说明了是哪个字符串表.</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_name.png" alt="st_name" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_name.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_name.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_name.png?size=large 2x" data-title="st_name" style="--width: 1938px;--aspect-ratio: 1938 / 841;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h5 id="st_info" class="heading-element"><span>st_info</span>
+  <a href="#st_info" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -816,31 +923,22 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define ELF32_ST_BIND(i) ((i)&gt;&gt;4) 
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define ELF32_ST_TYPE(i) ((i)&amp;0xf) 
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define ELF32_ST_INFO(b,t) (((b)&lt;&lt;4)+((t)&amp;0xf))
-</span></span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define ELF32_ST_INFO(b,t) (((b)&lt;&lt;4)+((t)&amp;0xf))</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>高4字节是符号绑定.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e7%ac%a6%e5%8f%b7%e7%bb%91%e5%ae%9a.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%BB%91%E5%AE%9A.png, images/%e7%ac%a6%e5%8f%b7%e7%bb%91%e5%ae%9a.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%BB%91%E5%AE%9A.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%BB%91%E5%AE%9A.png"
-        title="符号绑定" /></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%BB%91%E5%AE%9A.png" alt="符号绑定" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%BB%91%E5%AE%9A.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%BB%91%E5%AE%9A.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%BB%91%E5%AE%9A.png?size=large 2x" data-title="符号绑定" style="--width: 514px;--aspect-ratio: 514 / 488;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>低4字节是符号类型.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e7%ac%a6%e5%8f%b7%e7%b1%bb%e5%9e%8b.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B.png, images/%e7%ac%a6%e5%8f%b7%e7%b1%bb%e5%9e%8b.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B.png"
-        title="符号类型" /></p>
-<h5 id="st_shndx">st_shndx</h5>
-<p>这里我们导出一个全局变量,来理解下这个字段的意思.</p>
-<h6 id="源代码">源代码</h6>
-<div class="highlight"><div class="chroma">
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B.png" alt="符号类型" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B.png?size=large 2x" data-title="符号类型" style="--width: 538px;--aspect-ratio: 538 / 644;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h5 id="st_shndx" class="heading-element"><span>st_shndx</span>
+  <a href="#st_shndx" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>这里我们导出一个全局变量,来理解下这个字段的意思.</p>
+<h6 id="源代码" class="heading-element"><span>源代码</span>
+  <a href="#%e6%ba%90%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -855,34 +953,25 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Hello ELF! %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">g_n</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h6 id="分析">分析</h6>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/st_shndx1.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png, images/st_shndx1.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png"
-        title="st_shndx1" /></p>
+</div><h6 id="分析" class="heading-element"><span>分析</span>
+  <a href="#%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png" alt="st_shndx1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png?size=large 2x" data-title="st_shndx1" style="--width: 1946px;--aspect-ratio: 1946 / 796;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>从上图中可以看到,导出的全局变量g_n的RVA为0x2000,大小为4字节,st_shndx字段为22.
 那么这个全局变量的值在文件偏移的哪个地方记录呢?
 我们去节头表中的第22项看下.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/st_shndx2.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx2.png, images/st_shndx2.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx2.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx2.png"
-        title="st_shndx2" /></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx2.png" alt="st_shndx2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx2.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx2.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx2.png?size=large 2x" data-title="st_shndx2" style="--width: 1969px;--aspect-ratio: 1969 / 1208;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>节头表的第22项,所在的RVA是0x2000,FOA是0x1000,
 而全局变量g_n的RVA为0x2000,大小为4字节,
 也就是说文件偏移0x1000的地方开始是4字节内容就是全局变量的值,100.</p>
-<h3 id="哈希表">哈希表</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="哈希表" class="heading-element"><span>哈希表</span>
+  <a href="#%e5%93%88%e5%b8%8c%e8%a1%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -894,24 +983,29 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">.</span><span class="n">gnu</span><span class="p">.</span><span class="n">hash</span> <span class="c1">//新版,效率高,只可查导出
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="旧版hash">旧版(.hash)</h4>
-<h5 id="哈希表结构">哈希表结构</h5>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e5%93%88%e5%b8%8c%e8%a1%a8%e7%bb%93%e6%9e%84.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png, images/%e5%93%88%e5%b8%8c%e8%a1%a8%e7%bb%93%e6%9e%84.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png"
-        title="哈希表结构" /></p>
+</div><h4 id="旧版hash" class="heading-element"><span>旧版(.hash)</span>
+  <a href="#%e6%97%a7%e7%89%88hash" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><h5 id="哈希表结构" class="heading-element"><span>哈希表结构</span>
+  <a href="#%e5%93%88%e5%b8%8c%e8%a1%a8%e7%bb%93%e6%9e%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png" alt="哈希表结构" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png?size=large 2x" data-title="哈希表结构" style="--width: 548px;--aspect-ratio: 548 / 311;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>Bucket数组中含有nbucket个项,chain数组中含有nchain个项,序号都从0开始.
 Bucket和chain中包含的都是符号表中的索引.hash有可能冲突,chain里面放的就是所有冲突的.
 给定一个符号名字,返回一个哈希值x,然后由bucket[x%nbucket]得到一个符号表索引y,
 如果索引y对应的符号表项不是想要的符号(通过对比名字),则由chain[y]得到下一个符号表索引z,如果仍不是想要的符号,继续chain[z]…,
 如果chain[z]的值为0,说明该符号不存在.</p>
-<h5 id="哈希算法">哈希算法</h5>
-<h6 id="原始算法">原始算法</h6>
-<div class="highlight"><div class="chroma">
+<h5 id="哈希算法" class="heading-element"><span>哈希算法</span>
+  <a href="#%e5%93%88%e5%b8%8c%e7%ae%97%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><h6 id="原始算法" class="heading-element"><span>原始算法</span>
+  <a href="#%e5%8e%9f%e5%a7%8b%e7%ae%97%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -938,11 +1032,13 @@ Bucket和chain中包含的都是符号表中的索引.hash有可能冲突,chain�
 </span></span><span class="line"><span class="cl">  <span class="n">h</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="n">g</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h6 id="android中的hash算法">Android中的hash算法</h6>
-<p>Google并没有用原始的hash算法.</p>
+</div><h6 id="android中的hash算法" class="heading-element"><span>Android中的hash算法</span>
+  <a href="#android%e4%b8%ad%e7%9a%84hash%e7%ae%97%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p>Google并没有用原始的hash算法.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -974,54 +1070,38 @@ Bucket和chain中包含的都是符号表中的索引.hash有可能冲突,chain�
 </span></span><span class="line"><span class="cl">  <span class="n">h</span> <span class="o">^=</span> <span class="n">g</span> <span class="o">&gt;&gt;</span> <span class="mi">24</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="示例">示例</h5>
-<p>环境:解压AndroidStudio编译出来的Release版apk,查看其中的so文件.</p>
+</div><h5 id="示例" class="heading-element"><span>示例</span>
+  <a href="#%e7%a4%ba%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>环境:解压AndroidStudio编译出来的Release版apk,查看其中的so文件.</p>
 <p>目标:查找main这个符号.</p>
 <ol>
 <li>查看.hash数据.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e5%93%88%e5%b8%8c%e8%a1%a8%e7%a4%ba%e4%be%8b1.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B1.png, images/%e5%93%88%e5%b8%8c%e8%a1%a8%e7%a4%ba%e4%be%8b1.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B1.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B1.png"
-        title="哈希表示例1" /></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B1.png" alt="哈希表示例1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B1.png?size=large 2x" data-title="哈希表示例1" style="--width: 1857px;--aspect-ratio: 1857 / 1228;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>可以得到:
 nbucket = 0x11
 nchain = 0x14</p>
 <ol start="2">
 <li>计算hash%nbucket.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e5%93%88%e5%b8%8c%e8%a1%a8%e7%a4%ba%e4%be%8b2.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B2.png, images/%e5%93%88%e5%b8%8c%e8%a1%a8%e7%a4%ba%e4%be%8b2.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B2.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B2.png"
-        title="哈希表示例2" /></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B2.png" alt="哈希表示例2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B2.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B2.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B2.png?size=large 2x" data-title="哈希表示例2" style="--width: 1168px;--aspect-ratio: 1168 / 826;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>得到的结果y = 10.</p>
 <ol start="3">
 <li>查找main.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e5%93%88%e5%b8%8c%e8%a1%a8%e7%a4%ba%e4%be%8b3.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B3.png, images/%e5%93%88%e5%b8%8c%e8%a1%a8%e7%a4%ba%e4%be%8b3.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B3.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B3.png"
-        title="哈希表示例3" /></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B3.png" alt="哈希表示例3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B3.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B3.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%A4%BA%E4%BE%8B3.png?size=large 2x" data-title="哈希表示例3" style="--width: 1927px;--aspect-ratio: 1927 / 1084;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>y = 10,bucket[y] = 7,查看动态符号表的第7项不是main,
 chain[7] =  3,查看动态符号表的第3项不是main,
 chain[3] = 0x11,查看动态符号表的第17项是main.</p>
-<h3 id="程序链接表">程序链接表</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="程序链接表" class="heading-element"><span>程序链接表</span>
+  <a href="#%e7%a8%8b%e5%ba%8f%e9%93%be%e6%8e%a5%e8%a1%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1030,20 +1110,16 @@ chain[3] = 0x11,查看动态符号表的第17项是main.</p>
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>外部调用的跳板,是个代理函数.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e7%a8%8b%e5%ba%8f%e9%93%be%e6%8e%a5%e8%a1%a8.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%A1%A8.png, images/%e7%a8%8b%e5%ba%8f%e9%93%be%e6%8e%a5%e8%a1%a8.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%A1%A8.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%A1%A8.png"
-        title="程序链接表" /></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%A1%A8.png" alt="程序链接表" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%A1%A8.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%A1%A8.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%A1%A8.png?size=large 2x" data-title="程序链接表" style="--width: 1956px;--aspect-ratio: 1956 / 965;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>IDA是通过节表拿到plt节的地址,从而解析plt函数的.
 从上图中可以看到每两个plt函数之间的大小为12字节,
 假如我们将节表中plt节的偏移加12字节的倍数,IDA解析api就会错位,实际上也确是如此.
 这样修改之后不会影响程序的运行,因为程序的运行是不需要节表的.</p>
-<h3 id="全局偏移表">全局偏移表</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="全局偏移表" class="heading-element"><span>全局偏移表</span>
+  <a href="#%e5%85%a8%e5%b1%80%e5%81%8f%e7%a7%bb%e8%a1%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1052,8 +1128,11 @@ chain[3] = 0x11,查看动态符号表的第17项是main.</p>
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>记录外部调用的入口地址.</p>
-<h4 id="plt和got的关系">plt和got的关系</h4>
-<div class="highlight"><div class="chroma">
+<h4 id="plt和got的关系" class="heading-element"><span>plt和got的关系</span>
+  <a href="#plt%e5%92%8cgot%e7%9a%84%e5%85%b3%e7%b3%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1086,11 +1165,13 @@ chain[3] = 0x11,查看动态符号表的第17项是main.</p>
 </span></span></span><span class="line"><span class="cl"><span class="cm"> *   dlopen
 </span></span></span><span class="line"><span class="cl"><span class="cm"> *   dlsym
 </span></span></span><span class="line"><span class="cl"><span class="cm"> *   got = addr
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="重定位表">重定位表</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="重定位表" class="heading-element"><span>重定位表</span>
+  <a href="#%e9%87%8d%e5%ae%9a%e4%bd%8d%e8%a1%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1100,8 +1181,11 @@ chain[3] = 0x11,查看动态符号表的第17项是main.</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">.</span><span class="n">rel</span><span class="p">.</span><span class="n">dyn</span> <span class="c1">//修全局变量
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="项结构">项结构</h4>
-<div class="highlight"><div class="chroma">
+</div><h4 id="项结构" class="heading-element"><span>项结构</span>
+  <a href="#%e9%a1%b9%e7%bb%93%e6%9e%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1124,11 +1208,13 @@ chain[3] = 0x11,查看动态符号表的第17项是main.</p>
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Addr</span> <span class="n">r_offset</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Word</span> <span class="n">r_info</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Sword</span> <span class="n">r_addend</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Rela</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Rela</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="r_info-的宏定义">r_info 的宏定义</h5>
-<div class="highlight"><div class="chroma">
+</div><h5 id="r_info-的宏定义" class="heading-element"><span>r_info 的宏定义</span>
+  <a href="#r_info-%e7%9a%84%e5%ae%8f%e5%ae%9a%e4%b9%89" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1137,43 +1223,33 @@ chain[3] = 0x11,查看动态符号表的第17项是main.</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#define ELF32_R_SYM(i) ((i)&gt;&gt;8)               </span><span class="c1">//高24位是符号表索引,修的位置
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define ELF32_R_TYPE(i) ((unsigned char)(i))  </span><span class="c1">//低8位是重定位的类型,如何修
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define ELF32_R_INFO(s,t) (((s)&lt;&lt;8)+(unsigned char)(t))
-</span></span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define ELF32_R_INFO(s,t) (((s)&lt;&lt;8)+(unsigned char)(t))</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="示例-1">示例</h4>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e9%87%8d%e5%ae%9a%e4%bd%8d%e8%a1%a81.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png, images/%e9%87%8d%e5%ae%9a%e4%bd%8d%e8%a1%a81.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png"
-        title="重定位表1" /></p>
+</div><h4 id="示例-1" class="heading-element"><span>示例</span>
+  <a href="#%e7%a4%ba%e4%be%8b-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png" alt="重定位表1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png?size=large 2x" data-title="重定位表1" style="--width: 1882px;--aspect-ratio: 1882 / 1250;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>Elf32_Xword s_entsize = 8, 表示每项为8字节
 第一项为 F0 1F 00 00 16 02 00 00
 r_offset: 0x1FF0
 符号表索引:0x02
 重定位类型:0x16</p>
-<h5 id="ida查看偏移">IDA查看偏移</h5>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e9%87%8d%e5%ae%9a%e4%bd%8d%e8%a1%a82.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png, images/%e9%87%8d%e5%ae%9a%e4%bd%8d%e8%a1%a82.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png"
-        title="重定位表2" /></p>
-<h5 id="符号表第2项">符号表第2项</h5>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e9%87%8d%e5%ae%9a%e4%bd%8d%e8%a1%a83.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png, images/%e9%87%8d%e5%ae%9a%e4%bd%8d%e8%a1%a83.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png"
-        title="重定位表3" /></p>
-<h3 id="动态节">动态节</h3>
-<div class="highlight"><div class="chroma">
+<h5 id="ida查看偏移" class="heading-element"><span>IDA查看偏移</span>
+  <a href="#ida%e6%9f%a5%e7%9c%8b%e5%81%8f%e7%a7%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png" alt="重定位表2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png?size=large 2x" data-title="重定位表2" style="--width: 1319px;--aspect-ratio: 1319 / 302;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h5 id="符号表第2项" class="heading-element"><span>符号表第2项</span>
+  <a href="#%e7%ac%a6%e5%8f%b7%e8%a1%a8%e7%ac%ac2%e9%a1%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png" alt="重定位表3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png?size=large 2x" data-title="重定位表3" style="--width: 1903px;--aspect-ratio: 1903 / 480;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="动态节" class="heading-element"><span>动态节</span>
+  <a href="#%e5%8a%a8%e6%80%81%e8%8a%82" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1184,11 +1260,13 @@ r_offset: 0x1FF0
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="p">.</span><span class="n">dynamic</span>
 </span></span><span class="line"><span class="cl"><span class="cm">/*这里存放了软件运行时所需要的表,操作系统是从这里拿表的.
 </span></span></span><span class="line"><span class="cl"><span class="cm">但是这样说又有点矛盾,因为我们前面讲软件的运行是不需要节表的.
-</span></span></span><span class="line"><span class="cl"><span class="cm">那么操作系统不通过节表,如何拿到动态节的地址? 段中有描述.*/</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm">那么操作系统不通过节表,如何拿到动态节的地址? 段中有描述.*/</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="项结构-1">项结构</h4>
-<div class="highlight"><div class="chroma">
+</div><h4 id="项结构-1" class="heading-element"><span>项结构</span>
+  <a href="#%e9%a1%b9%e7%bb%93%e6%9e%84-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1205,38 +1283,35 @@ r_offset: 0x1FF0
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Elf32_Word</span> <span class="n">d_val</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">Elf32_Addr</span> <span class="n">d_ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"> <span class="p">}</span> <span class="n">d_un</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Dyn</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Dyn</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="d_tag">d_tag</h5>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/d_tag.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png, images/d_tag.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png"
-        title="d_tag" /></p>
-<h6 id="dt_needed">DT_NEEDED</h6>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/DT_NEEDED.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png, images/DT_NEEDED.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png"
-        title="DT_NEEDED" /></p>
+</div><h5 id="d_tag" class="heading-element"><span>d_tag</span>
+  <a href="#d_tag" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png" alt="d_tag" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png?size=large 2x" data-title="d_tag" style="--width: 1343px;--aspect-ratio: 1343 / 2371;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h6 id="dt_needed" class="heading-element"><span>DT_NEEDED</span>
+  <a href="#dt_needed" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png" alt="DT_NEEDED" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png?size=large 2x" data-title="DT_NEEDED" style="--width: 1947px;--aspect-ratio: 1947 / 958;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这里面存放的是软件运行所需要的动态库.
 前面我们讲符号表和重定位表,都没有提到对应的api在哪个库里面.
 假设软件运行需要两个库,libc.so、 libm.so
 现在有一个api,操作系统会看这个api在libc.so里面没,
 如果不在,就去看libm.so里面有没有这个导出函数.
 操作系统就这样遍历需要加载的库,就知道对应的api在哪个库里面了.</p>
-<h3 id="程序头表">程序头表</h3>
-<p>用来保存程序加载到内存中所需要的信息,用段(segment)来表示,与节头表类似,同样是数组结构.
+<h3 id="程序头表" class="heading-element"><span>程序头表</span>
+  <a href="#%e7%a8%8b%e5%ba%8f%e5%a4%b4%e8%a1%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>用来保存程序加载到内存中所需要的信息,用段(segment)来表示,与节头表类似,同样是数组结构.
 数组的位置在偏移e_phoff处,每个元素(segment header)的大小为e_phentsize,共有e_phnum个元素.</p>
-<h4 id="程序头结构">程序头结构</h4>
-<div class="highlight"><div class="chroma">
+<h4 id="程序头结构" class="heading-element"><span>程序头结构</span>
+  <a href="#%e7%a8%8b%e5%ba%8f%e5%a4%b4%e7%bb%93%e6%9e%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1259,50 +1334,68 @@ r_offset: 0x1FF0
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Word</span> <span class="n">p_memsz</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Word</span> <span class="n">p_flags</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Word</span> <span class="n">p_align</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Phdr</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Phdr</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="p_type">p_type</h5>
-<p>类型
+</div><h5 id="p_type" class="heading-element"><span>p_type</span>
+  <a href="#p_type" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>类型
 PT_NULL:表示该段未使用.
 PT_LOAD:表示要将文件中的segment内容映射到进程内存中对应的地址上.
 PT_DYNAMIC:动态节.
 PT_INTERP:包含interpreter的路径.
 PT_HDR:表示程序头表本身.</p>
-<h5 id="p_offset">p_offset</h5>
-<p>该段的文件偏移.</p>
-<h5 id="p_vaddr">p_vaddr</h5>
-<p>段数据应该加载到进程的虚拟地址.</p>
-<h5 id="p_paddr">p_paddr</h5>
-<p>段数据应该加载到进程的物理地址.</p>
-<h5 id="p_filesz">p_filesz</h5>
-<p>该段的文件大小.</p>
-<h5 id="p_memsz">p_memsz</h5>
-<p>该段的内存大小.</p>
-<h5 id="p_flags">p_flags</h5>
-<p>段的内存属性.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/p_flags.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/p_flags.png, images/p_flags.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/p_flags.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/p_flags.png"
-        title="p_flags" /></p>
-<h5 id="p_align">p_align</h5>
-<p>该段数据的对齐值.</p>
-<h4 id="段示例">段示例</h4>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%ae%b5%e7%a4%ba%e4%be%8b.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png, images/%e6%ae%b5%e7%a4%ba%e4%be%8b.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png"
-        title="段示例" /></p>
-<h3 id="攻防对抗">攻防对抗</h3>
-<h4 id="动态运行修改api地址">动态运行,修改api地址</h4>
-<p>要实现的效果是,代码中动态调用libc.so库中的exit函数,通过修改libc.so符号表中的exit函数的地址为任意函数地址,从而使在IDA中静态分析,看到的是调用exit函数,实际上调用的是其他函数.函数前加static关键字,可使该函数不导出.</p>
+<h5 id="p_offset" class="heading-element"><span>p_offset</span>
+  <a href="#p_offset" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>该段的文件偏移.</p>
+<h5 id="p_vaddr" class="heading-element"><span>p_vaddr</span>
+  <a href="#p_vaddr" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>段数据应该加载到进程的虚拟地址.</p>
+<h5 id="p_paddr" class="heading-element"><span>p_paddr</span>
+  <a href="#p_paddr" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>段数据应该加载到进程的物理地址.</p>
+<h5 id="p_filesz" class="heading-element"><span>p_filesz</span>
+  <a href="#p_filesz" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>该段的文件大小.</p>
+<h5 id="p_memsz" class="heading-element"><span>p_memsz</span>
+  <a href="#p_memsz" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>该段的内存大小.</p>
+<h5 id="p_flags" class="heading-element"><span>p_flags</span>
+  <a href="#p_flags" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>段的内存属性.</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/p_flags.png" alt="p_flags" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/p_flags.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/p_flags.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/p_flags.png?size=large 2x" data-title="p_flags" style="--width: 848px;--aspect-ratio: 848 / 432;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h5 id="p_align" class="heading-element"><span>p_align</span>
+  <a href="#p_align" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>该段数据的对齐值.</p>
+<h4 id="段示例" class="heading-element"><span>段示例</span>
+  <a href="#%e6%ae%b5%e7%a4%ba%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png" alt="段示例" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png?size=large 2x" data-title="段示例" style="--width: 1917px;--aspect-ratio: 1917 / 418;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h3 id="攻防对抗" class="heading-element"><span>攻防对抗</span>
+  <a href="#%e6%94%bb%e9%98%b2%e5%af%b9%e6%8a%97" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 id="动态运行修改api地址" class="heading-element"><span>动态运行,修改api地址</span>
+  <a href="#%e5%8a%a8%e6%80%81%e8%bf%90%e8%a1%8c%e4%bf%ae%e6%94%b9api%e5%9c%b0%e5%9d%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>要实现的效果是,代码中动态调用libc.so库中的exit函数,通过修改libc.so符号表中的exit函数的地址为任意函数地址,从而使在IDA中静态分析,看到的是调用exit函数,实际上调用的是其他函数.函数前加static关键字,可使该函数不导出.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -1710,12 +1803,14 @@ PT_HDR:表示程序头表本身.</p>
 </span></span><span class="line"><span class="cl">    <span class="n">pfnExit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/%E5%8A%A8%E6%80%81%E8%B0%83%E7%94%A8%E4%BF%AE%E6%94%B9api%E5%9C%B0%E5%9D%80.7z" rel="">动态调用修改api地址.7z</a></p>
-<h4 id="got表hook">Got表Hook</h4>
-<div class="highlight"><div class="chroma">
+</div><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/%E5%8A%A8%E6%80%81%E8%B0%83%E7%94%A8%E4%BF%AE%E6%94%B9api%E5%9C%B0%E5%9D%80.7z">动态调用修改api地址.7z</a></p>
+<h4 id="got表hook" class="heading-element"><span>Got表Hook</span>
+  <a href="#got%e8%a1%a8hook" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -2290,72 +2385,79 @@ PT_HDR:表示程序头表本身.</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="s">&#34;123&#34;</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/Got%E8%A1%A8Hook.7z" rel="">Got表Hook.7z</a></p>
-<h4 id="阅读系统加载动态节数据源码">阅读系统加载动态节数据源码</h4>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e7%b3%bb%e7%bb%9f%e5%8a%a0%e8%bd%bd%e5%8a%a8%e6%80%81%e8%8a%82%e6%95%b0%e6%8d%ae%e6%ba%90%e7%a0%81.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%B3%BB%E7%BB%9F%E5%8A%A0%E8%BD%BD%E5%8A%A8%E6%80%81%E8%8A%82%E6%95%B0%E6%8D%AE%E6%BA%90%E7%A0%81.png, images/%e7%b3%bb%e7%bb%9f%e5%8a%a0%e8%bd%bd%e5%8a%a8%e6%80%81%e8%8a%82%e6%95%b0%e6%8d%ae%e6%ba%90%e7%a0%81.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%B3%BB%E7%BB%9F%E5%8A%A0%E8%BD%BD%E5%8A%A8%E6%80%81%E8%8A%82%E6%95%B0%E6%8D%AE%E6%BA%90%E7%A0%81.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%B3%BB%E7%BB%9F%E5%8A%A0%E8%BD%BD%E5%8A%A8%E6%80%81%E8%8A%82%E6%95%B0%E6%8D%AE%E6%BA%90%E7%A0%81.png"
-        title="系统加载动态节数据源码" /></p>
+</div><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/Got%E8%A1%A8Hook.7z">Got表Hook.7z</a></p>
+<h4 id="阅读系统加载动态节数据源码" class="heading-element"><span>阅读系统加载动态节数据源码</span>
+  <a href="#%e9%98%85%e8%af%bb%e7%b3%bb%e7%bb%9f%e5%8a%a0%e8%bd%bd%e5%8a%a8%e6%80%81%e8%8a%82%e6%95%b0%e6%8d%ae%e6%ba%90%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%B3%BB%E7%BB%9F%E5%8A%A0%E8%BD%BD%E5%8A%A8%E6%80%81%E8%8A%82%E6%95%B0%E6%8D%AE%E6%BA%90%E7%A0%81.png" alt="系统加载动态节数据源码" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%B3%BB%E7%BB%9F%E5%8A%A0%E8%BD%BD%E5%8A%A8%E6%80%81%E8%8A%82%E6%95%B0%E6%8D%AE%E6%BA%90%E7%A0%81.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%B3%BB%E7%BB%9F%E5%8A%A0%E8%BD%BD%E5%8A%A8%E6%80%81%E8%8A%82%E6%95%B0%E6%8D%AE%E6%BA%90%E7%A0%81.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%B3%BB%E7%BB%9F%E5%8A%A0%E8%BD%BD%E5%8A%A8%E6%80%81%E8%8A%82%E6%95%B0%E6%8D%AE%E6%BA%90%E7%A0%81.png?size=large 2x" data-title="系统加载动态节数据源码" style="--width: 2027px;--aspect-ratio: 2027 / 1370;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>从以上代码,我们能够发现两个问题,
 ①系统读取动态节数据,并没有拿动态节的大小字段,而是通过*d,判断是否是0,若是0,就结束.
 ②动态节每项8字节,描述了什么表,在哪里.如果动态节中有重复的表,会以最后的表为准(重复的,最后一个会将前面的覆盖掉),这样我们可以在原始动态节的后面伪造数据,只要动态节的结尾是0即可.我们可以将原始动态节的其中一个表多伪造几组假数据,只要动态节的最后,这个表记录的地址是原始的即可.这样修改后,IDA静态分析不会出错,但是IDA的动态调试就会出现问题.</p>
-<h4 id="抹除文件格式">抹除文件格式</h4>
-<p>我们知道程序的运行是不需要节的,需要的是段,因为段描述了内存映射.
+<h4 id="抹除文件格式" class="heading-element"><span>抹除文件格式</span>
+  <a href="#%e6%8a%b9%e9%99%a4%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>我们知道程序的运行是不需要节的,需要的是段,因为段描述了内存映射.
 但是当程序运行起来的时候,内存已经映射完成,此时我们可以将ELF文件的头以及程序头表抹除,
 这样不会影响程序的运行,可以防止别人内存Dump.
 如何破这一招?
 内存可以抹除文件格式,但是文件不可以,我们可以先内存Dump,
 然后从文件中将ELF文件的头以及程序头表复制到Dump出来的文件中.</p>
-<h4 id="重建节表">重建节表</h4>
-<p>IDA在解析ELF文件时,会去拿节表中的值,来提高反汇编的效果.而软件的运行,是不需要节表的.所以我们可以修改节表中的内容,来欺骗IDA.如修改节表代码段中的文件偏移或者大小,或者数据段已初始化节中的文件偏移或大小等.</p>
+<h4 id="重建节表" class="heading-element"><span>重建节表</span>
+  <a href="#%e9%87%8d%e5%bb%ba%e8%8a%82%e8%a1%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>IDA在解析ELF文件时,会去拿节表中的值,来提高反汇编的效果.而软件的运行,是不需要节表的.所以我们可以修改节表中的内容,来欺骗IDA.如修改节表代码段中的文件偏移或者大小,或者数据段已初始化节中的文件偏移或大小等.</p>
 <p>我们如何预防别人这样的操作呢?
 我们将节表删了(即将ELF文件头中的e_shoff设置为0)用IDA分析,来和未删节表前来进行对比.</p>
 <p>没有节表,IDA的反汇编效果很差,但是有节表,又担心被骗,我们可以根据段来重建节表.</p>
-<h5 id="节和段的关系">节和段的关系</h5>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e9%87%8d%e5%bb%ba%e8%8a%82%e8%a1%a8.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png, images/%e9%87%8d%e5%bb%ba%e8%8a%82%e8%a1%a8.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png"
-        title="重建节表" /></p>
-<h5 id="plt">plt</h5>
-<h6 id="结构">结构</h6>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e9%87%8d%e5%bb%ba%e8%8a%82%e8%a1%a81.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png, images/%e9%87%8d%e5%bb%ba%e8%8a%82%e8%a1%a81.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png"
-        title="重建节表1" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e9%87%8d%e5%bb%ba%e8%8a%82%e8%a1%a82.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A82.png, images/%e9%87%8d%e5%bb%ba%e8%8a%82%e8%a1%a82.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A82.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A82.png"
-        title="重建节表2" /></p>
-<h6 id="foa">FOA</h6>
-<p>DT_JMPREL表的FOA + SIZE,就是plt表的FOA.</p>
-<h6 id="size">SIZE</h6>
-<p>遍历段中的DT_JMPREL,拿重定位的api项数,记为x,plt的头为20字节,每个plt项12字节,则plt节的大小为 12 * x + 20.</p>
-<h5 id="text">text</h5>
-<h6 id="foa-1">FOA</h6>
-<p>plt表的FOA + SIZE,就是text表的FOA.</p>
-<h6 id="size-1">SIZE</h6>
-<p>PT_SHT_ARM_EXIDX表的FOA - (plt表的FOA + plt表的SIZE).</p>
-<h5 id="数据段">数据段</h5>
-<div class="highlight"><div class="chroma">
+<h5 id="节和段的关系" class="heading-element"><span>节和段的关系</span>
+  <a href="#%e8%8a%82%e5%92%8c%e6%ae%b5%e7%9a%84%e5%85%b3%e7%b3%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png" alt="重建节表" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png?size=large 2x" data-title="重建节表" style="--width: 1254px;--aspect-ratio: 1254 / 790;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h5 id="plt" class="heading-element"><span>plt</span>
+  <a href="#plt" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><h6 id="结构" class="heading-element"><span>结构</span>
+  <a href="#%e7%bb%93%e6%9e%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png" alt="重建节表1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png?size=large 2x" data-title="重建节表1" style="--width: 1950px;--aspect-ratio: 1950 / 978;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A82.png" alt="重建节表2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A82.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A82.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A82.png?size=large 2x" data-title="重建节表2" style="--width: 1864px;--aspect-ratio: 1864 / 978;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h6 id="foa" class="heading-element"><span>FOA</span>
+  <a href="#foa" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p>DT_JMPREL表的FOA + SIZE,就是plt表的FOA.</p>
+<h6 id="size" class="heading-element"><span>SIZE</span>
+  <a href="#size" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p>遍历段中的DT_JMPREL,拿重定位的api项数,记为x,plt的头为20字节,每个plt项12字节,则plt节的大小为 12 * x + 20.</p>
+<h5 id="text" class="heading-element"><span>text</span>
+  <a href="#text" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><h6 id="foa-1" class="heading-element"><span>FOA</span>
+  <a href="#foa-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p>plt表的FOA + SIZE,就是text表的FOA.</p>
+<h6 id="size-1" class="heading-element"><span>SIZE</span>
+  <a href="#size-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p>PT_SHT_ARM_EXIDX表的FOA - (plt表的FOA + plt表的SIZE).</p>
+<h5 id="数据段" class="heading-element"><span>数据段</span>
+  <a href="#%e6%95%b0%e6%8d%ae%e6%ae%b5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2366,21 +2468,26 @@ PT_HDR:表示程序头表本身.</p>
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>根据程序头表中的内存映射,来区分是.data还是.bss,映射内存的是.data,否则是.bss.</p>
-<h4 id="java函数hook">Java函数Hook</h4>
-<h5 id="dalvik虚拟机">Dalvik虚拟机</h5>
-<p>实验环境为Android4.1.</p>
+<h4 id="java函数hook" class="heading-element"><span>Java函数Hook</span>
+  <a href="#java%e5%87%bd%e6%95%b0hook" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><h5 id="dalvik虚拟机" class="heading-element"><span>Dalvik虚拟机</span>
+  <a href="#dalvik%e8%99%9a%e6%8b%9f%e6%9c%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>实验环境为Android4.1.</p>
 <p>实验目标:将Java中的加法修改为减法.</p>
-<h6 id="java源代码">Java源代码</h6>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/Dalvik%e8%99%9a%e6%8b%9f%e6%9c%ba1.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA1.png, images/Dalvik%e8%99%9a%e6%8b%9f%e6%9c%ba1.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA1.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA1.png"
-        title="Dalvik虚拟机1" /></p>
-<h6 id="反射调用java中的方法">反射调用Java中的方法</h6>
-<div class="highlight"><div class="chroma">
+<h6 id="java源代码" class="heading-element"><span>Java源代码</span>
+  <a href="#java%e6%ba%90%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA1.png" alt="Dalvik虚拟机1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA1.png?size=large 2x" data-title="Dalvik虚拟机1" style="--width: 1605px;--aspect-ratio: 1605 / 1132;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h6 id="反射调用java中的方法" class="heading-element"><span>反射调用Java中的方法</span>
+  <a href="#%e5%8f%8d%e5%b0%84%e8%b0%83%e7%94%a8java%e4%b8%ad%e7%9a%84%e6%96%b9%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2425,12 +2532,14 @@ PT_HDR:表示程序头表本身.</p>
 </span></span><span class="line"><span class="cl"> <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;3 + 5 = %d&#34;</span><span class="p">,</span> <span class="n">nRet</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">JNI_VERSION_1_6</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>从上面代码中,可以看到比较重要是地方是GetMethodID这个函数,它内部肯定拿到了Java中MyAdd的字节码,我们在Android源码中查看这个函数.</p>
-<h6 id="getmethodid">GetMethodID</h6>
-<p><a href="http://androidxref.com/4.1.1/xref/dalvik/vm/Jni.cpp" target="_blank" rel="noopener noreffer">http://androidxref.com/4.1.1/xref/dalvik/vm/Jni.cpp</a></p>
+<h6 id="getmethodid" class="heading-element"><span>GetMethodID</span>
+  <a href="#getmethodid" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p><a href="http://androidxref.com/4.1.1/xref/dalvik/vm/Jni.cpp"target="_blank" rel="external nofollow noopener noreferrer">http://androidxref.com/4.1.1/xref/dalvik/vm/Jni.cpp</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2524,11 +2633,10 @@ PT_HDR:表示程序头表本身.</p>
 </span></span><span class="line"><span class="cl">        <span class="n">assert</span><span class="p">(</span><span class="n">dvmIsClassInitialized</span><span class="p">(</span><span class="n">meth</span><span class="o">-&gt;</span><span class="n">clazz</span><span class="p">)</span> <span class="o">||</span> <span class="n">dvmIsClassInitializing</span><span class="p">(</span><span class="n">meth</span><span class="o">-&gt;</span><span class="n">clazz</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">jmethodID</span><span class="p">)</span><span class="n">meth</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>发现这个函数的返回值为Method结构体,继续在Android源码中查看这个结构体.</p>
-<p><a href="http://androidxref.com/4.1.1/xref/dalvik/vm/oo/Object.h" target="_blank" rel="noopener noreffer">http://androidxref.com/4.1.1/xref/dalvik/vm/oo/Object.h</a></p>
+<p><a href="http://androidxref.com/4.1.1/xref/dalvik/vm/oo/Object.h"target="_blank" rel="external nofollow noopener noreferrer">http://androidxref.com/4.1.1/xref/dalvik/vm/oo/Object.h</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2622,44 +2730,25 @@ PT_HDR:表示程序头表本身.</p>
 </span></span><span class="line"><span class="cl"> <span class="kt">bool</span>               <span class="n">shouldTrace</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"> <span class="k">const</span> <span class="kt">void</span><span class="o">*</span>        <span class="n">registerMap</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"> <span class="kt">bool</span>               <span class="n">inProfile</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>从上面结构中可以知道,insns字段存放的是方法的字节码.</p>
-<h6 id="jni修改">jni修改</h6>
-<p>我们在jni中写代码,来修改字节码,从而实现在ManiActivity.OnCreate中调用的MyAdd方法修改为减法,首先,我们修改的操作应该在ManiActivity执行之前.</p>
+<h6 id="jni修改" class="heading-element"><span>jni修改</span>
+  <a href="#jni%e4%bf%ae%e6%94%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p>我们在jni中写代码,来修改字节码,从而实现在ManiActivity.OnCreate中调用的MyAdd方法修改为减法,首先,我们修改的操作应该在ManiActivity执行之前.</p>
 <ol>
 <li>提前加载jni库.</li>
 </ol>
 <p>写一个类继承Application加载jni库.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/Dalvik%e8%99%9a%e6%8b%9f%e6%9c%bajni%e4%bf%ae%e6%94%b91.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B91.png, images/Dalvik%e8%99%9a%e6%8b%9f%e6%9c%bajni%e4%bf%ae%e6%94%b91.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B91.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B91.png"
-        title="Dalvik虚拟机jni修改1" /></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B91.png" alt="Dalvik虚拟机jni修改1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B91.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B91.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B91.png?size=large 2x" data-title="Dalvik虚拟机jni修改1" style="--width: 1357px;--aspect-ratio: 1357 / 957;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>修改AndroidManifest.xml文件.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/Dalvik%e8%99%9a%e6%8b%9f%e6%9c%bajni%e4%bf%ae%e6%94%b92.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B92.png, images/Dalvik%e8%99%9a%e6%8b%9f%e6%9c%bajni%e4%bf%ae%e6%94%b92.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B92.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B92.png"
-        title="Dalvik虚拟机jni修改2" /></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B92.png" alt="Dalvik虚拟机jni修改2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B92.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B92.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B92.png?size=large 2x" data-title="Dalvik虚拟机jni修改2" style="--width: 1733px;--aspect-ratio: 1733 / 1095;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="2">
 <li>查看MyAdd的字节码.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/Dalvik%e8%99%9a%e6%8b%9f%e6%9c%bajni%e4%bf%ae%e6%94%b93.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B93.png, images/Dalvik%e8%99%9a%e6%8b%9f%e6%9c%bajni%e4%bf%ae%e6%94%b93.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B93.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B93.png"
-        title="Dalvik虚拟机jni修改3" /></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B93.png" alt="Dalvik虚拟机jni修改3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B93.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B93.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B93.png?size=large 2x" data-title="Dalvik虚拟机jni修改3" style="--width: 1822px;--aspect-ratio: 1822 / 997;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="3">
 <li>修改.</li>
 </ol>
@@ -2780,26 +2869,30 @@ PT_HDR:表示程序头表本身.</p>
 </span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;3 + 5 = %d&#34;</span><span class="p">,</span> <span class="n">nRet</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">JNI_VERSION_1_6</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/Dalvik%e8%99%9a%e6%8b%9f%e6%9c%bajni%e4%bf%ae%e6%94%b94.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B94.png, images/Dalvik%e8%99%9a%e6%8b%9f%e6%9c%bajni%e4%bf%ae%e6%94%b94.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B94.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B94.png"
-        title="Dalvik虚拟机jni修改4" /></p>
-<h6 id="注意">注意</h6>
-<p>上述方法不适应于Art虚拟机,因为它会在apk安装的时候变为汇编,无字节码.</p>
-<h6 id="源代码-1">源代码</h6>
-<p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAJavaHook.7z" rel="">Dalvik虚拟机JavaHook.7z</a></p>
-<h5 id="art虚拟机">Art虚拟机</h5>
-<p>实验环境为Android7.0 x86.</p>
+</div><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B94.png" alt="Dalvik虚拟机jni修改4" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B94.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B94.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B94.png?size=large 2x" data-title="Dalvik虚拟机jni修改4" style="--width: 720px;--aspect-ratio: 720 / 1280;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h6 id="注意" class="heading-element"><span>注意</span>
+  <a href="#%e6%b3%a8%e6%84%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p>上述方法不适应于Art虚拟机,因为它会在apk安装的时候变为汇编,无字节码.</p>
+<h6 id="源代码-1" class="heading-element"><span>源代码</span>
+  <a href="#%e6%ba%90%e4%bb%a3%e7%a0%81-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAJavaHook.7z">Dalvik虚拟机JavaHook.7z</a></p>
+<h5 id="art虚拟机" class="heading-element"><span>Art虚拟机</span>
+  <a href="#art%e8%99%9a%e6%8b%9f%e6%9c%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>实验环境为Android7.0 x86.</p>
 <p>即便它是Art虚拟机,但是我们Hook的思路没有变,只是GetMethodID这个函数的返回值类型由原来的Method结构体变为了ArtMethod.需要注意的是Android每个版本,ArtMethod这个结构体都不一样.</p>
-<h6 id="jni修改-1">jni修改</h6>
-<div class="highlight"><div class="chroma">
+<h6 id="jni修改-1" class="heading-element"><span>jni修改</span>
+  <a href="#jni%e4%bf%ae%e6%94%b9-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2962,49 +3055,53 @@ PT_HDR:表示程序头表本身.</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">meth</span> <span class="o">-&gt;</span><span class="n">entry_point_from_quick_compiled_code_</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">FakeAdd</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">JNI_VERSION_1_6</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h6 id="源代码-2">源代码</h6>
-<p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/Art%E8%99%9A%E6%8B%9F%E6%9C%BAJavaHook.7z" rel="">Art虚拟机JavaHook.7z</a></p>
-<h3 id="参考文档">参考文档</h3>
-<p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90.pdf" rel="">ELF文件格式解析.pdf</a></p>
+</div><h6 id="源代码-2" class="heading-element"><span>源代码</span>
+  <a href="#%e6%ba%90%e4%bb%a3%e7%a0%81-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h6><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/Art%E8%99%9A%E6%8B%9F%E6%9C%BAJavaHook.7z">Art虚拟机JavaHook.7z</a></p>
+<h3 id="参考文档" class="heading-element"><span>参考文档</span>
+  <a href="#%e5%8f%82%e8%80%83%e6%96%87%e6%a1%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90.pdf">ELF文件格式解析.pdf</a></p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-10-20</span>
-            </div>
-            <div class="post-info-license"></div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2021-10-20 00:00:00">更新于 2021-10-20&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
         </div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span></span>
-            </div>
-        </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/elf/">ELF</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/elf/" class="post-tag" title="标签 - ELF">ELF</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/posts/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/mfc/" class="prev" rel="prev" title="Mfc"><i class="fas fa-angle-left fa-fw"></i>Mfc</a>
-            <a href="/posts/android/android%E5%9F%BA%E7%A1%80/android%E5%BC%80%E5%8F%91/" class="next" rel="next" title="Android开发">Android开发<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/posts/%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/mfc/" class="post-nav-item" rel="prev" title="Mfc"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Mfc</a>
+      <a href="/posts/android/android%E5%9F%BA%E7%A1%80/android%E5%BC%80%E5%8F%91/" class="post-nav-item" rel="next" title="Android开发">Android开发<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":150},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

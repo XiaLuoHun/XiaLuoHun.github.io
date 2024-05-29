@@ -1,114 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Dex - 夏洛魂的个人博客</title><meta name="Description" content="个人笔记本"><meta property="og:title" content="Dex" />
-<meta property="og:description" content="Dex文件格式 准备Dex文件 我们自己来编译一个Dex文件,供后面分析Dex文件格式. Hello.java 1 2 3 4 5 public class Hello{ public static void main(String[] args){ System.out.println(&#34;Hello Dex!&#34;); } } Makefile脚本" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/dex/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-09-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-09-25T00:00:00+00:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Dex"/>
-<meta name="twitter:description" content="Dex文件格式 准备Dex文件 我们自己来编译一个Dex文件,供后面分析Dex文件格式. Hello.java 1 2 3 4 5 public class Hello{ public static void main(String[] args){ System.out.println(&#34;Hello Dex!&#34;); } } Makefile脚本"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/dex/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/arm%E9%80%86%E5%90%91/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/010editor/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Dex",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/dex\/"
-        },"genre": "posts","keywords": "Dex","wordcount":  4768 ,
-        "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/dex\/","datePublished": "2021-09-25T00:00:00+00:00","dateModified": "2021-09-25T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": "夏洛魂"},"author": {
-                "@type": "Person",
-                "name": "夏洛魂"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Dex - 夏洛魂的个人博客</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="Dex文件格式 准备Dex文件 我们自己来编译一个Dex文件,供后面分析Dex文件格式. Hello.java 1 2 3 4 5 public class Hello{ public static void main(String[] args){ System.out.println(&#34;Hello Dex!&#34;); } } Makefile脚本" /><meta name="keywords" content='Dex' />
+  <meta itemprop="name" content="Dex">
+  <meta itemprop="description" content="Dex文件格式 准备Dex文件 我们自己来编译一个Dex文件,供后面分析Dex文件格式. Hello.java 1 2 3 4 5 public class Hello{ public static void main(String[] args){ System.out.println(&#34;Hello Dex!&#34;); } } Makefile脚本">
+  <meta itemprop="datePublished" content="2021-09-25T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-09-25T00:00:00+00:00">
+  <meta itemprop="wordCount" content="4768">
+  <meta itemprop="keywords" content="Dex"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/dex/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="Dex">
+  <meta property="og:description" content="Dex文件格式 准备Dex文件 我们自己来编译一个Dex文件,供后面分析Dex文件格式. Hello.java 1 2 3 4 5 public class Hello{ public static void main(String[] args){ System.out.println(&#34;Hello Dex!&#34;); } } Makefile脚本">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-09-25T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-09-25T00:00:00+00:00">
+    <meta property="article:tag" content="Dex">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Dex">
+  <meta name="twitter:description" content="Dex文件格式 准备Dex文件 我们自己来编译一个Dex文件,供后面分析Dex文件格式. Hello.java 1 2 3 4 5 public class Hello{ public static void main(String[] args){ System.out.println(&#34;Hello Dex!&#34;); } } Makefile脚本">
+<meta name="application-name" content="LuoHun">
+<meta name="apple-mobile-web-app-title" content="LuoHun"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/dex/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/arm%E9%80%86%E5%90%91/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/010editor/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Dex",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/dex\/"
+    },"genre": "posts","keywords": "Dex","wordcount":  4768 ,
+    "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/dex\/","datePublished": "2021-09-25T00:00:00+00:00","dateModified": "2021-09-25T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "作者"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/excalidraw/"
+                
+                
+              >在线绘图</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="夏洛魂的个人博客">主页</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/excalidraw/"> 在线绘图 </a><a class="menu-item" href="/about/"> 关于作者 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">主页</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="夏洛魂的个人博客">主页</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/excalidraw/" title="">在线绘图</a><a class="menu-item" href="/about/" title="">关于作者</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/excalidraw/"
+                  
+                  
+                >在线绘图</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Dex</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>夏洛魂</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/"><i class="far fa-folder fa-fw"></i>Android基础</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-25">2021-09-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4768 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Dex</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      Anonymous</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/" class="post-category" title="分类 - Android基础"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android基础</a></span></div><div class="post-meta-line"><span title="发布于 2021-09-25 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-09-25">2021-09-25</time></span>&nbsp;<span title="4768 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 4800 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 10 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#dex文件格式">Dex文件格式</a>
       <ul>
@@ -150,11 +224,20 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="dex文件格式">Dex文件格式</h1>
-<h2 id="准备dex文件">准备Dex文件</h2>
-<p>我们自己来编译一个Dex文件,供后面分析Dex文件格式.</p>
-<h3 id="hellojava">Hello.java</h3>
-<div class="highlight"><div class="chroma">
+      </div><div class="content" id="content"><h1 id="dex文件格式" class="heading-element"><span>Dex文件格式</span>
+  <a href="#dex%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 id="准备dex文件" class="heading-element"><span>准备Dex文件</span>
+  <a href="#%e5%87%86%e5%a4%87dex%e6%96%87%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>我们自己来编译一个Dex文件,供后面分析Dex文件格式.</p>
+<h3 id="hellojava" class="heading-element"><span>Hello.java</span>
+  <a href="#hellojava" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -163,15 +246,17 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span><span class="o">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hello Dex!&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">	<span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Hello</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Hello Dex!&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="makefile脚本">Makefile脚本</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="makefile脚本" class="heading-element"><span>Makefile脚本</span>
+  <a href="#makefile%e8%84%9a%e6%9c%ac" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -191,8 +276,11 @@
 </span></span><span class="line"><span class="cl">	adb shell /system/bin/dalvikvm -cp /data/local/tmp/classes.dex Hello
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="数据类型">数据类型</h2>
-<p><a href="http://androidxref.com/2.3.7/xref/dalvik/libdex/DexFile.h" target="_blank" rel="noopener noreffer">http://androidxref.com/2.3.7/xref/dalvik/libdex/DexFile.h</a></p>
+</div><h2 id="数据类型" class="heading-element"><span>数据类型</span>
+  <a href="#%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="http://androidxref.com/2.3.7/xref/dalvik/libdex/DexFile.h"target="_blank" rel="external nofollow noopener noreferrer">http://androidxref.com/2.3.7/xref/dalvik/libdex/DexFile.h</a></p>
 <p>在上述Android源码位置,定义了解析Dex文件用到的数据结构,我们先来了解下其中使用到的数据类型.</p>
 <table>
 <thead>
@@ -260,12 +348,18 @@
 </tr>
 </tbody>
 </table>
-<h3 id="leb128">LEB128</h3>
-<p>sleb128、uleb128、uleb128p1是Dex文件中特有的LEB128类型.在下述Android源码位置可以找到LEB128的实现.</p>
-<p><a href="http://androidxref.com/2.3.7/xref/dalvik/libdex/Leb128.h" target="_blank" rel="noopener noreffer">http://androidxref.com/2.3.7/xref/dalvik/libdex/Leb128.h</a></p>
+<h3 id="leb128" class="heading-element"><span>LEB128</span>
+  <a href="#leb128" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>sleb128、uleb128、uleb128p1是Dex文件中特有的LEB128类型.在下述Android源码位置可以找到LEB128的实现.</p>
+<p><a href="http://androidxref.com/2.3.7/xref/dalvik/libdex/Leb128.h"target="_blank" rel="external nofollow noopener noreferrer">http://androidxref.com/2.3.7/xref/dalvik/libdex/Leb128.h</a></p>
 <p>每个LEB128由1-5字节组成,所有字节组合在一起表示一个32位的数据.每个字节只有7位有效位,如果第1个字节的有效位为1,表示LEB128需要使用第2个字节,如果第2个字节的有效位为1,表示会使用第3个字节,依次类推,直到最后一个字节的最高位为0为止.</p>
-<h4 id="sleb128">sleb128</h4>
-<p>读取有符号LEB128的代码如下:</p>
+<h4 id="sleb128" class="heading-element"><span>sleb128</span>
+  <a href="#sleb128" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>读取有符号LEB128的代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -327,8 +421,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">pStream</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -349,11 +442,13 @@
 </span></span><span class="line"><span class="cl">如本例中二进制重组为1111111 0000000这里有14位,要左移18位,然后右移18位(14 + 18 = 32)(如果有7位,就要左移25位,然后右移25位, 7 + 25 = 32),
 </span></span><span class="line"><span class="cl">注意最高位为符号位,右移的时候需要补1,
 </span></span><span class="line"><span class="cl">本例中左移18位,又右移18位后的二进制结果为1 111 1111 1111 1111 1111 1111 1000 0000
-</span></span><span class="line"><span class="cl">最高位是符号位,负数以补码形式存在,故取反加1后表示的真实数为-128
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">最高位是符号位,负数以补码形式存在,故取反加1后表示的真实数为-128</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="uleb128">uleb128</h4>
-<p>读取无符号LEB128的代码如下:</p>
+</div><h4 id="uleb128" class="heading-element"><span>uleb128</span>
+  <a href="#uleb128" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>读取无符号LEB128的代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -431,8 +526,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">pStream</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -449,26 +543,27 @@
 </span></span><span class="line"><span class="cl">以0x807f解析为例:
 </span></span><span class="line"><span class="cl">0x807f对应的二进制为10000000 01111111
 </span></span><span class="line"><span class="cl">8位一组,首字节为0表示leb128编码结束,然后倒着将每组中的后7位重组
-</span></span><span class="line"><span class="cl">如本例中二进制重组为11 1111 1000 0000对应的16进制为0x3f80,对应的10进制就是16256
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">如本例中二进制重组为11 1111 1000 0000对应的16进制为0x3f80,对应的10进制就是16256</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="uleb128p1">uleb128p1</h4>
-<p>它的值为uleb128的值加1</p>
-<h2 id="文件格式">文件格式</h2>
-<h3 id="dex文件结构">Dex文件结构</h3>
-<p>Dex文件整体结构如下:</p>
+</div><h4 id="uleb128p1" class="heading-element"><span>uleb128p1</span>
+  <a href="#uleb128p1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>它的值为uleb128的值加1</p>
+<h2 id="文件格式" class="heading-element"><span>文件格式</span>
+  <a href="#%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="dex文件结构" class="heading-element"><span>Dex文件结构</span>
+  <a href="#dex%e6%96%87%e4%bb%b6%e7%bb%93%e6%9e%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Dex文件整体结构如下:</p>
 <p>dex header:Dex文件头</p>
 <p>string_ids到class_def:&ldquo;索引结构区&rdquo;</p>
 <p>data:真实的数据</p>
 <p>link_data:静态链接数据区</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/Dex%e6%96%87%e4%bb%b6%e7%bb%93%e6%9e%84.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/Dex%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png, images/Dex%e6%96%87%e4%bb%b6%e7%bb%93%e6%9e%84.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/Dex%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/Dex%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png"
-        title="Dex文件结构" /></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/Dex%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png" alt="Dex文件结构" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/Dex%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/Dex%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/Dex%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png?size=large 2x" data-title="Dex文件结构" style="--width: 340px;--aspect-ratio: 340 / 480;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>Dex文件由DexFile结构体表示,其定义如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -533,11 +628,13 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="cm">/* additional app-specific data structures associated with the DEX */</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//void*               auxData;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexFile</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexFile</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="dexheader">DexHeader</h3>
-<p>DexHeader是Dex文件的头部信息,其定义如下:</p>
+</div><h3 id="dexheader" class="heading-element"><span>DexHeader</span>
+  <a href="#dexheader" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>DexHeader是Dex文件的头部信息,其定义如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -591,11 +688,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">u4</span>  <span class="n">classDefsOff</span><span class="p">;</span>		<span class="c1">//DexClassDef文件偏移
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">u4</span>  <span class="n">dataSize</span><span class="p">;</span>			<span class="c1">//数据段大小
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">u4</span>  <span class="n">dataOff</span><span class="p">;</span>			<span class="c1">//数据段文件偏移
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexHeader</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexHeader</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="dexmaplist">DexMapList</h3>
-<p>DexHeader中的mapOff字段指明了DexMapList在Dex文件中的偏移,其定义如下:</p>
+</div><h3 id="dexmaplist" class="heading-element"><span>DexMapList</span>
+  <a href="#dexmaplist" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>DexHeader中的mapOff字段指明了DexMapList在Dex文件中的偏移,其定义如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -621,8 +720,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u2</span>  <span class="n">unused</span><span class="p">;</span>            <span class="c1">//未使用,用于字节对齐
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u4</span>  <span class="n">size</span><span class="p">;</span>              <span class="c1">//指定类型的个数
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u4</span>  <span class="n">offset</span><span class="p">;</span>            <span class="c1">//指定类型数据的文件偏移
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexMapItem</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexMapItem</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>type字段是一个枚举常量,其定义如下,通过名称很容易能判断它的具体类型.</p>
 <div class="highlight"><div class="chroma">
@@ -668,18 +766,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">kDexTypeAnnotationItem</span>           <span class="o">=</span> <span class="mh">0x2004</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">kDexTypeEncodedArrayItem</span>         <span class="o">=</span> <span class="mh">0x2005</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">kDexTypeAnnotationsDirectoryItem</span> <span class="o">=</span> <span class="mh">0x2006</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="dexstringid">DexStringId</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/DexStringId.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexStringId.png, images/DexStringId.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexStringId.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexStringId.png"
-        title="DexStringId" /></p>
+</div><h3 id="dexstringid" class="heading-element"><span>DexStringId</span>
+  <a href="#dexstringid" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexStringId.png" alt="DexStringId" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexStringId.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexStringId.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexStringId.png?size=large 2x" data-title="DexStringId" style="--width: 1540px;--aspect-ratio: 1540 / 1408;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -701,8 +794,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">string_data_item</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"> <span class="n">uleb128</span> <span class="n">utf16_size</span><span class="p">;</span> <span class="c1">//字符串长度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">ubyte</span><span class="p">[]</span> <span class="n">data</span><span class="p">;</span>       <span class="c1">//字符串数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>stringDataOff指向的字符串并非普通的ASCII字符串,而是由MUTF-8编码表示的字符串.在MUTF-8字符串的头部存放的是uleb128编码的字符个数,后面才是字符串数据.</p>
 <p>可以使用下述代码读取字符串数据.</p>
@@ -721,18 +813,13 @@
 </span></span><span class="line"><span class="cl">    <span class="c1">// Skip the uleb128 length.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">ptr</span><span class="o">++</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="cm">/* empty */</span> <span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">ptr</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="dextypeid">DexTypeId</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/DexTypeId.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexTypeId.png, images/DexTypeId.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexTypeId.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexTypeId.png"
-        title="DexTypeId" /></p>
+</div><h3 id="dextypeid" class="heading-element"><span>DexTypeId</span>
+  <a href="#dextypeid" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexTypeId.png" alt="DexTypeId" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexTypeId.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexTypeId.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexTypeId.png?size=large 2x" data-title="DexTypeId" style="--width: 1543px;--aspect-ratio: 1543 / 1379;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -742,19 +829,14 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">DexTypeId</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">u4</span>  <span class="n">descriptorIdx</span><span class="p">;</span>     <span class="c1">//指向DexStringId列表的索引
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexTypeId</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexTypeId</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>descriptorIdx为DexStringId列表的索引,它所对应的字符串代表了具体类的类型.</p>
-<h3 id="dexprotoid">DexProtoId</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/DexProtoId.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexProtoId.png, images/DexProtoId.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexProtoId.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexProtoId.png"
-        title="DexProtoId" /></p>
+<h3 id="dexprotoid" class="heading-element"><span>DexProtoId</span>
+  <a href="#dexprotoid" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexProtoId.png" alt="DexProtoId" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexProtoId.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexProtoId.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexProtoId.png?size=large 2x" data-title="DexProtoId" style="--width: 1543px;--aspect-ratio: 1543 / 1412;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -786,19 +868,14 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">DexTypeItem</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">u2</span>  <span class="n">typeIdx</span><span class="p">;</span>           <span class="c1">//指向DexTypeId列表的索引
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexTypeItem</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexTypeItem</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>方法声明由返回类型和参数列表组成,且返回类型在参数列表的前面.</p>
-<h3 id="dexfieldid">DexFieldId</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/DexFieldId.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexFieldId.png, images/DexFieldId.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexFieldId.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexFieldId.png"
-        title="DexFieldId" /></p>
+<h3 id="dexfieldid" class="heading-element"><span>DexFieldId</span>
+  <a href="#dexfieldid" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexFieldId.png" alt="DexFieldId" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexFieldId.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexFieldId.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexFieldId.png?size=large 2x" data-title="DexFieldId" style="--width: 1601px;--aspect-ratio: 1601 / 1410;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -812,19 +889,14 @@
 </span></span><span class="line"><span class="cl">    <span class="n">u2</span>  <span class="n">classIdx</span><span class="p">;</span>           <span class="c1">//类的类型,指向DexTypeId列表的索引
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u2</span>  <span class="n">typeIdx</span><span class="p">;</span>            <span class="c1">//字段类型,指向DexTypeId列表的索引
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u4</span>  <span class="n">nameIdx</span><span class="p">;</span>            <span class="c1">//字段名,指向DexStringId列表的索引
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexFieldId</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexFieldId</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>指明了字段所在的类、字段的类型以及字段名.</p>
-<h3 id="dexmethodid">DexMethodId</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/DexMethodId.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexMethodId.png, images/DexMethodId.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexMethodId.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexMethodId.png"
-        title="DexMethodId" /></p>
+<h3 id="dexmethodid" class="heading-element"><span>DexMethodId</span>
+  <a href="#dexmethodid" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexMethodId.png" alt="DexMethodId" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexMethodId.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexMethodId.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexMethodId.png?size=large 2x" data-title="DexMethodId" style="--width: 1601px;--aspect-ratio: 1601 / 1411;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -838,19 +910,14 @@
 </span></span><span class="line"><span class="cl">    <span class="n">u2</span>  <span class="n">classIdx</span><span class="p">;</span>           <span class="c1">//类的类型,指向DexTypeId列表的索引
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u2</span>  <span class="n">protoIdx</span><span class="p">;</span>           <span class="c1">//声明类型,指向DexProtoId列表的索引
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u4</span>  <span class="n">nameIdx</span><span class="p">;</span>            <span class="c1">//方法名,指向DexStringId列表的索引
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexMethodId</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexMethodId</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>指明了方法所在的类、方法的声明以及方法名.</p>
-<h3 id="dexclassdef">DexClassDef</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/DexClassDef.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexClassDef.png, images/DexClassDef.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexClassDef.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexClassDef.png"
-        title="DexClassDef" /></p>
+<h3 id="dexclassdef" class="heading-element"><span>DexClassDef</span>
+  <a href="#dexclassdef" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexClassDef.png" alt="DexClassDef" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexClassDef.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexClassDef.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/DexClassDef.png?size=large 2x" data-title="DexClassDef" style="--width: 1601px;--aspect-ratio: 1601 / 1407;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -876,8 +943,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u4</span>  <span class="n">annotationsOff</span><span class="p">;</span>     <span class="c1">//注解,如有,则是指向DexAnnotationsDirectoryItem列表的索引,否则为0
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u4</span>  <span class="n">classDataOff</span><span class="p">;</span>       <span class="c1">//类的数据部分,指向DexClassData结构的偏移量
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u4</span>  <span class="n">staticValuesOff</span><span class="p">;</span>    <span class="c1">//记录了类中的静态数据,指向DexEncodedArray结构的偏移量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexClassDef</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">DexClassDef</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -940,8 +1006,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">u4</span> <span class="n">methodIdx</span><span class="p">;</span>    <span class="c1">//指向DexMethodId列表的索引
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u4</span> <span class="n">accessFlags</span><span class="p">;</span>  <span class="c1">//访问标志
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">u4</span> <span class="n">codeOff</span><span class="p">;</span>      <span class="c1">//指向DexCode结构的偏移量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -976,29 +1041,27 @@
 </span></span><span class="line"><span class="cl">    <span class="cm">/* followed by try_item[triesSize] */</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* followed by uleb128 handlersSize */</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* followed by catch_handler_item[handlersSize] */</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">DexCode</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">DexCode</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="odex">ODEX</h2>
-<p>在Android5.0之前,主要使用的虚拟机是Dalvik,而ODEX则是Dalvik对Dex文件进行优化后的产物.</p>
+</div><h2 id="odex" class="heading-element"><span>ODEX</span>
+  <a href="#odex" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在Android5.0之前,主要使用的虚拟机是Dalvik,而ODEX则是Dalvik对Dex文件进行优化后的产物.</p>
 <p>其文件格式比Dex文件多了一个头.</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/odex%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/odex%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png, images/odex%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/odex%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/odex%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png"
-        title="odex文件格式" /></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/odex%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png" alt="odex文件格式" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/odex%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/odex%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/odex%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png?size=large 2x" data-title="odex文件格式" style="--width: 1488px;--aspect-ratio: 1488 / 818;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>可使用下述方法将ODEX文件转化为Dex文件:</p>
-<p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/dex/Dex_odex2dex.7z" rel="">Dex_odex2dex.7z</a></p>
+<p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/dex/Dex_odex2dex.7z">Dex_odex2dex.7z</a></p>
 <ol>
 <li>将当前Android系统system/framework下的所有文件复制到本工具包的framework目录下</li>
 <li>将工具包里的123.odex文件替换为自己的odex文件</li>
 <li>双击odex2dex.bat文件即可</li>
 </ol>
-<h2 id="oat">OAT</h2>
-<p>OAT文件是Android4.4中引入的,到了Android5.0之后,系统默认使用的虚拟机是ART.而OAT文件就是ART虚拟机对Dex文件进行优化的产物,是Android定制的Elf文件.</p>
+<h2 id="oat" class="heading-element"><span>OAT</span>
+  <a href="#oat" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>OAT文件是Android4.4中引入的,到了Android5.0之后,系统默认使用的虚拟机是ART.而OAT文件就是ART虚拟机对Dex文件进行优化的产物,是Android定制的Elf文件.</p>
 <p>其头部定义结构如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1063,62 +1126,59 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="kt">uint32_t</span> <span class="n">key_value_store_size_</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">uint8_t</span> <span class="n">key_value_store_</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>  <span class="c1">// note variable width data at end
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>可使用下述方法进行Dex文件的提取:</p>
 <ol>
 <li>在oat文件中搜索文本035,找到dex035</li>
 <li>将dex035之前的内容全部删除</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="images/%e6%8f%90%e5%8f%96Dex%e6%96%87%e4%bb%b62.png"
-        data-srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/%E6%8F%90%E5%8F%96Dex%E6%96%87%E4%BB%B62.png, images/%e6%8f%90%e5%8f%96Dex%e6%96%87%e4%bb%b62.png 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/%E6%8F%90%E5%8F%96Dex%E6%96%87%E4%BB%B62.png 2x"
-        data-sizes="auto"
-        alt="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/%E6%8F%90%E5%8F%96Dex%E6%96%87%E4%BB%B62.png"
-        title="提取Dex文件2" /></p>
-<h2 id="相关文件">相关文件</h2>
-<p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/dex/%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6.7z" rel="">相关文件.7z</a></p>
-<h2 id="参考链接">参考链接</h2>
-<p>&lt;Android软件安全权威指南&gt;</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/%E6%8F%90%E5%8F%96Dex%E6%96%87%E4%BB%B62.png" alt="提取Dex文件2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/dex/images/%E6%8F%90%E5%8F%96Dex%E6%96%87%E4%BB%B62.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/%E6%8F%90%E5%8F%96Dex%E6%96%87%E4%BB%B62.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/dex/images/%E6%8F%90%E5%8F%96Dex%E6%96%87%E4%BB%B62.png?size=large 2x" data-title="提取Dex文件2" style="--width: 1647px;--aspect-ratio: 1647 / 734;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="相关文件" class="heading-element"><span>相关文件</span>
+  <a href="#%e7%9b%b8%e5%85%b3%e6%96%87%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/dex/%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6.7z">相关文件.7z</a></p>
+<h2 id="参考链接" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>&lt;Android软件安全权威指南&gt;</p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-09-25</span>
-            </div>
-            <div class="post-info-license"></div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2021-09-25 00:00:00">更新于 2021-09-25&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
         </div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span></span>
-            </div>
-        </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/dex/">Dex</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/dex/" class="post-tag" title="标签 - Dex">Dex</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/posts/android/android%E5%9F%BA%E7%A1%80/arm%E9%80%86%E5%90%91/" class="prev" rel="prev" title="Arm逆向"><i class="fas fa-angle-left fa-fw"></i>Arm逆向</a>
-            <a href="/posts/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/010editor/" class="next" rel="next" title="010Editor">010Editor<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/posts/android/android%E5%9F%BA%E7%A1%80/arm%E9%80%86%E5%90%91/" class="post-nav-item" rel="prev" title="Arm逆向"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Arm逆向</a>
+      <a href="/posts/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/010editor/" class="post-nav-item" rel="next" title="010Editor">010Editor<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">夏洛魂</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">夏洛魂</a></span>&nbsp;|&nbsp;<span class="license">MIT</span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider">MIT</span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":150},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script></body>
 </html>
