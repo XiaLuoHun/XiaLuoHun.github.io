@@ -9,7 +9,7 @@
   <title>Android-DexVMP快速分析</title>
   <link>https://XiaLuoHun.github.io/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/</link>
   <pubDate>Mon, 19 Jun 2023 00:00:00 &#43;0000</pubDate>
-  <author>作者</author>
+  <author>夏洛魂</author>
   <guid>https://XiaLuoHun.github.io/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/</guid>
   <description><![CDATA[概述 Android DexVMP主要有以下两种表现形式: 抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护 onCreate Native化,对其进行VMP保护 Android D]]></description>
 </item>
@@ -17,7 +17,7 @@
   <title>移植OLLVM到NDK中</title>
   <link>https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/</link>
   <pubDate>Sun, 14 May 2023 00:00:00 &#43;0000</pubDate>
-  <author>作者</author>
+  <author>夏洛魂</author>
   <guid>https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/</guid>
   <description><![CDATA[将OLLVM移植到LLVM源码中 LLVM源码编译 NDK下载 https://developer.android.google.cn/ndk/downloads?hl=zh-cn 这里需要注意一点的是下载的NDK版本要和上述移植的LLVM源码版本相近. 在NDK]]></description>
 </item>
@@ -25,7 +25,7 @@
   <title>.NET程序hook的另一种优雅实现-C&#43;&#43;/CLI</title>
   <link>https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/</link>
   <pubDate>Mon, 08 May 2023 00:00:00 &#43;0000</pubDate>
-  <author>作者</author>
+  <author>夏洛魂</author>
   <guid>https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/</guid>
   <description><![CDATA[概述 在正式开始之前,我们需要先了解以下几个概念: CLI(Common Language Infrastructure,通用语言框架):提供了一套可执行代码和它所运行需要的虚拟执]]></description>
 </item>
@@ -33,7 +33,7 @@
   <title>OLLVM研究之BCF</title>
   <link>https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bbcf/</link>
   <pubDate>Wed, 19 Apr 2023 00:00:00 &#43;0000</pubDate>
-  <author>作者</author>
+  <author>夏洛魂</author>
   <guid>https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bbcf/</guid>
   <description><![CDATA[概述 bcf即虚假控制流,将原程序基本块进行拆分和克隆,利用不透明谓词将克隆的基本块作为不可达分支用来混淆静态代码,达到迷惑攻击者的目的. 这里]]></description>
 </item>
@@ -41,7 +41,7 @@
   <title>OLLVM研究之FLA</title>
   <link>https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bfla/</link>
   <pubDate>Mon, 17 Apr 2023 00:00:00 &#43;0000</pubDate>
-  <author>作者</author>
+  <author>夏洛魂</author>
   <guid>https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bfla/</guid>
   <description><![CDATA[概述 fla即控制流平坦化,首先将原程序中switch结构转换成链式的平坦结构,然后创建loopEntry和loopEnd两个基本块来分发调度]]></description>
 </item>
@@ -49,7 +49,7 @@
   <title>OLLVM调试</title>
   <link>https://XiaLuoHun.github.io/posts/llvm/ollvm%E8%B0%83%E8%AF%95/</link>
   <pubDate>Thu, 13 Apr 2023 00:00:00 &#43;0000</pubDate>
-  <author>作者</author>
+  <author>夏洛魂</author>
   <guid>https://XiaLuoHun.github.io/posts/llvm/ollvm%E8%B0%83%E8%AF%95/</guid>
   <description><![CDATA[调试流程 准备一份测试代码. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 //luoTst.c #include &lt;stdlib.h&gt; #include &lt;stdio.h&gt; //int fun1(int a, int b) __attribute((__annotate__((&#34;fla&#34;)))); //int fun2(int a, int b) __attribute((__annotate__((&#34;nofla&#34;)))); //int main(int argc, char** argv) __attribute((__annotate__((&#34;bcf&#34;)))); int]]></description>
 </item>
@@ -57,7 +57,7 @@
   <title>OLLVM移植和使用</title>
   <link>https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
   <pubDate>Tue, 21 Mar 2023 00:00:00 &#43;0000</pubDate>
-  <author>作者</author>
+  <author>夏洛魂</author>
   <guid>https://XiaLuoHun.github.io/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
   <description><![CDATA[ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种]]></description>
 </item>
@@ -65,7 +65,7 @@
   <title>LLVM基础</title>
   <link>https://XiaLuoHun.github.io/posts/llvm/llvm%E5%9F%BA%E7%A1%80/</link>
   <pubDate>Wed, 15 Mar 2023 00:00:00 &#43;0000</pubDate>
-  <author>作者</author>
+  <author>夏洛魂</author>
   <guid>https://XiaLuoHun.github.io/posts/llvm/llvm%E5%9F%BA%E7%A1%80/</guid>
   <description><![CDATA[对于llvm这样的编译框架来说,IR很重要,连接着编译器的前端和后端.实际上我们在llvm中编写的各种pass都是作用在llvm IR上的,因]]></description>
 </item>
@@ -73,7 +73,7 @@
   <title>函数名称加密Pass开发</title>
   <link>https://XiaLuoHun.github.io/posts/llvm/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91/</link>
   <pubDate>Wed, 15 Mar 2023 00:00:00 &#43;0000</pubDate>
-  <author>作者</author>
+  <author>夏洛魂</author>
   <guid>https://XiaLuoHun.github.io/posts/llvm/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91/</guid>
   <description><![CDATA[测试代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 //luoTst.c #include &lt;stdio.h&gt; void fun1() { printf(&#34;hello clang: fun1\r\n&#34;); } void fun2() { printf(&#34;hello clang: fun2\r\n&#34;); } int main(int argc, char const *argv[]) { if (argc &gt; 2) { printf(&#34;hello world!\r\n&#34;); } else { printf(&#34;hello LuoHun!\r\n&#34;); } fun1(); fun2(); return 0; } 基于]]></description>
 </item>
@@ -81,7 +81,7 @@
   <title>初识LLVM</title>
   <link>https://XiaLuoHun.github.io/posts/llvm/%E5%88%9D%E8%AF%86llvm/</link>
   <pubDate>Mon, 13 Mar 2023 00:00:00 &#43;0000</pubDate>
-  <author>作者</author>
+  <author>夏洛魂</author>
   <guid>https://XiaLuoHun.github.io/posts/llvm/%E5%88%9D%E8%AF%86llvm/</guid>
   <description><![CDATA[llvm的官网：https://llvm.org/ 下面展示下用Ubuntu20.04来编译llvm9.0.1 源码编译 准备编译环境 1 2 sudo apt update sudo]]></description>
 </item>
