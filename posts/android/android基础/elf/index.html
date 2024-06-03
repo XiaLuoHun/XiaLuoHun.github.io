@@ -12,7 +12,7 @@
   <meta itemprop="description" content="是UNIX系统实验室(USL)作为应用程序二进制接口(Application Binary Interface,ABI)而开发和发布的,也是Linux的主">
   <meta itemprop="datePublished" content="2021-10-20T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-10-20T00:00:00+00:00">
-  <meta itemprop="wordCount" content="9691">
+  <meta itemprop="wordCount" content="7952">
   <meta itemprop="image" content="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png">
   <meta itemprop="keywords" content="ELF"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/elf/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/elf\/images\/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png",
               "width":  1254 ,
               "height":  790 
-            }],"genre": "posts","keywords": "ELF","wordcount":  9691 ,
+            }],"genre": "posts","keywords": "ELF","wordcount":  7952 ,
     "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/elf\/","datePublished": "2021-10-20T00:00:00+00:00","dateModified": "2021-10-20T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ELF</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/" class="post-category" title="分类 - Android基础"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android基础</a></span></div><div class="post-meta-line"><span title="发布于 2021-10-20 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-10-20">2021-10-20</time></span>&nbsp;<span title="9691 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 9700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 20 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/" class="post-category" title="分类 - Android基础"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android基础</a></span></div><div class="post-meta-line"><span title="发布于 2021-10-20 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-10-20">2021-10-20</time></span>&nbsp;<span title="7952 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 8000 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 16 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -201,178 +201,24 @@
         </li>
         <li><a href="#文件格式">文件格式</a>
           <ul>
-            <li><a href="#概述">概述</a>
-              <ul>
-                <li><a href="#数据类型">数据类型</a></li>
-              </ul>
-            </li>
-            <li><a href="#elf文件头">ELF文件头</a>
-              <ul>
-                <li><a href="#e_ident">e_ident</a>
-                  <ul>
-                    <li><a href="#ei_class">EI_CLASS</a></li>
-                    <li><a href="#ei_data">EI_DATA</a></li>
-                    <li><a href="#ei_version">EI_VERSION</a></li>
-                  </ul>
-                </li>
-                <li><a href="#e_type">e_type</a></li>
-                <li><a href="#e_machine">e_machine</a></li>
-                <li><a href="#e_version">e_version</a></li>
-                <li><a href="#e_entry">e_entry</a></li>
-                <li><a href="#e_phoff">e_phoff</a></li>
-                <li><a href="#e_shoff">e_shoff</a></li>
-                <li><a href="#e_flags">e_flags</a></li>
-                <li><a href="#e_ehsize">e_ehsize</a></li>
-                <li><a href="#e_phentsize">e_phentsize</a></li>
-                <li><a href="#e_phnum">e_phnum</a></li>
-                <li><a href="#e_shentsize">e_shentsize</a></li>
-                <li><a href="#e_shnum">e_shnum</a></li>
-                <li><a href="#e_shstrndx">e_shstrndx</a></li>
-              </ul>
-            </li>
-            <li><a href="#节">节</a>
-              <ul>
-                <li><a href="#sh_name">sh_name</a></li>
-                <li><a href="#sh_type">sh_type</a></li>
-                <li><a href="#sh_flags">sh_flags</a></li>
-                <li><a href="#sh_addr">sh_addr</a></li>
-                <li><a href="#sh_offset">sh_offset</a></li>
-                <li><a href="#sh_size">sh_size</a></li>
-                <li><a href="#sh_link">sh_link</a></li>
-                <li><a href="#sh_info">sh_info</a></li>
-                <li><a href="#sh_addralign">sh_addralign</a></li>
-                <li><a href="#sh_entsize">sh_entsize</a></li>
-              </ul>
-            </li>
+            <li><a href="#概述">概述</a></li>
+            <li><a href="#elf文件头">ELF文件头</a></li>
+            <li><a href="#节">节</a></li>
             <li><a href="#特殊节">特殊节</a></li>
-            <li><a href="#符号表">符号表</a>
-              <ul>
-                <li><a href="#符号表项结构">符号表项结构</a>
-                  <ul>
-                    <li><a href="#st_name">st_name</a></li>
-                    <li><a href="#st_info">st_info</a></li>
-                    <li><a href="#st_shndx">st_shndx</a>
-                      <ul>
-                        <li><a href="#源代码">源代码</a></li>
-                        <li><a href="#分析">分析</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#哈希表">哈希表</a>
-              <ul>
-                <li><a href="#旧版hash">旧版(.hash)</a>
-                  <ul>
-                    <li><a href="#哈希表结构">哈希表结构</a></li>
-                    <li><a href="#哈希算法">哈希算法</a>
-                      <ul>
-                        <li><a href="#原始算法">原始算法</a></li>
-                        <li><a href="#android中的hash算法">Android中的hash算法</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#示例">示例</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
+            <li><a href="#符号表">符号表</a></li>
+            <li><a href="#哈希表">哈希表</a></li>
             <li><a href="#程序链接表">程序链接表</a></li>
-            <li><a href="#全局偏移表">全局偏移表</a>
-              <ul>
-                <li><a href="#plt和got的关系">plt和got的关系</a></li>
-              </ul>
-            </li>
-            <li><a href="#重定位表">重定位表</a>
-              <ul>
-                <li><a href="#项结构">项结构</a>
-                  <ul>
-                    <li><a href="#r_info-的宏定义">r_info 的宏定义</a></li>
-                  </ul>
-                </li>
-                <li><a href="#示例-1">示例</a>
-                  <ul>
-                    <li><a href="#ida查看偏移">IDA查看偏移</a></li>
-                    <li><a href="#符号表第2项">符号表第2项</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#动态节">动态节</a>
-              <ul>
-                <li><a href="#项结构-1">项结构</a>
-                  <ul>
-                    <li><a href="#d_tag">d_tag</a>
-                      <ul>
-                        <li><a href="#dt_needed">DT_NEEDED</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#程序头表">程序头表</a>
-              <ul>
-                <li><a href="#程序头结构">程序头结构</a>
-                  <ul>
-                    <li><a href="#p_type">p_type</a></li>
-                    <li><a href="#p_offset">p_offset</a></li>
-                    <li><a href="#p_vaddr">p_vaddr</a></li>
-                    <li><a href="#p_paddr">p_paddr</a></li>
-                    <li><a href="#p_filesz">p_filesz</a></li>
-                    <li><a href="#p_memsz">p_memsz</a></li>
-                    <li><a href="#p_flags">p_flags</a></li>
-                    <li><a href="#p_align">p_align</a></li>
-                  </ul>
-                </li>
-                <li><a href="#段示例">段示例</a></li>
-              </ul>
-            </li>
+            <li><a href="#全局偏移表">全局偏移表</a></li>
+            <li><a href="#重定位表">重定位表</a></li>
+            <li><a href="#动态节">动态节</a></li>
+            <li><a href="#程序头表">程序头表</a></li>
             <li><a href="#攻防对抗">攻防对抗</a>
               <ul>
                 <li><a href="#动态运行修改api地址">动态运行,修改api地址</a></li>
                 <li><a href="#got表hook">Got表Hook</a></li>
                 <li><a href="#阅读系统加载动态节数据源码">阅读系统加载动态节数据源码</a></li>
                 <li><a href="#抹除文件格式">抹除文件格式</a></li>
-                <li><a href="#重建节表">重建节表</a>
-                  <ul>
-                    <li><a href="#节和段的关系">节和段的关系</a></li>
-                    <li><a href="#plt">plt</a>
-                      <ul>
-                        <li><a href="#结构">结构</a></li>
-                        <li><a href="#foa">FOA</a></li>
-                        <li><a href="#size">SIZE</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#text">text</a>
-                      <ul>
-                        <li><a href="#foa-1">FOA</a></li>
-                        <li><a href="#size-1">SIZE</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#数据段">数据段</a></li>
-                  </ul>
-                </li>
-                <li><a href="#java函数hook">Java函数Hook</a>
-                  <ul>
-                    <li><a href="#dalvik虚拟机">Dalvik虚拟机</a>
-                      <ul>
-                        <li><a href="#java源代码">Java源代码</a></li>
-                        <li><a href="#反射调用java中的方法">反射调用Java中的方法</a></li>
-                        <li><a href="#getmethodid">GetMethodID</a></li>
-                        <li><a href="#jni修改">jni修改</a></li>
-                        <li><a href="#注意">注意</a></li>
-                        <li><a href="#源代码-1">源代码</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#art虚拟机">Art虚拟机</a>
-                      <ul>
-                        <li><a href="#jni修改-1">jni修改</a></li>
-                        <li><a href="#源代码-2">源代码</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
+                <li><a href="#重建节表">重建节表</a></li>
               </ul>
             </li>
             <li><a href="#参考文档">参考文档</a></li>
@@ -443,11 +289,8 @@
 节头表指向节,类似PE的数据目录,指向各种表.
 在Obj文件中段是可选的,在可执行文件中节是可选的,但是NDK编译出的ELF文件,段和节都是有的.</p>
 <p>总体来说就是一个ELF文件包含3部分,ELF文件头、节、段.</p>
-<h4 id="数据类型" class="heading-element"><span>数据类型</span>
-  <a href="#%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png" alt="数据类型" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png?size=large 2x" data-title="数据类型" style="--width: 1116px;--aspect-ratio: 1116 / 604;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>数据类型:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png" alt="数据类型" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png?size=large 2x" data-title="数据类型" style="--width: 1116px;--aspect-ratio: 1116 / 604;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <h3 id="elf文件头" class="heading-element"><span>ELF文件头</span>
   <a href="#elf%e6%96%87%e4%bb%b6%e5%a4%b4" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -491,114 +334,63 @@
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Half</span> <span class="n">e_shstrndx</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Ehdr</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="e_ident" class="heading-element"><span>e_ident</span>
-  <a href="#e_ident" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这16字节是ELF标识,前4字节是文件标志,不可修改.</p>
+</div><p>e_ident:</p>
+<p>这16字节是ELF标识,前4字节是文件标志,不可修改.</p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_ident.png" alt="e_ident" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_ident.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_ident.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_ident.png?size=large 2x" data-title="e_ident" style="--width: 703px;--aspect-ratio: 703 / 902;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="ei_class" class="heading-element"><span>EI_CLASS</span>
-  <a href="#ei_class" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png" alt="EI_CLASS" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png?size=large 2x" data-title="EI_CLASS" style="--width: 675px;--aspect-ratio: 675 / 347;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>EI_CLASS:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png" alt="EI_CLASS" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_CLASS.png?size=large 2x" data-title="EI_CLASS" style="--width: 675px;--aspect-ratio: 675 / 347;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这个字节指明了文件类型.
 Android系统不检查这个字节,它是通过判断指令集v7a,v8a来确定是32位还是64位.
 IDA检查了这个字节,如果修改了这个字节,IDA就无法反汇编.</p>
-<h5 id="ei_data" class="heading-element"><span>EI_DATA</span>
-  <a href="#ei_data" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png" alt="EI_DATA" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png?size=large 2x" data-title="EI_DATA" style="--width: 750px;--aspect-ratio: 750 / 348;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>EI_DATA:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png" alt="EI_DATA" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/EI_DATA.png?size=large 2x" data-title="EI_DATA" style="--width: 750px;--aspect-ratio: 750 / 348;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这个字节决定了接下来ELF文件结构体的解析是按大尾方式还是小尾方式.
 Android系统不检查这个字节,默认为小尾方式.
 IDA检查了这个字节,如果修改了这个字节,IDA就无法反汇编.</p>
-<h5 id="ei_version" class="heading-element"><span>EI_VERSION</span>
-  <a href="#ei_version" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>ELF文件头的版本.</p>
-<h4 id="e_type" class="heading-element"><span>e_type</span>
-  <a href="#e_type" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png" alt="e_type" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png?size=large 2x" data-title="e_type" style="--width: 944px;--aspect-ratio: 944 / 696;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>EI_VERSION:</p>
+<p>ELF文件头的版本.</p>
+<p>e_type:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png" alt="e_type" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_type.png?size=large 2x" data-title="e_type" style="--width: 944px;--aspect-ratio: 944 / 696;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这2字节是文件类型.
 Android5.0之后,可执行文件全部为so文件.
 Android高版本,这2字节只能是03,不能修改.</p>
-<h4 id="e_machine" class="heading-element"><span>e_machine</span>
-  <a href="#e_machine" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png" alt="e_machine1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png?size=large 2x" data-title="e_machine1" style="--width: 1049px;--aspect-ratio: 1049 / 916;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>e_machine:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png" alt="e_machine1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine1.png?size=large 2x" data-title="e_machine1" style="--width: 1049px;--aspect-ratio: 1049 / 916;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine2.png" alt="e_machine2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine2.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine2.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_machine2.png?size=large 2x" data-title="e_machine2" style="--width: 1374px;--aspect-ratio: 1374 / 675;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这2字节是指令集,可在elf-em.h这个头文件中,查看扩展指令集.
 这2字节不可修改.</p>
-<h4 id="e_version" class="heading-element"><span>e_version</span>
-  <a href="#e_version" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png" alt="e_version" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png?size=large 2x" data-title="e_version" style="--width: 628px;--aspect-ratio: 628 / 265;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>e_version:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png" alt="e_version" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/e_version.png?size=large 2x" data-title="e_version" style="--width: 628px;--aspect-ratio: 628 / 265;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这4字节指明目标文件的版本.
 Android系统不检查这4字节.
 IDA检查了这4字节,不过影响不大,如果修改了,IDA还是可以反汇编.</p>
-<h4 id="e_entry" class="heading-element"><span>e_entry</span>
-  <a href="#e_entry" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这4字节是程序入口点(OEP),是个RVA.
+<p>e_entry:</p>
+<p>这4字节是程序入口点(OEP),是个RVA.
 但如果上面e_type的值是02,这个值就是VA.
 如果是共享库文件,这4字节是0.
 如果是可执行文件,这4字节不是0.
 这是共享库文件和可执行文件很重要的差别.</p>
-<h4 id="e_phoff" class="heading-element"><span>e_phoff</span>
-  <a href="#e_phoff" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这4字节是程序头表偏移,如果没有程序头表,该值应为0.</p>
-<h4 id="e_shoff" class="heading-element"><span>e_shoff</span>
-  <a href="#e_shoff" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这4字节是节头表偏移,如果没有节头表,该值应为0.
+<p>e_phoff:</p>
+<p>这4字节是程序头表偏移,如果没有程序头表,该值应为0.</p>
+<p>e_shoff:</p>
+<p>这4字节是节头表偏移,如果没有节头表,该值应为0.
 在Android对抗中,删节表是很常见的.</p>
-<h4 id="e_flags" class="heading-element"><span>e_flags</span>
-  <a href="#e_flags" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这4字节是个标志,没什么用.</p>
-<h4 id="e_ehsize" class="heading-element"><span>e_ehsize</span>
-  <a href="#e_ehsize" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这2字节是ELF文件头大小,以字节为单位.
+<p>e_flags:</p>
+<p>这4字节是个标志,没什么用.</p>
+<p>e_ehsize:</p>
+<p>这2字节是ELF文件头大小,以字节为单位.
 Android系统,不检查这2字节,默认ELF文件头大小为52字节.
 IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警告,影响不大,仍然可以反汇编.</p>
-<h4 id="e_phentsize" class="heading-element"><span>e_phentsize</span>
-  <a href="#e_phentsize" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这2字节表明程序头表每一个表项的大小,以字节为单位.</p>
-<h4 id="e_phnum" class="heading-element"><span>e_phnum</span>
-  <a href="#e_phnum" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这2字节表明程序头表总共有多少表项,如果没有程序头表,该值应设为0.</p>
-<h4 id="e_shentsize" class="heading-element"><span>e_shentsize</span>
-  <a href="#e_shentsize" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这2字节表明节头表每一个表项的大小,以字节为单位.</p>
-<h4 id="e_shnum" class="heading-element"><span>e_shnum</span>
-  <a href="#e_shnum" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这2字节表明节头表总共有多少表项,如果没有节头表,该值应设为0.</p>
-<h4 id="e_shstrndx" class="heading-element"><span>e_shstrndx</span>
-  <a href="#e_shstrndx" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这2字节是节头表中与节名字表相对应表项的索引.</p>
+<p>e_phentsize:</p>
+<p>这2字节表明程序头表每一个表项的大小,以字节为单位.</p>
+<p>e_phnum:</p>
+<p>这2字节表明程序头表总共有多少表项,如果没有程序头表,该值应设为0.</p>
+<p>e_shentsize:</p>
+<p>这2字节表明节头表每一个表项的大小,以字节为单位.</p>
+<p>e_shnum:</p>
+<p>这2字节表明节头表总共有多少表项,如果没有节头表,该值应设为0.</p>
+<p>e_shstrndx:</p>
+<p>这2字节是节头表中与节名字表相对应表项的索引.</p>
 <h3 id="节" class="heading-element"><span>节</span>
   <a href="#%e8%8a%82" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -632,19 +424,13 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">Elf32_Word</span> <span class="n">sh_entsize</span><span class="p">;</span>    <span class="c1">//有一些节的内容是一张表,其中每一个表项的大小是固定的,比如符号表.对于这种表来说,本成员指定其每一个表项的大小
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">Elf32_Shdr</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="sh_name" class="heading-element"><span>sh_name</span>
-  <a href="#sh_name" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>4字节,是个偏移值,暂记为P1.
+</div><p>sh_name:</p>
+<p>4字节,是个偏移值,暂记为P1.
 首先通过ELF文件头最后一项e_shstrndx拿到节表中节名称表对应表项的索引,
 然后在节表中找到该项,找到sh_offset文件偏移值,暂记为P2
 最后将P1 + P2,即可得到该节名字的字符串文件偏移值.</p>
-<h4 id="sh_type" class="heading-element"><span>sh_type</span>
-  <a href="#sh_type" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>4字节,节类型.</p>
+<p>sh_type:</p>
+<p>4字节,节类型.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -728,48 +514,24 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span><span class="line"><span class="cl"> <span class="n">SHT_HIUSER</span> <span class="o">=</span> <span class="mh">0x8fffffff</span> <span class="cm">/* Ennd of application-specific */</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">s_type32_e</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="sh_flags" class="heading-element"><span>sh_flags</span>
-  <a href="#sh_flags" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>4字节,由一系列标志比特位组成.</p>
+</div><p>sh_flags:</p>
+<p>4字节,由一系列标志比特位组成.</p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_flags.png" alt="sh_flags" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_flags.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_flags.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_flags.png?size=large 2x" data-title="sh_flags" style="--width: 807px;--aspect-ratio: 807 / 416;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h4 id="sh_addr" class="heading-element"><span>sh_addr</span>
-  <a href="#sh_addr" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>4字节,内存地址.</p>
-<h4 id="sh_offset" class="heading-element"><span>sh_offset</span>
-  <a href="#sh_offset" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>4字节,文件偏移.</p>
-<h4 id="sh_size" class="heading-element"><span>sh_size</span>
-  <a href="#sh_size" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>4字节,节大小.</p>
-<h4 id="sh_link" class="heading-element"><span>sh_link</span>
-  <a href="#sh_link" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>4字节,一个索引值,指向节头表中本节所对应的位置.</p>
-<h4 id="sh_info" class="heading-element"><span>sh_info</span>
-  <a href="#sh_info" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>4字节,节的附加信息,根据节的类型不同,本成员的意义也有所不同.</p>
+<p>sh_addr:</p>
+<p>4字节,内存地址.</p>
+<p>sh_offset:</p>
+<p>4字节,文件偏移.</p>
+<p>sh_size:</p>
+<p>4字节,节大小.</p>
+<p>sh_link:</p>
+<p>4字节,一个索引值,指向节头表中本节所对应的位置.</p>
+<p>sh_info:</p>
+<p>4字节,节的附加信息,根据节的类型不同,本成员的意义也有所不同.</p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_info.png" alt="sh_info" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_info.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_info.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/sh_info.png?size=large 2x" data-title="sh_info" style="--width: 1340px;--aspect-ratio: 1340 / 695;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h4 id="sh_addralign" class="heading-element"><span>sh_addralign</span>
-  <a href="#sh_addralign" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>4字节, 对齐值.</p>
-<h4 id="sh_entsize" class="heading-element"><span>sh_entsize</span>
-  <a href="#sh_entsize" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>4字节,有一些节的内容是一张表,其中每一个表项的大小是固定的,比如符号表,对于这种表来说,本成员指定其每一个表项的大小.</p>
+<p>sh_addralign:</p>
+<p>4字节, 对齐值.</p>
+<p>sh_entsize:</p>
+<p>4字节,有一些节的内容是一张表,其中每一个表项的大小是固定的,比如符号表,对于这种表来说,本成员指定其每一个表项的大小.</p>
 <h3 id="特殊节" class="heading-element"><span>特殊节</span>
   <a href="#%e7%89%b9%e6%ae%8a%e8%8a%82" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -881,11 +643,8 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">.</span><span class="n">dynstr</span>
 </span></span><span class="line"><span class="cl"><span class="p">.</span><span class="n">strtab</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="符号表项结构" class="heading-element"><span>符号表项结构</span>
-  <a href="#%e7%ac%a6%e5%8f%b7%e8%a1%a8%e9%a1%b9%e7%bb%93%e6%9e%84" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="highlight"><div class="chroma">
+</div><p>符号表项结构:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -907,17 +666,11 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">Elf32_Sym</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>符号表描述了导入和导出,st_value的值为非0,表示是导出为0,则表示是导入.</p>
-<h5 id="st_name" class="heading-element"><span>st_name</span>
-  <a href="#st_name" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>指向字符串表的索引,节头表中的link值说明了是哪个字符串表.</p>
+<p>st_name:</p>
+<p>指向字符串表的索引,节头表中的link值说明了是哪个字符串表.</p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_name.png" alt="st_name" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_name.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_name.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_name.png?size=large 2x" data-title="st_name" style="--width: 1938px;--aspect-ratio: 1938 / 841;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="st_info" class="heading-element"><span>st_info</span>
-  <a href="#st_info" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><div class="highlight"><div class="chroma">
+<p>st_info:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -932,16 +685,10 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%BB%91%E5%AE%9A.png" alt="符号绑定" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%BB%91%E5%AE%9A.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%BB%91%E5%AE%9A.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%BB%91%E5%AE%9A.png?size=large 2x" data-title="符号绑定" style="--width: 514px;--aspect-ratio: 514 / 488;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>低4字节是符号类型.</p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B.png" alt="符号类型" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B.png?size=large 2x" data-title="符号类型" style="--width: 538px;--aspect-ratio: 538 / 644;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="st_shndx" class="heading-element"><span>st_shndx</span>
-  <a href="#st_shndx" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>这里我们导出一个全局变量,来理解下这个字段的意思.</p>
-<h6 id="源代码" class="heading-element"><span>源代码</span>
-  <a href="#%e6%ba%90%e4%bb%a3%e7%a0%81" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><div class="highlight"><div class="chroma">
+<p>st_shndx:</p>
+<p>这里我们导出一个全局变量,来理解下这个字段的意思.</p>
+<p>源代码:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -958,11 +705,8 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h6 id="分析" class="heading-element"><span>分析</span>
-  <a href="#%e5%88%86%e6%9e%90" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png" alt="st_shndx1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png?size=large 2x" data-title="st_shndx1" style="--width: 1946px;--aspect-ratio: 1946 / 796;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p>分析:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png" alt="st_shndx1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/st_shndx1.png?size=large 2x" data-title="st_shndx1" style="--width: 1946px;--aspect-ratio: 1946 / 796;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>从上图中可以看到,导出的全局变量g_n的RVA为0x2000,大小为4字节,st_shndx字段为22.
 那么这个全局变量的值在文件偏移的哪个地方记录呢?
 我们去节头表中的第22项看下.</p>
@@ -986,29 +730,17 @@ IDA检查了这2字节,如果我们修改了这2字节内容.IDA只会产生警�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">.</span><span class="n">gnu</span><span class="p">.</span><span class="n">hash</span> <span class="c1">//新版,效率高,只可查导出
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="旧版hash" class="heading-element"><span>旧版(.hash)</span>
-  <a href="#%e6%97%a7%e7%89%88hash" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><h5 id="哈希表结构" class="heading-element"><span>哈希表结构</span>
-  <a href="#%e5%93%88%e5%b8%8c%e8%a1%a8%e7%bb%93%e6%9e%84" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png" alt="哈希表结构" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png?size=large 2x" data-title="哈希表结构" style="--width: 548px;--aspect-ratio: 548 / 311;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p>旧版(.hash):</p>
+<p>哈希表结构:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png" alt="哈希表结构" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png?size=large 2x" data-title="哈希表结构" style="--width: 548px;--aspect-ratio: 548 / 311;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>Bucket数组中含有nbucket个项,chain数组中含有nchain个项,序号都从0开始.
 Bucket和chain中包含的都是符号表中的索引.hash有可能冲突,chain里面放的就是所有冲突的.
 给定一个符号名字,返回一个哈希值x,然后由bucket[x%nbucket]得到一个符号表索引y,
 如果索引y对应的符号表项不是想要的符号(通过对比名字),则由chain[y]得到下一个符号表索引z,如果仍不是想要的符号,继续chain[z]…,
 如果chain[z]的值为0,说明该符号不存在.</p>
-<h5 id="哈希算法" class="heading-element"><span>哈希算法</span>
-  <a href="#%e5%93%88%e5%b8%8c%e7%ae%97%e6%b3%95" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><h6 id="原始算法" class="heading-element"><span>原始算法</span>
-  <a href="#%e5%8e%9f%e5%a7%8b%e7%ae%97%e6%b3%95" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><div class="highlight"><div class="chroma">
+<p>哈希算法:</p>
+<p>原始算法:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1037,11 +769,8 @@ Bucket和chain中包含的都是符号表中的索引.hash有可能冲突,chain�
 </span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h6 id="android中的hash算法" class="heading-element"><span>Android中的hash算法</span>
-  <a href="#android%e4%b8%ad%e7%9a%84hash%e7%ae%97%e6%b3%95" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p>Google并没有用原始的hash算法.</p>
+</div><p>Android中的hash算法:</p>
+<p>Google并没有用原始的hash算法.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1075,11 +804,8 @@ Bucket和chain中包含的都是符号表中的索引.hash有可能冲突,chain�
 </span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="示例" class="heading-element"><span>示例</span>
-  <a href="#%e7%a4%ba%e4%be%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>环境:解压AndroidStudio编译出来的Release版apk,查看其中的so文件.</p>
+</div><p>示例:</p>
+<p>环境:解压AndroidStudio编译出来的Release版apk,查看其中的so文件.</p>
 <p>目标:查找main这个符号.</p>
 <ol>
 <li>查看.hash数据.</li>
@@ -1131,11 +857,8 @@ chain[3] = 0x11,查看动态符号表的第17项是main.</p>
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>记录外部调用的入口地址.</p>
-<h4 id="plt和got的关系" class="heading-element"><span>plt和got的关系</span>
-  <a href="#plt%e5%92%8cgot%e7%9a%84%e5%85%b3%e7%b3%bb" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="highlight"><div class="chroma">
+<p>plt和got的关系:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1184,11 +907,8 @@ chain[3] = 0x11,查看动态符号表的第17项是main.</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">.</span><span class="n">rel</span><span class="p">.</span><span class="n">dyn</span> <span class="c1">//修全局变量
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="项结构" class="heading-element"><span>项结构</span>
-  <a href="#%e9%a1%b9%e7%bb%93%e6%9e%84" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="highlight"><div class="chroma">
+</div><p>项结构:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1213,11 +933,8 @@ chain[3] = 0x11,查看动态符号表的第17项是main.</p>
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Sword</span> <span class="n">r_addend</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Rela</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="r_info-的宏定义" class="heading-element"><span>r_info 的宏定义</span>
-  <a href="#r_info-%e7%9a%84%e5%ae%8f%e5%ae%9a%e4%b9%89" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><div class="highlight"><div class="chroma">
+</div><p>r_info 的宏定义:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1228,26 +945,17 @@ chain[3] = 0x11,查看动态符号表的第17项是main.</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define ELF32_R_TYPE(i) ((unsigned char)(i))  </span><span class="c1">//低8位是重定位的类型,如何修
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define ELF32_R_INFO(s,t) (((s)&lt;&lt;8)+(unsigned char)(t))</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="示例-1" class="heading-element"><span>示例</span>
-  <a href="#%e7%a4%ba%e4%be%8b-1" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png" alt="重定位表1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png?size=large 2x" data-title="重定位表1" style="--width: 1882px;--aspect-ratio: 1882 / 1250;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p>示例:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png" alt="重定位表1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A81.png?size=large 2x" data-title="重定位表1" style="--width: 1882px;--aspect-ratio: 1882 / 1250;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>Elf32_Xword s_entsize = 8, 表示每项为8字节
 第一项为 F0 1F 00 00 16 02 00 00
 r_offset: 0x1FF0
 符号表索引:0x02
 重定位类型:0x16</p>
-<h5 id="ida查看偏移" class="heading-element"><span>IDA查看偏移</span>
-  <a href="#ida%e6%9f%a5%e7%9c%8b%e5%81%8f%e7%a7%bb" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png" alt="重定位表2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png?size=large 2x" data-title="重定位表2" style="--width: 1319px;--aspect-ratio: 1319 / 302;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="符号表第2项" class="heading-element"><span>符号表第2项</span>
-  <a href="#%e7%ac%a6%e5%8f%b7%e8%a1%a8%e7%ac%ac2%e9%a1%b9" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png" alt="重定位表3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png?size=large 2x" data-title="重定位表3" style="--width: 1903px;--aspect-ratio: 1903 / 480;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>IDA查看偏移:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png" alt="重定位表2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A82.png?size=large 2x" data-title="重定位表2" style="--width: 1319px;--aspect-ratio: 1319 / 302;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>符号表第2项:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png" alt="重定位表3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A83.png?size=large 2x" data-title="重定位表3" style="--width: 1903px;--aspect-ratio: 1903 / 480;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <h3 id="动态节" class="heading-element"><span>动态节</span>
   <a href="#%e5%8a%a8%e6%80%81%e8%8a%82" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -1265,11 +973,8 @@ r_offset: 0x1FF0
 </span></span></span><span class="line"><span class="cl"><span class="cm">但是这样说又有点矛盾,因为我们前面讲软件的运行是不需要节表的.
 </span></span></span><span class="line"><span class="cl"><span class="cm">那么操作系统不通过节表,如何拿到动态节的地址? 段中有描述.*/</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="项结构-1" class="heading-element"><span>项结构</span>
-  <a href="#%e9%a1%b9%e7%bb%93%e6%9e%84-1" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="highlight"><div class="chroma">
+</div><p>项结构:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1288,16 +993,10 @@ r_offset: 0x1FF0
 </span></span><span class="line"><span class="cl"> <span class="p">}</span> <span class="n">d_un</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Dyn</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="d_tag" class="heading-element"><span>d_tag</span>
-  <a href="#d_tag" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png" alt="d_tag" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png?size=large 2x" data-title="d_tag" style="--width: 1343px;--aspect-ratio: 1343 / 2371;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h6 id="dt_needed" class="heading-element"><span>DT_NEEDED</span>
-  <a href="#dt_needed" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png" alt="DT_NEEDED" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png?size=large 2x" data-title="DT_NEEDED" style="--width: 1947px;--aspect-ratio: 1947 / 958;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p>d_tag:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png" alt="d_tag" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/d_tag.png?size=large 2x" data-title="d_tag" style="--width: 1343px;--aspect-ratio: 1343 / 2371;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>DT_NEEDED:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png" alt="DT_NEEDED" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/DT_NEEDED.png?size=large 2x" data-title="DT_NEEDED" style="--width: 1947px;--aspect-ratio: 1947 / 958;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这里面存放的是软件运行所需要的动态库.
 前面我们讲符号表和重定位表,都没有提到对应的api在哪个库里面.
 假设软件运行需要两个库,libc.so、 libm.so
@@ -1310,11 +1009,8 @@ r_offset: 0x1FF0
   </a>
 </h3><p>用来保存程序加载到内存中所需要的信息,用段(segment)来表示,与节头表类似,同样是数组结构.
 数组的位置在偏移e_phoff处,每个元素(segment header)的大小为e_phentsize,共有e_phnum个元素.</p>
-<h4 id="程序头结构" class="heading-element"><span>程序头结构</span>
-  <a href="#%e7%a8%8b%e5%ba%8f%e5%a4%b4%e7%bb%93%e6%9e%84" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="highlight"><div class="chroma">
+<p>程序头结构:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1339,57 +1035,30 @@ r_offset: 0x1FF0
 </span></span><span class="line"><span class="cl"> <span class="n">Elf32_Word</span> <span class="n">p_align</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">Elf32_Phdr</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="p_type" class="heading-element"><span>p_type</span>
-  <a href="#p_type" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>类型
+</div><p>p_type:</p>
+<p>类型
 PT_NULL:表示该段未使用.
 PT_LOAD:表示要将文件中的segment内容映射到进程内存中对应的地址上.
 PT_DYNAMIC:动态节.
 PT_INTERP:包含interpreter的路径.
 PT_HDR:表示程序头表本身.</p>
-<h5 id="p_offset" class="heading-element"><span>p_offset</span>
-  <a href="#p_offset" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>该段的文件偏移.</p>
-<h5 id="p_vaddr" class="heading-element"><span>p_vaddr</span>
-  <a href="#p_vaddr" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>段数据应该加载到进程的虚拟地址.</p>
-<h5 id="p_paddr" class="heading-element"><span>p_paddr</span>
-  <a href="#p_paddr" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>段数据应该加载到进程的物理地址.</p>
-<h5 id="p_filesz" class="heading-element"><span>p_filesz</span>
-  <a href="#p_filesz" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>该段的文件大小.</p>
-<h5 id="p_memsz" class="heading-element"><span>p_memsz</span>
-  <a href="#p_memsz" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>该段的内存大小.</p>
-<h5 id="p_flags" class="heading-element"><span>p_flags</span>
-  <a href="#p_flags" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>段的内存属性.</p>
+<p>p_offset:</p>
+<p>该段的文件偏移.</p>
+<p>p_vaddr:</p>
+<p>段数据应该加载到进程的虚拟地址.</p>
+<p>p_paddr:</p>
+<p>段数据应该加载到进程的物理地址.</p>
+<p>p_filesz:</p>
+<p>该段的文件大小.</p>
+<p>p_memsz:</p>
+<p>该段的内存大小.</p>
+<p>p_flags:</p>
+<p>段的内存属性.</p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/p_flags.png" alt="p_flags" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/p_flags.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/p_flags.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/p_flags.png?size=large 2x" data-title="p_flags" style="--width: 848px;--aspect-ratio: 848 / 432;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="p_align" class="heading-element"><span>p_align</span>
-  <a href="#p_align" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>该段数据的对齐值.</p>
-<h4 id="段示例" class="heading-element"><span>段示例</span>
-  <a href="#%e6%ae%b5%e7%a4%ba%e4%be%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png" alt="段示例" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png?size=large 2x" data-title="段示例" style="--width: 1917px;--aspect-ratio: 1917 / 418;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>p_align:</p>
+<p>该段数据的对齐值.</p>
+<p>段示例:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png" alt="段示例" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E6%AE%B5%E7%A4%BA%E4%BE%8B.png?size=large 2x" data-title="段示例" style="--width: 1917px;--aspect-ratio: 1917 / 418;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <h3 id="攻防对抗" class="heading-element"><span>攻防对抗</span>
   <a href="#%e6%94%bb%e9%98%b2%e5%af%b9%e6%8a%97" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -2417,50 +2086,23 @@ PT_HDR:表示程序头表本身.</p>
 <p>我们如何预防别人这样的操作呢?
 我们将节表删了(即将ELF文件头中的e_shoff设置为0)用IDA分析,来和未删节表前来进行对比.</p>
 <p>没有节表,IDA的反汇编效果很差,但是有节表,又担心被骗,我们可以根据段来重建节表.</p>
-<h5 id="节和段的关系" class="heading-element"><span>节和段的关系</span>
-  <a href="#%e8%8a%82%e5%92%8c%e6%ae%b5%e7%9a%84%e5%85%b3%e7%b3%bb" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png" alt="重建节表" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png?size=large 2x" data-title="重建节表" style="--width: 1254px;--aspect-ratio: 1254 / 790;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="plt" class="heading-element"><span>plt</span>
-  <a href="#plt" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><h6 id="结构" class="heading-element"><span>结构</span>
-  <a href="#%e7%bb%93%e6%9e%84" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png" alt="重建节表1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png?size=large 2x" data-title="重建节表1" style="--width: 1950px;--aspect-ratio: 1950 / 978;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>节和段的关系:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png" alt="重建节表" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A8.png?size=large 2x" data-title="重建节表" style="--width: 1254px;--aspect-ratio: 1254 / 790;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>plt:</p>
+<p>结构:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png" alt="重建节表1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A81.png?size=large 2x" data-title="重建节表1" style="--width: 1950px;--aspect-ratio: 1950 / 978;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A82.png" alt="重建节表2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A82.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A82.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/%E9%87%8D%E5%BB%BA%E8%8A%82%E8%A1%A82.png?size=large 2x" data-title="重建节表2" style="--width: 1864px;--aspect-ratio: 1864 / 978;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h6 id="foa" class="heading-element"><span>FOA</span>
-  <a href="#foa" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p>DT_JMPREL表的FOA + SIZE,就是plt表的FOA.</p>
-<h6 id="size" class="heading-element"><span>SIZE</span>
-  <a href="#size" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p>遍历段中的DT_JMPREL,拿重定位的api项数,记为x,plt的头为20字节,每个plt项12字节,则plt节的大小为 12 * x + 20.</p>
-<h5 id="text" class="heading-element"><span>text</span>
-  <a href="#text" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><h6 id="foa-1" class="heading-element"><span>FOA</span>
-  <a href="#foa-1" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p>plt表的FOA + SIZE,就是text表的FOA.</p>
-<h6 id="size-1" class="heading-element"><span>SIZE</span>
-  <a href="#size-1" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p>PT_SHT_ARM_EXIDX表的FOA - (plt表的FOA + plt表的SIZE).</p>
-<h5 id="数据段" class="heading-element"><span>数据段</span>
-  <a href="#%e6%95%b0%e6%8d%ae%e6%ae%b5" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><div class="highlight"><div class="chroma">
+<p>FOA:</p>
+<p>DT_JMPREL表的FOA + SIZE,就是plt表的FOA.</p>
+<p>SIZE:</p>
+<p>遍历段中的DT_JMPREL,拿重定位的api项数,记为x,plt的头为20字节,每个plt项12字节,则plt节的大小为 12 * x + 20.</p>
+<p>text:</p>
+<p>FOA:</p>
+<p>plt表的FOA + SIZE,就是text表的FOA.</p>
+<p>SIZE:</p>
+<p>PT_SHT_ARM_EXIDX表的FOA - (plt表的FOA + plt表的SIZE).</p>
+<p>数据段:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2471,605 +2113,19 @@ PT_HDR:表示程序头表本身.</p>
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>根据程序头表中的内存映射,来区分是.data还是.bss,映射内存的是.data,否则是.bss.</p>
-<h4 id="java函数hook" class="heading-element"><span>Java函数Hook</span>
-  <a href="#java%e5%87%bd%e6%95%b0hook" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><h5 id="dalvik虚拟机" class="heading-element"><span>Dalvik虚拟机</span>
-  <a href="#dalvik%e8%99%9a%e6%8b%9f%e6%9c%ba" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>实验环境为Android4.1.</p>
-<p>实验目标:将Java中的加法修改为减法.</p>
-<h6 id="java源代码" class="heading-element"><span>Java源代码</span>
-  <a href="#java%e6%ba%90%e4%bb%a3%e7%a0%81" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA1.png" alt="Dalvik虚拟机1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA1.png?size=large 2x" data-title="Dalvik虚拟机1" style="--width: 1605px;--aspect-ratio: 1605 / 1132;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h6 id="反射调用java中的方法" class="heading-element"><span>反射调用Java中的方法</span>
-  <a href="#%e5%8f%8d%e5%b0%84%e8%b0%83%e7%94%a8java%e4%b8%ad%e7%9a%84%e6%96%b9%e6%b3%95" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">JNIEXPORT</span> <span class="n">jint</span> <span class="nf">JNI_OnLoad</span><span class="p">(</span><span class="n">JavaVM</span><span class="o">*</span> <span class="n">vm</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">reserved</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;JNI_OnLoad&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">vm</span><span class="o">-&gt;</span><span class="n">GetEnv</span><span class="p">((</span><span class="kt">void</span><span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">env</span><span class="p">,</span> <span class="n">JNI_VERSION_1_6</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;env = %p&#34;</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">jclass</span> <span class="n">clsMainActivity</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">FindClass</span><span class="p">(</span><span class="s">&#34;org/example/luohook/MainActivity&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;clsMainActivity:%p&#34;</span><span class="p">,</span> <span class="n">clsMainActivity</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">jmethodID</span> <span class="n">Construct</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetMethodID</span><span class="p">(</span><span class="n">clsMainActivity</span><span class="p">,</span> <span class="s">&#34;&lt;init&gt;&#34;</span><span class="p">,</span> <span class="s">&#34;()V&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">jobject</span> <span class="n">objMainActivity</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewObject</span><span class="p">(</span><span class="n">clsMainActivity</span><span class="p">,</span> <span class="n">Construct</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">jmethodID</span> <span class="n">MyAdd</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetMethodID</span><span class="p">(</span><span class="n">clsMainActivity</span><span class="p">,</span> <span class="s">&#34;MyAdd&#34;</span><span class="p">,</span> <span class="s">&#34;(II)I&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;MyAdd:%p&#34;</span><span class="p">,</span> <span class="n">MyAdd</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kt">int</span> <span class="n">nRet</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">CallIntMethod</span><span class="p">(</span><span class="n">objMainActivity</span><span class="p">,</span> <span class="n">MyAdd</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;3 + 5 = %d&#34;</span><span class="p">,</span> <span class="n">nRet</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">JNI_VERSION_1_6</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>从上面代码中,可以看到比较重要是地方是GetMethodID这个函数,它内部肯定拿到了Java中MyAdd的字节码,我们在Android源码中查看这个函数.</p>
-<h6 id="getmethodid" class="heading-element"><span>GetMethodID</span>
-  <a href="#getmethodid" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><a href="http://androidxref.com/4.1.1/xref/dalvik/vm/Jni.cpp"target="_blank" rel="external nofollow noopener noreferrer">http://androidxref.com/4.1.1/xref/dalvik/vm/Jni.cpp</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="k">static</span> <span class="n">jmethodID</span> <span class="nf">GetMethodID</span><span class="p">(</span><span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">jclass</span> <span class="n">jclazz</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">sig</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">ScopedJniThreadState</span> <span class="n">ts</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">ClassObject</span><span class="o">*</span> <span class="n">clazz</span> <span class="o">=</span> <span class="p">(</span><span class="n">ClassObject</span><span class="o">*</span><span class="p">)</span><span class="n">dvmDecodeIndirectRef</span><span class="p">(</span><span class="n">ts</span><span class="p">.</span><span class="n">self</span><span class="p">(),</span> <span class="n">jclazz</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">dvmIsClassInitialized</span><span class="p">(</span><span class="n">clazz</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">dvmInitClass</span><span class="p">(</span><span class="n">clazz</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">assert</span><span class="p">(</span><span class="n">dvmCheckException</span><span class="p">(</span><span class="n">ts</span><span class="p">.</span><span class="n">self</span><span class="p">()));</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">dvmIsInterfaceClass</span><span class="p">(</span><span class="n">clazz</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">Method</span><span class="o">*</span> <span class="n">meth</span> <span class="o">=</span> <span class="n">dvmFindInterfaceMethodHierByDescriptor</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">sig</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">meth</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">dvmThrowExceptionFmt</span><span class="p">(</span><span class="n">gDvm</span><span class="p">.</span><span class="n">exNoSuchMethodError</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s">&#34;no method with name=&#39;%s&#39; signature=&#39;%s&#39; in interface %s&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="n">name</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">clazz</span><span class="o">-&gt;</span><span class="n">descriptor</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">jmethodID</span><span class="p">)</span><span class="n">meth</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Method</span><span class="o">*</span> <span class="n">meth</span> <span class="o">=</span> <span class="n">dvmFindVirtualMethodHierByDescriptor</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">sig</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">meth</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="cm">/* search private methods and constructors; non-hierarchical */</span>
-</span></span><span class="line"><span class="cl">        <span class="n">meth</span> <span class="o">=</span> <span class="n">dvmFindDirectMethodByDescriptor</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">sig</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">meth</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">dvmIsStaticMethod</span><span class="p">(</span><span class="n">meth</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">IF_ALOGD</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="kt">char</span><span class="o">*</span> <span class="n">desc</span> <span class="o">=</span> <span class="n">dexProtoCopyMethodDescriptor</span><span class="p">(</span><span class="o">&amp;</span><span class="n">meth</span><span class="o">-&gt;</span><span class="n">prototype</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">ALOGD</span><span class="p">(</span><span class="s">&#34;GetMethodID: not returning static method %s.%s %s&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="n">clazz</span><span class="o">-&gt;</span><span class="n">descriptor</span><span class="p">,</span> <span class="n">meth</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span> <span class="n">desc</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">free</span><span class="p">(</span><span class="n">desc</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="n">meth</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">meth</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">dvmThrowExceptionFmt</span><span class="p">(</span><span class="n">gDvm</span><span class="p">.</span><span class="n">exNoSuchMethodError</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="s">&#34;no method with name=&#39;%s&#39; signature=&#39;%s&#39; in class %s&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="n">name</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">clazz</span><span class="o">-&gt;</span><span class="n">descriptor</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="cm">/*
-</span></span></span><span class="line"><span class="cl"><span class="cm">         * The method&#39;s class may not be the same as clazz, but if
-</span></span></span><span class="line"><span class="cl"><span class="cm">         * it isn&#39;t this must be a virtual method and the class must
-</span></span></span><span class="line"><span class="cl"><span class="cm">         * be a superclass (and, hence, already initialized).
-</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
-</span></span><span class="line"><span class="cl">        <span class="n">assert</span><span class="p">(</span><span class="n">dvmIsClassInitialized</span><span class="p">(</span><span class="n">meth</span><span class="o">-&gt;</span><span class="n">clazz</span><span class="p">)</span> <span class="o">||</span> <span class="n">dvmIsClassInitializing</span><span class="p">(</span><span class="n">meth</span><span class="o">-&gt;</span><span class="n">clazz</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">jmethodID</span><span class="p">)</span><span class="n">meth</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>发现这个函数的返回值为Method结构体,继续在Android源码中查看这个结构体.</p>
-<p><a href="http://androidxref.com/4.1.1/xref/dalvik/vm/oo/Object.h"target="_blank" rel="external nofollow noopener noreferrer">http://androidxref.com/4.1.1/xref/dalvik/vm/oo/Object.h</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">char</span>        <span class="n">u1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">short</span>       <span class="n">u2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">int</span>         <span class="n">u4</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span>   <span class="n">u8</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">signed</span> <span class="kt">char</span>          <span class="n">s1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">signed</span> <span class="kt">short</span>         <span class="n">s2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">signed</span> <span class="kt">int</span>           <span class="n">s4</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">signed</span> <span class="kt">long</span> <span class="kt">long</span>     <span class="n">s8</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Object</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">union</span> <span class="nc">JValue</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">u1</span>      <span class="n">z</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">s1</span>      <span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">u2</span>      <span class="n">c</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">s2</span>      <span class="n">s</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">s4</span>      <span class="n">i</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">s8</span>      <span class="n">j</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="kt">float</span>   <span class="n">f</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="kt">double</span>  <span class="n">d</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">Object</span><span class="o">*</span> <span class="n">l</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">DalvikBridgeFunc</span><span class="p">)(</span><span class="k">const</span> <span class="n">u4</span><span class="o">*</span> <span class="n">args</span><span class="p">,</span> <span class="n">JValue</span><span class="o">*</span> <span class="n">pResult</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"> <span class="k">const</span> <span class="n">Method</span><span class="o">*</span> <span class="n">method</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">Thread</span><span class="o">*</span> <span class="n">self</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Method</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"> <span class="kt">void</span><span class="o">*</span>              <span class="n">clazz</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">u4</span>                 <span class="n">accessFlags</span><span class="p">;</span>   <span class="c1">//访问权限
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">u2</span>                 <span class="n">methodIndex</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">u2</span>                 <span class="n">registersSize</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">u2</span>                 <span class="n">outsSize</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">u2</span>                 <span class="n">insSize</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span>        <span class="n">name</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">DexProto</span>           <span class="n">prototype</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span>        <span class="n">shorty</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="k">const</span> <span class="n">u2</span><span class="o">*</span>          <span class="n">insns</span><span class="p">;</span>         <span class="c1">//字节码
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="kt">int</span>                <span class="n">jniArgInfo</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">DalvikBridgeFunc</span>   <span class="n">nativeFunc</span><span class="p">;</span>    <span class="c1">//jni方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="kt">bool</span>               <span class="n">fastJni</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="kt">bool</span>               <span class="n">noRef</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="kt">bool</span>               <span class="n">shouldTrace</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="k">const</span> <span class="kt">void</span><span class="o">*</span>        <span class="n">registerMap</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> <span class="kt">bool</span>               <span class="n">inProfile</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>从上面结构中可以知道,insns字段存放的是方法的字节码.</p>
-<h6 id="jni修改" class="heading-element"><span>jni修改</span>
-  <a href="#jni%e4%bf%ae%e6%94%b9" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p>我们在jni中写代码,来修改字节码,从而实现在ManiActivity.OnCreate中调用的MyAdd方法修改为减法,首先,我们修改的操作应该在ManiActivity执行之前.</p>
-<ol>
-<li>提前加载jni库.</li>
-</ol>
-<p>写一个类继承Application加载jni库.</p>
-<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B91.png" alt="Dalvik虚拟机jni修改1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B91.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B91.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B91.png?size=large 2x" data-title="Dalvik虚拟机jni修改1" style="--width: 1357px;--aspect-ratio: 1357 / 957;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p>修改AndroidManifest.xml文件.</p>
-<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B92.png" alt="Dalvik虚拟机jni修改2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B92.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B92.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B92.png?size=large 2x" data-title="Dalvik虚拟机jni修改2" style="--width: 1733px;--aspect-ratio: 1733 / 1095;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<ol start="2">
-<li>查看MyAdd的字节码.</li>
-</ol>
-<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B93.png" alt="Dalvik虚拟机jni修改3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B93.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B93.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B93.png?size=large 2x" data-title="Dalvik虚拟机jni修改3" style="--width: 1822px;--aspect-ratio: 1822 / 997;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<ol start="3">
-<li>修改.</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">FakeAdd</span><span class="p">(</span><span class="k">const</span> <span class="n">u4</span><span class="o">*</span> <span class="n">args</span><span class="p">,</span> <span class="n">JValue</span><span class="o">*</span> <span class="n">pResult</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Method</span><span class="o">*</span> <span class="n">method</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">Thread</span><span class="o">*</span> <span class="n">self</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;FakeAdd&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;%p %p %d %d %d&#34;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">//2个参数在args[2], args[3]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//返回值为int
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">pResult</span><span class="o">-&gt;</span><span class="n">i</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">JNIEXPORT</span> <span class="n">jint</span> <span class="nf">JNI_OnLoad</span><span class="p">(</span><span class="n">JavaVM</span><span class="o">*</span> <span class="n">vm</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">reserved</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;JNI_OnLoad&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="o">-&gt;</span><span class="n">GetEnv</span><span class="p">((</span><span class="kt">void</span><span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">env</span><span class="p">,</span> <span class="n">JNI_VERSION_1_6</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;env = %p&#34;</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">jclass</span> <span class="n">clsMainActivity</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">FindClass</span><span class="p">(</span><span class="s">&#34;org/example/luohook/MainActivity&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;clsMainActivity:%p&#34;</span><span class="p">,</span> <span class="n">clsMainActivity</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">jmethodID</span> <span class="n">Construct</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetMethodID</span><span class="p">(</span><span class="n">clsMainActivity</span><span class="p">,</span> <span class="s">&#34;&lt;init&gt;&#34;</span><span class="p">,</span> <span class="s">&#34;()V&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">jobject</span> <span class="n">objMainActivity</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewObject</span><span class="p">(</span><span class="n">clsMainActivity</span><span class="p">,</span> <span class="n">Construct</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">jmethodID</span> <span class="n">MyAdd</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetMethodID</span><span class="p">(</span><span class="n">clsMainActivity</span><span class="p">,</span> <span class="s">&#34;MyAdd&#34;</span><span class="p">,</span> <span class="s">&#34;(II)I&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;MyAdd:%p&#34;</span><span class="p">,</span> <span class="n">MyAdd</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">Method</span><span class="o">*</span> <span class="n">meth</span> <span class="o">=</span> <span class="p">(</span><span class="n">Method</span><span class="o">*</span><span class="p">)</span><span class="n">MyAdd</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;name:%s shorty:%s insns:%p&#34;</span><span class="p">,</span> <span class="n">meth</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span> <span class="n">meth</span><span class="o">-&gt;</span><span class="n">shorty</span><span class="p">,</span> <span class="n">meth</span><span class="o">-&gt;</span><span class="n">insns</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">nRet</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">CallIntMethod</span><span class="p">(</span><span class="n">objMainActivity</span><span class="p">,</span> <span class="n">MyAdd</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;3 + 5 = %d&#34;</span><span class="p">,</span> <span class="n">nRet</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="cm">/*   //修改方式1
-</span></span></span><span class="line"><span class="cl"><span class="cm">       //修改内存保护属性
-</span></span></span><span class="line"><span class="cl"><span class="cm">       if (mprotect((void *) ((long long) meth-&gt;insns &amp; ~0xfff),
-</span></span></span><span class="line"><span class="cl"><span class="cm">                    0x1000,
-</span></span></span><span class="line"><span class="cl"><span class="cm">                    PROT_WRITE | PROT_READ) &lt; 0) {
-</span></span></span><span class="line"><span class="cl"><span class="cm">           perror(&#34;mprotect&#34;);
-</span></span></span><span class="line"><span class="cl"><span class="cm">       }
-</span></span></span><span class="line"><span class="cl"><span class="cm">       //可以修改meth-&gt;insns指向的字节码,也可以将meth-&gt;insns指向的地址给换掉
-</span></span></span><span class="line"><span class="cl"><span class="cm">       u2 *pCode = (u2 *) malloc(10);
-</span></span></span><span class="line"><span class="cl"><span class="cm">       pCode[0] = 0x0091;
-</span></span></span><span class="line"><span class="cl"><span class="cm">       pCode[1] = 0x0302;
-</span></span></span><span class="line"><span class="cl"><span class="cm">       pCode[2] = 0x000f;
-</span></span></span><span class="line"><span class="cl"><span class="cm">       meth-&gt;insns = pCode;*/</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="c1">//修改方式2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="c1">//访问权限加上Native方法,告诉操作系统这是个jni函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">meth</span><span class="o">-&gt;</span><span class="n">accessFlags</span> <span class="o">|=</span> <span class="n">ACC_NATIVE</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//修改Native地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">meth</span><span class="o">-&gt;</span><span class="n">nativeFunc</span> <span class="o">=</span> <span class="n">FakeAdd</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">nRet</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">CallIntMethod</span><span class="p">(</span><span class="n">objMainActivity</span><span class="p">,</span> <span class="n">MyAdd</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;3 + 5 = %d&#34;</span><span class="p">,</span> <span class="n">nRet</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">JNI_VERSION_1_6</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B94.png" alt="Dalvik虚拟机jni修改4" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B94.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B94.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/elf/images/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAjni%E4%BF%AE%E6%94%B94.png?size=large 2x" data-title="Dalvik虚拟机jni修改4" style="--width: 720px;--aspect-ratio: 720 / 1280;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h6 id="注意" class="heading-element"><span>注意</span>
-  <a href="#%e6%b3%a8%e6%84%8f" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p>上述方法不适应于Art虚拟机,因为它会在apk安装的时候变为汇编,无字节码.</p>
-<h6 id="源代码-1" class="heading-element"><span>源代码</span>
-  <a href="#%e6%ba%90%e4%bb%a3%e7%a0%81-1" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BAJavaHook.7z">Dalvik虚拟机JavaHook.7z</a></p>
-<h5 id="art虚拟机" class="heading-element"><span>Art虚拟机</span>
-  <a href="#art%e8%99%9a%e6%8b%9f%e6%9c%ba" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>实验环境为Android7.0 x86.</p>
-<p>即便它是Art虚拟机,但是我们Hook的思路没有变,只是GetMethodID这个函数的返回值类型由原来的Method结构体变为了ArtMethod.需要注意的是Android每个版本,ArtMethod这个结构体都不一样.</p>
-<h6 id="jni修改-1" class="heading-element"><span>jni修改</span>
-  <a href="#jni%e4%bf%ae%e6%94%b9-1" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
-</span><span class="lnt">78
-</span><span class="lnt">79
-</span><span class="lnt">80
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//访问权限
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="n">kAccFinal</span> <span class="o">=</span> <span class="mh">0x0010</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">kAccNative</span> <span class="o">=</span> <span class="mh">0x0100</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">kAccFastNative</span> <span class="o">=</span> <span class="mh">0x00080000</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//需要注意的是这个结构体,Android每个版本都不一样
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">ArtMethod</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//GcRoot&lt;mirror::Class&gt; declaring_class_;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">declaring_class_</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span> <span class="n">access_flags_</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span> <span class="n">dex_code_item_offset_</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span> <span class="n">dex_method_index_</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">method_index_</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">hotness_count_</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">ArtMethod</span> <span class="o">**</span><span class="n">dex_cache_resolved_methods_</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="o">*</span><span class="n">dex_cache_resolved_types_</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="o">*</span><span class="n">entry_point_from_jni_</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="o">*</span><span class="n">entry_point_from_quick_compiled_code_</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">char</span>        <span class="n">u1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">short</span>       <span class="n">u2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">int</span>         <span class="n">u4</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span>   <span class="n">u8</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">signed</span> <span class="kt">char</span>          <span class="n">s1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">signed</span> <span class="kt">short</span>         <span class="n">s2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">signed</span> <span class="kt">int</span>           <span class="n">s4</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">signed</span> <span class="kt">long</span> <span class="kt">long</span>     <span class="n">s8</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Object</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">union</span> <span class="nc">JValue</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">u1</span>      <span class="n">z</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">s1</span>      <span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">u2</span>      <span class="n">c</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">s2</span>      <span class="n">s</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">s4</span>      <span class="n">i</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">s8</span>      <span class="n">j</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">float</span>   <span class="n">f</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">double</span>  <span class="n">d</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Object</span><span class="o">*</span> <span class="n">l</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">FakeAdd</span><span class="p">(</span><span class="k">const</span> <span class="n">u4</span><span class="o">*</span> <span class="n">args</span><span class="p">,</span> <span class="n">JValue</span><span class="o">*</span> <span class="n">pResult</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">             <span class="n">ArtMethod</span><span class="o">*</span> <span class="n">method</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">Thread</span><span class="o">*</span> <span class="n">self</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;FakeAdd&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//LOGD(&#34;%p %p %d %d %d&#34;, args[0],args[1],args[2], args[3],args[4] );
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//返回值为int
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">JNIEXPORT</span> <span class="n">jint</span> <span class="nf">JNI_OnLoad</span><span class="p">(</span><span class="n">JavaVM</span> <span class="o">*</span><span class="n">vm</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">reserved</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;JNI_OnLoad&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="o">-&gt;</span><span class="n">GetEnv</span><span class="p">((</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">env</span><span class="p">,</span> <span class="n">JNI_VERSION_1_6</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;env = %p&#34;</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">jclass</span> <span class="n">clsMainActivity</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">FindClass</span><span class="p">(</span><span class="s">&#34;org/example/luohook/MainActivity&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;clsMainActivity:%p&#34;</span><span class="p">,</span> <span class="n">clsMainActivity</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">jmethodID</span> <span class="n">Construct</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetMethodID</span><span class="p">(</span><span class="n">clsMainActivity</span><span class="p">,</span> <span class="s">&#34;&lt;init&gt;&#34;</span><span class="p">,</span> <span class="s">&#34;()V&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">jobject</span> <span class="n">objMainActivity</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewObject</span><span class="p">(</span><span class="n">clsMainActivity</span><span class="p">,</span> <span class="n">Construct</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">jmethodID</span> <span class="n">MyAdd</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetMethodID</span><span class="p">(</span><span class="n">clsMainActivity</span><span class="p">,</span> <span class="s">&#34;MyAdd&#34;</span><span class="p">,</span> <span class="s">&#34;(II)I&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;MyAdd:%p&#34;</span><span class="p">,</span> <span class="n">MyAdd</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">ArtMethod</span> <span class="o">*</span><span class="n">meth</span> <span class="o">=</span> <span class="p">(</span><span class="n">ArtMethod</span> <span class="o">*</span><span class="p">)</span> <span class="n">MyAdd</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">LOGD</span><span class="p">(</span><span class="s">&#34;access_flags_:%p</span><span class="se">\n</span><span class="s">&#34;</span>
-</span></span><span class="line"><span class="cl">         <span class="s">&#34;entry_point_from_jni_:%p</span><span class="se">\n</span><span class="s">&#34;</span>
-</span></span><span class="line"><span class="cl">         <span class="s">&#34;entry_point_from_quick_compiled_code_:%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">         <span class="n">meth</span><span class="o">-&gt;</span><span class="n">access_flags_</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">         <span class="n">meth</span><span class="o">-&gt;</span><span class="n">entry_point_from_jni_</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">         <span class="n">meth</span><span class="o">-&gt;</span><span class="n">entry_point_from_quick_compiled_code_</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">//meth-&gt;access_flags_ |= kAccFastNative;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//meth-&gt;entry_point_from_jni_ = (void*)FakeAdd;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//http://androidxref.com/7.0.0_r1/xref/art/runtime/arch/x86/quick_entrypoints_x86.S
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">meth</span> <span class="o">-&gt;</span><span class="n">entry_point_from_quick_compiled_code_</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">FakeAdd</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">JNI_VERSION_1_6</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h6 id="源代码-2" class="heading-element"><span>源代码</span>
-  <a href="#%e6%ba%90%e4%bb%a3%e7%a0%81-2" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/Art%E8%99%9A%E6%8B%9F%E6%9C%BAJavaHook.7z">Art虚拟机JavaHook.7z</a></p>
 <h3 id="参考文档" class="heading-element"><span>参考文档</span>
   <a href="#%e5%8f%82%e8%80%83%e6%96%87%e6%a1%a3" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90.pdf">ELF文件格式解析.pdf</a></p>
+</h3><a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90.pdf" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
+    <span class="cl-content">
+      <span class="cl-text">
+        <span class="cl-title">ELF文件格式解析</span>
+        <span class="cl-meta">
+          <svg class="cl-icon-link" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M574 665.4c-3.1-3.1-8.2-3.1-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8c-3.1-3.1-8.2-3.1-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zM832.6 191.4c-84.6-84.6-221.5-84.6-306 0L410.3 307.6c-3.1 3.1-3.1 8.2 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6c-3.1 3.1-3.1 8.2 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1z" fill="#a9a9b3"></path><path d="M610.1 372.3c-3.1-3.1-8.2-3.1-11.3 0L372.3 598.7c-3.1 3.1-3.1 8.2 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z" fill="#a9a9b3"></path></svg>
+          <span class="cl-url">/posts/android/android%E5%9F%BA%E7%A1%80/elf/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90.pdf</span>
+        </span>
+      </span><svg class="cl-shortcut-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
 </div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">

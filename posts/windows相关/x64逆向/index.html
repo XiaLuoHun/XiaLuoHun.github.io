@@ -12,7 +12,7 @@
   <meta itemprop="description" content="寄存器 函数调用约定 四寄存器fast-call调用约定,调用方平栈,一般是函数开头申请栈空间,函数结尾平栈. 整型参数: 前4个参数传入指定的寄存">
   <meta itemprop="datePublished" content="2022-02-15T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-02-15T00:00:00+00:00">
-  <meta itemprop="wordCount" content="3633">
+  <meta itemprop="wordCount" content="3639">
   <meta itemprop="image" content="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%BC%82%E5%B8%B8/%E5%AE%9A%E4%BD%8DCatch%E4%BB%A3%E7%A0%81%E5%9D%975.png">
   <meta itemprop="keywords" content="C&#43;&#43;逆向"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/x64%E9%80%86%E5%90%91\/images\/%E5%BC%82%E5%B8%B8\/%E5%AE%9A%E4%BD%8DCatch%E4%BB%A3%E7%A0%81%E5%9D%975.png",
               "width":  1139 ,
               "height":  776 
-            }],"genre": "posts","keywords": "C\u002b\u002b逆向","wordcount":  3633 ,
+            }],"genre": "posts","keywords": "C\u002b\u002b逆向","wordcount":  3639 ,
     "url": "https:\/\/XiaLuoHun.github.io\/posts\/windows%E7%9B%B8%E5%85%B3\/x64%E9%80%86%E5%90%91\/","datePublished": "2022-02-15T00:00:00+00:00","dateModified": "2022-02-15T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>X64逆向</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a></span></div><div class="post-meta-line"><span title="发布于 2022-02-15 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-02-15">2022-02-15</time></span>&nbsp;<span title="3633 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a></span></div><div class="post-meta-line"><span title="发布于 2022-02-15 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-02-15">2022-02-15</time></span>&nbsp;<span title="3639 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -201,18 +201,8 @@
         <li><a href="#iob数组">iob数组</a></li>
         <li><a href="#函数">函数</a>
           <ul>
-            <li><a href="#传参">传参</a>
-              <ul>
-                <li><a href="#参数是结构体大小为8字节">参数是结构体大小为8字节</a></li>
-                <li><a href="#参数是结构体大小超过8字节">参数是结构体大小超过8字节</a></li>
-              </ul>
-            </li>
-            <li><a href="#返回值">返回值</a>
-              <ul>
-                <li><a href="#返回结构体大小为8字节">返回结构体大小为8字节</a></li>
-                <li><a href="#返回结构体大小超过8字节">返回结构体大小超过8字节</a></li>
-              </ul>
-            </li>
+            <li><a href="#传参">传参</a></li>
+            <li><a href="#返回值">返回值</a></li>
           </ul>
         </li>
         <li><a href="#变量相关">变量相关</a>
@@ -273,12 +263,7 @@
           <ul>
             <li><a href="#基本公式">基本公式</a></li>
             <li><a href="#无符号模2的幂">无符号模2的幂</a></li>
-            <li><a href="#有符号模2的幂">有符号模2的幂</a>
-              <ul>
-                <li><a href="#优化1">优化1</a></li>
-                <li><a href="#优化二">优化二</a></li>
-              </ul>
-            </li>
+            <li><a href="#有符号模2的幂">有符号模2的幂</a></li>
           </ul>
         </li>
         <li><a href="#c逆向">C++逆向</a></li>
@@ -444,11 +429,8 @@
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%821.png" alt="函数传参1" srcset="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%821.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%821.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%821.png?size=large 2x" data-title="函数传参1" style="--width: 1118px;--aspect-ratio: 1118 / 355;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h4 id="参数是结构体大小为8字节" class="heading-element"><span>参数是结构体大小为8字节</span>
-  <a href="#%e5%8f%82%e6%95%b0%e6%98%af%e7%bb%93%e6%9e%84%e4%bd%93%e5%a4%a7%e5%b0%8f%e4%b8%ba8%e5%ad%97%e8%8a%82" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="highlight"><div class="chroma">
+<p>参数是结构体大小为8字节:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -492,11 +474,8 @@
 <p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%823.png" alt="函数传参3" srcset="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%823.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%823.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%823.png?size=large 2x" data-title="函数传参3" style="--width: 848px;--aspect-ratio: 848 / 389;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>特征</p>
 <p>直接使用RCX传参,函数内拆开.</p>
-<h4 id="参数是结构体大小超过8字节" class="heading-element"><span>参数是结构体大小超过8字节</span>
-  <a href="#%e5%8f%82%e6%95%b0%e6%98%af%e7%bb%93%e6%9e%84%e4%bd%93%e5%a4%a7%e5%b0%8f%e8%b6%85%e8%bf%878%e5%ad%97%e8%8a%82" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="highlight"><div class="chroma">
+<p>参数是结构体大小超过8字节:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -552,16 +531,10 @@
   </a>
 </h3><p>如果返回类型为int或long long, 则放在RAX.</p>
 <p>如果返回类型为float或double,则放在xmm0.</p>
-<h4 id="返回结构体大小为8字节" class="heading-element"><span>返回结构体大小为8字节</span>
-  <a href="#%e8%bf%94%e5%9b%9e%e7%bb%93%e6%9e%84%e4%bd%93%e5%a4%a7%e5%b0%8f%e4%b8%ba8%e5%ad%97%e8%8a%82" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>放在RAX中.</p>
-<h4 id="返回结构体大小超过8字节" class="heading-element"><span>返回结构体大小超过8字节</span>
-  <a href="#%e8%bf%94%e5%9b%9e%e7%bb%93%e6%9e%84%e4%bd%93%e5%a4%a7%e5%b0%8f%e8%b6%85%e8%bf%878%e5%ad%97%e8%8a%82" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="highlight"><div class="chroma">
+<p>返回结构体大小为8字节:</p>
+<p>放在RAX中.</p>
+<p>返回结构体大小超过8字节:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1385,11 +1358,8 @@
   <a href="#%e6%9c%89%e7%ac%a6%e5%8f%b7%e6%a8%a12%e7%9a%84%e5%b9%82" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><h4 id="优化1" class="heading-element"><span>优化1</span>
-  <a href="#%e4%bc%98%e5%8c%961" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="highlight"><div class="chroma">
+</h3><p>优化1:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1410,11 +1380,8 @@
 </div>
 </div><p>Release</p>
 <p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%8F%96%E6%A8%A1/%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%A8%A12%E7%9A%84%E5%B9%821.png" alt="有符号模2的幂1" srcset="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%8F%96%E6%A8%A1/%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%A8%A12%E7%9A%84%E5%B9%821.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%8F%96%E6%A8%A1/%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%A8%A12%E7%9A%84%E5%B9%821.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%8F%96%E6%A8%A1/%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%A8%A12%E7%9A%84%E5%B9%821.png?size=large 2x" data-title="有符号模2的幂1" style="--width: 971px;--aspect-ratio: 971 / 379;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h4 id="优化二" class="heading-element"><span>优化二</span>
-  <a href="#%e4%bc%98%e5%8c%96%e4%ba%8c" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="highlight"><div class="chroma">
+<p>优化二:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2

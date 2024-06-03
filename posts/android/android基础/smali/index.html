@@ -12,7 +12,7 @@
   <meta itemprop="description" content="Smali是Android dex文件的反汇编. Dalvik 概述 Android移动设备平台的核心组成部分之一,支持已转换为.dex(即Dalvik Exe">
   <meta itemprop="datePublished" content="2021-09-05T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-09-05T00:00:00+00:00">
-  <meta itemprop="wordCount" content="6285">
+  <meta itemprop="wordCount" content="6315">
   <meta itemprop="image" content="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AndroidMenifest%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8EDebug.png">
   <meta itemprop="keywords" content="Smali"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/android/android%E5%9F%BA%E7%A1%80/smali/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/smali\/images\/Smali\/AndroidMenifest%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8EDebug.png",
               "width":  1152 ,
               "height":  613 
-            }],"genre": "posts","keywords": "Smali","wordcount":  6285 ,
+            }],"genre": "posts","keywords": "Smali","wordcount":  6315 ,
     "url": "https:\/\/XiaLuoHun.github.io\/posts\/android\/android%E5%9F%BA%E7%A1%80\/smali\/","datePublished": "2021-09-05T00:00:00+00:00","dateModified": "2021-09-05T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Smali</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/" class="post-category" title="分类 - Android基础"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android基础</a></span></div><div class="post-meta-line"><span title="发布于 2021-09-05 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-09-05">2021-09-05</time></span>&nbsp;<span title="6285 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 6300 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 13 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/" class="post-category" title="分类 - Android基础"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android基础</a></span></div><div class="post-meta-line"><span title="发布于 2021-09-05 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-09-05">2021-09-05</time></span>&nbsp;<span title="6315 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 6400 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 13 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -198,58 +198,18 @@
             <li><a href="#dalvik">Dalvik</a>
               <ul>
                 <li><a href="#概述">概述</a></li>
-                <li><a href="#指令格式">指令格式</a>
-                  <ul>
-                    <li><a href="#instruction-formatshtml">instruction-formats.html</a></li>
-                    <li><a href="#dalvik-bytecodehtml">dalvik-bytecode.html</a></li>
-                  </ul>
-                </li>
+                <li><a href="#指令格式">指令格式</a></li>
                 <li><a href="#字符串池">字符串池</a></li>
               </ul>
             </li>
-            <li><a href="#dex反汇编工具">Dex反汇编工具</a>
-              <ul>
-                <li>
-                  <ul>
-                    <li><a href="#dexdump">Dexdump</a></li>
-                    <li><a href="#ida">IDA</a></li>
-                    <li><a href="#dex2jar和jd-gui">dex2jar和jd-gui</a></li>
-                    <li><a href="#jeb神器">JEB(神器)</a></li>
-                    <li><a href="#baksmali">baksmali</a></li>
-                    <li><a href="#smali">smali</a></li>
-                    <li><a href="#apktool">apktool</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
+            <li><a href="#dex反汇编工具">Dex反汇编工具</a></li>
             <li><a href="#smali汇编">Smali汇编</a>
               <ul>
-                <li><a href="#概述-1">概述</a>
-                  <ul>
-                    <li><a href="#寄存器">寄存器</a></li>
-                    <li><a href="#类型表示">类型表示</a></li>
-                    <li><a href="#方法表示">方法表示</a></li>
-                    <li><a href="#字段表示">字段表示</a></li>
-                    <li><a href="#参数与局部变量的区分">参数与局部变量的区分</a>
-                      <ul>
-                        <li><a href="#java代码">Java代码</a></li>
-                        <li><a href="#对应的smali示例">对应的smali示例</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
+                <li><a href="#概述-1">概述</a></li>
                 <li><a href="#指令">指令</a>
                   <ul>
                     <li><a href="#nop">nop</a></li>
-                    <li><a href="#move">move</a>
-                      <ul>
-                        <li><a href="#4字节整型传送">4字节整型传送</a></li>
-                        <li><a href="#8字节整型传送">8字节整型传送</a></li>
-                        <li><a href="#对象传送">对象传送</a></li>
-                        <li><a href="#取返回值">取返回值</a></li>
-                        <li><a href="#取异常">取异常</a></li>
-                      </ul>
-                    </li>
+                    <li><a href="#move">move</a></li>
                     <li><a href="#return">return</a></li>
                     <li><a href="#const">const</a></li>
                     <li><a href="#monitor">monitor</a></li>
@@ -266,12 +226,7 @@
                         <li><a href="#do-while">do-while</a></li>
                       </ul>
                     </li>
-                    <li><a href="#字段操作">字段操作</a>
-                      <ul>
-                        <li><a href="#非静态字段">非静态字段</a></li>
-                        <li><a href="#静态字段">静态字段</a></li>
-                      </ul>
-                    </li>
+                    <li><a href="#字段操作">字段操作</a></li>
                     <li><a href="#方法操作">方法操作</a></li>
                     <li><a href="#异常">异常</a></li>
                   </ul>
@@ -280,40 +235,10 @@
             </li>
             <li><a href="#smali调试">Smali调试</a>
               <ul>
-                <li><a href="#jdbexe">jdb.exe</a>
-                  <ul>
-                    <li><a href="#jdwp协议">jdwp协议</a></li>
-                    <li><a href="#jdb所在目录">jdb所在目录</a></li>
-                  </ul>
-                </li>
-                <li><a href="#android调试运行">Android调试运行</a>
-                  <ul>
-                    <li><a href="#androidmenifest文件说明debug">AndroidMenifest文件说明Debug</a></li>
-                    <li><a href="#使用am调试运行">使用am调试运行</a>
-                      <ul>
-                        <li><a href="#查看帮助">查看帮助</a></li>
-                        <li><a href="#调试运行一个activity">调试运行一个Activity</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li><a href="#jeb">Jeb</a>
-                  <ul>
-                    <li><a href="#被调试程序源代码">被调试程序源代码</a></li>
-                    <li><a href="#附加调试">附加调试</a></li>
-                  </ul>
-                </li>
-                <li><a href="#androidstudio推荐">AndroidStudio(推荐)</a>
-                  <ul>
-                    <li><a href="#下载smali反汇编插件-smalidea">下载Smali反汇编插件 smalidea.</a></li>
-                    <li><a href="#安装插件">安装插件.</a></li>
-                    <li><a href="#使用apktool反编译apk">使用apktool反编译apk.</a></li>
-                    <li><a href="#使用as导入刚反编译出来的文件">使用AS导入刚反编译出来的文件</a></li>
-                    <li><a href="#调试运行一个activity-1">调试运行一个Activity</a></li>
-                    <li><a href="#端口映射">端口映射</a></li>
-                    <li><a href="#as下断远程附加">AS下断,远程附加</a></li>
-                  </ul>
-                </li>
+                <li><a href="#jdbexe">jdb.exe</a></li>
+                <li><a href="#android调试运行">Android调试运行</a></li>
+                <li><a href="#jeb">Jeb</a></li>
+                <li><a href="#androidstudio">AndroidStudio</a></li>
                 <li><a href="#反调试">反调试</a>
                   <ul>
                     <li><a href="#检测调试标志">检测调试标志</a></li>
@@ -356,20 +281,14 @@
 </h4><p>低版本NDK的源码中有Dalvik指令格式介绍,这里我们使用在线的Android源码查看Dalvik指令格式
 <a href="http://androidxref.com/"target="_blank" rel="external nofollow noopener noreferrer">http://androidxref.com/</a></p>
 <p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/smali/Smali_Dalvik%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F.7z">Smali_Dalvik指令格式.7z</a></p>
-<h5 id="instruction-formatshtml" class="heading-element"><span>instruction-formats.html</span>
-  <a href="#instruction-formatshtml" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F1.png" alt="指令格式1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F1.png?size=large 2x" data-title="指令格式1" style="--width: 1069px;--aspect-ratio: 1069 / 480;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>instruction-formats.html:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F1.png" alt="指令格式1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F1.png?size=large 2x" data-title="指令格式1" style="--width: 1069px;--aspect-ratio: 1069 / 480;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F2.png" alt="指令格式2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F2.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F2.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F2.png?size=large 2x" data-title="指令格式2" style="--width: 2453px;--aspect-ratio: 2453 / 1111;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>上图中,左侧每一个字母表示4位,空格表示16位.
 中间一列的 22x
 第一个2表示有几个16位, 第二个2表示有几个寄存器,第三个x表示没有附加数值.</p>
-<h5 id="dalvik-bytecodehtml" class="heading-element"><span>dalvik-bytecode.html</span>
-  <a href="#dalvik-bytecodehtml" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F3.png" alt="指令格式3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F3.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F3.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F3.png?size=large 2x" data-title="指令格式3" style="--width: 2447px;--aspect-ratio: 2447 / 985;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>dalvik-bytecode.html:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F3.png" alt="指令格式3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F3.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F3.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F3.png?size=large 2x" data-title="指令格式3" style="--width: 2447px;--aspect-ratio: 2447 / 985;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>解析指令的时候,先根据op拿到指令格式,然后去instruction-formats.html查.</p>
 <h4 id="字符串池" class="heading-element"><span>字符串池</span>
   <a href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%b1%a0" class="heading-mark">
@@ -389,48 +308,23 @@ mov v0, 0x12345678
   <a href="#dex%e5%8f%8d%e6%b1%87%e7%bc%96%e5%b7%a5%e5%85%b7" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><h5 id="dexdump" class="heading-element"><span>Dexdump</span>
-  <a href="#dexdump" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>Android自带的,开源.</p>
-<h5 id="ida" class="heading-element"><span>IDA</span>
-  <a href="#ida" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>可以用来看Smali汇编.</p>
-<h5 id="dex2jar和jd-gui" class="heading-element"><span>dex2jar和jd-gui</span>
-  <a href="#dex2jar%e5%92%8cjd-gui" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>Java字节码&ndash;&gt;Dex字节码
-Dex字节码&ndash;&gt;Java字节码
-Java有很多成熟的反编译工具,
-我们可以利用dex2jar这个工具将Dex字节码转换为Java字节码,就可以使用Java的反编译工具了.
-<strong>需要注意的是</strong>,jd-gui的反编译结果不是很可靠.</p>
-<h5 id="jeb神器" class="heading-element"><span>JEB(神器)</span>
-  <a href="#jeb%e7%a5%9e%e5%99%a8" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>将IDA的每个字母加1就是JEB.</p>
-<p>Android版的IDA.</p>
-<h5 id="baksmali" class="heading-element"><span>baksmali</span>
-  <a href="#baksmali" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>反汇编Dex文件.</p>
-<h5 id="smali" class="heading-element"><span>smali</span>
-  <a href="#smali" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>将修改后的smali文件重新编译为Dex文件.
-通常我们使用Jeb寻找关键位置,然后baksmali修改,smali重新编译.
+</h3><p>Dexdump:Android自带的,开源.</p>
+<p>IDA:可以用来看Smali汇编.</p>
+<p>dex2jar和jd-gui:Java字节码&ndash;&gt;Dex字节码,Dex字节码&ndash;&gt;Java字节码.Java有很多成熟的反编译工具,
+我们可以利用dex2jar这个工具将Dex字节码转换为Java字节码,就可以使用Java的反编译工具了.</p>
+<div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">d-gui的反编译结果不是很可靠.</div>
+    </div>
+  </div>
+<p>JEB(神器):将IDA的每个字母加1就是JEB.Android版的IDA.</p>
+<p>baksmali:反汇编Dex文件.</p>
+<p>smali:将修改后的smali文件重新编译为Dex文件.通常我们使用Jeb寻找关键位置,然后baksmali修改,smali重新编译.
 但是这样太麻烦了,就有了apktool.</p>
-<h5 id="apktool" class="heading-element"><span>apktool</span>
-  <a href="#apktool" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>Google提供的apk编译工具,内部用baksmail,加了资源的解析和编译.</p>
+<p>apktool:Google提供的apk编译工具,内部用baksmail,加了资源的解析和编译.</p>
 <h3 id="smali汇编" class="heading-element"><span>Smali汇编</span>
   <a href="#smali%e6%b1%87%e7%bc%96" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -439,17 +333,11 @@ Java有很多成熟的反编译工具,
   <a href="#%e6%a6%82%e8%bf%b0-1" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h4><h5 id="寄存器" class="heading-element"><span>寄存器</span>
-  <a href="#%e5%af%84%e5%ad%98%e5%99%a8" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>Dalvik是基于寄存器的虚拟机,没有栈,寄存器为v0-v65535.</p>
+</h4><p>寄存器:</p>
+<p>Dalvik是基于寄存器的虚拟机,没有栈,寄存器为v0-v65535.</p>
 <p>不用任何寄存器存函数返回值.</p>
-<h5 id="类型表示" class="heading-element"><span>类型表示</span>
-  <a href="#%e7%b1%bb%e5%9e%8b%e8%a1%a8%e7%a4%ba" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><table>
+<p>类型表示:</p>
+<table>
 <thead>
 <tr>
 <th>语法</th>
@@ -518,11 +406,8 @@ Java有很多成熟的反编译工具,
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="na">.method</span> <span class="no">myAdd</span><span class="p">(</span><span class="no">I</span><span class="p">,</span> <span class="no">I</span><span class="p">)</span><span class="no">I</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="方法表示" class="heading-element"><span>方法表示</span>
-  <a href="#%e6%96%b9%e6%b3%95%e8%a1%a8%e7%a4%ba" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>Dalvik使用<strong>方法名</strong>,<strong>参数</strong>,<strong>返回值</strong>来描述一个方法.</p>
+</div><p>方法表示:</p>
+<p>Dalvik使用<strong>方法名</strong>,<strong>参数</strong>,<strong>返回值</strong>来描述一个方法.</p>
 <p><strong>方法格式</strong>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -546,11 +431,8 @@ Java有很多成熟的反编译工具,
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">invoke-virtual</span> <span class="err">{</span><span class="no">p0</span><span class="p">,</span> <span class="no">v0</span><span class="p">,</span> <span class="no">v1</span><span class="err">}</span><span class="p">,</span> <span class="no">Lorg</span><span class="err">/</span><span class="no">example</span><span class="err">/</span><span class="no">luotst</span><span class="err">/</span><span class="no">MainActivity</span><span class="err">;</span><span class="p">-</span><span class="err">&gt;</span><span class="no">myAdd</span><span class="p">(</span><span class="no">II</span><span class="p">)</span><span class="no">I</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="字段表示" class="heading-element"><span>字段表示</span>
-  <a href="#%e5%ad%97%e6%ae%b5%e8%a1%a8%e7%a4%ba" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>Dalvik使用<strong>类类型</strong>,<strong>字段名字</strong>,<strong>字段类型</strong>来描述一个字段.</p>
+</div><p>字段表示:</p>
+<p>Dalvik使用<strong>类类型</strong>,<strong>字段名字</strong>,<strong>字段类型</strong>来描述一个字段.</p>
 <p><strong>字段格式</strong>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -588,15 +470,9 @@ Java有很多成熟的反编译工具,
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">iput-object</span> <span class="no">v0</span><span class="p">,</span> <span class="no">p0</span><span class="p">,</span> <span class="no">Lorg</span><span class="err">/</span><span class="no">example</span><span class="err">/</span><span class="no">luotst</span><span class="err">/</span><span class="no">MainActivity</span><span class="err">;</span><span class="p">-</span><span class="err">&gt;</span><span class="no">mData2</span><span class="p">:</span><span class="no">Ljava</span><span class="err">/</span><span class="no">lang</span><span class="err">/</span><span class="no">String</span><span class="err">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="参数与局部变量的区分" class="heading-element"><span>参数与局部变量的区分</span>
-  <a href="#%e5%8f%82%e6%95%b0%e4%b8%8e%e5%b1%80%e9%83%a8%e5%8f%98%e9%87%8f%e7%9a%84%e5%8c%ba%e5%88%86" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><h6 id="java代码" class="heading-element"><span>Java代码</span>
-  <a href="#java%e4%bb%a3%e7%a0%81" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><div class="highlight"><div class="chroma">
+</div><p>参数与局部变量的区分:</p>
+<p>Java代码:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -611,11 +487,8 @@ Java有很多成熟的反编译工具,
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">n1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n2</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h6 id="对应的smali示例" class="heading-element"><span>对应的smali示例</span>
-  <a href="#%e5%af%b9%e5%ba%94%e7%9a%84smali%e7%a4%ba%e4%be%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><div class="highlight"><div class="chroma">
+</div><p>对应的smali示例:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -653,18 +526,15 @@ Java有很多成熟的反编译工具,
   <a href="#move" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h5><h6 id="4字节整型传送" class="heading-element"><span>4字节整型传送</span>
-  <a href="#4%e5%ad%97%e8%8a%82%e6%95%b4%e5%9e%8b%e4%bc%a0%e9%80%81" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move1.png" alt="move1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move1.png?size=large 2x" data-title="move1" style="--width: 1142px;--aspect-ratio: 1142 / 211;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</h5><p>4字节整型传送:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move1.png" alt="move1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move1.png?size=large 2x" data-title="move1" style="--width: 1142px;--aspect-ratio: 1142 / 211;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>Dalvik是基于寄存器的,没有栈的概念,全部用寄存器操作,寄存器最大有65536个.
 上述第一条指令用4位表示寄存器,4位可表示的寄存器范围为v0-v15,
 若是一个函数局部变量很多,寄存器使用超过了16个,第一条指令就放不下了,
 所以有了第2和第3条指令.
 /from表示源寄存器用16位表示
 /16表示目标和源寄存器均用16位表示.</p>
-<p><strong>示例</strong>:</p>
+<p>示例:</p>
 <p>Java:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -689,14 +559,11 @@ Java有很多成熟的反编译工具,
 </span></span><span class="line"><span class="cl"><span class="err">00000004</span>  <span class="nf">const</span><span class="err">/</span><span class="mi">16</span>            <span class="no">v1</span><span class="p">,</span> <span class="mi">20</span>
 </span></span><span class="line"><span class="cl"><span class="err">00000008</span>  <span class="nf">move</span>                <span class="no">v0</span><span class="p">,</span> <span class="no">v1</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h6 id="8字节整型传送" class="heading-element"><span>8字节整型传送</span>
-  <a href="#8%e5%ad%97%e8%8a%82%e6%95%b4%e5%9e%8b%e4%bc%a0%e9%80%81" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move2.png" alt="move2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move2.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move2.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move2.png?size=large 2x" data-title="move2" style="--width: 1176px;--aspect-ratio: 1176 / 261;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p>8字节整型传送:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move2.png" alt="move2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move2.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move2.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move2.png?size=large 2x" data-title="move2" style="--width: 1176px;--aspect-ratio: 1176 / 261;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>寄存器是32位的,long是64位,一个寄存器放不下,所以用两个相邻的寄存器存放64位整型,
 move-wide就是用来传送64位整型.</p>
-<p><strong>示例</strong>:</p>
+<p>示例:</p>
 <p>Java:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -721,13 +588,10 @@ move-wide就是用来传送64位整型.</p>
 </span></span><span class="line"><span class="cl"><span class="err">00000004</span>  <span class="nf">const-wide</span><span class="err">/</span><span class="mi">16</span>       <span class="no">v2</span><span class="p">,</span> <span class="mi">20</span>
 </span></span><span class="line"><span class="cl"><span class="err">00000008</span>  <span class="nf">move-wide</span>           <span class="no">v0</span><span class="p">,</span> <span class="no">v2</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h6 id="对象传送" class="heading-element"><span>对象传送</span>
-  <a href="#%e5%af%b9%e8%b1%a1%e4%bc%a0%e9%80%81" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move3.png" alt="move3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move3.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move3.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move3.png?size=large 2x" data-title="move3" style="--width: 1139px;--aspect-ratio: 1139 / 211;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p>对象传送:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move3.png" alt="move3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move3.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move3.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move3.png?size=large 2x" data-title="move3" style="--width: 1139px;--aspect-ratio: 1139 / 211;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>mov-object用来传送类对象.</p>
-<p><strong>示例</strong>:</p>
+<p>示例:</p>
 <p>Java:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -744,13 +608,10 @@ move-wide就是用来传送64位整型.</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="err">0000000</span><span class="nf">A</span>  <span class="no">move-object</span>         <span class="no">v4</span><span class="p">,</span> <span class="no">p0</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h6 id="取返回值" class="heading-element"><span>取返回值</span>
-  <a href="#%e5%8f%96%e8%bf%94%e5%9b%9e%e5%80%bc" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move4.png" alt="move4" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move4.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move4.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move4.png?size=large 2x" data-title="move4" style="--width: 1177px;--aspect-ratio: 1177 / 296;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p>取返回值:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move4.png" alt="move4" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move4.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move4.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move4.png?size=large 2x" data-title="move4" style="--width: 1177px;--aspect-ratio: 1177 / 296;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>在smali中,不用任何寄存器来存放函数的返回值,需要通过move-result来取函数的返回值.</p>
-<p><strong>示例</strong>:</p>
+<p>示例:</p>
 <p>Java:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -797,12 +658,9 @@ move-wide就是用来传送64位整型.</p>
 </span></span><span class="line"><span class="cl"><span class="err">00000028</span>  <span class="nf">invoke-virtual</span>      <span class="no">MainActivity-</span><span class="err">&gt;</span><span class="no">myAdd</span><span class="p">(</span><span class="no">I</span><span class="p">,</span> <span class="no">I</span><span class="p">)</span><span class="no">I</span><span class="p">,</span> <span class="no">p0</span><span class="p">,</span> <span class="no">v0</span><span class="p">,</span> <span class="no">v1</span>
 </span></span><span class="line"><span class="cl"><span class="err">0000002</span><span class="nf">E</span>  <span class="no">move-result</span>        <span class="no">v0</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h6 id="取异常" class="heading-element"><span>取异常</span>
-  <a href="#%e5%8f%96%e5%bc%82%e5%b8%b8" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move5.png" alt="move5" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move5.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move5.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move5.png?size=large 2x" data-title="move5" style="--width: 1122px;--aspect-ratio: 1122 / 103;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p><strong>示例</strong>:</p>
+</div><p>取异常:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move5.png" alt="move5" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move5.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move5.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/move5.png?size=large 2x" data-title="move5" style="--width: 1122px;--aspect-ratio: 1122 / 103;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>示例:</p>
 <p>Java:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1849,11 +1707,8 @@ move-wide就是用来传送64位整型.</p>
   <a href="#%e5%ad%97%e6%ae%b5%e6%93%8d%e4%bd%9c" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h5><h6 id="非静态字段" class="heading-element"><span>非静态字段</span>
-  <a href="#%e9%9d%9e%e9%9d%99%e6%80%81%e5%ad%97%e6%ae%b5" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%9E%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png" alt="非静态字段" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%9E%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%9E%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%9E%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=large 2x" data-title="非静态字段" style="--width: 2369px;--aspect-ratio: 2369 / 388;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</h5><p>非静态字段:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%9E%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png" alt="非静态字段" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%9E%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%9E%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%9E%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=large 2x" data-title="非静态字段" style="--width: 2369px;--aspect-ratio: 2369 / 388;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>iget,非静态字段赋值.
 iput,给静态字段赋值.</p>
 <p><strong>示例</strong>:</p>
@@ -1942,11 +1797,8 @@ iput,给静态字段赋值.</p>
 </span></span><span class="line"><span class="cl"><span class="err">0000001</span><span class="nf">E</span>  <span class="no">return-void</span>
 </span></span><span class="line"><span class="cl"><span class="na">.end</span> <span class="no">method</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h6 id="静态字段" class="heading-element"><span>静态字段</span>
-  <a href="#%e9%9d%99%e6%80%81%e5%ad%97%e6%ae%b5" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png" alt="静态字段" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=large 2x" data-title="静态字段" style="--width: 2369px;--aspect-ratio: 2369 / 388;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p>静态字段:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png" alt="静态字段" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5.png?size=large 2x" data-title="静态字段" style="--width: 2369px;--aspect-ratio: 2369 / 388;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>sget,静态字段赋值.
 sput,给静态字段赋值.</p>
 <p><strong>示例</strong>:</p>
@@ -2412,11 +2264,8 @@ sput,给静态字段赋值.</p>
   <a href="#jdbexe" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h4><h5 id="jdwp协议" class="heading-element"><span>jdwp协议</span>
-  <a href="#jdwp%e5%8d%8f%e8%ae%ae" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>是Java Debug Wire Protocol的缩写,定义了调试器(debugger)和被调试的Java虚拟机(target vm)之间的通信协议.</p>
+</h4><p>jdwp协议:</p>
+<p>是Java Debug Wire Protocol的缩写,定义了调试器(debugger)和被调试的Java虚拟机(target vm)之间的通信协议.</p>
 <p>使用jdwp协议来双机调试Android程序,调试之前需要端口映射,但很多工具已提前做好了端口映射.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2426,22 +2275,18 @@ sput,给静态字段赋值.</p>
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">adb forward tcp:8700 jdwp:PID</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdwp%E5%8D%8F%E8%AE%AE.png" alt="jdwp协议" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdwp%E5%8D%8F%E8%AE%AE.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdwp%E5%8D%8F%E8%AE%AE.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdwp%E5%8D%8F%E8%AE%AE.png?size=large 2x" data-title="jdwp协议" style="--width: 1680px;--aspect-ratio: 1680 / 973;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="jdb所在目录" class="heading-element"><span>jdb所在目录</span>
-  <a href="#jdb%e6%89%80%e5%9c%a8%e7%9b%ae%e5%bd%95" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdb%E6%89%80%E5%9C%A8%E7%9B%AE%E5%BD%95.png" alt="jdb所在目录" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdb%E6%89%80%E5%9C%A8%E7%9B%AE%E5%BD%95.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdb%E6%89%80%E5%9C%A8%E7%9B%AE%E5%BD%95.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdb%E6%89%80%E5%9C%A8%E7%9B%AE%E5%BD%95.png?size=large 2x" data-title="jdb所在目录" style="--width: 1355px;--aspect-ratio: 1355 / 922;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>jdb所在目录:</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdb%E6%89%80%E5%9C%A8%E7%9B%AE%E5%BD%95.png" alt="jdb所在目录" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdb%E6%89%80%E5%9C%A8%E7%9B%AE%E5%BD%95.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdb%E6%89%80%E5%9C%A8%E7%9B%AE%E5%BD%95.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/jdb%E6%89%80%E5%9C%A8%E7%9B%AE%E5%BD%95.png?size=large 2x" data-title="jdb所在目录" style="--width: 1355px;--aspect-ratio: 1355 / 922;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>输入jdb &ndash;help可查看帮助.</p>
 <p>jdb可以用来调Android程序,Android上调试端口一般为8700,但是单步很麻烦,很多工具已集成该功能.</p>
 <h4 id="android调试运行" class="heading-element"><span>Android调试运行</span>
   <a href="#android%e8%b0%83%e8%af%95%e8%bf%90%e8%a1%8c" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h4><h5 id="androidmenifest文件说明debug" class="heading-element"><span>AndroidMenifest文件说明Debug</span>
-  <a href="#androidmenifest%e6%96%87%e4%bb%b6%e8%af%b4%e6%98%8edebug" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><div class="highlight"><div class="chroma">
+</h4><ol>
+<li>AndroidMenifest文件说明Debug</li>
+</ol>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2450,23 +2295,20 @@ sput,给静态字段赋值.</p>
 </div>
 </div><p>虚拟机加不加这个都可以调试.</p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AndroidMenifest%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8EDebug.png" alt="AndroidMenifest文件说明Debug" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AndroidMenifest%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8EDebug.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AndroidMenifest%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8EDebug.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AndroidMenifest%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8EDebug.png?size=large 2x" data-title="AndroidMenifest文件说明Debug" style="--width: 1152px;--aspect-ratio: 1152 / 613;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="使用am调试运行" class="heading-element"><span>使用am调试运行</span>
-  <a href="#%e4%bd%bf%e7%94%a8am%e8%b0%83%e8%af%95%e8%bf%90%e8%a1%8c" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>位于Android系统,system/bin目录.</p>
+<ol start="2">
+<li>使用am调试运行</li>
+</ol>
+<p>位于Android系统,system/bin目录.</p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E4%BD%8D%E4%BA%8EAndroid%E7%B3%BB%E7%BB%9F,%E7%9B%AE%E5%BD%95.png" alt="位于Android系统,目录" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E4%BD%8D%E4%BA%8EAndroid%E7%B3%BB%E7%BB%9F%2c%E7%9B%AE%E5%BD%95.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E4%BD%8D%E4%BA%8EAndroid%E7%B3%BB%E7%BB%9F%2c%E7%9B%AE%E5%BD%95.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/%E4%BD%8D%E4%BA%8EAndroid%E7%B3%BB%E7%BB%9F%2c%E7%9B%AE%E5%BD%95.png?size=large 2x" data-title="位于Android系统,目录" style="--width: 812px;--aspect-ratio: 812 / 1340;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h6 id="查看帮助" class="heading-element"><span>查看帮助</span>
-  <a href="#%e6%9f%a5%e7%9c%8b%e5%b8%ae%e5%8a%a9" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><p>命令行输入 adb shell进shell</p>
+<ol start="3">
+<li>查看帮助</li>
+</ol>
+<p>命令行输入 adb shell进shell</p>
 <p>然后输入am,即可查看帮助.</p>
-<h6 id="调试运行一个activity" class="heading-element"><span>调试运行一个Activity</span>
-  <a href="#%e8%b0%83%e8%af%95%e8%bf%90%e8%a1%8c%e4%b8%80%e4%b8%aaactivity" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h6><div class="highlight"><div class="chroma">
+<ol start="4">
+<li>调试运行一个Activity</li>
+</ol>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2478,11 +2320,8 @@ sput,给静态字段赋值.</p>
   <a href="#jeb" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h4><h5 id="被调试程序源代码" class="heading-element"><span>被调试程序源代码</span>
-  <a href="#%e8%a2%ab%e8%b0%83%e8%af%95%e7%a8%8b%e5%ba%8f%e6%ba%90%e4%bb%a3%e7%a0%81" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><div class="highlight"><div class="chroma">
+</h4><p>被调试程序源代码:</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2521,11 +2360,8 @@ sput,给静态字段赋值.</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="附加调试" class="heading-element"><span>附加调试</span>
-  <a href="#%e9%99%84%e5%8a%a0%e8%b0%83%e8%af%95" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>切记调试的时候,关闭AndroidStudio,AS会占用8700端口.</p>
+</div><p>附加调试:</p>
+<p>切记调试的时候,关闭AndroidStudio,AS会占用8700端口.</p>
 <ol>
 <li>在虚拟机中运行该程序.</li>
 <li>用Jeb打开该apk,找到按钮相应函数,下断(Ctrl + B)</li>
@@ -2543,26 +2379,23 @@ sput,给静态字段赋值.</p>
 <li>在虚拟机中,点击程序的按钮,就会在刚开始下断的地方断下.</li>
 </ol>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/Jeb%E9%99%84%E5%8A%A0%E8%B0%83%E8%AF%955.png" alt="Jeb附加调试5" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/Jeb%E9%99%84%E5%8A%A0%E8%B0%83%E8%AF%955.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/Jeb%E9%99%84%E5%8A%A0%E8%B0%83%E8%AF%955.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/Jeb%E9%99%84%E5%8A%A0%E8%B0%83%E8%AF%955.png?size=large 2x" data-title="Jeb附加调试5" style="--width: 2092px;--aspect-ratio: 2092 / 1045;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h4 id="androidstudio推荐" class="heading-element"><span>AndroidStudio(推荐)</span>
-  <a href="#androidstudio%e6%8e%a8%e8%8d%90" class="heading-mark">
+<h4 id="androidstudio" class="heading-element"><span>AndroidStudio</span>
+  <a href="#androidstudio" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h4><h5 id="下载smali反汇编插件-smalidea" class="heading-element"><span>下载Smali反汇编插件 smalidea.</span>
-  <a href="#%e4%b8%8b%e8%bd%bdsmali%e5%8f%8d%e6%b1%87%e7%bc%96%e6%8f%92%e4%bb%b6-smalidea" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><a href="https://bitbucket.org/JesusFreke/smalidea/downloads/"target="_blank" rel="external nofollow noopener noreferrer">https://bitbucket.org/JesusFreke/smalidea/downloads/</a></p>
-<h5 id="安装插件" class="heading-element"><span>安装插件.</span>
-  <a href="#%e5%ae%89%e8%a3%85%e6%8f%92%e4%bb%b6" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_1.png" alt="AS安装插件2_1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_1.png?size=large 2x" data-title="AS安装插件2_1" style="--width: 1845px;--aspect-ratio: 1845 / 936;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</h4><ol>
+<li>下载Smali反汇编插件 smalidea.</li>
+</ol>
+<p><a href="https://bitbucket.org/JesusFreke/smalidea/downloads/"target="_blank" rel="external nofollow noopener noreferrer">https://bitbucket.org/JesusFreke/smalidea/downloads/</a></p>
+<ol start="2">
+<li>安装插件.</li>
+</ol>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_1.png" alt="AS安装插件2_1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_1.png?size=large 2x" data-title="AS安装插件2_1" style="--width: 1845px;--aspect-ratio: 1845 / 936;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_2.png" alt="AS安装插件2_2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_2.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_2.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B62_2.png?size=large 2x" data-title="AS安装插件2_2" style="--width: 794px;--aspect-ratio: 794 / 959;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="使用apktool反编译apk" class="heading-element"><span>使用apktool反编译apk.</span>
-  <a href="#%e4%bd%bf%e7%94%a8apktool%e5%8f%8d%e7%bc%96%e8%af%91apk" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><div class="highlight"><div class="chroma">
+<ol start="3">
+<li>使用apktool反编译apk.</li>
+</ol>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2570,18 +2403,16 @@ sput,给静态字段赋值.</p>
 <pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">java</span> <span class="o">-</span><span class="n">jar</span> <span class="n">apktool</span><span class="o">.</span><span class="n">jar</span> <span class="n">d</span> <span class="o">-</span><span class="n">f</span> <span class="n">app</span><span class="o">-</span><span class="n">debug</span><span class="o">.</span><span class="n">apk</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%953.png" alt="AS调试3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%953.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%953.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%953.png?size=large 2x" data-title="AS调试3" style="--width: 1587px;--aspect-ratio: 1587 / 765;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="使用as导入刚反编译出来的文件" class="heading-element"><span>使用AS导入刚反编译出来的文件</span>
-  <a href="#%e4%bd%bf%e7%94%a8as%e5%af%bc%e5%85%a5%e5%88%9a%e5%8f%8d%e7%bc%96%e8%af%91%e5%87%ba%e6%9d%a5%e7%9a%84%e6%96%87%e4%bb%b6" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_1.png" alt="AS调试4_1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_1.png?size=large 2x" data-title="AS调试4_1" style="--width: 1991px;--aspect-ratio: 1991 / 331;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<ol start="4">
+<li>使用AS导入刚反编译出来的文件</li>
+</ol>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_1.png" alt="AS调试4_1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_1.png?size=large 2x" data-title="AS调试4_1" style="--width: 1991px;--aspect-ratio: 1991 / 331;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_2.png" alt="AS调试4_2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_2.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_2.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_2.png?size=large 2x" data-title="AS调试4_2" style="--width: 1337px;--aspect-ratio: 1337 / 904;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_3.png" alt="AS调试4_3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_3.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_3.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%954_3.png?size=large 2x" data-title="AS调试4_3" style="--width: 1395px;--aspect-ratio: 1395 / 1088;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="调试运行一个activity-1" class="heading-element"><span>调试运行一个Activity</span>
-  <a href="#%e8%b0%83%e8%af%95%e8%bf%90%e8%a1%8c%e4%b8%80%e4%b8%aaactivity-1" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><div class="highlight"><div class="chroma">
+<ol start="5">
+<li>调试运行一个Activity</li>
+</ol>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2593,11 +2424,10 @@ sput,给静态字段赋值.</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">adb</span> <span class="n">shell</span> <span class="n">am</span> <span class="n">start</span> <span class="o">-</span><span class="n">D</span> <span class="o">-</span><span class="n">N</span> <span class="n">org</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">luotest</span><span class="o">/</span><span class="p">.</span><span class="n">MainActivity</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%955.png" alt="AS调试5" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%955.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%955.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%955.png?size=large 2x" data-title="AS调试5" style="--width: 1913px;--aspect-ratio: 1913 / 806;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="端口映射" class="heading-element"><span>端口映射</span>
-  <a href="#%e7%ab%af%e5%8f%a3%e6%98%a0%e5%b0%84" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><div class="highlight"><div class="chroma">
+<ol start="6">
+<li>端口映射</li>
+</ol>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2605,11 +2435,10 @@ sput,给静态字段赋值.</p>
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">adb forward tcp:8700 jdwp:2745</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%956.png" alt="AS调试6" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%956.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%956.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%956.png?size=large 2x" data-title="AS调试6" style="--width: 1330px;--aspect-ratio: 1330 / 858;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="as下断远程附加" class="heading-element"><span>AS下断,远程附加</span>
-  <a href="#as%e4%b8%8b%e6%96%ad%e8%bf%9c%e7%a8%8b%e9%99%84%e5%8a%a0" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_1.png" alt="AS调试7_1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_1.png?size=large 2x" data-title="AS调试7_1" style="--width: 2151px;--aspect-ratio: 2151 / 430;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<ol start="7">
+<li>AS下断,远程附加</li>
+</ol>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_1.png" alt="AS调试7_1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_1.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_1.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_1.png?size=large 2x" data-title="AS调试7_1" style="--width: 2151px;--aspect-ratio: 2151 / 430;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_2.png" alt="AS调试7_2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_2.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_2.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_2.png?size=large 2x" data-title="AS调试7_2" style="--width: 355px;--aspect-ratio: 355 / 210;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_3.png" alt="AS调试7_3" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_3.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_3.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_3.png?size=large 2x" data-title="AS调试7_3" style="--width: 456px;--aspect-ratio: 456 / 879;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_4.png" alt="AS调试7_4" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_4.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_4.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AS%E8%B0%83%E8%AF%957_4.png?size=large 2x" data-title="AS调试7_4" style="--width: 1737px;--aspect-ratio: 1737 / 1054;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>

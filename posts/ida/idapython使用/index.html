@@ -12,7 +12,7 @@
   <meta itemprop="description" content="简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提供大量的实用函数,其中许多">
   <meta itemprop="datePublished" content="2021-08-26T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-08-26T00:00:00+00:00">
-  <meta itemprop="wordCount" content="13041">
+  <meta itemprop="wordCount" content="13054">
   <meta itemprop="image" content="https://XiaLuoHun.github.io/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png">
   <meta itemprop="keywords" content="IDAPython"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/ida/idapython%E4%BD%BF%E7%94%A8/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.github.io\/posts\/ida\/idapython%E4%BD%BF%E7%94%A8\/images\/VSCode%E8%B0%83%E8%AF%95.png",
               "width":  723 ,
               "height":  381 
-            }],"genre": "posts","keywords": "IDAPython","wordcount":  13041 ,
+            }],"genre": "posts","keywords": "IDAPython","wordcount":  13054 ,
     "url": "https:\/\/XiaLuoHun.github.io\/posts\/ida\/idapython%E4%BD%BF%E7%94%A8\/","datePublished": "2021-08-26T00:00:00+00:00","dateModified": "2021-08-26T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>IDAPython使用笔记</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ida/" class="post-category" title="分类 - IDA"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> IDA</a></span></div><div class="post-meta-line"><span title="发布于 2021-08-26 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-08-26">2021-08-26</time></span>&nbsp;<span title="13041 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 13100 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 27 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ida/" class="post-category" title="分类 - IDA"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> IDA</a></span></div><div class="post-meta-line"><span title="发布于 2021-08-26 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-08-26">2021-08-26</time></span>&nbsp;<span title="13054 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 13100 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 27 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -194,47 +194,13 @@
     <li>
       <ul>
         <li><a href="#简介">简介</a></li>
-        <li><a href="#配置调试环境">配置调试环境</a>
-          <ul>
-            <li><a href="#配置python">配置Python</a>
-              <ul>
-                <li><a href="#安装必备的库">安装必备的库</a></li>
-              </ul>
-            </li>
-            <li><a href="#配置环境变量">配置环境变量</a>
-              <ul>
-                <li><a href="#修改ida_idaapipy文件">修改ida_idaapi.py文件</a></li>
-              </ul>
-            </li>
-            <li><a href="#配置vscode">配置VSCode</a></li>
-            <li><a href="#配置ida">配置IDA</a></li>
-            <li><a href="#使用示例">使用示例</a>
-              <ul>
-                <li><a href="#ida启用idacode插件">IDA启用IDACode插件</a></li>
-                <li><a href="#vscode连接ida">VSCode连接IDA</a>
-                  <ul>
-                    <li><a href="#设置工作区">设置工作区</a></li>
-                    <li><a href="#连接ida">连接IDA</a></li>
-                    <li><a href="#出错情况应对">出错情况应对</a></li>
-                  </ul>
-                </li>
-                <li><a href="#运行脚本">运行脚本</a></li>
-                <li><a href="#调试">调试</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+        <li><a href="#配置调试环境">配置调试环境</a></li>
         <li><a href="#配置python代码自动补全">配置Python代码自动补全</a></li>
         <li><a href="#基本操作">基本操作</a></li>
         <li><a href="#段操作">段操作</a></li>
         <li><a href="#函数">函数</a></li>
         <li><a href="#指令">指令</a></li>
-        <li><a href="#操作数">操作数</a>
-          <ul>
-            <li><a href="#例子1">例子1</a></li>
-            <li><a href="#例子2">例子2</a></li>
-          </ul>
-        </li>
+        <li><a href="#操作数">操作数</a></li>
         <li><a href="#交叉引用xrefs">交叉引用(Xrefs)</a></li>
         <li><a href="#搜索">搜索</a></li>
         <li><a href="#数据提取">数据提取</a></li>
@@ -246,7 +212,7 @@
         <li><a href="#可执行脚本">可执行脚本</a></li>
         <li><a href="#流程图">流程图</a></li>
         <li><a href="#函数栈帧的访问">函数栈帧的访问</a></li>
-        <li><a href="#调试-1">调试</a></li>
+        <li><a href="#调试">调试</a></li>
         <li><a href="#同类总结参考">同类总结参考</a></li>
       </ul>
     </li>
@@ -270,15 +236,11 @@
   <a href="#%e9%85%8d%e7%bd%ae%e8%b0%83%e8%af%95%e7%8e%af%e5%a2%83" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><h3 id="配置python" class="heading-element"><span>配置Python</span>
-  <a href="#%e9%85%8d%e7%bd%aepython" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><h4 id="安装必备的库" class="heading-element"><span>安装必备的库</span>
-  <a href="#%e5%ae%89%e8%a3%85%e5%bf%85%e5%a4%87%e7%9a%84%e5%ba%93" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>cd 到IDA当前使用的Pyhton版本的pip.exe目录中</p>
+</h2><ol>
+<li>配置Python</li>
+</ol>
+<p>安装必备的库:</p>
+<p>cd 到IDA当前使用的Pyhton版本的pip.exe目录中</p>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/Python%E5%AE%89%E8%A3%85%E5%BA%93.png" alt="Python安装库" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/Python%E5%AE%89%E8%A3%85%E5%BA%93.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/Python%E5%AE%89%E8%A3%85%E5%BA%93.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/Python%E5%AE%89%E8%A3%85%E5%BA%93.png?size=large 2x" data-title="Python安装库" style="--width: 805px;--aspect-ratio: 805 / 255;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -289,11 +251,10 @@
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">pip</span> <span class="n">install</span> <span class="n">tornado</span>
 </span></span><span class="line"><span class="cl"><span class="n">pip</span> <span class="n">install</span> <span class="n">debugpy</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="配置环境变量" class="heading-element"><span>配置环境变量</span>
-  <a href="#%e9%85%8d%e7%bd%ae%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>修改<strong>PYTHONPATH</strong>环境变量.安装Python时,默认是不会自动进行配置的,所以如果没有的话要先新建一个.</p>
+</div><ol start="2">
+<li>配置环境变量</li>
+</ol>
+<p>修改<strong>PYTHONPATH</strong>环境变量.安装Python时,默认是不会自动进行配置的,所以如果没有的话要先新建一个.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -305,18 +266,14 @@
 </span></span><span class="line"><span class="cl"><span class="nl">D</span><span class="p">:</span><span class="err">\</span><span class="n">LuoHackTools</span><span class="err">\</span><span class="n">Tools</span><span class="err">\</span><span class="n">Disassemblers</span><span class="err">\</span><span class="n">IDA_Pro_v7</span><span class="mf">.5</span><span class="err">\</span><span class="n">python</span><span class="err">\</span><span class="mi">3</span>
 </span></span><span class="line"><span class="cl"><span class="nl">D</span><span class="p">:</span><span class="err">\</span><span class="n">LuoHackTools</span><span class="err">\</span><span class="n">Tools</span><span class="err">\</span><span class="n">Disassemblers</span><span class="err">\</span><span class="n">IDA_Pro_v7</span><span class="mf">.5</span><span class="err">\</span><span class="n">plugins</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="修改ida_idaapipy文件" class="heading-element"><span>修改ida_idaapi.py文件</span>
-  <a href="#%e4%bf%ae%e6%94%b9ida_idaapipy%e6%96%87%e4%bb%b6" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>这里我修改的路径为:</p>
+</div><p>修改ida_idaapi.py文件:</p>
+<p>这里我修改的路径为:</p>
 <p>D:/LuoHackTools/Tools/Disassemblers/IDA_Pro_v7.5/python/3/ida_idaapi.py</p>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9ida_idaapi%E6%96%87%E4%BB%B6.png" alt="修改ida_idaapi文件" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9ida_idaapi%E6%96%87%E4%BB%B6.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9ida_idaapi%E6%96%87%E4%BB%B6.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9ida_idaapi%E6%96%87%E4%BB%B6.png?size=large 2x" data-title="修改ida_idaapi文件" style="--width: 759px;--aspect-ratio: 759 / 136;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h3 id="配置vscode" class="heading-element"><span>配置VSCode</span>
-  <a href="#%e9%85%8d%e7%bd%aevscode" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><ul>
+<ol start="3">
+<li>配置VSCode</li>
+</ol>
+<ul>
 <li>安装IDACode</li>
 </ul>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VS%E5%AE%89%E8%A3%85IDACode.png" alt="VS安装IDACode" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VS%E5%AE%89%E8%A3%85IDACode.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VS%E5%AE%89%E8%A3%85IDACode.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VS%E5%AE%89%E8%A3%85IDACode.png?size=large 2x" data-title="VS安装IDACode" style="--width: 267px;--aspect-ratio: 267 / 234;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
@@ -324,11 +281,10 @@
 <li>配置IDACode,本机调试,默认即可</li>
 </ul>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E9%85%8D%E7%BD%AEIDACode.png" alt="配置IDACode" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E9%85%8D%E7%BD%AEIDACode.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E9%85%8D%E7%BD%AEIDACode.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E9%85%8D%E7%BD%AEIDACode.png?size=large 2x" data-title="配置IDACode" style="--width: 923px;--aspect-ratio: 923 / 645;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h3 id="配置ida" class="heading-element"><span>配置IDA</span>
-  <a href="#%e9%85%8d%e7%bd%aeida" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><ul>
+<ol start="4">
+<li>配置IDA</li>
+</ol>
+<ul>
 <li>安装IDACode插件</li>
 </ul>
 <p><a href="https://github.com/ioncodes/idacode/releases"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/ioncodes/idacode/releases</a></p>
@@ -346,11 +302,8 @@
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="p">[</span><span class="n">IDACode</span><span class="p">]</span> <span class="n">Plugin</span> <span class="n">version</span> <span class="mf">0.3.0</span>
 </span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">IDACode</span><span class="p">]</span> <span class="n">Plugin</span> <span class="n">loaded</span><span class="p">,</span> <span class="n">use</span> <span class="n">Edit</span> <span class="o">-&gt;</span> <span class="n">Plugins</span> <span class="o">-&gt;</span> <span class="n">IDACode</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">server</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="使用示例" class="heading-element"><span>使用示例</span>
-  <a href="#%e4%bd%bf%e7%94%a8%e7%a4%ba%e4%be%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>测试代码</p>
+</div><p>使用示例:</p>
+<p>测试代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -366,49 +319,36 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Hello IDAPython&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="ida启用idacode插件" class="heading-element"><span>IDA启用IDACode插件</span>
-  <a href="#ida%e5%90%af%e7%94%a8idacode%e6%8f%92%e4%bb%b6" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDA%E5%90%AF%E5%8A%A8IDACode%E6%8F%92%E4%BB%B6.png" alt="IDA启动IDACode插件" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDA%E5%90%AF%E5%8A%A8IDACode%E6%8F%92%E4%BB%B6.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDA%E5%90%AF%E5%8A%A8IDACode%E6%8F%92%E4%BB%B6.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDA%E5%90%AF%E5%8A%A8IDACode%E6%8F%92%E4%BB%B6.png?size=large 2x" data-title="IDA启动IDACode插件" style="--width: 756px;--aspect-ratio: 756 / 129;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><ol>
+<li>IDA启用IDACode插件</li>
+</ol>
+<p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDA%E5%90%AF%E5%8A%A8IDACode%E6%8F%92%E4%BB%B6.png" alt="IDA启动IDACode插件" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDA%E5%90%AF%E5%8A%A8IDACode%E6%8F%92%E4%BB%B6.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDA%E5%90%AF%E5%8A%A8IDACode%E6%8F%92%E4%BB%B6.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDA%E5%90%AF%E5%8A%A8IDACode%E6%8F%92%E4%BB%B6.png?size=large 2x" data-title="IDA启动IDACode插件" style="--width: 756px;--aspect-ratio: 756 / 129;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDACode%E7%9B%91%E5%90%AC.png" alt="IDACode监听" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDACode%E7%9B%91%E5%90%AC.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDACode%E7%9B%91%E5%90%AC.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/IDACode%E7%9B%91%E5%90%AC.png?size=large 2x" data-title="IDACode监听" style="--width: 389px;--aspect-ratio: 389 / 63;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h4 id="vscode连接ida" class="heading-element"><span>VSCode连接IDA</span>
-  <a href="#vscode%e8%bf%9e%e6%8e%a5ida" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><h5 id="设置工作区" class="heading-element"><span>设置工作区</span>
-  <a href="#%e8%ae%be%e7%bd%ae%e5%b7%a5%e4%bd%9c%e5%8c%ba" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>将Python脚本所在文件夹添加到工作区</p>
+<ol start="2">
+<li>VSCode连接IDA</li>
+</ol>
+<p>设置工作区:</p>
+<p>将Python脚本所在文件夹添加到工作区</p>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%B7%BB%E5%8A%A0%E5%B7%A5%E4%BD%9C%E5%8C%BA.png" alt="添加工作区" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%B7%BB%E5%8A%A0%E5%B7%A5%E4%BD%9C%E5%8C%BA.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%B7%BB%E5%8A%A0%E5%B7%A5%E4%BD%9C%E5%8C%BA.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%B7%BB%E5%8A%A0%E5%B7%A5%E4%BD%9C%E5%8C%BA.png?size=large 2x" data-title="添加工作区" style="--width: 353px;--aspect-ratio: 353 / 441;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h5 id="连接ida" class="heading-element"><span>连接IDA</span>
-  <a href="#%e8%bf%9e%e6%8e%a5ida" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p><strong>Ctrl + Shift + P</strong>, 调出命令窗口</p>
+<p>连接IDA:</p>
+<p>Ctrl + Shift + P, 调出命令窗口</p>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%BF%9E%E6%8E%A5IDA.png" alt="VSCode连接IDA" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%BF%9E%E6%8E%A5IDA.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%BF%9E%E6%8E%A5IDA.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%BF%9E%E6%8E%A5IDA.png?size=large 2x" data-title="VSCode连接IDA" style="--width: 708px;--aspect-ratio: 708 / 145;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p><strong>调试的话,就选带debugger的</strong>.</p>
-<h5 id="出错情况应对" class="heading-element"><span>出错情况应对</span>
-  <a href="#%e5%87%ba%e9%94%99%e6%83%85%e5%86%b5%e5%ba%94%e5%af%b9" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h5><p>此时VSCode可能会出现两种错误</p>
+<p>调试的话,就选带debugger的.</p>
+<p>出错情况应对:</p>
+<p>此时VSCode可能会出现两种错误</p>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%991.png" alt="VSCode出错1" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%991.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%991.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%991.png?size=large 2x" data-title="VSCode出错1" style="--width: 383px;--aspect-ratio: 383 / 118;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%992.png" alt="VSCode出错2" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%992.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%992.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%992.png?size=large 2x" data-title="VSCode出错2" style="--width: 558px;--aspect-ratio: 558 / 134;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><strong>解决方法如下</strong>:</p>
 <p>重启IDA,保证VSCode有且只有一个工作区文件夹.</p>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%9C%89%E4%B8%94%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png" alt="有且只有一个工作区文件夹" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%9C%89%E4%B8%94%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%9C%89%E4%B8%94%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%9C%89%E4%B8%94%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png?size=large 2x" data-title="有且只有一个工作区文件夹" style="--width: 630px;--aspect-ratio: 630 / 528;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h4 id="运行脚本" class="heading-element"><span>运行脚本</span>
-  <a href="#%e8%bf%90%e8%a1%8c%e8%84%9a%e6%9c%ac" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>由于插件有保存后直接发送到IDA中运行的功能,所以按下Ctrl+S就能看到脚本被执行.</p>
-<h4 id="调试" class="heading-element"><span>调试</span>
-  <a href="#%e8%b0%83%e8%af%95" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>由于我们并不是直接在VSCode环境中运行脚本,所以传统方式设置的断点是断不到的,应该采用如下的方式设置断点.</p>
+<ol start="3">
+<li>运行脚本</li>
+</ol>
+<p>由于插件有保存后直接发送到IDA中运行的功能,所以按下Ctrl+S就能看到脚本被执行.</p>
+<ol start="4">
+<li>调试</li>
+</ol>
+<p>由于我们并不是直接在VSCode环境中运行脚本,所以传统方式设置的断点是断不到的,应该采用如下的方式设置断点.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1034,11 +974,10 @@
 </span></span><span class="line"><span class="cl"><span class="nl">o_far:</span> <span class="err">这种返回类型在</span><span class="nf">x86</span> <span class="err">和</span> <span class="no">x86_64的逆向中不常见.它用来判断直接访问远端地址的操作数</span><span class="p">,</span><span class="err">值为</span><span class="mi">6</span><span class="p">.</span>
 </span></span><span class="line"><span class="cl"><span class="nl">o_near:</span> <span class="err">这种返回类型在</span><span class="nf">x86和x86_64的逆向中不常见.它用来判断直接访问近端地址的操作数</span><span class="p">,</span><span class="err">值为</span><span class="mi">7</span><span class="p">.</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="例子1" class="heading-element"><span>例子1</span>
-  <a href="#%e4%be%8b%e5%ad%901" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>当我们在逆向一个可执行文件的时候,我们可能会注意到一些代码会不断的重复使用某个偏移量.这种操作感觉上是代码在传递某个结构体给不同的函数使用.接下来的这个例子的目的是创建一个python的字典,字典包含了可执行文件中使用的所有偏移量,让偏移量作为字典的key,而每个key对应的value存储着所有使用该偏移量的地址.</p>
+</div><ol>
+<li>例1</li>
+</ol>
+<p>当我们在逆向一个可执行文件的时候,我们可能会注意到一些代码会不断的重复使用某个偏移量.这种操作感觉上是代码在传递某个结构体给不同的函数使用.接下来的这个例子的目的是创建一个python的字典,字典包含了可执行文件中使用的所有偏移量,让偏移量作为字典的key,而每个key对应的value存储着所有使用该偏移量的地址.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1126,11 +1065,10 @@
 </div>
 </div><p>idaapi.decode_insn(tmp,line)是解析指令的另一种底层的方法.</p>
 <p>我们已经获取了操作符的字符串表示,那么我们检查操作符中是否包含了“bp”字符串,这是一个快速判断操作符的中寄存器是否为bp,ebp或者rbp的方法.检查”bp”字符串的目的在于确定偏移量是否是一个负数.我们使用idaapi.cmd.Op1.addr来获取偏移量,这个方法会返回一个字符串.然后我们把他转换成为一个 integer类型,如果需要的话把它转换为正数,然后我们把它放进脚本最开始定义的字典display中去.这样就完成了我们的操作,之后如果你想要查找使用某个偏移量的所有地址,直接读取就可以了.</p>
-<h3 id="例子2" class="heading-element"><span>例子2</span>
-  <a href="#%e4%be%8b%e5%ad%902" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>有时候我们在逆向分析一个可执行文件的内存转储的时候,有些操作数就不是一个偏移量了.看如下代码:</p>
+<ol start="2">
+<li>例2</li>
+</ol>
+<p>有时候我们在逆向分析一个可执行文件的内存转储的时候,有些操作数就不是一个偏移量了.看如下代码:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1428,7 +1366,7 @@
   <a href="#%e6%90%9c%e7%b4%a2" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>我们其实已经能够通过遍历所有已知的函数及其指令来达到一种基本的搜索效果,这当然很有用,但是有时候我们需要搜索一些特定的字节,比如说 0x55,0x8b,0xec 这种字节序列,这3个字节其实代表的汇编代码为 push ebp, mov ebp, esp.所以我们可以使用**idc.find_binary(ea,flag,searchstr,radix=16)**来进行字节或者二进制的搜索.
+</h2><p>我们其实已经能够通过遍历所有已知的函数及其指令来达到一种基本的搜索效果,这当然很有用,但是有时候我们需要搜索一些特定的字节,比如说 0x55,0x8b,0xec 这种字节序列,这3个字节其实代表的汇编代码为 push ebp, mov ebp, esp.所以我们可以使用idc.find_binary(ea,flag,searchstr,radix=16)来进行字节或者二进制的搜索.
 ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不同的类型：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2385,8 +2323,8 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span></span><span class="line"><span class="cl"><span class="c1"># 入口名</span>
 </span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_entry_name</span><span class="p">(</span><span class="n">ordinal</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="调试-1" class="heading-element"><span>调试</span>
-  <a href="#%e8%b0%83%e8%af%95-1" class="heading-mark">
+</div><h2 id="调试" class="heading-element"><span>调试</span>
+  <a href="#%e8%b0%83%e8%af%95" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><p>安装调试的hook使用如下api:</p>
@@ -2425,8 +2363,24 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
   <a href="#%e5%90%8c%e7%b1%bb%e6%80%bb%e7%bb%93%e5%8f%82%e8%80%83" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p><a href="https://www.52pojie.cn/forum.php?mod=viewthread&amp;tid=1117330&amp;highlight=%D7%DC%BD%E1idapython%D4%DA%C4%E6%CF%F2%D6%D0%B5%C4%D3%A6%D3%C3"target="_blank" rel="external nofollow noopener noreferrer">https://www.52pojie.cn/forum.php?mod=viewthread&tid=1117330&highlight=%D7%DC%BD%E1idapython%D4%DA%C4%E6%CF%F2%D6%D0%B5%C4%D3%A6%D3%C3</a></p>
-<p><a href="/posts/ida/idapython%E4%BD%BF%E7%94%A8/%E6%80%BB%E7%BB%93idapython%E5%9C%A8%E9%80%86%E5%90%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8.mhtml">总结idapython在逆向中的应用.mhtml</a></p>
+</h2><a href="https://www.52pojie.cn/forum.php?mod=viewthread&amp;tid=1117330&amp;highlight=%D7%DC%BD%E1idapython%D4%DA%C4%E6%CF%F2%D6%D0%B5%C4%D3%A6%D3%C3"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
+    <span class="cl-content">
+      <span class="cl-text">
+        <span class="cl-title">总结idapython在逆向中的应用</span>
+        <span class="cl-meta">
+          <svg class="cl-icon-link" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M574 665.4c-3.1-3.1-8.2-3.1-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8c-3.1-3.1-8.2-3.1-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zM832.6 191.4c-84.6-84.6-221.5-84.6-306 0L410.3 307.6c-3.1 3.1-3.1 8.2 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6c-3.1 3.1-3.1 8.2 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1z" fill="#a9a9b3"></path><path d="M610.1 372.3c-3.1-3.1-8.2-3.1-11.3 0L372.3 598.7c-3.1 3.1-3.1 8.2 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z" fill="#a9a9b3"></path></svg>
+          <span class="cl-url">https://www.52pojie.cn/forum.php?mod=viewthread&amp;tid=1117330&amp;highlight=%D7%DC%BD%E1idapython%D4%DA%C4%E6%CF%F2%D6%D0%B5%C4%D3%A6%D3%C3</span>
+        </span>
+      </span><svg class="cl-shortcut-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
+<a href="/posts/ida/idapython%E4%BD%BF%E7%94%A8/%E6%80%BB%E7%BB%93idapython%E5%9C%A8%E9%80%86%E5%90%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8.mhtml" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
+    <span class="cl-content">
+      <span class="cl-text">
+        <span class="cl-title">总结idapython在逆向中的应用</span>
+        <span class="cl-meta">
+          <svg class="cl-icon-link" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M574 665.4c-3.1-3.1-8.2-3.1-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8c-3.1-3.1-8.2-3.1-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zM832.6 191.4c-84.6-84.6-221.5-84.6-306 0L410.3 307.6c-3.1 3.1-3.1 8.2 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6c-3.1 3.1-3.1 8.2 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1z" fill="#a9a9b3"></path><path d="M610.1 372.3c-3.1-3.1-8.2-3.1-11.3 0L372.3 598.7c-3.1 3.1-3.1 8.2 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z" fill="#a9a9b3"></path></svg>
+          <span class="cl-url">/posts/ida/idapython%E4%BD%BF%E7%94%A8/%E6%80%BB%E7%BB%93idapython%E5%9C%A8%E9%80%86%E5%90%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8.mhtml</span>
+        </span>
+      </span><svg class="cl-shortcut-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
 </div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
