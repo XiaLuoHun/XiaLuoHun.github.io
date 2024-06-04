@@ -13,8 +13,8 @@
   <meta itemprop="datePublished" content="2023-05-14T00:00:00+00:00">
   <meta itemprop="dateModified" content="2023-05-14T00:00:00+00:00">
   <meta itemprop="wordCount" content="304">
-  <meta itemprop="image" content="https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/images/%E6%96%87%E4%BB%B6%E5%90%88%E5%B9%B6.png">
-  <meta itemprop="keywords" content="LLVM"><meta property="og:url" content="https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/">
+  <meta itemprop="image" content="https://XiaLuoHun.top/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/images/%E6%96%87%E4%BB%B6%E5%90%88%E5%B9%B6.png">
+  <meta itemprop="keywords" content="LLVM"><meta property="og:url" content="https://XiaLuoHun.top/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="移植OLLVM到NDK中">
   <meta property="og:description" content="将OLLVM移植到LLVM源码中 LLVM源码编译 NDK下载 https://developer.android.google.cn/ndk/downloads?hl=zh-cn 这里需要注意一点的是下载的NDK版本要和上述移植的LLVM源码版本相近. 在NDK">
@@ -24,14 +24,14 @@
     <meta property="article:published_time" content="2023-05-14T00:00:00+00:00">
     <meta property="article:modified_time" content="2023-05-14T00:00:00+00:00">
     <meta property="article:tag" content="LLVM">
-    <meta property="og:image" content="https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/images/%E6%96%87%E4%BB%B6%E5%90%88%E5%B9%B6.png">
+    <meta property="og:image" content="https://XiaLuoHun.top/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/images/%E6%96%87%E4%BB%B6%E5%90%88%E5%B9%B6.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/images/%E6%96%87%E4%BB%B6%E5%90%88%E5%B9%B6.png">
+  <meta name="twitter:image" content="https://XiaLuoHun.top/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/images/%E6%96%87%E4%BB%B6%E5%90%88%E5%B9%B6.png">
   <meta name="twitter:title" content="移植OLLVM到NDK中">
   <meta name="twitter:description" content="将OLLVM移植到LLVM源码中 LLVM源码编译 NDK下载 https://developer.android.google.cn/ndk/downloads?hl=zh-cn 这里需要注意一点的是下载的NDK版本要和上述移植的LLVM源码版本相近. 在NDK">
 <meta name="application-name" content="夏洛魂">
-<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.github.io/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/" /><link rel="prev" href="https://XiaLuoHun.github.io/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/" /><link rel="next" href="https://XiaLuoHun.github.io/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.top/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/" /><link rel="prev" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/" /><link rel="next" href="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -41,14 +41,14 @@
     "inLanguage": "zh-CN",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD\/"
+      "@id": "https:\/\/XiaLuoHun.top\/posts\/llvm\/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD\/"
     },"image": [{
               "@type": "ImageObject",
-              "url": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD\/images\/%E6%96%87%E4%BB%B6%E5%90%88%E5%B9%B6.png",
+              "url": "https:\/\/XiaLuoHun.top\/posts\/llvm\/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD\/images\/%E6%96%87%E4%BB%B6%E5%90%88%E5%B9%B6.png",
               "width":  1693 ,
               "height":  1073 
             }],"genre": "posts","keywords": "LLVM","wordcount":  304 ,
-    "url": "https:\/\/XiaLuoHun.github.io\/posts\/llvm\/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD\/","datePublished": "2023-05-14T00:00:00+00:00","dateModified": "2023-05-14T00:00:00+00:00","publisher": {
+    "url": "https:\/\/XiaLuoHun.top\/posts\/llvm\/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD\/","datePublished": "2023-05-14T00:00:00+00:00","dateModified": "2023-05-14T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
