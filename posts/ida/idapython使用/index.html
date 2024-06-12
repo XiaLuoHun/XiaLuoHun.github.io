@@ -12,7 +12,7 @@
   <meta itemprop="description" content="简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提供大量的实用函数,其中许多">
   <meta itemprop="datePublished" content="2021-08-26T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-08-26T00:00:00+00:00">
-  <meta itemprop="wordCount" content="13054">
+  <meta itemprop="wordCount" content="13031">
   <meta itemprop="image" content="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png">
   <meta itemprop="keywords" content="IDAPython"><meta property="og:url" content="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.top\/posts\/ida\/idapython%E4%BD%BF%E7%94%A8\/images\/VSCode%E8%B0%83%E8%AF%95.png",
               "width":  723 ,
               "height":  381 
-            }],"genre": "posts","keywords": "IDAPython","wordcount":  13054 ,
+            }],"genre": "posts","keywords": "IDAPython","wordcount":  13031 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/ida\/idapython%E4%BD%BF%E7%94%A8\/","datePublished": "2021-08-26T00:00:00+00:00","dateModified": "2021-08-26T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>IDAPython使用笔记</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ida/" class="post-category" title="分类 - IDA"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> IDA</a></span></div><div class="post-meta-line"><span title="发布于 2021-08-26 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-08-26">2021-08-26</time></span>&nbsp;<span title="13054 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 13100 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 27 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ida/" class="post-category" title="分类 - IDA"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> IDA</a></span></div><div class="post-meta-line"><span title="发布于 2021-08-26 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-08-26">2021-08-26</time></span>&nbsp;<span title="13031 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 13100 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 27 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -228,10 +228,9 @@
 <li><strong>idautils</strong>:提供大量的实用函数,其中许多函数可生成各种数据库相关对象(如函数或交叉引用)的python列表.</li>
 <li><strong>idaapi</strong>:允许使用者通过类的形式,访问更多底层的数据.</li>
 </ul>
-<p>需要注意的是IDAPython会自动导入idc和idautils模块,idaapi模块需要自己手工导入.
+<p>IDAPython会自动导入idc和idautils模块,idaapi模块需要自己手工导入.
 为了使用的清晰性,建议在开头都进行手工的import这三个模块.</p>
-<p><strong>注意事项</strong>
-由于IDAPython的升级,有些之前的函数名发生了变化,新旧关系的对应在文件<strong>idc_bc695.py</strong>,可以进行对照说明.</p>
+<p>注意事项:由于IDAPython的升级,有些之前的函数名发生了变化,新旧关系的对应在文件<strong>idc_bc695.py</strong>,可以进行对照说明.</p>
 <h2 id="配置调试环境" class="heading-element"><span>配置调试环境</span>
   <a href="#%e9%85%8d%e7%bd%ae%e8%b0%83%e8%af%95%e7%8e%af%e5%a2%83" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -379,7 +378,14 @@
 </span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png" alt="VSCode调试" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png?size=large 2x" data-title="VSCode调试" style="--width: 723px;--aspect-ratio: 723 / 381;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p><strong>需要注意的是</strong>,不要将breakpoint放到文件末尾,因为调试的时候,他会断在breakpoint的下条语句.</p>
+<div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">不要将breakpoint放到文件末尾,因为调试的时候,他会断在breakpoint的下条语句.</div>
+    </div>
+  </div>
 <h2 id="配置python代码自动补全" class="heading-element"><span>配置Python代码自动补全</span>
   <a href="#%e9%85%8d%e7%bd%aepython%e4%bb%a3%e7%a0%81%e8%87%aa%e5%8a%a8%e8%a1%a5%e5%85%a8" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -1698,7 +1704,14 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">MakeName</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">MakeNameEx</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>值得注意的是使用idc.MakeName的话,如果某一个函数名称已经被使用了,那么ida会抛出一个警告的对话.为了跳过该对话框,我们使用idc.MakeNameEx,将flag的值设置为256或者SN_NOWARN即可.</p>
+</div><div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">使用idc.MakeName的话,如果某一个函数名称已经被使用了,那么ida会抛出一个警告的对话.为了跳过该对话框,我们使用idc.MakeNameEx,将flag的值设置为256或者SN_NOWARN即可.</div>
+    </div>
+  </div>
 <h2 id="访问原始数据" class="heading-element"><span>访问原始数据</span>
   <a href="#%e8%ae%bf%e9%97%ae%e5%8e%9f%e5%a7%8b%e6%95%b0%e6%8d%ae" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -2178,7 +2191,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span></span><span class="line"><span class="cl"><span class="s1">&#39;nShowCmd&#39;</span><span class="p">:</span> <span class="s1">&#39;0x18&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>注意此偏移都是相对于当前栈帧的栈底(也就是ebp)来说的.注意两个非常重要的成员&rsquo; r&rsquo;和&rsquo; s&rsquo;,其中&rsquo; r&rsquo;代表返回地址存储的偏移,&rsquo; s&rsquo;代表当前函数栈帧中ebp距离esp的位置(也就是函数栈帧的大小).注意有个空格.</p>
+</div><p>此偏移都是相对于当前栈帧的栈底(也就是ebp)来说的.注意两个非常重要的成员&rsquo; r&rsquo;和&rsquo; s&rsquo;,其中&rsquo; r&rsquo;代表返回地址存储的偏移,&rsquo; s&rsquo;代表当前函数栈帧中ebp距离esp的位置(也就是函数栈帧的大小).</p>
 <p>也可以利用此frame的结构来获取x86中当前函数参数的字节数.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2415,5 +2428,5 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

@@ -12,7 +12,7 @@
   <meta itemprop="description" content="前言 Android应用保护发展的早期,通过对Dex整体进行加密或隐藏来完成对Dex的保护,也称之为一代壳.这时候侧重于对Dex的整体保护,相">
   <meta itemprop="datePublished" content="2022-11-11T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-11-11T00:00:00+00:00">
-  <meta itemprop="wordCount" content="7129">
+  <meta itemprop="wordCount" content="7114">
   <meta itemprop="image" content="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/images/Fart%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
   <meta itemprop="keywords" content="Fart"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.top\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90\/images\/Fart%E6%B5%81%E7%A8%8B%E5%9B%BE.png",
               "width":  1710 ,
               "height":  1043 
-            }],"genre": "posts","keywords": "Fart","wordcount":  7129 ,
+            }],"genre": "posts","keywords": "Fart","wordcount":  7114 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90\/","datePublished": "2022-11-11T00:00:00+00:00","dateModified": "2022-11-11T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Fart流程和原理分析</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%A3%B3%E4%B8%96%E7%95%8C/" class="post-category" title="分类 - Android壳世界"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android壳世界</a></span></div><div class="post-meta-line"><span title="发布于 2022-11-11 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-11-11">2022-11-11</time></span>&nbsp;<span title="7129 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 7200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 15 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%A3%B3%E4%B8%96%E7%95%8C/" class="post-category" title="分类 - Android壳世界"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android壳世界</a></span></div><div class="post-meta-line"><span title="发布于 2022-11-11 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-11-11">2022-11-11</time></span>&nbsp;<span title="7114 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 7200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 15 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -803,7 +803,15 @@
 </span></span><span class="line"><span class="cl">	<span class="n">artmethod</span><span class="o">-&gt;</span><span class="n">Invoke</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">args_size</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="s">&#34;fart&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>在该函数中,通过传入的ArtMethod指针,进而调用其中的Invoke函数来完成函数的主动调用.需要注意一点的就是,在fart中通过将self设置为nullptr来进行标记,用于后续判断是否我们自己进行的主动调用.</p>
+</div><p>在该函数中,通过传入的ArtMethod指针,进而调用其中的Invoke函数来完成函数的主动调用.</p>
+<div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">在fart中通过将self设置为nullptr来进行标记,用于后续判断是否我们自己进行的主动调用.</div>
+    </div>
+  </div>
 <p>紧接着就要去看下art/runtime/art_method.cc中的Invoke函数,因为这是fart中的一个脱壳点同时也进行了函数粒度的指令Dump.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1577,7 +1585,14 @@
 <p><img loading="lazy" src="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/images/%E5%8A%A0%E5%9B%BA%E5%BA%94%E7%94%A8%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png" alt="加固应用运行流程" srcset="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/images/%E5%8A%A0%E5%9B%BA%E5%BA%94%E7%94%A8%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png?size=small, /posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/images/%E5%8A%A0%E5%9B%BA%E5%BA%94%E7%94%A8%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png?size=medium 1.5x, /posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/images/%E5%8A%A0%E5%9B%BA%E5%BA%94%E7%94%A8%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png?size=large 2x" data-title="加固应用运行流程" style="--width: 1144px;--aspect-ratio: 1144 / 699;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>当壳在函数attachBaseContext和onCreate中执行完加密Dex文件的解密后,通过自定义的Classloader在内存中加载解密后的dex文件.为了解决后续应用在加载执行解密后的dex文件中的Class和Method的问题,接下来就是通过利用java的反射修复一系列的变量.其中最为重要的一个变量就是应用运行中的Classloader,这里面包含着App真实的业务代码.因此,只要获取到加固应用最终通过反射设置后的Classloader,我们就可以通过一系列反射完成对加密代码的解密.</p>
 <p>Fart的入口时机选在ActivityThread类的performLaunchActivity函数中,这个函数是用来响应Activity相关的操作,当App在响应Activity消息时,壳已经完成了ClassLoader的替换.因此,此时通过反射利用fart内部的函数getClassloader拿到的就是加固应用最终通过反射设置后的Classloader.然后利用fartwithClassloader函数,对Classloader进行处理,经过一系列的反射拿到DexFile对象,利用android内部函数getClassNameList获取到Dex文件中所有的类名,最后通过主动加载的形式,获取每个类中的所有函数,进行函数的主动调用.</p>
-<p>需要注意一点就是,在Fart中处理的Classloader是加固应用最终通过反射设置后的Classloader,但App在运行过程中也可以动态加载Dex文件,此时的Classloader并不在fart处理的范围内.对于这部分代码的处理,fart提供了一个函数fartwithClassloader,需要结合frida进行使用.</p>
+<div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">在Fart中处理的Classloader是加固应用最终通过反射设置后的Classloader,但App在运行过程中也可以动态加载Dex文件,此时的Classloader并不在fart处理的范围内.对于这部分代码的处理,fart提供了一个函数fartwithClassloader,需要结合frida进行使用.</div>
+    </div>
+  </div>
 <h2 id="总结" class="heading-element"><span>总结</span>
   <a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -1638,5 +1653,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>
