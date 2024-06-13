@@ -12,7 +12,7 @@
   <meta itemprop="description" content="概述 Android DexVMP主要有以下两种表现形式: 抽象出一个统一返回值和参数的函数,对这个函数进行VMP保护 onCreate Native化,对其进行VMP保护 Android D">
   <meta itemprop="datePublished" content="2023-06-19T00:00:00+00:00">
   <meta itemprop="dateModified" content="2023-06-19T00:00:00+00:00">
-  <meta itemprop="wordCount" content="2394">
+  <meta itemprop="wordCount" content="2393">
   <meta itemprop="image" content="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/images/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8trace.png">
   <meta itemprop="keywords" content="DexVMP"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.top\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90\/images\/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8trace.png",
               "width":  2540 ,
               "height":  1204 
-            }],"genre": "posts","keywords": "DexVMP","wordcount":  2394 ,
+            }],"genre": "posts","keywords": "DexVMP","wordcount":  2393 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90\/","datePublished": "2023-06-19T00:00:00+00:00","dateModified": "2023-06-19T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Android-DexVMP快速分析</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%A3%B3%E4%B8%96%E7%95%8C/" class="post-category" title="分类 - Android壳世界"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android壳世界</a></span></div><div class="post-meta-line"><span title="发布于 2023-06-19 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-06-19">2023-06-19</time></span>&nbsp;<span title="2394 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 2400 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%A3%B3%E4%B8%96%E7%95%8C/" class="post-category" title="分类 - Android壳世界"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android壳世界</a></span></div><div class="post-meta-line"><span title="发布于 2023-06-19 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-06-19">2023-06-19</time></span>&nbsp;<span title="2393 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 2400 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -200,7 +200,7 @@
             <li><a href="#jni调用关系">Jni调用关系</a></li>
           </ul>
         </li>
-        <li><a href="#frida代码">Frida代码</a></li>
+        <li><a href="#hook代码">Hook代码</a></li>
         <li><a href="#示例">示例</a></li>
         <li><a href="#总结">总结</a></li>
         <li><a href="#参考链接">参考链接</a></li>
@@ -779,8 +779,8 @@
 </span></span><span class="line"><span class="cl">  <span class="c1">//add
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="frida代码" class="heading-element"><span>Frida代码</span>
-  <a href="#frida%e4%bb%a3%e7%a0%81" class="heading-mark">
+</div><h2 id="hook代码" class="heading-element"><span>Hook代码</span>
+  <a href="#hook%e4%bb%a3%e7%a0%81" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><p>上面我们对Android源码进行了修改,还需要借助Frida来完成函数调用关系的打印,对应的代码如下:</p>

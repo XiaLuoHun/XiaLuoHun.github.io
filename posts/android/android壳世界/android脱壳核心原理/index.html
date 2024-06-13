@@ -12,7 +12,7 @@
   <meta itemprop="description" content="简介 Android App脱壳的本质就是对内存中处于解密状态的dex文件的dump,不管是函数抽取壳、dex2c或者vmp,首先要做的是对整体dex的du">
   <meta itemprop="datePublished" content="2022-08-30T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-08-30T00:00:00+00:00">
-  <meta itemprop="wordCount" content="3169">
+  <meta itemprop="wordCount" content="3168">
   <meta itemprop="image" content="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/images/LuoGetDexFile.png">
   <meta itemprop="keywords" content="Android脱壳"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.top\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86\/images\/LuoGetDexFile.png",
               "width":  1773 ,
               "height":  431 
-            }],"genre": "posts","keywords": "Android脱壳","wordcount":  3169 ,
+            }],"genre": "posts","keywords": "Android脱壳","wordcount":  3168 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/android\/android%E5%A3%B3%E4%B8%96%E7%95%8C\/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86\/","datePublished": "2022-08-30T00:00:00+00:00","dateModified": "2022-08-30T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Android脱壳核心原理</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%A3%B3%E4%B8%96%E7%95%8C/" class="post-category" title="分类 - Android壳世界"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android壳世界</a></span></div><div class="post-meta-line"><span title="发布于 2022-08-30 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-08-30">2022-08-30</time></span>&nbsp;<span title="3169 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 7 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%A3%B3%E4%B8%96%E7%95%8C/" class="post-category" title="分类 - Android壳世界"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android壳世界</a></span></div><div class="post-meta-line"><span title="发布于 2022-08-30 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-08-30">2022-08-30</time></span>&nbsp;<span title="3168 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 7 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -210,7 +210,7 @@
         </li>
         <li><a href="#示例">示例</a>
           <ul>
-            <li><a href="#frida示例">Frida示例</a></li>
+            <li><a href="#hook代码">Hook代码</a></li>
             <li><a href="#修改android源码">修改Android源码</a></li>
           </ul>
         </li>
@@ -782,8 +782,8 @@
   <a href="#%e7%a4%ba%e4%be%8b" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><h3 id="frida示例" class="heading-element"><span>Frida示例</span>
-  <a href="#frida%e7%a4%ba%e4%be%8b" class="heading-mark">
+</h2><h3 id="hook代码" class="heading-element"><span>Hook代码</span>
+  <a href="#hook%e4%bb%a3%e7%a0%81" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><p>下面展示下用Frida Hook上述类加载过程中的LoadMethod函数来完成dex的dump.</p>
