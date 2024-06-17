@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>X64Dbg-命令详解   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
+<meta name="author-link" content="">
+<meta name="description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值: 数字 默认情况下,所有数字都解释为16进制,也可以在值前加x或0x作为前缀来表明该" /><meta name="keywords" content='x64Dbg' />
+  <meta itemprop="name" content="x64Dbg-命令详解">
+  <meta itemprop="description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值: 数字 默认情况下,所有数字都解释为16进制,也可以在值前加x或0x作为前缀来表明该">
+  <meta itemprop="datePublished" content="2024-06-17T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2024-06-17T00:00:00+00:00">
+  <meta itemprop="wordCount" content="5461">
+  <meta itemprop="image" content="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/images/x64Dbg.png">
+  <meta itemprop="keywords" content="X64Dbg"><meta property="og:url" content="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="x64Dbg-命令详解">
+  <meta property="og:description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值: 数字 默认情况下,所有数字都解释为16进制,也可以在值前加x或0x作为前缀来表明该">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-06-17T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-06-17T00:00:00+00:00">
+    <meta property="article:tag" content="X64Dbg">
+    <meta property="og:image" content="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/images/x64Dbg.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/images/x64Dbg.png">
+  <meta name="twitter:title" content="x64Dbg-命令详解">
+  <meta name="twitter:description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值: 数字 默认情况下,所有数字都解释为16进制,也可以在值前加x或0x作为前缀来表明该">
+<meta name="application-name" content="夏洛魂">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" /><link rel="prev" href="https://XiaLuoHun.top/posts/java/arthas/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "x64Dbg-命令详解",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.top\/posts\/x64dbg\/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3\/"
+    },"image": [{
+              "@type": "ImageObject",
+              "url": "https:\/\/XiaLuoHun.top\/posts\/x64dbg\/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3\/images\/x64Dbg.png",
+              "width":  2561 ,
+              "height":  1506 
+            }],"genre": "posts","keywords": "x64Dbg","wordcount":  5461 ,
+    "url": "https:\/\/XiaLuoHun.top\/posts\/x64dbg\/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3\/","datePublished": "2024-06-17T00:00:00+00:00","dateModified": "2024-06-17T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "夏洛魂"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/excalidraw/"
+                
+                
+              >在线绘图</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="输入关键词搜索" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="输入关键词搜索" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/excalidraw/"
+                  
+                  
+                >在线绘图</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>X64Dbg-命令详解</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/x64dbg/" class="post-category" title="分类 - X64Dbg"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> X64Dbg</a></span></div><div class="post-meta-line"><span title="发布于 2024-06-17 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-06-17">2024-06-17</time></span>&nbsp;<span title="5461 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 5500 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 11 分钟</span>&nbsp;</div>
+    </div><div class="featured-image"><img loading="lazy" src="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/images/x64Dbg.png" alt="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/images/x64Dbg.png" data-title="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/images/x64Dbg.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#值">值</a>
+          <ul>
+            <li><a href="#数字">数字</a></li>
+            <li><a href="#变量">变量</a></li>
+            <li><a href="#寄存器">寄存器</a></li>
+            <li><a href="#标志">标志</a></li>
+            <li><a href="#内存位置">内存位置</a></li>
+            <li><a href="#标签符号">标签/符号</a></li>
+            <li><a href="#dll导出">DLL导出</a></li>
+            <li><a href="#模块基地址">模块基地址</a></li>
+            <li><a href="#rva文件偏移">RVA/文件偏移</a></li>
+            <li><a href="#模块入口点">模块入口点</a></li>
+          </ul>
+        </li>
+        <li><a href="#表达式">表达式</a>
+          <ul>
+            <li><a href="#运算符">运算符</a></li>
+            <li><a href="#快速赋值">快速赋值</a></li>
+          </ul>
+        </li>
+        <li><a href="#表达式函数">表达式函数</a>
+          <ul>
+            <li><a href="#字符串">字符串</a></li>
+            <li><a href="#模块">模块</a></li>
+            <li><a href="#进程信息">进程信息</a></li>
+            <li><a href="#常规函数">常规函数</a></li>
+            <li><a href="#内存">内存</a></li>
+            <li><a href="#反汇编">反汇编</a></li>
+            <li><a href="#跟踪">跟踪</a></li>
+            <li><a href="#内存指针">内存指针</a></li>
+            <li><a href="#函数">函数</a></li>
+            <li><a href="#引用">引用</a></li>
+            <li><a href="#参数">参数</a></li>
+            <li><a href="#异常">异常</a></li>
+            <li><a href="#插件">插件</a></li>
+          </ul>
+        </li>
+        <li><a href="#变量-1">变量</a>
+          <ul>
+            <li><a href="#设置变量">设置变量</a></li>
+            <li><a href="#保留变量">保留变量</a></li>
+          </ul>
+        </li>
+        <li><a href="#条件断点">条件断点</a></li>
+        <li><a href="#条件跟踪">条件跟踪</a></li>
+        <li><a href="#字符串格式">字符串格式</a></li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="值" class="heading-element"><span>值</span>
+  <a href="#%e5%80%bc" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>很多命令都接受表达式和值作为参数.下面是所有受支持的数值:</p>
+<h3 id="数字" class="heading-element"><span>数字</span>
+  <a href="#%e6%95%b0%e5%ad%97" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>默认情况下,所有数字都解释为16进制,也可以在值前加x或0x作为前缀来表明该数值为16进制.</p>
+<p>如果想要该数字解释为10进制,可以在数字前面加一个点: .123 = 7B</p>
+<h3 id="变量" class="heading-element"><span>变量</span>
+  <a href="#%e5%8f%98%e9%87%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>变量可以选择以<code>$</code>开头,并且只能存储一个DWORD(在x64上为QWORD).这意味着<code>myvar</code>和<code>$myvar</code>是等同的.</p>
+<h3 id="寄存器" class="heading-element"><span>寄存器</span>
+  <a href="#%e5%af%84%e5%ad%98%e5%99%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>除浮点寄存器外的所有寄存器(如RAX、EAX、AL)都可以用作变量.</p>
+<p>像XMM0、YMM0以及ST(0)这样的浮点寄存器不能用作变量使用,但它们可以通过字符串格式的浮点类型进行记录.目前不支持AVX-512寄存器.</p>
+<div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><ul>
+<li>除以下寄存器外,大多数寄存器的变量名称和它们的名称相同</li>
+<li>x86控制字标志被命名为_x87CW_UM</li>
+<li>除架构中的寄存器外,x64Dbg还提供了以下寄存器:CAX、CBX、CCX、CDX、CSP、CBP、CSI、CDI、CIP.这些寄存器在32位平台上映射为32位寄存器,在64位平台上映射为64位寄存器</li>
+</ul>
+</div>
+    </div>
+  </div>
+<h3 id="标志" class="heading-element"><span>标志</span>
+  <a href="#%e6%a0%87%e5%bf%97" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>调试标志可以作为输入,在标志名称前加_即为有效输入.示例如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">_cf、_pf、_af、_zf、_sf、_tf、_if、_df、_of、_rf、_vm _ac、_vif、_vip以及_id</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="内存位置" class="heading-element"><span>内存位置</span>
+  <a href="#%e5%86%85%e5%ad%98%e4%bd%8d%e7%bd%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>可以使用以下表达式对内存位置进行读取或写入.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">[addr]</td>
+<td style="text-align:left">从addr指向的内存读取4或8字节内容</td>
+</tr>
+<tr>
+<td style="text-align:left">n:[addr]</td>
+<td style="text-align:left">从addr指向的内存读取n字节内容</td>
+</tr>
+<tr>
+<td style="text-align:left">seg:[addr]</td>
+<td style="text-align:left">从addr的段读取DWORD或QWORD大小内容</td>
+</tr>
+<tr>
+<td style="text-align:left">byte:[addr]</td>
+<td style="text-align:left">从addr指向的内存读取1字节内容</td>
+</tr>
+<tr>
+<td style="text-align:left">word:[addr]</td>
+<td style="text-align:left">从addr指向的内存读取2字节内容</td>
+</tr>
+<tr>
+<td style="text-align:left">dword:[addr]</td>
+<td style="text-align:left">从addr指向的内存读取4字节内容</td>
+</tr>
+<tr>
+<td style="text-align:left">qword:[addr]</td>
+<td style="text-align:left">从addr指向的内存读取8字节内容</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><ul>
+<li>n是要读取的字节数,在x32上应小于4,在x64上应小于8,否则会出错</li>
+<li>seg可以是gs、es、cs、fs、ds以及ss.只有fs和gs有效</li>
+</ul>
+</div>
+    </div>
+  </div>
+<h3 id="标签符号" class="heading-element"><span>标签/符号</span>
+  <a href="#%e6%a0%87%e7%ad%be%e7%ac%a6%e5%8f%b7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>用户定义的标签和符号是一个有效的表达式(它们解析到所述标签/符号的地址).</p>
+<h3 id="dll导出" class="heading-element"><span>DLL导出</span>
+  <a href="#dll%e5%af%bc%e5%87%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>从指定模块获取API地址可以使用module.dll:api、module:api或module:ordinal</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">ntdll</span><span class="p">.</span><span class="nl">dll</span><span class="p">:</span><span class="n">ZwContinue</span>
+</span></span><span class="line"><span class="cl"><span class="nl">ntdll</span><span class="p">:</span><span class="n">memcmp</span>
+</span></span><span class="line"><span class="cl"><span class="n">ntdll</span><span class="p">.</span><span class="n">memcmp</span>
+</span></span><span class="line"><span class="cl"><span class="nl">ntdll</span><span class="p">:</span><span class="mi">1</span><span class="nl">D</span>
+</span></span><span class="line"><span class="cl"><span class="p">:</span><span class="n">LuoExport</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><ul>
+<li>当module为空字符串时,将默认为当前CPU窗口显示的模块</li>
+<li>使用.或:是等价的</li>
+</ul>
+</div>
+    </div>
+  </div>
+<h3 id="模块基地址" class="heading-element"><span>模块基地址</span>
+  <a href="#%e6%a8%a1%e5%9d%97%e5%9f%ba%e5%9c%b0%e5%9d%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>可以使用下述命令来获取模块的基地址.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">module、module:0、module:base、module:imagebase、module:header</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="rva文件偏移" class="heading-element"><span>RVA/文件偏移</span>
+  <a href="#rva%e6%96%87%e4%bb%b6%e5%81%8f%e7%a7%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
+<li>RVA-&gt;VA:module+rva或module:$rva</li>
+<li>FOA-&gt;VA:module:#offset</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//RVA-&gt;VA
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ntdll</span><span class="p">.</span><span class="nl">dll</span><span class="p">:</span><span class="err">$</span><span class="mi">1000</span>
+</span></span><span class="line"><span class="cl"><span class="o">:</span><span class="err">$</span><span class="mi">1000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//FOA-&gt;VA
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ntdll</span><span class="p">.</span><span class="nl">dll</span><span class="p">:</span><span class="err">#</span><span class="mi">400</span>
+</span></span><span class="line"><span class="cl"><span class="o">:</span><span class="err">#</span><span class="mi">400</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">当module为空字符串时(如:$1000),默认为当前CPU窗口显示的模块</div>
+    </div>
+  </div>
+<h3 id="模块入口点" class="heading-element"><span>模块入口点</span>
+  <a href="#%e6%a8%a1%e5%9d%97%e5%85%a5%e5%8f%a3%e7%82%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>可以使用下述命令来获取模块的入口点.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">module:entry、module:oep、module:ep</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">当模块中有名为entry、oep或ep时,将返回这个导出函数的地址.</div>
+    </div>
+  </div>
+<h2 id="表达式" class="heading-element"><span>表达式</span>
+  <a href="#%e8%a1%a8%e8%be%be%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>调试器允许使用基本表达式.除了计算之外,还允许使用类C语法进行变量赋值.</p>
+<h3 id="运算符" class="heading-element"><span>运算符</span>
+  <a href="#%e8%bf%90%e7%ae%97%e7%ac%a6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
+<li>圆括号/方括号:(1+2),[1+6]比其他运算有优先权</li>
+<li>一元负号/二进制非/逻辑非:-1,~1,!1</li>
+<li>乘法/除法:2*3,6/3,5%3</li>
+<li>加法/减法:1+3,5+2</li>
+<li>左/右移动/轮换:1&laquo;2,10&raquo;1,1&laquo;&lt;2,1&raquo;&gt;2</li>
+<li>小于(等于)/大于(等于):4&lt;10,3&gt;6,1&lt;=2,6&gt;=7</li>
+<li>等于/不等于:1==1,2!=6</li>
+<li>二进制与:12&amp;2</li>
+<li>二进制异或:2^1</li>
+<li>二进制或:2|8</li>
+<li>逻辑与:0&amp;&amp;3</li>
+<li>逻辑或:0||3</li>
+<li>逻辑隐含:0-&gt;1</li>
+</ol>
+<h3 id="快速赋值" class="heading-element"><span>快速赋值</span>
+  <a href="#%e5%bf%ab%e9%80%9f%e8%b5%8b%e5%80%bc" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>更改内存、变量、寄存器或标志.</p>
+<ul>
+<li>a?=b:?可以是任何非逻辑运算符.a可以是任何寄存器、标志、变量或内存位置.b可以是被确定为表达式的任何东西.</li>
+<li>a++/a&ndash;:a可以是任何寄存器、标志、变量或内存位置.</li>
+</ul>
+<h2 id="表达式函数" class="heading-element"><span>表达式函数</span>
+  <a href="#%e8%a1%a8%e8%be%be%e5%bc%8f%e5%87%bd%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="字符串" class="heading-element"><span>字符串</span>
+  <a href="#%e5%ad%97%e7%ac%a6%e4%b8%b2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">示例命令</th>
+<th style="text-align:left">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ansi(addr[, count])</td>
+<td style="text-align:left">从addr打印以空字符结尾的ANSI字符串.当count指定时,字符串将被截断.</td>
+<td style="text-align:left">log &ldquo;{ansi(0x402000,10)}</td>
+<td style="text-align:left">Hello XiaLuoHun!</td>
+</tr>
+<tr>
+<td style="text-align:left">utf8(addr[, count])</td>
+<td style="text-align:left">从addr打印以空字符结尾的UTF-8字符串.当count指定时,字符串将被截断.</td>
+<td style="text-align:left">log &ldquo;{utf8(0x402000)}</td>
+<td style="text-align:left">Hello XiaLuoHun!</td>
+</tr>
+<tr>
+<td style="text-align:left">utf16(addr[, count])</td>
+<td style="text-align:left">从addr打印以空字符结尾的UTF-16字符串.当count指定时,字符串将被截断.</td>
+<td style="text-align:left">log &ldquo;{utf16(0x405000,2)}</td>
+<td style="text-align:left">He</td>
+</tr>
+<tr>
+<td style="text-align:left">strstr(str1, str2)</td>
+<td style="text-align:left">查找子字符串</td>
+<td style="text-align:left">log &ldquo;{strstr(utf8(0x402000),&ldquo;Luo&rdquo;)}</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">streq(str1, str2)</td>
+<td style="text-align:left">比较两个字符串</td>
+<td style="text-align:left">log &ldquo;{streq(utf8(0x402000),&ldquo;Luo&rdquo;)}</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left">strlen(str)</td>
+<td style="text-align:left">计算字符串的长度</td>
+<td style="text-align:left">log &ldquo;{strlen(utf8(0x402000))}</td>
+<td style="text-align:left">10</td>
+</tr>
+</tbody>
+</table>
+<h3 id="模块" class="heading-element"><span>模块</span>
+  <a href="#%e6%a8%a1%e5%9d%97" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mod.party(addr)</td>
+<td style="text-align:left">获取addr的模块编号.0表示用户模块,1表示系统模块</td>
+</tr>
+<tr>
+<td style="text-align:left">mod.base(addr)</td>
+<td style="text-align:left">获取addr模块基址</td>
+</tr>
+<tr>
+<td style="text-align:left">mod.size(addr)</td>
+<td style="text-align:left">获取addr模块大小</td>
+</tr>
+<tr>
+<td style="text-align:left">mod.hash(addr)</td>
+<td style="text-align:left">获取addr模块Hash</td>
+</tr>
+<tr>
+<td style="text-align:left">mod.entry(addr)</td>
+<td style="text-align:left">获取addr模块入口</td>
+</tr>
+<tr>
+<td style="text-align:left">mod.system(addr)</td>
+<td style="text-align:left">判断addr是属于系统模块.若是返回1,否则返回0</td>
+</tr>
+<tr>
+<td style="text-align:left">mod.user(addr)</td>
+<td style="text-align:left">判断addr是属于用户模块.若是返回1,否则返回0</td>
+</tr>
+<tr>
+<td style="text-align:left">mod.main()</td>
+<td style="text-align:left">获取主模块基地址</td>
+</tr>
+<tr>
+<td style="text-align:left">mod.rva(addr)</td>
+<td style="text-align:left">获取addr所属模块的RVA.若地址不在模块中,返回0</td>
+</tr>
+<tr>
+<td style="text-align:left">mod.offset(addr)</td>
+<td style="text-align:left">获取addr的文件偏移量.若地址不在模块中,返回0</td>
+</tr>
+<tr>
+<td style="text-align:left">mod.isexport(addr)</td>
+<td style="text-align:left">判断addr是否是模块导出函数.若是返回1</td>
+</tr>
+<tr>
+<td style="text-align:left">mod.fromname(str)</td>
+<td style="text-align:left">获取str模块基址</td>
+</tr>
+</tbody>
+</table>
+<h3 id="进程信息" class="heading-element"><span>进程信息</span>
+  <a href="#%e8%bf%9b%e7%a8%8b%e4%bf%a1%e6%81%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">peb()</td>
+<td style="text-align:left">获取PEB地址</td>
+</tr>
+<tr>
+<td style="text-align:left">teb()</td>
+<td style="text-align:left">获取TEB地址</td>
+</tr>
+<tr>
+<td style="text-align:left">tid()</td>
+<td style="text-align:left">获取当前线程ID</td>
+</tr>
+<tr>
+<td style="text-align:left">kusd(),KUSD(),KUSER_SHARED_DATA()</td>
+<td style="text-align:left">获取KUSER_SHARED_DATA结构地址</td>
+</tr>
+</tbody>
+</table>
+<h3 id="常规函数" class="heading-element"><span>常规函数</span>
+  <a href="#%e5%b8%b8%e8%a7%84%e5%87%bd%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">示例命令</th>
+<th style="text-align:left">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">bswap(value)</td>
+<td style="text-align:left">反转字节</td>
+<td style="text-align:left">log &ldquo;{bswap(0x12345678)}&rdquo;</td>
+<td style="text-align:left">78563412</td>
+</tr>
+<tr>
+<td style="text-align:left">ternary(condition, val1, val2)</td>
+<td style="text-align:left">如果条件为真, 返回val1,否则返回val2</td>
+<td style="text-align:left">log &ldquo;{ternary(0,1,2)}&rdquo;</td>
+<td style="text-align:left">2</td>
+</tr>
+<tr>
+<td style="text-align:left">GetTickCount()</td>
+<td style="text-align:left">获取从操作系统启动所经过的毫秒数</td>
+<td style="text-align:left">log &ldquo;{GetTickCount()}&rdquo;</td>
+<td style="text-align:left">121A1D0</td>
+</tr>
+<tr>
+<td style="text-align:left">rdtsc()</td>
+<td style="text-align:left">获取RDTSC指令结果,该指令返回CPU自启动以来的时钟周期数</td>
+<td style="text-align:left">log &ldquo;{rdtsc()}&rdquo;</td>
+<td style="text-align:left">5C51E17C</td>
+</tr>
+<tr>
+<td style="text-align:left">isdebuggerfocused()</td>
+<td style="text-align:left">判断是否聚焦x64dbg.若是返回1,否则返回0</td>
+<td style="text-align:left">log &ldquo;{isdebuggerfocused()}&rdquo;</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">isdebuggeefocused()</td>
+<td style="text-align:left">判断是否聚焦调试程序.若是返回1,否则返回0</td>
+<td style="text-align:left">log &ldquo;{isdebuggeefocused()}&rdquo;</td>
+<td style="text-align:left">0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="内存" class="heading-element"><span>内存</span>
+  <a href="#%e5%86%85%e5%ad%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mem.valid(addr)</td>
+<td style="text-align:left">判断addr是否有效.若是返回1,否则返回0</td>
+</tr>
+<tr>
+<td style="text-align:left">mem.base(addr)</td>
+<td style="text-align:left">获取addr内存页的基地址</td>
+</tr>
+<tr>
+<td style="text-align:left">mem.size(addr)</td>
+<td style="text-align:left">获取addr内存页的大小</td>
+</tr>
+<tr>
+<td style="text-align:left">mem.iscode(addr)</td>
+<td style="text-align:left">判断addr是否是可执行页面.若是返回1,否则返回0</td>
+</tr>
+<tr>
+<td style="text-align:left">mem.decodepointer(ptr)</td>
+<td style="text-align:left">调用了API DecodePointer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="反汇编" class="heading-element"><span>反汇编</span>
+  <a href="#%e5%8f%8d%e6%b1%87%e7%bc%96" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">dis.len(addr)</td>
+<td style="text-align:left">获取addr指令长度</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.iscond(addr)</td>
+<td style="text-align:left">判断addr处是否为条件指令(JCC).若是返回1,否则返回0</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.isbranch(addr)</td>
+<td style="text-align:left">判断addr处是否为分支指令(JCC/CALL).同上</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.isret(addr)</td>
+<td style="text-align:left">判断addr处是否为RET指令.同上</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.iscall(addr)</td>
+<td style="text-align:left">判断addr处是否为CALL指令.同上</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.ismem(addr)</td>
+<td style="text-align:left">判断addr处指令是否有内存操作数.同上</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.isnop(addr)</td>
+<td style="text-align:left">判断addr处是为NOP指令.同上</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.isunusual(addr)</td>
+<td style="text-align:left">判断addr处是为异常指令.同上</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.branchdest(addr)</td>
+<td style="text-align:left">获取addr处的分支目标地址(即在addr处按下Enter键后的地址)</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.branchexec(addr)</td>
+<td style="text-align:left">判断addr处分支是否执行.若是返回1,否则返回0</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.imm(addr)</td>
+<td style="text-align:left">获取addr处指令中的立即数</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.brtrue(addr)</td>
+<td style="text-align:left">获取addr处的分支目标地址</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.brfalse(addr)</td>
+<td style="text-align:left">如果addr处是条件跳转指令则返回下一条指令地址,否则返回0</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.next(addr)</td>
+<td style="text-align:left">获取addr处下一条指令地址</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.prev(addr)</td>
+<td style="text-align:left">获取addr处前一条指令地址</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.iscallsystem(addr)</td>
+<td style="text-align:left">判断addr处的指令是否进入系统模块.如是返回1,否则返回0</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.mnemonic(addr)</td>
+<td style="text-align:left">返回addr处指令的助记符(str).可以和字符串表达式函数配合使用,如str.streq(dis.mnemonic(cip), &ldquo;cpuid&rdquo;)</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.text(addr)</td>
+<td style="text-align:left">获取addr处的指令文本</td>
+</tr>
+<tr>
+<td style="text-align:left">dis.match(addr, str)</td>
+<td style="text-align:left">判断addr处指令是否匹配正则表达式str.如是返回1,否则返回0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="跟踪" class="heading-element"><span>跟踪</span>
+  <a href="#%e8%b7%9f%e8%b8%aa" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">tr.enabled(addr)</td>
+<td style="text-align:left">判断addr是否启用了跟踪覆盖.如是返回1,否则返回0</td>
+</tr>
+<tr>
+<td style="text-align:left">tr.hitcount(addr)</td>
+<td style="text-align:left">判断addr是否已被跟踪覆盖.同上</td>
+</tr>
+<tr>
+<td style="text-align:left">tr.isrecording(),tr.runtraceenabled()</td>
+<td style="text-align:left">判断是否启用跟踪记录.同上</td>
+</tr>
+</tbody>
+</table>
+<h3 id="内存指针" class="heading-element"><span>内存指针</span>
+  <a href="#%e5%86%85%e5%ad%98%e6%8c%87%e9%92%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ReadByte(addr),Byte(addr),byte(addr)</td>
+<td style="text-align:left">从addr读取1字节并返回</td>
+</tr>
+<tr>
+<td style="text-align:left">ReadWord(addr),Word(addr),word(addr)</td>
+<td style="text-align:left">从addr读取2字节并返回</td>
+</tr>
+<tr>
+<td style="text-align:left">ReadDword(addr),Dword(addr),dword(addr)</td>
+<td style="text-align:left">从addr读取4字节并返回</td>
+</tr>
+<tr>
+<td style="text-align:left">ReadQword(addr),Qword(addr),qword(addr)</td>
+<td style="text-align:left">从addr读取8字节并返回(仅限x64)</td>
+</tr>
+<tr>
+<td style="text-align:left">ReadPtr(addr),ReadPointer(addr),ptr(addr),Pointer(addr),pointer(addr)</td>
+<td style="text-align:left">从addr读取一个指针(4/8字节)并返回</td>
+</tr>
+</tbody>
+</table>
+<h3 id="函数" class="heading-element"><span>函数</span>
+  <a href="#%e5%87%bd%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">func.start(addr)</td>
+<td style="text-align:left">获取addr所在的函数头地址</td>
+</tr>
+<tr>
+<td style="text-align:left">func.end(addr)</td>
+<td style="text-align:left">获取addr所在的函数尾地址</td>
+</tr>
+</tbody>
+</table>
+<h3 id="引用" class="heading-element"><span>引用</span>
+  <a href="#%e5%bc%95%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ref.count()</td>
+<td style="text-align:left">获取当前引用视图中的条目数</td>
+</tr>
+<tr>
+<td style="text-align:left">ref.addr(index)</td>
+<td style="text-align:left">获取index引用的地址</td>
+</tr>
+</tbody>
+</table>
+<h3 id="参数" class="heading-element"><span>参数</span>
+  <a href="#%e5%8f%82%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>假设此时堆栈顶部为返回地址</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">arg.get(index)</td>
+<td style="text-align:left">获取第index参数(从0开始)</td>
+</tr>
+<tr>
+<td style="text-align:left">arg.set(index, value)</td>
+<td style="text-align:left">设置第index处的参数(从0开始)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="异常" class="heading-element"><span>异常</span>
+  <a href="#%e5%bc%82%e5%b8%b8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ex.firstchance()</td>
+<td style="text-align:left">最后一个异常是否为首次偶发异常</td>
+</tr>
+<tr>
+<td style="text-align:left">ex.addr()</td>
+<td style="text-align:left">最后一个异常地址.即导致异常的指令地址</td>
+</tr>
+<tr>
+<td style="text-align:left">ex.code()</td>
+<td style="text-align:left">最后一个异常代码</td>
+</tr>
+<tr>
+<td style="text-align:left">ex.flags()</td>
+<td style="text-align:left">最后一个异常标志</td>
+</tr>
+<tr>
+<td style="text-align:left">ex.infocount()</td>
+<td style="text-align:left">最后一个异常信息计数(参数个数)</td>
+</tr>
+<tr>
+<td style="text-align:left">ex.info(index)</td>
+<td style="text-align:left">最后一个异常信息,如果索引超过范围则为0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="插件" class="heading-element"><span>插件</span>
+  <a href="#%e6%8f%92%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>插件可以注册自己的表达式函数,示例如下:</p>
+<p><a href="https://github.com/mrexodia/StackContains/blob/315c55381676201ace4cf88bfcb684e62489b129/StackContains/plugin.cpp#L5-L39"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/mrexodia/StackContains/blob/315c55381676201ace4cf88bfcb684e62489b129/StackContains/plugin.cpp#L5-L39</a></p>
+<ul>
+<li>_plugin_registerexprfunction</li>
+<li>_plugin_registerexprfunctionex</li>
+<li>_plugin_unregisterexprfunction</li>
+</ul>
+<h2 id="变量-1" class="heading-element"><span>变量</span>
+  <a href="#%e5%8f%98%e9%87%8f-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>调试器支持以下三种类型的变量:</p>
+<ul>
+<li>
+<p>用户变量:用户通过var/mov创建变量</p>
+</li>
+<li>
+<p>系统变量:由x64Dbg创建的变量,可读可写,但不能删除</p>
+</li>
+<li>
+<p>只读变量:由x64Dbg创建的变量,可以读取,但不能写入和删除</p>
+</li>
+</ul>
+<h3 id="设置变量" class="heading-element"><span>设置变量</span>
+  <a href="#%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>可以通过以下方式进行变量设置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="n">mov</span> <span class="n">myvar</span><span class="p">,</span> <span class="mi">1234</span>
+</span></span><span class="line"><span class="cl"><span class="n">mov</span> <span class="err">$</span><span class="n">myvar</span><span class="p">,</span> <span class="mi">1234</span>
+</span></span><span class="line"><span class="cl"><span class="n">myvar</span> <span class="o">=</span> <span class="mi">1234</span>
+</span></span><span class="line"><span class="cl"><span class="err">$</span><span class="n">myvar</span> <span class="o">=</span> <span class="mi">1234</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="保留变量" class="heading-element"><span>保留变量</span>
+  <a href="#%e4%bf%9d%e7%95%99%e5%8f%98%e9%87%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
+<li>
+<p><code>$res</code>/<code>$result</code>:常规结果变量</p>
+</li>
+<li>
+<p><code>$resN</code>/<code>$resultN</code>:可选的其他结果变量(N=1-4)</p>
+</li>
+<li>
+<p><code>$pid</code>:被调试进程的PID</p>
+</li>
+<li>
+<p><code>$hp</code>/<code>$hProcess</code>:被调试进程的handle</p>
+</li>
+<li>
+<p><code>$lastalloc</code>:alloc命令的最后结果</p>
+</li>
+<li>
+<p><code>$breakpointcondition</code>:控制条件断点命中时的暂停行为</p>
+</li>
+<li>
+<p><code>$breakpointcounter</code>:断点命中的次数</p>
+</li>
+<li>
+<p><code>$breakpointlogcondition</code>:条件断点的日志条件.它不能用于控制日志记录行为</p>
+</li>
+</ul>
+<h2 id="条件断点" class="heading-element"><span>条件断点</span>
+  <a href="#%e6%9d%a1%e4%bb%b6%e6%96%ad%e7%82%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>当断点命中时,x64Dbg将执行下述操作.</p>
+<ul>
+<li>将系统变量$breakpointexceptionaddress设置为触发断点的地址(内存地址)</li>
+<li>将命中计数器增加1</li>
+<li>将系统变量$breakpointcounter设置为命中计数器的值</li>
+<li>如果设置了中断条件,计算表达式的值(默认为1)</li>
+<li>如果设置了快速恢复且中断条件为0:
+<ul>
+<li>跳过接下来的步骤继续执行被调试对象,这也将跳过执行插件回调和GUI更新</li>
+</ul>
+</li>
+<li>如果设置了日志条件,计算表达式的值(默认为1)</li>
+<li>如果设置了命令条件,计算表达式的值(默认为1)</li>
+<li>如果中断条件求值结果为1(或非0值):
+<ul>
+<li>打印标准日志消息(如果断点设置为静默,则不支持标准日志消息)</li>
+<li>执行插件回调</li>
+</ul>
+</li>
+<li>如果设置了日志文本且日志条件表达式求值结果为1(或非0值):
+<ul>
+<li>格式化并打印日志文本(参考字符串格式化)</li>
+</ul>
+</li>
+<li>如果设置了命令文本且命令条件表达式求值结果为1(或非0值):
+<ul>
+<li>将系统变量$breakpointcondition设置为中断条件</li>
+<li>将系统变量$breakpointlogcondition设置为日志条件</li>
+<li>执行命令文本</li>
+<li>将中断条件设置为<code>$breakpointcondition</code>的值.因此,如果在脚本中修改<code>$breakpointcondition</code>的值,你就能控制调试对象是否被中断</li>
+</ul>
+</li>
+<li>如果中断条件求值结果为1(或非0值):
+<ul>
+<li>中断调试对象并等待用户继续执行</li>
+</ul>
+</li>
+</ul>
+<p>如果上述条件表达式无效,则将触发该条件.(即无效的条件表达式作为条件将导致断点始终中断、打印日志以及执行命令)</p>
+<p>在平时的调试过程中,命中计数器的值会无条件进行递增,可以调用下述API函数进行重置.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//对addr处命中计数器的值进行重置.若hitCount未指定,默认为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ResetBreakpointHitCount</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="n">hitCount</span><span class="p">)</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>条件表达式示例如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//永不中断的条件断点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//当EAX和ECX都为1时中断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">EAX</span><span class="o">==</span><span class="mi">1</span><span class="o">&amp;&amp;</span><span class="n">ECX</span><span class="o">==</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//当第一个参数为1时中断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">arg</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//当EAX是一个有效地址时中断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mem</span><span class="p">.</span><span class="n">valid</span><span class="p">(</span><span class="n">EAX</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//当命中计算器的值为3时中断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">$</span><span class="n">breakpointcounter</span><span class="o">==</span><span class="mi">3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//当线程ID为0x1C0时中断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">tid</span><span class="p">()</span><span class="o">==</span><span class="mi">1</span><span class="n">C0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//当ECX指向一个包含LuoHun的UTF-16字符串时中断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">strstr</span><span class="p">(</span><span class="n">utf16</span><span class="p">(</span><span class="n">ECX</span><span class="p">),</span> <span class="s">&#34;LuoHun&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="条件跟踪" class="heading-element"><span>条件跟踪</span>
+  <a href="#%e6%9d%a1%e4%bb%b6%e8%b7%9f%e8%b8%aa" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>当跟踪命中时,x64Dbg将执行下述操作:</p>
+<ul>
+<li>
+<p>将跟踪计数器增加1</p>
+</li>
+<li>
+<p>将系统变量$tracecounter设置为跟踪计数器的值</p>
+</li>
+<li>
+<p>如果设置了中断条件,计算表达式的值(默认为0)</p>
+</li>
+<li>
+<p>执行插件回调(允许插件更改终端条件)</p>
+</li>
+<li>
+<p>如果设置了日志条件,计算表达式的值(默认为1)</p>
+</li>
+<li>
+<p>如果设置了命令条件,计算表达式的值(默认为中断条件)</p>
+</li>
+<li>
+<p>如果设置了日志文本且日志条件表达式求值结果为1:</p>
+<ul>
+<li>格式化并打印日志文本(参考字符串格式化).要将日志重定向到文件,请使用TraceSetLogFile</li>
+</ul>
+</li>
+<li>
+<p>如果设置了命令文本且命令表达式求值结果为1:</p>
+<ul>
+<li>将系统变量$tracecondition设置为中断条件</li>
+<li>将系统变量$tracelogcondition设置为日志条件</li>
+<li>执行命令文本</li>
+<li>将中断条件设置为<code>$tracecondition</code>的值.因此,如果在脚本中修改<code>$tracecondition</code>的值,你就能控制调试对象是否被中断</li>
+</ul>
+</li>
+<li>
+<p>如果中断条件求值为1:</p>
+<ul>
+<li>打印标准日志条件</li>
+<li>中断调试对象并等待用户继续执行</li>
+</ul>
+</li>
+</ul>
+<p>如果想要通过日志跟踪记录所有指令的地址和汇编,可以使用下述命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{p:cip} {i:cip}</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">当使用跟踪步过时,即使条件为真,被调试对象也不会在已跳过的调用中暂停.如果需要暂停应使用跟踪步进</div>
+    </div>
+  </div>
+<h2 id="字符串格式" class="heading-element"><span>字符串格式</span>
+  <a href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%a0%bc%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>基本语法如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//?是表达式可选的类型
+</span></span></span><span class="line"><span class="cl"><span class="c1">//若要在结果中输出{ 或 },可将它们转义为{{ 或 }}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span><span class="o">?:</span><span class="n">expression</span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>简单类型如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">示例命令</th>
+<th style="text-align:left">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">d</td>
+<td style="text-align:left">有符号十进制</td>
+<td style="text-align:left">log &ldquo;{d:FFFFFFFF}&rdquo;</td>
+<td style="text-align:left">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">u</td>
+<td style="text-align:left">无符号十进制</td>
+<td style="text-align:left">log &ldquo;{u:FFFFFFFF}&rdquo;</td>
+<td style="text-align:left">4294967295</td>
+</tr>
+<tr>
+<td style="text-align:left">p</td>
+<td style="text-align:left">零前缀指针</td>
+<td style="text-align:left">log &ldquo;{p:0x401000}&rdquo;</td>
+<td style="text-align:left">00401000</td>
+</tr>
+<tr>
+<td style="text-align:left">s</td>
+<td style="text-align:left">字符串指针</td>
+<td style="text-align:left">log &ldquo;{s:0x402000}&rdquo;</td>
+<td style="text-align:left">&ldquo;Hello XiaLuoHun!&rdquo;</td>
+</tr>
+<tr>
+<td style="text-align:left">x</td>
+<td style="text-align:left">十六进制</td>
+<td style="text-align:left">log &ldquo;{x:0x10}&rdquo;</td>
+<td style="text-align:left">10</td>
+</tr>
+<tr>
+<td style="text-align:left">a</td>
+<td style="text-align:left">地址信息</td>
+<td style="text-align:left">log &ldquo;{a:0x401000}&rdquo;</td>
+<td style="text-align:left">x32dbg.00401000</td>
+</tr>
+<tr>
+<td style="text-align:left">i</td>
+<td style="text-align:left">输出汇编指令</td>
+<td style="text-align:left">log &ldquo;{i:0x405102}&rdquo;</td>
+<td style="text-align:left">call 0x0040B122</td>
+</tr>
+<tr>
+<td style="text-align:left">f</td>
+<td style="text-align:left">单精度浮点指针或寄存器</td>
+<td style="text-align:left">log &ldquo;{f:0x401000}&rdquo;</td>
+<td style="text-align:left">9.86338</td>
+</tr>
+<tr>
+<td style="text-align:left">F</td>
+<td style="text-align:left">双精度浮点指针或寄存器</td>
+<td style="text-align:left">log &ldquo;{F:0x401000}&rdquo;</td>
+<td style="text-align:left">3.72778552425271e-095</td>
+</tr>
+</tbody>
+</table>
+<p>复杂类型如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">语法</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">示例命令</th>
+<th style="text-align:left">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">{mem;size@address}</td>
+<td style="text-align:left">从address开始打印size个字节</td>
+<td style="text-align:left">log &ldquo;{mem;2@0x400108}&rdquo;</td>
+<td style="text-align:left">504A</td>
+</tr>
+<tr>
+<td style="text-align:left">{winerror@code}</td>
+<td style="text-align:left">输出Windows错误码名称以及描述</td>
+<td style="text-align:left">log &ldquo;{winerror@0x5}&rdquo;</td>
+<td style="text-align:left">ERROR_ACCESS_DENIED:拒绝访问.</td>
+</tr>
+<tr>
+<td style="text-align:left">{ntstatus@code}</td>
+<td style="text-align:left">输出NTSTATUS错误码名称以及描述</td>
+<td style="text-align:left">log &ldquo;{ntstatus@0}&rdquo;</td>
+<td style="text-align:left">STATUS_SUCCESS:STATUS_SUCCESS</td>
+</tr>
+<tr>
+<td style="text-align:left">{ascii[;length]@address}</td>
+<td style="text-align:left">以ascii编码进行解析,从address开始打印length个字节</td>
+<td style="text-align:left">log &ldquo;{ascii;10@0x00402000}&rdquo;</td>
+<td style="text-align:left">Hello XiaLuoHun!</td>
+</tr>
+<tr>
+<td style="text-align:left">{ansi[;length]@address}</td>
+<td style="text-align:left">以ansi编码进行解析,从address开始打印length个字节</td>
+<td style="text-align:left">log &ldquo;{ansi;c@0x00402000}&rdquo;</td>
+<td style="text-align:left">Hello XiaLuo</td>
+</tr>
+<tr>
+<td style="text-align:left">{utf8[;length]@address}</td>
+<td style="text-align:left">以utf8编码进行解析,从address开始打印length个字节</td>
+<td style="text-align:left">log &ldquo;{utf8;10@0x00402000}&rdquo;</td>
+<td style="text-align:left">Hello XiaLuoHun!</td>
+</tr>
+<tr>
+<td style="text-align:left">{utf16[;length]@address}</td>
+<td style="text-align:left">以utf16编码进行解析,从address开始打印length个双字节</td>
+<td style="text-align:left">log &ldquo;{utf16;2@0x00405000}&rdquo;</td>
+<td style="text-align:left">He</td>
+</tr>
+<tr>
+<td style="text-align:left">{disasm@address}</td>
+<td style="text-align:left">输出address处的汇编,同{i:address}</td>
+<td style="text-align:left">log &ldquo;{disasm@0x405102}&rdquo;</td>
+<td style="text-align:left">call 0x0040B122</td>
+</tr>
+<tr>
+<td style="text-align:left">{modname@address}</td>
+<td style="text-align:left">输出address所属的模块名</td>
+<td style="text-align:left">log &ldquo;{modname@0x401000}&rdquo;</td>
+<td style="text-align:left">x32dbg.exe</td>
+</tr>
+<tr>
+<td style="text-align:left">log &ldquo;{bswap[;size]@value}&rdquo;</td>
+<td style="text-align:left">从value的低位开始倒数打印size个字节</td>
+<td style="text-align:left">log &ldquo;{bswap;1@0x12345678}&rdquo;</td>
+<td style="text-align:left">78</td>
+</tr>
+<tr>
+<td style="text-align:left">{label@address}</td>
+<td style="text-align:left">输出address处的标签</td>
+<td style="text-align:left">log &ldquo;{label@0x405102}&rdquo;</td>
+<td style="text-align:left">OptionalHeader.AddressOfEntryPoint</td>
+</tr>
+<tr>
+<td style="text-align:left">{comment@address}</td>
+<td style="text-align:left">输出address处的注释</td>
+<td style="text-align:left">log &ldquo;{comment@0x405107}&rdquo;</td>
+<td style="text-align:left">XiaLuoHun</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考链接" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><a href="https://help.x64dbg.com/en/latest/introduction/Values.html"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
+    <span class="cl-content">
+      <span class="cl-text">
+        <span class="cl-title">x64Dbg帮助文档</span>
+        <span class="cl-meta">
+          <svg class="cl-icon-link" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M574 665.4c-3.1-3.1-8.2-3.1-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8c-3.1-3.1-8.2-3.1-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zM832.6 191.4c-84.6-84.6-221.5-84.6-306 0L410.3 307.6c-3.1 3.1-3.1 8.2 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6c-3.1 3.1-3.1 8.2 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1z" fill="#a9a9b3"></path><path d="M610.1 372.3c-3.1-3.1-8.2-3.1-11.3 0L372.3 598.7c-3.1 3.1-3.1 8.2 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z" fill="#a9a9b3"></path></svg>
+          <span class="cl-url">https://help.x64dbg.com/en/latest/introduction/Values.html</span>
+        </span>
+      </span><svg class="cl-shortcut-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2024-06-17 00:00:00">更新于 2024-06-17&nbsp;</span>
+      </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/x64dbg/" class="post-tag" title="标签 - X64Dbg">X64Dbg</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/java/arthas/" class="post-nav-item" rel="prev" title="Arthas"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Arthas</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/">夏洛魂</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric">0%</span>
+        </div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;--bg-progress: #0076ff;--bg-progress-dark: #fff;"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>
