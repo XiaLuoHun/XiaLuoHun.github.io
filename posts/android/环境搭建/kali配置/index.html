@@ -12,7 +12,7 @@
   <meta itemprop="description" content="基础环境 下载链接 https://www.kali.org/get-kali/#kali-virtual-machines 以root用户登录 Kali Linux虚拟机官方提供了一个默认账号:kali/kali,但是并没有提供root账号. 先用kali/">
   <meta itemprop="datePublished" content="2021-11-25T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-11-25T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1680">
+  <meta itemprop="wordCount" content="1887">
   <meta itemprop="image" content="https://XiaLuoHun.top/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kali%E9%85%8D%E7%BD%AE/images/HyperPwn.png">
   <meta itemprop="keywords" content="Kali"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kali%E9%85%8D%E7%BD%AE/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.top\/posts\/android\/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA\/kali%E9%85%8D%E7%BD%AE\/images\/HyperPwn.png",
               "width":  1986 ,
               "height":  1063 
-            }],"genre": "posts","keywords": "Kali","wordcount":  1680 ,
+            }],"genre": "posts","keywords": "Kali","wordcount":  1887 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/android\/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA\/kali%E9%85%8D%E7%BD%AE\/","datePublished": "2021-11-25T00:00:00+00:00","dateModified": "2021-11-25T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Kali配置</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-category" title="分类 - 环境搭建"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 环境搭建</a></span></div><div class="post-meta-line"><span title="发布于 2021-11-25 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-11-25">2021-11-25</time></span>&nbsp;<span title="1680 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-category" title="分类 - 环境搭建"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 环境搭建</a></span></div><div class="post-meta-line"><span title="发布于 2021-11-25 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-11-25">2021-11-25</time></span>&nbsp;<span title="1887 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1900 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -211,6 +211,7 @@
             <li><a href="#jnettop">jnettop</a></li>
             <li><a href="#tree">tree</a></li>
             <li><a href="#tmux">tmux</a></li>
+            <li><a href="#pwndbg--tmux">pwndbg + tmux</a></li>
           </ul>
         </li>
         <li><a href="#必备工具">必备工具</a>
@@ -601,6 +602,7 @@
 </span><span class="lnt">16
 </span><span class="lnt">17
 </span><span class="lnt">18
+</span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//划分左右两个窗口
@@ -614,8 +616,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Ctrl</span><span class="o">+</span><span class="n">b</span> <span class="o">&lt;</span><span class="n">arrow</span> <span class="n">key</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl"><span class="c1">//使用鼠标切换光标
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Ctrl</span> <span class="o">+</span> <span class="n">b松开后输入冒号</span><span class="p">,</span><span class="err">然后输入</span><span class="n">set</span> <span class="o">-</span><span class="n">g</span> <span class="n">mouse</span> <span class="n">on</span>
-</span></span><span class="line"><span class="cl">    
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vim</span> <span class="o">~/</span><span class="p">.</span><span class="n">tmux</span><span class="p">.</span><span class="n">conf</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span> <span class="o">-</span><span class="n">g</span> <span class="n">mouse</span> <span class="n">on</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//窗口重命名
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Ctrl</span> <span class="o">+</span> <span class="n">b</span> <span class="p">,</span>
 </span></span><span class="line"><span class="cl">
@@ -668,7 +671,149 @@
 </span></span><span class="line"><span class="cl"><span class="c1">//关闭所有会话
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">tmux</span> <span class="n">kill</span><span class="o">-</span><span class="n">server</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="必备工具" class="heading-element"><span>必备工具</span>
+</div><h3 id="pwndbg--tmux" class="heading-element"><span>pwndbg + tmux</span>
+  <a href="#pwndbg--tmux" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
+<li>下载插件到指定目录</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone https://github.com/jerdna-regeiz/splitmind ~/.splitmind</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>修改gdb配置如下:</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">gedit</span> <span class="o">~/</span><span class="p">.</span><span class="n">gdbinit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//.gdbinit
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">source</span> <span class="o">~/</span><span class="p">.</span><span class="n">pwndbg</span><span class="o">/</span><span class="n">gdbinit</span><span class="p">.</span><span class="n">py</span>
+</span></span><span class="line"><span class="cl"><span class="n">source</span> <span class="o">~/</span><span class="p">.</span><span class="n">splitmind</span><span class="o">/</span><span class="n">gdbinit</span><span class="p">.</span><span class="n">py</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">set</span> <span class="n">context</span><span class="o">-</span><span class="n">clear</span><span class="o">-</span><span class="n">screen</span> <span class="n">off</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span> <span class="n">debug</span><span class="o">-</span><span class="n">events</span> <span class="n">off</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">python</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sections</span> <span class="o">=</span> <span class="s">&#34;regs&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">mode</span> <span class="o">=</span> <span class="n">input</span><span class="p">(</span><span class="s">&#34;source/disasm/mixed mode:?(s/d/m)&#34;</span><span class="p">)</span> <span class="n">or</span> <span class="s">&#34;d&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">splitmind</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">spliter</span> <span class="o">=</span> <span class="n">splitmind</span><span class="p">.</span><span class="n">Mind</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">spliter</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">&#34;main&#34;</span><span class="p">).</span><span class="n">right</span><span class="p">(</span><span class="n">display</span><span class="o">=</span><span class="s">&#34;regs&#34;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s">&#34;50%&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 全局的变量设置
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">gdb</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#34;set context-stack-lines 10&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">legend_on</span> <span class="o">=</span> <span class="s">&#34;code&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&#34;d&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">legend_on</span> <span class="o">=</span> <span class="s">&#34;disasm&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sections</span> <span class="o">+=</span> <span class="s">&#34; disasm&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">spliter</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">&#34;main&#34;</span><span class="p">).</span><span class="n">above</span><span class="p">(</span><span class="n">display</span><span class="o">=</span><span class="s">&#34;disasm&#34;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s">&#34;70%&#34;</span><span class="p">,</span> <span class="n">banner</span><span class="o">=</span><span class="s">&#34;none&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">gdb</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#34;set context-code-lines 30&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&#34;s&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sections</span> <span class="o">+=</span> <span class="s">&#34; code&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">spliter</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">&#34;main&#34;</span><span class="p">).</span><span class="n">above</span><span class="p">(</span><span class="n">display</span><span class="o">=</span><span class="s">&#34;code&#34;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s">&#34;70%&#34;</span><span class="p">,</span> <span class="n">banner</span><span class="o">=</span><span class="s">&#34;none&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">gdb</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#34;set context-source-code-lines 30&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sections</span> <span class="o">+=</span> <span class="s">&#34; disasm code&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">spliter</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">&#34;main&#34;</span><span class="p">).</span><span class="n">above</span><span class="p">(</span><span class="n">display</span><span class="o">=</span><span class="s">&#34;code&#34;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s">&#34;70%&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">spliter</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">&#34;code&#34;</span><span class="p">).</span><span class="n">below</span><span class="p">(</span><span class="n">display</span><span class="o">=</span><span class="s">&#34;disasm&#34;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s">&#34;40%&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">gdb</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#34;set context-code-lines 8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">gdb</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#34;set context-source-code-lines 20&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sections</span> <span class="o">+=</span> <span class="s">&#34; args stack backtrace expressions&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">spliter</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#34;legend&#34;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">legend_on</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">spliter</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#34;stack&#34;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">&#34;regs&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">spliter</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#34;backtrace&#34;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">&#34;regs&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">spliter</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#34;args&#34;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">&#34;regs&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">spliter</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#34;expressions&#34;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">&#34;args&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">gdb</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#34;set context-sections </span><span class="se">\&#34;</span><span class="s">%s</span><span class="se">\&#34;</span><span class="s">&#34;</span> <span class="o">%</span> <span class="n">sections</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">gdb</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#34;set show-retaddr-reg on&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">spliter</span><span class="p">.</span><span class="n">build</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">end</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>运行tmux,然后运行gdb附加进程</li>
+</ol>
+<p><img loading="lazy" src="./images/pwngdb_tmux.png" alt="pwngdb_tmux" srcset="./images/pwngdb_tmux.png?size=small, ./images/pwngdb_tmux.png?size=medium 1.5x, ./images/pwngdb_tmux.png?size=large 2x" data-title="pwngdb_tmux" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="必备工具" class="heading-element"><span>必备工具</span>
   <a href="#%e5%bf%85%e5%a4%87%e5%b7%a5%e5%85%b7" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
