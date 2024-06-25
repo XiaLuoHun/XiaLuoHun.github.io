@@ -12,7 +12,7 @@
   <meta itemprop="description" content="NDK与JNI基础 什么是JNI?: JNI,全称为Java Native Interface,即Java本地接口,JNI是Java调用Native语言的一种">
   <meta itemprop="datePublished" content="2021-12-28T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-12-28T00:00:00+00:00">
-  <meta itemprop="wordCount" content="8052">
+  <meta itemprop="wordCount" content="7775">
   <meta itemprop="image" content="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%952.png">
   <meta itemprop="keywords" content="NDK"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -45,9 +45,9 @@
     },"image": [{
               "@type": "ImageObject",
               "url": "https:\/\/XiaLuoHun.top\/posts\/android\/android%E5%9F%BA%E7%A1%80\/ndk%E8%BF%9B%E9%98%B6\/images\/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%952.png",
-              "width":  2434 ,
-              "height":  1342 
-            }],"genre": "posts","keywords": "NDK","wordcount":  8052 ,
+              "width":  2504 ,
+              "height":  1260 
+            }],"genre": "posts","keywords": "NDK","wordcount":  7775 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/android\/android%E5%9F%BA%E7%A1%80\/ndk%E8%BF%9B%E9%98%B6\/","datePublished": "2021-12-28T00:00:00+00:00","dateModified": "2021-12-28T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>NDK进阶</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/" class="post-category" title="分类 - Android基础"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android基础</a></span></div><div class="post-meta-line"><span title="发布于 2021-12-28 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-12-28">2021-12-28</time></span>&nbsp;<span title="8052 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 8100 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 17 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%9F%BA%E7%A1%80/" class="post-category" title="分类 - Android基础"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android基础</a></span></div><div class="post-meta-line"><span title="发布于 2021-12-28 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-12-28">2021-12-28</time></span>&nbsp;<span title="7775 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 7800 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 16 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -219,7 +219,7 @@
         <li><a href="#调用jni中的方法">调用JNI中的方法</a>
           <ul>
             <li><a href="#frida">Frida</a></li>
-            <li><a href="#unidbg">unidbg</a>
+            <li><a href="#unidbg">Unidbg</a>
               <ul>
                 <li><a href="#测试">测试</a></li>
                 <li><a href="#调用so中的静态方法">调用so中的静态方法</a></li>
@@ -1436,11 +1436,11 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">frida -U com.android.settings -l .\LuoHook.js</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="unidbg" class="heading-element"><span>unidbg</span>
+</div><h3 id="unidbg" class="heading-element"><span>Unidbg</span>
   <a href="#unidbg" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><p>unidbg是一个基于unicorn的逆向工具,可以直接调用Android和iOS中的so文件.</p>
+</h3><p>Unidbg是一个基于Unicorn的逆向工具,可以直接调用Android和iOS中的so文件.</p>
 <p><a href="https://github.com/zhkl0228/unidbg"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/zhkl0228/unidbg</a></p>
 <h4 id="测试" class="heading-element"><span>测试</span>
   <a href="#%e6%b5%8b%e8%af%95" class="heading-mark">
@@ -1567,9 +1567,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="n">strMd5</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>开始调用:</p>
-<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95.png" alt="调用so中的静态方法" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95.png?size=large 2x" data-title="调用so中的静态方法" style="--width: 2507px;--aspect-ratio: 2507 / 1301;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p>将上述so文件放到资源目录下,新建一个类开始写代码.</p>
+</div><p>模拟调用:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1629,10 +1627,6 @@
 </span><span class="lnt">55
 </span><span class="lnt">56
 </span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.example.luodst</span><span class="p">;</span><span class="w">
@@ -1643,7 +1637,6 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.linux.android.AndroidEmulatorBuilder</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.linux.android.AndroidResolver</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.linux.android.dvm.*</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.linux.android.dvm.jni.ProxyDvmObject</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.memory.Memory</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.File</span><span class="p">;</span><span class="w">
@@ -1659,12 +1652,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">AndroidEmulator</span><span class="w"> </span><span class="n">emulator</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">VM</span><span class="w"> </span><span class="n">vm</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">DvmClass</span><span class="w"> </span><span class="n">dvmClass</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">MainActivity</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//1.创建Android模拟器实例</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">emulator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AndroidEmulatorBuilder</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">for32Bit</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">for64Bit</span><span class="p">()</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">addBackendFactory</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">DynarmicFactory</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -1680,21 +1672,19 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//6.设置jni</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">vm</span><span class="p">.</span><span class="na">setJni</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//7.加载目标so文件</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DalvikModule</span><span class="w"> </span><span class="n">dm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">loadLibrary</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&#34;unidbg-android/src/test/resources/example_binaries/armeabi-v7a/libluodst.so&#34;</span><span class="p">),</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DalvikModule</span><span class="w"> </span><span class="n">dm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">loadLibrary</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&#34;unidbg-android/src/test/java/com/example/luodst/files/libluodst.so&#34;</span><span class="p">),</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//8.调用JNI_OnLoad</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">dm</span><span class="p">.</span><span class="na">callJNI_OnLoad</span><span class="p">(</span><span class="n">emulator</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//9.配置Native方法类名</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">dvmClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">resolveClass</span><span class="p">(</span><span class="s">&#34;com/example/luodst/MainActivity&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">crack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//10.执行JNI方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//9.执行JNI方法</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//示例</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DvmClass</span><span class="w"> </span><span class="n">dvmClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">resolveClass</span><span class="p">(</span><span class="s">&#34;com/example/luodst/MainActivity&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DvmObject</span><span class="w"> </span><span class="n">result1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dvmClass</span><span class="p">.</span><span class="na">callStaticJniMethodObject</span><span class="p">(</span><span class="n">emulator</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;mdString(Ljava/lang/String;)Ljava/lang/String;&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Hello XiaLuoHun!&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;result1 =&gt; &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result1</span><span class="p">.</span><span class="na">getValue</span><span class="p">());</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="调用so中的实例方法-无java方法" class="heading-element"><span>调用so中的实例方法-无java方法</span>
@@ -1804,18 +1794,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>开始调用:</p>
-<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%951.png" alt="调用so中的实例方法1" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%951.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%951.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%951.png?size=large 2x" data-title="调用so中的实例方法1" style="--width: 2509px;--aspect-ratio: 2509 / 1306;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p>将上述so文件放到资源目录下,新建一个类开始写代码.</p>
-<div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">在Unidbg中新建的测试类,要和so中的Native所在的类要一致.</div>
-    </div>
-  </div>
-<p>当so中的实例方法没有调用Java方法时,在Unidbg中也可以用静态方法的调用方式来模拟调用.</p>
+</div><p>模拟调用:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1876,10 +1855,6 @@
 </span><span class="lnt">56
 </span><span class="lnt">57
 </span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.example.luodst</span><span class="p">;</span><span class="w">
@@ -1906,12 +1881,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">AndroidEmulator</span><span class="w"> </span><span class="n">emulator</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">VM</span><span class="w"> </span><span class="n">vm</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">DvmClass</span><span class="w"> </span><span class="n">dvmClass</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">MainActivity</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//1.创建Android模拟器实例</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">emulator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AndroidEmulatorBuilder</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">for32Bit</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">for64Bit</span><span class="p">()</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">addBackendFactory</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">DynarmicFactory</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -1927,25 +1901,48 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//6.设置jni</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">vm</span><span class="p">.</span><span class="na">setJni</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//7.加载目标so文件</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DalvikModule</span><span class="w"> </span><span class="n">dm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">loadLibrary</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&#34;unidbg-android/src/test/resources/example_binaries/armeabi-v7a/libluodst.so&#34;</span><span class="p">),</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DalvikModule</span><span class="w"> </span><span class="n">dm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">loadLibrary</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&#34;unidbg-android/src/test/java/com/example/luodst/files/libluodst.so&#34;</span><span class="p">),</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//8.调用JNI_OnLoad</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">dm</span><span class="p">.</span><span class="na">callJNI_OnLoad</span><span class="p">(</span><span class="n">emulator</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//9.配置Native方法类名</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">dvmClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">resolveClass</span><span class="p">(</span><span class="s">&#34;com/example/luodst/MainActivity&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">crack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//10.执行JNI方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//9.执行JNI方法</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//示例</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DvmObject</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">obj1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProxyDvmObject</span><span class="p">.</span><span class="na">createObject</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">obj1</span><span class="p">.</span><span class="na">callJniMethodInt</span><span class="p">(</span><span class="n">emulator</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;LuoAdd(II)I&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">10</span><span class="p">,</span><span class="w"> </span><span class="n">20</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;result =&gt; &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="调用so中的实例方法-有java方法" class="heading-element"><span>调用so中的实例方法-有Java方法</span>
+</div><div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><p>在Unidbg中新建的测试类,要和so中的Native所在的类要一致.</p>
+<p>如:apk中的com.example.luodst.MainActivity中有一个Native方法为LuoAdd,</p>
+<p>现在要在Unidbg中加载so文件,模拟调用Native方法LuoAdd,那么首先要在Unidbg中新建一个类为com.example.luodst.MainActivity,然后写代码模拟调用so中的Native方法.</p>
+</div>
+    </div>
+  </div>
+<p>上述Unidbg中调用so中的Native方法代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">DvmObject</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">obj1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProxyDvmObject</span><span class="p">.</span><span class="na">createObject</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">obj1</span><span class="p">.</span><span class="na">callJniMethodInt</span><span class="p">(</span><span class="n">emulator</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;LuoAdd(II)I&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">10</span><span class="p">,</span><span class="w"> </span><span class="n">20</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;result =&gt; &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到上述调用,代码中只写了<strong>LuoAdd(II)I</strong>,但是so中的LuoAdd方法导出函数名为<strong>Java_com_example_luodst_MainActivity_LuoAdd</strong></p>
+<p>Unidbg会根据当前类名全称和上述方法签名进行拼接.</p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E6%B3%A8%E6%84%8F%E7%82%B9.png" alt="调用so中的实例方法注意点" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E6%B3%A8%E6%84%8F%E7%82%B9.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E6%B3%A8%E6%84%8F%E7%82%B9.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E6%B3%A8%E6%84%8F%E7%82%B9.png?size=large 2x" data-title="调用so中的实例方法注意点" style="--width: 1867px;--aspect-ratio: 1867 / 930;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h4 id="调用so中的实例方法-有java方法" class="heading-element"><span>调用so中的实例方法-有Java方法</span>
   <a href="#%e8%b0%83%e7%94%a8so%e4%b8%ad%e7%9a%84%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95-%e6%9c%89java%e6%96%b9%e6%b3%95" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -2108,18 +2105,10 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">strMd5</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>开始调用:</p>
+</div><p>模拟调用:</p>
 <p>上述样例so中的Native方法调用了apk中的Java方法,直接在Unidbg中模拟调用是不行的,会报以下错误.</p>
-<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%952.png" alt="调用so中的实例方法2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%952.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%952.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%952.png?size=large 2x" data-title="调用so中的实例方法2" style="--width: 2434px;--aspect-ratio: 2434 / 1342;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%952.png" alt="调用so中的实例方法2" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%952.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%952.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%952.png?size=large 2x" data-title="调用so中的实例方法2" style="--width: 2504px;--aspect-ratio: 2504 / 1260;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>需要在Unidbg的<strong>AbstractJni.java</strong>文件中补Java方法或者重载callObjectMethodV函数.</p>
-<div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">在Unidbg中新建的测试类,要和so中的Native所在的类要一致.</div>
-    </div>
-  </div>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2213,7 +2202,6 @@
 </span><span class="lnt">89
 </span><span class="lnt">90
 </span><span class="lnt">91
-</span><span class="lnt">92
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.example.luodst</span><span class="p">;</span><span class="w">
@@ -2231,7 +2219,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.security.MessageDigest</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.security.NoSuchAlgorithmException</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MainActivity</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">AbstractJni</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MainActivity</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">AbstractJni</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span><span class="w">
@@ -2242,12 +2230,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">AndroidEmulator</span><span class="w"> </span><span class="n">emulator</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">VM</span><span class="w"> </span><span class="n">vm</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">DvmClass</span><span class="w"> </span><span class="n">dvmClass</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">MainActivity</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//1.创建Android模拟器实例</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">emulator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AndroidEmulatorBuilder</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">for32Bit</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">for64Bit</span><span class="p">()</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">addBackendFactory</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">DynarmicFactory</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -2257,7 +2244,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">LibraryResolver</span><span class="w"> </span><span class="n">resolver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AndroidResolver</span><span class="p">(</span><span class="n">23</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">memory</span><span class="p">.</span><span class="na">setLibraryResolver</span><span class="p">(</span><span class="n">resolver</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//4.创建虚拟机</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">vm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emulator</span><span class="p">.</span><span class="na">createDalvikVM</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&#34;unidbg-android/src/test/resources/example_binaries/app-debug.apk&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">vm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emulator</span><span class="p">.</span><span class="na">createDalvikVM</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&#34;unidbg-android/src/test/java/com/example/luodst/files/luoDst.apk&#34;</span><span class="p">));</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//5.是否打印日志</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">vm</span><span class="p">.</span><span class="na">setVerbose</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//6.设置jni</span><span class="w">
@@ -2266,9 +2253,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DalvikModule</span><span class="w"> </span><span class="n">dm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">loadLibrary</span><span class="p">(</span><span class="s">&#34;luodst&#34;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//8.调用JNI_OnLoad</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">dm</span><span class="p">.</span><span class="na">callJNI_OnLoad</span><span class="p">(</span><span class="n">emulator</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//9.配置Native方法类名</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">dvmClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">resolveClass</span><span class="p">(</span><span class="s">&#34;com/example/luodst/MainActivity&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">Javamd5</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">MessageDigest</span><span class="w"> </span><span class="n">md5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2288,25 +2274,26 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">DvmObject</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">callObjectMethodV</span><span class="p">(</span><span class="n">BaseVM</span><span class="w"> </span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="n">DvmObject</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">dvmObject</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">signature</span><span class="p">,</span><span class="w"> </span><span class="n">VaList</span><span class="w"> </span><span class="n">vaList</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">signature</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">signature</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s">&#34;com/example/luodst/MainActivity-&gt;Javamd5(Ljava/lang/String;)Ljava/lang/String;&#34;</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">StringObject</span><span class="w"> </span><span class="n">jstring</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vaList</span><span class="p">.</span><span class="na">getObjectArg</span><span class="p">(</span><span class="n">0</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">String</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Javamd5</span><span class="p">(</span><span class="n">jstring</span><span class="p">.</span><span class="na">getValue</span><span class="p">());</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringObject</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span><span class="n">result</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringObject</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kd">super</span><span class="p">.</span><span class="na">callObjectMethodV</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="n">dvmObject</span><span class="p">,</span><span class="w"> </span><span class="n">signature</span><span class="p">,</span><span class="w"> </span><span class="n">vaList</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">crack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//10.执行JNI方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//9.执行JNI方法</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//示例</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DvmObject</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">obj2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProxyDvmObject</span><span class="p">.</span><span class="na">createObject</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DvmObject</span><span class="w"> </span><span class="n">result3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">obj2</span><span class="p">.</span><span class="na">callJniMethodObject</span><span class="p">(</span><span class="n">emulator</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Refmd5(Ljava/lang/String;)Ljava/lang/String;&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Hello XiaLuoHun!&#34;</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;result3 =&gt; &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result3</span><span class="p">.</span><span class="na">getValue</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DvmClass</span><span class="w"> </span><span class="n">dvmClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">resolveClass</span><span class="p">(</span><span class="s">&#34;com/example/luodst/MainActivity&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DvmObject</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dvmClass</span><span class="p">.</span><span class="na">newObject</span><span class="p">(</span><span class="kc">null</span><span class="p">).</span><span class="na">callJniMethodObject</span><span class="p">(</span><span class="n">emulator</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Refmd5(Ljava/lang/String;)Ljava/lang/String;&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Hello XiaLuoHun!&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;result3 =&gt; &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">getValue</span><span class="p">());</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="hook初窥" class="heading-element"><span>Hook初窥</span>
@@ -2582,7 +2569,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="cm">        c=a/b;*/</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>开始调用:</p>
+</div><p>模拟调用:</p>
 <p>首先需要在AbstractJni.java文件中补方法.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2593,7 +2580,7 @@
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">case</span><span class="w"> </span><span class="s">&#34;android/os/Build-&gt;FINGERPRINT:Ljava/lang/String;&#34;</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringObject</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;LuoHun&#34;</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>直接在Unidbg中调用so的mdString方法是不行的,因为so层有反调试,从上面Native层代码可以看到function_check_tracerPID这个函数检测TracerPid,这在Unidbg中是没用的,system_getproperty_check这个函数是检测手机型号,Unidbg这里是&quot;Nexus&quot;,这个函数会返回真,进行执行kill函数.下面我们在Unidbg中Hook这个函数,让他返回False.</p>
+</div><p>直接在Unidbg中调用so的mdString方法是不行的,因为so层有反调试,从上面Native层代码可以看到function_check_tracerPID这个函数检测TracerPid,这在Unidbg中是没用的,system_getproperty_check这个函数是检测手机型号,Unidbg这里是&quot;Nexus&quot;,这个函数会返回真,进而执行kill函数.下面我们在Unidbg中Hook这个函数,让他返回False.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2688,8 +2675,6 @@
 </span><span class="lnt">90
 </span><span class="lnt">91
 </span><span class="lnt">92
-</span><span class="lnt">93
-</span><span class="lnt">94
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.example.luodst</span><span class="p">;</span><span class="w">
@@ -2772,12 +2757,10 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//8.调用JNI_OnLoad</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">dm</span><span class="p">.</span><span class="na">callJNI_OnLoad</span><span class="p">(</span><span class="n">emulator</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//9.配置Native方法类名</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">dvmClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">resolveClass</span><span class="p">(</span><span class="s">&#34;com/example/luodst/MainActivity&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">crack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//10.执行JNI方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//9.执行JNI方法</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//示例</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DvmObject</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">obj2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProxyDvmObject</span><span class="p">.</span><span class="na">createObject</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">);</span><span class="w">
@@ -2787,33 +2770,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>在Unidbg中新建的测试类,要和so中的Native所在的类要一致.</p>
-<p>如:apk中的com.example.luodst.MainActivity中有一个Native方法为LuoAdd,</p>
-<p>现在要在Unidbg中加载so文件,模拟调用其中Native方法LuoAdd,那么首先要在Unidbg中新建一个类为com.example.luodst.MainActivity,然后写代码模拟调用so中的Native方法.</p>
-</div>
-    </div>
-  </div>
-<p>是因为在Unidbg中调用so中的Native方法代码如下:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">DvmObject</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">obj1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProxyDvmObject</span><span class="p">.</span><span class="na">createObject</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">obj1</span><span class="p">.</span><span class="na">callJniMethodInt</span><span class="p">(</span><span class="n">emulator</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;LuoAdd(II)I&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">10</span><span class="p">,</span><span class="w"> </span><span class="n">20</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;result =&gt; &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>可以看到上述调用,代码中只写了<strong>LuoAdd(II)I</strong>,但是so中的LuoAdd方法导出函数名为<strong>Java_com_example_luodst_MainActivity_LuoAdd</strong></p>
-<p>Unidbg会根据当前类名全称和上述方法签名进行拼接.</p>
-<p><img loading="lazy" src="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E6%B3%A8%E6%84%8F%E7%82%B9.png" alt="调用so中的实例方法注意点" srcset="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E6%B3%A8%E6%84%8F%E7%82%B9.png?size=small, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E6%B3%A8%E6%84%8F%E7%82%B9.png?size=medium 1.5x, /posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/images/%E8%B0%83%E7%94%A8so%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E6%B3%A8%E6%84%8F%E7%82%B9.png?size=large 2x" data-title="调用so中的实例方法注意点" style="--width: 1867px;--aspect-ratio: 1867 / 930;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h2 id="反射" class="heading-element"><span>反射</span>
+</div><h2 id="反射" class="heading-element"><span>反射</span>
   <a href="#%e5%8f%8d%e5%b0%84" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -3376,5 +3333,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.8-RC"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.8"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>
