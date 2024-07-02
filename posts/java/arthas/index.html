@@ -7,17 +7,17 @@
     <meta name="robots" content="noodp" />
     <title>Arthas   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
 <meta name="author-link" content="">
-<meta name="description" content="Arthas是Alibaba开源的Java诊断工具,深受开发者喜爱.在线排查问题,无需重启;动态跟踪Java代码;实时监控JVM状态. 支持J" /><meta name="keywords" content='Java' />
+<meta name="description" content="Arthas是一款线上监控诊断产品,通过全局视角实时查看应用load、内存、gc、线程的状态信息,并能在不修改应用代码的情况下,对业务问题进" /><meta name="keywords" content='Java' />
   <meta itemprop="name" content="Arthas">
-  <meta itemprop="description" content="Arthas是Alibaba开源的Java诊断工具,深受开发者喜爱.在线排查问题,无需重启;动态跟踪Java代码;实时监控JVM状态. 支持J">
+  <meta itemprop="description" content="Arthas是一款线上监控诊断产品,通过全局视角实时查看应用load、内存、gc、线程的状态信息,并能在不修改应用代码的情况下,对业务问题进">
   <meta itemprop="datePublished" content="2024-06-11T00:00:00+00:00">
   <meta itemprop="dateModified" content="2024-06-11T00:00:00+00:00">
-  <meta itemprop="wordCount" content="6209">
+  <meta itemprop="wordCount" content="6190">
   <meta itemprop="image" content="https://XiaLuoHun.top/posts/java/arthas/images/%E8%BF%90%E8%A1%8Carthas-boot.png">
   <meta itemprop="keywords" content="Java"><meta property="og:url" content="https://XiaLuoHun.top/posts/java/arthas/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="Arthas">
-  <meta property="og:description" content="Arthas是Alibaba开源的Java诊断工具,深受开发者喜爱.在线排查问题,无需重启;动态跟踪Java代码;实时监控JVM状态. 支持J">
+  <meta property="og:description" content="Arthas是一款线上监控诊断产品,通过全局视角实时查看应用load、内存、gc、线程的状态信息,并能在不修改应用代码的情况下,对业务问题进">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -29,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/java/arthas/images/%E8%BF%90%E8%A1%8Carthas-boot.png">
   <meta name="twitter:title" content="Arthas">
-  <meta name="twitter:description" content="Arthas是Alibaba开源的Java诊断工具,深受开发者喜爱.在线排查问题,无需重启;动态跟踪Java代码;实时监控JVM状态. 支持J">
+  <meta name="twitter:description" content="Arthas是一款线上监控诊断产品,通过全局视角实时查看应用load、内存、gc、线程的状态信息,并能在不修改应用代码的情况下,对业务问题进">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.top/posts/java/arthas/" /><link rel="prev" href="https://XiaLuoHun.top/posts/web%E5%AE%89%E5%85%A8/dvwa%E9%80%9A%E5%85%B3%E8%AE%B0%E5%BD%95/" /><link rel="next" href="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.top\/posts\/java\/arthas\/images\/%E8%BF%90%E8%A1%8Carthas-boot.png",
               "width":  1561 ,
               "height":  884 
-            }],"genre": "posts","keywords": "Java","wordcount":  6209 ,
+            }],"genre": "posts","keywords": "Java","wordcount":  6190 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/java\/arthas\/","datePublished": "2024-06-11T00:00:00+00:00","dateModified": "2024-06-11T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Arthas</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/java/" class="post-category" title="分类 - Java"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Java</a></span></div><div class="post-meta-line"><span title="发布于 2024-06-11 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-06-11">2024-06-11</time></span>&nbsp;<span title="6209 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 6300 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 13 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/java/" class="post-category" title="分类 - Java"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Java</a></span></div><div class="post-meta-line"><span title="发布于 2024-06-11 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-06-11">2024-06-11</time></span>&nbsp;<span title="6190 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 6200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 13 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -224,8 +224,8 @@
     </li>
   </ul>
 </nav></div>
-      </div><div class="content" id="content"><p>Arthas是Alibaba开源的Java诊断工具,深受开发者喜爱.在线排查问题,无需重启;动态跟踪Java代码;实时监控JVM状态.</p>
-<p>支持JDK6+,支持Linux/Mac/Windows,采用命令行交互模式,同时提供丰富的Tab自动补全功能,进一步方便进行问题的定位和诊断.</p>
+      </div><div class="content" id="content"><p><img loading="lazy" src="./images/arthas.png" alt="arthas" srcset="./images/arthas.png?size=small, ./images/arthas.png?size=medium 1.5x, ./images/arthas.png?size=large 2x" data-title="arthas" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>Arthas是一款线上监控诊断产品,通过全局视角实时查看应用load、内存、gc、线程的状态信息,并能在不修改应用代码的情况下,对业务问题进行诊断,包括查看方法调用的出入参、异常,监测方法执行耗时,类加载信息等,大大提升线上问题排查效率.</p>
 <p><a href="https://github.com/alibaba/arthas"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/alibaba/arthas</a></p>
 <h2 id="测试代码" class="heading-element"><span>测试代码</span>
   <a href="#%e6%b5%8b%e8%af%95%e4%bb%a3%e7%a0%81" class="heading-mark">
@@ -1708,5 +1708,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":150},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.8"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.8"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>
