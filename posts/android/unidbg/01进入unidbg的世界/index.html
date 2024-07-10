@@ -12,9 +12,9 @@
   <meta itemprop="description" content="概述 Unidbg是一个基于Unicorn的逆向工具,可以黑盒调用Android和iOS中的so文件.这使逆向人员无须了解so内部算法原理,只">
   <meta itemprop="datePublished" content="2024-06-24T00:00:00+00:00">
   <meta itemprop="dateModified" content="2024-06-24T00:00:00+00:00">
-  <meta itemprop="wordCount" content="7246">
-  <meta itemprop="image" content="https://XiaLuoHun.top/posts/android/unidbg/01-%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/images/setJni.png">
-  <meta itemprop="keywords" content="Unidbg"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/unidbg/01-%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/">
+  <meta itemprop="wordCount" content="7322">
+  <meta itemprop="image" content="https://XiaLuoHun.top/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/images/setJni.png">
+  <meta itemprop="keywords" content="Unidbg"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="进入Unidbg的世界">
   <meta property="og:description" content="概述 Unidbg是一个基于Unicorn的逆向工具,可以黑盒调用Android和iOS中的so文件.这使逆向人员无须了解so内部算法原理,只">
@@ -24,14 +24,14 @@
     <meta property="article:published_time" content="2024-06-24T00:00:00+00:00">
     <meta property="article:modified_time" content="2024-06-24T00:00:00+00:00">
     <meta property="article:tag" content="Unidbg">
-    <meta property="og:image" content="https://XiaLuoHun.top/posts/android/unidbg/01-%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/images/setJni.png">
+    <meta property="og:image" content="https://XiaLuoHun.top/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/images/setJni.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/unidbg/01-%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/images/setJni.png">
+  <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/images/setJni.png">
   <meta name="twitter:title" content="进入Unidbg的世界">
   <meta name="twitter:description" content="概述 Unidbg是一个基于Unicorn的逆向工具,可以黑盒调用Android和iOS中的so文件.这使逆向人员无须了解so内部算法原理,只">
 <meta name="application-name" content="夏洛魂">
-<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.top/posts/android/unidbg/01-%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" /><link rel="prev" href="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" /><link rel="next" href="https://XiaLuoHun.top/posts/android/unidbg/03android-so%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.top/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" /><link rel="prev" href="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" /><link rel="next" href="https://XiaLuoHun.top/posts/android/unidbg/03android-so%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -41,14 +41,14 @@
     "inLanguage": "zh-CN",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https:\/\/XiaLuoHun.top\/posts\/android\/unidbg\/01-%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C\/"
+      "@id": "https:\/\/XiaLuoHun.top\/posts\/android\/unidbg\/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C\/"
     },"image": [{
               "@type": "ImageObject",
-              "url": "https:\/\/XiaLuoHun.top\/posts\/android\/unidbg\/01-%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C\/images\/setJni.png",
+              "url": "https:\/\/XiaLuoHun.top\/posts\/android\/unidbg\/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C\/images\/setJni.png",
               "width":  2490 ,
               "height":  1255 
-            }],"genre": "posts","keywords": "Unidbg","wordcount":  7246 ,
-    "url": "https:\/\/XiaLuoHun.top\/posts\/android\/unidbg\/01-%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C\/","datePublished": "2024-06-24T00:00:00+00:00","dateModified": "2024-06-24T00:00:00+00:00","publisher": {
+            }],"genre": "posts","keywords": "Unidbg","wordcount":  7322 ,
+    "url": "https:\/\/XiaLuoHun.top\/posts\/android\/unidbg\/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C\/","datePublished": "2024-06-24T00:00:00+00:00","dateModified": "2024-06-24T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -183,7 +183,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>进入Unidbg的世界</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/unidbg/" class="post-category" title="分类 - Unidbg"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Unidbg</a></span></div><div class="post-meta-line"><span title="发布于 2024-06-24 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-06-24">2024-06-24</time></span>&nbsp;<span title="7246 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 7300 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 15 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/unidbg/" class="post-category" title="分类 - Unidbg"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Unidbg</a></span></div><div class="post-meta-line"><span title="发布于 2024-06-24 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-06-24">2024-06-24</time></span>&nbsp;<span title="7322 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 7400 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 15 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -751,22 +751,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>在使用符号调用方式时,Unidbg帮助我们完成了很多操作,例如拼接函数名、填充参数等.但在使用地址调用方式时,这些操作需要我们自己来完成.</p>
-<div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><ul>
-<li>
-<p>在Unidbg中,当传入参数为非指针和Number类型时,需要将其定义为DvmObject对象并添加到VM中.而对于常用的String类,Unidbg对其做了相应的封装,这里新建了一个StringObject对象来作为第三个参数.</p>
-</li>
-<li>
-<p>上述在调用so中的函数后获得的返回值为Number类型,这与实际的返回值String类型不相符.在Unidbg中对于基本类型或者布尔类型,可以直接通过Number获取相应的值.而对于Object对象来说,Number中实际存储的是Object对象的hash值,因此需要先通过vm.getObject()方法来获取DvmObject对象,之后可通过getValue()方法来获取对象中储存的值,并将其强制转换为String类型后输出.</p>
-</li>
-</ul>
-</div>
-    </div>
-  </div>
+<p>上述在构造第三个参数需要注意的是,在Unidbg中,当传入参数为非指针和Number类型时,需要将其定义为DvmObject对象并添加到VM中.而对于常用的String类,Unidbg对其做了相应的封装,这里新建了一个StringObject对象来作为第三个参数.</p>
+<p>上述在调用so中的函数后获得的返回值为Number类型,这与实际的返回值String类型不相符.在Unidbg中对于基本类型或者布尔类型,可以直接通过Number获取相应的值.而对于Object对象来说,Number中实际存储的是Object对象的hash值,因此需要先通过vm.getObject()方法来获取DvmObject对象,之后即可通过getValue()方法来获取对象中储存的值,并将其强制转换为String类型后输出.</p>
 <h3 id="模拟执行" class="heading-element"><span>模拟执行</span>
   <a href="#%e6%a8%a1%e6%8b%9f%e6%89%a7%e8%a1%8c" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -1284,11 +1270,39 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用上述Unidbg代码进行模拟调用时,会报下述错误.</p>
-<p><img loading="lazy" src="./images/setJni.png" alt="setJni" srcset="./images/setJni.png?size=small, ./images/setJni.png?size=medium 1.5x, ./images/setJni.png?size=large 2x" data-title="setJni" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p>由于模拟执行的函数中有JNI操作,而不同的so调用的JNI方法有所不同,Unidbg无法为其一一实现,缺失的部分需要我们自己来实现,因此上述提示我们需要设置vm.setJni(jni)来实现缺失的JNI接口部分.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">IllegalStateException</span><span class="p">:</span><span class="w"> </span><span class="n">Please</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">setJni</span><span class="p">(</span><span class="n">jni</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">Hashable</span><span class="p">.</span><span class="na">checkJni</span><span class="p">(</span><span class="n">Hashable</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">8</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">DvmClass</span><span class="p">.</span><span class="na">getStaticMethodID</span><span class="p">(</span><span class="n">DvmClass</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">101</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">DalvikVM64$110</span><span class="p">.</span><span class="na">handle</span><span class="p">(</span><span class="n">DalvikVM64</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">1787</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">ARM64SyscallHandler</span><span class="p">.</span><span class="na">hook</span><span class="p">(</span><span class="n">ARM64SyscallHandler</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">121</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于模拟执行的函数中有JNI操作,而不同的so调用的JNI方法有所不同,Unidbg无法为其一一实现,缺失的部分需要我们自己来实现,因此上述提示我们需要设置vm.setJni()来实现缺失的JNI接口部分.</p>
 <p>当我们调用了vm.setJni()方法时,再次运行,会报下述错误.</p>
-<p><img loading="lazy" src="./images/Update%E7%BC%BA%E5%A4%B1.png" alt="Update缺失" srcset="./images/Update%E7%BC%BA%E5%A4%B1.png?size=small, ./images/Update%E7%BC%BA%E5%A4%B1.png?size=medium 1.5x, ./images/Update%E7%BC%BA%E5%A4%B1.png?size=large 2x" data-title="Update缺失" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p>我们需要重写报错的callVoidMethodV方法,为Unidbg补全缺失的update()方法的具体实现,使之可以继续执行.这个补齐JNI的过程叫做&quot;补环境&quot;.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">UnsupportedOperationException</span><span class="p">:</span><span class="w"> </span><span class="n">java</span><span class="o">/</span><span class="n">security</span><span class="o">/</span><span class="n">MessageDigest</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">(</span><span class="o">[</span><span class="n">B</span><span class="p">)</span><span class="n">V</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">AbstractJni</span><span class="p">.</span><span class="na">callVoidMethodV</span><span class="p">(</span><span class="n">AbstractJni</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">1007</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">AbstractJni</span><span class="p">.</span><span class="na">callVoidMethodV</span><span class="p">(</span><span class="n">AbstractJni</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">990</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">DvmMethod</span><span class="p">.</span><span class="na">callVoidMethodV</span><span class="p">(</span><span class="n">DvmMethod</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">229</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">DalvikVM64$59</span><span class="p">.</span><span class="na">handle</span><span class="p">(</span><span class="n">DalvikVM64</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">1078</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们需要重写报错的callVoidMethodV方法,为Unidbg补全缺失的update()方法的具体实现,使之可以继续执行.这个补齐JNI的过程叫做&quot;补环境&quot;.</p>
 <p>具体的修补代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1323,8 +1337,22 @@
 <p>在执行messageDigest.update()方法时,我们需要先取得messageDigest对象,dvmObject是调用该方法的对象,因此可以通过dvmObject.getValue()方法来获取messageDigest对象.</p>
 <p>update()方法的参数为byte[],而在JNI中没有对象的概念.因此Unidbg为非基本类型维护了一个Map引用,通过getIntArg()方法取得Map中的key值,然后通过getObject()方法从VM虚拟机中取得该对象,最后通过getValue()方法取得实际对象的值.</p>
 <p>修补完update()方法后继续运行,会出现下述错误.</p>
-<p><img loading="lazy" src="./images/digest%E7%BC%BA%E5%A4%B1.png" alt="digest缺失" srcset="./images/digest%E7%BC%BA%E5%A4%B1.png?size=small, ./images/digest%E7%BC%BA%E5%A4%B1.png?size=medium 1.5x, ./images/digest%E7%BC%BA%E5%A4%B1.png?size=large 2x" data-title="digest缺失" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p>具体的修补代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">UnsupportedOperationException</span><span class="p">:</span><span class="w"> </span><span class="n">java</span><span class="o">/</span><span class="n">security</span><span class="o">/</span><span class="n">MessageDigest</span><span class="o">-&gt;</span><span class="n">digest</span><span class="p">()</span><span class="o">[</span><span class="n">B</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">AbstractJni</span><span class="p">.</span><span class="na">callObjectMethodV</span><span class="p">(</span><span class="n">AbstractJni</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">417</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">AbstractJni</span><span class="p">.</span><span class="na">callObjectMethodV</span><span class="p">(</span><span class="n">AbstractJni</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">262</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">DvmMethod</span><span class="p">.</span><span class="na">callObjectMethodV</span><span class="p">(</span><span class="n">DvmMethod</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">89</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">DalvikVM64$32</span><span class="p">.</span><span class="na">handle</span><span class="p">(</span><span class="n">DalvikVM64</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">559</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>具体的修补代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1357,8 +1385,22 @@
 </div><p>步骤和上述大致相同,多了一个将运算得到的结果digest先代理创建为DvmObject对象,然后在添加到VM虚拟机的操作.</p>
 <p>所有的非基本类型、包装类型都需要添加到VM虚拟机的Map映射中,否则在JNI中无法找到该引用.最后将运算得到的结果当做函数返回值返回.</p>
 <p>上述修补完后,再次运行会报下述错误.</p>
-<p><img loading="lazy" src="./images/byte2Hex%E7%BC%BA%E5%A4%B1.png" alt="byte2Hex缺失" srcset="./images/byte2Hex%E7%BC%BA%E5%A4%B1.png?size=small, ./images/byte2Hex%E7%BC%BA%E5%A4%B1.png?size=medium 1.5x, ./images/byte2Hex%E7%BC%BA%E5%A4%B1.png?size=large 2x" data-title="byte2Hex缺失" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p>具体的修补代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">UnsupportedOperationException</span><span class="p">:</span><span class="w"> </span><span class="n">com</span><span class="o">/</span><span class="n">example</span><span class="o">/</span><span class="n">luodst</span><span class="o">/</span><span class="n">MainActivity</span><span class="o">-&gt;</span><span class="n">byte2Hex</span><span class="p">(</span><span class="o">[</span><span class="n">B</span><span class="p">)</span><span class="n">Ljava</span><span class="o">/</span><span class="n">lang</span><span class="o">/</span><span class="n">String</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">AbstractJni</span><span class="p">.</span><span class="na">callObjectMethodV</span><span class="p">(</span><span class="n">AbstractJni</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">417</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">example</span><span class="p">.</span><span class="na">luodst</span><span class="p">.</span><span class="na">MainActivity</span><span class="p">.</span><span class="na">callObjectMethodV</span><span class="p">(</span><span class="n">MainActivity</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">88</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">AbstractJni</span><span class="p">.</span><span class="na">callObjectMethodV</span><span class="p">(</span><span class="n">AbstractJni</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">262</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">at</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">unidbg</span><span class="p">.</span><span class="na">linux</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">dvm</span><span class="p">.</span><span class="na">DvmMethod</span><span class="p">.</span><span class="na">callObjectMethodV</span><span class="p">(</span><span class="n">DvmMethod</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">89</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>具体的修补代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1428,9 +1470,15 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">sb</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>再次运行,成功输出下述结果.</p>
-<p><img loading="lazy" src="./images/success.png" alt="success" srcset="./images/success.png?size=small, ./images/success.png?size=medium 1.5x, ./images/success.png?size=large 2x" data-title="success" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h2 id="unidbg-hook" class="heading-element"><span>Unidbg Hook</span>
+</div><p>再次运行,成功输出结果如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">0fd61e6c11dccc2fbf41b630b4e7d339</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="unidbg-hook" class="heading-element"><span>Unidbg Hook</span>
   <a href="#unidbg-hook" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
