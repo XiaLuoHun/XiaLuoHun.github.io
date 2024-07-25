@@ -31,7 +31,7 @@
   <meta name="twitter:title" content="Android脱壳核心原理">
   <meta name="twitter:description" content="概述 Android App脱壳的本质就是对内存中处于解密状态的dex文件的dump,不管是函数抽取壳、dex2c或者vmp,首先要做的是对整体dex的du">
 <meta name="application-name" content="夏洛魂">
-<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" /><link rel="prev" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" /><link rel="next" href="https://XiaLuoHun.top/posts/android/android-hook/frida/frida%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E4%B8%8Erpc/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" /><link rel="prev" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" /><link rel="next" href="https://XiaLuoHun.top/posts/android/android-hook/lsposed/xposed%E5%92%8Clsposed%E5%AE%89%E8%A3%85/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -178,12 +178,26 @@
   </div>
   <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"><div class="details collection-details open">
+      <div class="details-summary collection-summary">
+        <i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i>
+        <span class="collection-name" data-collections="合集">Android壳世界</span>
+        <span class="collection-count">4</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+      <div class="details-content collection-content">
+        <nav>
+          <ul class="collection-list">
+                <li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/app%E5%8A%A0%E5%A3%B3%E5%92%8C%E8%84%B1%E5%A3%B3/" title="App加壳和脱壳">App加壳和脱壳</a></li><li class="collection-item"><span class="active" title="Android脱壳核心原理">Android脱壳核心原理</span></li>
+                <li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" title="Fart流程和原理分析">Fart流程和原理分析</a></li>
+                <li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" title="Android-DexVMP快速分析">Android-DexVMP快速分析</a></li></ul>
+          <div class="collection-nav-simple"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/app%E5%8A%A0%E5%A3%B3%E5%92%8C%E8%84%B1%E5%A3%B3/" class="collection-nav-item" rel="prev" title="App加壳和脱壳"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></a><span class="text-secondary">2/4</span><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="collection-nav-item" rel="next" title="Fart流程和原理分析"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+        </nav>
+      </div>
+    </div></aside>
 
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Android脱壳核心原理</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%A3%B3%E4%B8%96%E7%95%8C/" class="post-category" title="分类 - Android壳世界"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android壳世界</a></span></div><div class="post-meta-line"><span title="发布于 2022-08-30 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-08-30">2022-08-30</time></span>&nbsp;<span title="3168 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 7 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android%E5%A3%B3%E4%B8%96%E7%95%8C/" class="post-category" title="分类 - Android壳世界"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android壳世界</a> 和 <a href="/collections/android%E5%A3%B3%E4%B8%96%E7%95%8C/" class="post-collection" title="合集 - Android壳世界"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> Android壳世界</a></span></div><div class="post-meta-line"><span title="发布于 2022-08-30 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-08-30">2022-08-30</time></span>&nbsp;<span title="3168 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 7 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -1135,7 +1149,7 @@
   </div>
 
   <div class="post-nav"><a href="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" class="post-nav-item" rel="prev" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>DEFCON议题解读｜Dll劫持新思路——修改环境变量</a>
-      <a href="/posts/android/android-hook/frida/frida%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E4%B8%8Erpc/" class="post-nav-item" rel="next" title="Frida主动调用与RPC">Frida主动调用与RPC<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+      <a href="/posts/android/android-hook/lsposed/xposed%E5%92%8Clsposed%E5%AE%89%E8%A3%85/" class="post-nav-item" rel="next" title="Xposed和Lsposed安装">Xposed和Lsposed安装<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
