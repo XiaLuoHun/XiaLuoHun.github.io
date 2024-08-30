@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>IDAPython使用笔记   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="author-link" content="">
-<meta name="description" content="简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提供大量的实用函数,其中许多" /><meta name="keywords" content='IDA' />
+<meta name="description" content="简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提供大量的实用函数,其中许多"><meta name="keywords" content='IDA'>
   <meta itemprop="name" content="IDAPython使用笔记">
   <meta itemprop="description" content="简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提供大量的实用函数,其中许多">
   <meta itemprop="datePublished" content="2021-08-26T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-08-26T00:00:00+00:00">
-  <meta itemprop="wordCount" content="13011">
+  <meta itemprop="wordCount" content="12940">
   <meta itemprop="image" content="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png">
   <meta itemprop="keywords" content="IDA"><meta property="og:url" content="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -31,7 +30,7 @@
   <meta name="twitter:title" content="IDAPython使用笔记">
   <meta name="twitter:description" content="简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提供大量的实用函数,其中许多">
 <meta name="application-name" content="夏洛魂">
-<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" /><link rel="next" href="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/arm/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/" title="IDAPython使用笔记   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" title="STL库学习" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/arm/" title="Arm指令" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -47,7 +46,7 @@
               "url": "https:\/\/XiaLuoHun.top\/posts\/ida\/idapython%E4%BD%BF%E7%94%A8\/images\/VSCode%E8%B0%83%E8%AF%95.png",
               "width":  723 ,
               "height":  381 
-            }],"genre": "posts","keywords": "IDA","wordcount":  13011 ,
+            }],"genre": "posts","keywords": "IDA","wordcount":  12940 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/ida\/idapython%E4%BD%BF%E7%94%A8\/","datePublished": "2021-08-26T00:00:00+00:00","dateModified": "2021-08-26T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -183,7 +182,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>IDAPython使用笔记</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ida/" class="post-category" title="分类 - IDA"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> IDA</a></span></div><div class="post-meta-line"><span title="发布于 2021-08-26 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-08-26">2021-08-26</time></span>&nbsp;<span title="13011 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 13100 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 26 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ida/" class="post-category" title="分类 - IDA"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> IDA</a></span></div><div class="post-meta-line"><span title="发布于 2021-08-26 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-08-26">2021-08-26</time></span>&nbsp;<span title="12940 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 13000 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 26 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -236,11 +235,8 @@
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><ol>
-<li>配置Python</li>
+<li>配置Python,安装必备的库</li>
 </ol>
-<p>安装必备的库:</p>
-<p>cd 到IDA当前使用的Pyhton版本的pip.exe目录中</p>
-<p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/Python%E5%AE%89%E8%A3%85%E5%BA%93.png" alt="Python安装库" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/Python%E5%AE%89%E8%A3%85%E5%BA%93.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/Python%E5%AE%89%E8%A3%85%E5%BA%93.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/Python%E5%AE%89%E8%A3%85%E5%BA%93.png?size=large 2x" data-title="Python安装库" style="--width: 805px;--aspect-ratio: 805 / 255;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -501,10 +497,10 @@
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">idautils</span><span class="o">.</span><span class="n">Functions</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="n">idc</span><span class="o">.</span><span class="n">get_func_name</span><span class="p">(</span><span class="n">func</span><span class="p">))</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>**Functions()**将返回一个保存着已知函数首地址的数组,同样此函数也可以用来查找在指定地址范围的函数列表.</p>
-<p>**get_func_name(ea)**用来获取函数名,ea这个参数可以是处于函数中的任何地址.</p>
-<p>**idaapi.get_func_qty()**获取此binary中识别的函数的个数.</p>
-<p>**idaapi.getn_func(1)**获取第1个函数的对象.</p>
+</div><p>Functions()将返回一个保存着已知函数首地址的数组,同样此函数也可以用来查找在指定地址范围的函数列表.</p>
+<p>get_func_name(ea)用来获取函数名,ea这个参数可以是处于函数中的任何地址.</p>
+<p>idaapi.get_func_qty()获取此binary中识别的函数的个数.</p>
+<p>idaapi.getn_func(1)获取第1个函数的对象.</p>
 <p><strong>获取函数的边界信息</strong>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -523,8 +519,8 @@
 </span></span><span class="line"><span class="cl"><span class="n">Python</span><span class="o">&gt;</span><span class="n">idaapi</span><span class="o">.</span><span class="n">get_func</span><span class="p">(</span><span class="n">here</span><span class="p">())</span><span class="o">.</span><span class="n">end_ea</span>
 </span></span><span class="line"><span class="cl"><span class="mh">0x4337c4</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>同时也可以使用**idc.get_next_func(ea)<strong>和</strong>idc.get_prev_func(ea)**获取ea地址的后一个函数和前一个函数,ea 的值需要在被分析的函数地址之内.在枚举函数的时候,只有IDA将这段代码标记为函数的时候才行,不然会在枚举的过程中被跳过.没有被标记为函数的代码将在图例(ida顶部的彩色条)中标为红色.当然我们可以手工的修复这些无法被标记为函数的代码.</p>
-<p>还可以使用如下两个api来<strong>获取函数的边界地址</strong>:</p>
+</div><p>同时也可以使用idc.get_next_func(ea)和idc.get_prev_func(ea)获取ea地址的后一个函数和前一个函数,ea 的值需要在被分析的函数地址之内.在枚举函数的时候,只有IDA将这段代码标记为函数的时候才行,不然会在枚举的过程中被跳过.没有被标记为函数的代码将在图例(ida顶部的彩色条)中标为红色.当然我们可以手工的修复这些无法被标记为函数的代码.</p>
+<p>还可以使用如下两个api来获取函数的边界地址:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -606,7 +602,7 @@
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">curr_addr</span><span class="p">),</span><span class="n">idc</span><span class="o">.</span><span class="n">GetDisasm</span><span class="p">(</span><span class="n">curr_addr</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">    <span class="n">curr_addr</span> <span class="o">=</span> <span class="n">idc</span><span class="o">.</span><span class="n">next_head</span><span class="p">(</span><span class="n">curr_addr</span><span class="p">,</span><span class="n">end</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>**idc.next_head(curr_addr,end)**返回处于curr_addr和end之间的下一条指令的地址,如果没有指令则返回idc.BADADDR.这种方法的一个缺陷是它依赖于指令被包含在函数开始和结束的边界内.打个比方说,函数内有个jmp指令,它跳转到比这个函数结束地址还要高的地址中去,意思是这个函数的所有指令可能并不是线性的,它可能会通过jmp跳出函数边界(起始地址和结束地址),但其实这段指令仍是属于这个函数的,那么我们使用上述的方法就不能够遍历到该函数要执行的所有指令.这种跳转在代码混淆中非常的常见,所以说我们最好还是使用idautils.FuncItems(ea)来循环函数内的指令.</p>
+</div><p>idc.next_head(curr_addr,end)返回处于curr_addr和end之间的下一条指令的地址,如果没有指令则返回idc.BADADDR.这种方法的一个缺陷是它依赖于指令被包含在函数开始和结束的边界内.打个比方说,函数内有个jmp指令,它跳转到比这个函数结束地址还要高的地址中去,意思是这个函数的所有指令可能并不是线性的,它可能会通过jmp跳出函数边界(起始地址和结束地址),但其实这段指令仍是属于这个函数的,那么我们使用上述的方法就不能够遍历到该函数要执行的所有指令.这种跳转在代码混淆中非常的常见,所以说我们最好还是使用idautils.FuncItems(ea)来循环函数内的指令.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -910,7 +906,7 @@
   <a href="#%e6%93%8d%e4%bd%9c%e6%95%b0" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>操作数在逆向分析中经常被使用,所以说了解所有的操作数类型对逆向分析是非常有帮助的.在前面文中提到我们可以使用**idc.get_operand_type(ea,n)**来获取操作数类型,ea 是一个地址,n 是一个索引.操作数总共有八种不同的类型.</p>
+</h2><p>操作数在逆向分析中经常被使用,所以说了解所有的操作数类型对逆向分析是非常有帮助的.在前面文中提到我们可以使用idc.get_operand_type(ea,n)来获取操作数类型,ea 是一个地址,n 是一个索引.操作数总共有八种不同的类型.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1328,7 +1324,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#idc.ida_xref.XREF_DATA=2</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>xref.type</strong>来指明该交叉引用的类型.
-**idautils.XrefTypeName(xref.t ype)**用来打印表示该类型的含义,这其中有十二种不同的类型.</p>
+idautils.XrefTypeName(xref.t ype)用来打印表示该类型的含义,这其中有十二种不同的类型.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1581,10 +1577,10 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span></span><span class="line"><span class="cl"><span class="err">0</span><span class="nf">x577823</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>这个函数会跳过一些数据段的地址,得到最近的一个代码段的首地址.</p>
-<p>**idc.find_data(ea,flag)**和上面的find_code函数差不多,不过它返回的是数据段的地址.</p>
-<p>**idc.find_unknown(ea,flag)**该功能用于查找IDA未识别为代码或数据的字节地址,未知类型需要通过观察或脚本进一步手动分析.</p>
-<p>**idc.find_defined(ea, flag)**它用于查找IDA标识为代码或数据的地址.</p>
-<p>**idc.find_imm(ea, flag, value)**用来寻找立即数.例如:相比于寻找一些类型,我们有些时候其实更希望能够找到特定的值,举个例子,你感觉代码里面肯定是用了 rand()函数来产生随机数的,但是你就是找不到它,咋办? 如果我们知道这个 rand()函数采用了0x343fd作为种子那么我们就可以去寻找这个值.</p>
+<p>idc.find_data(ea,flag)和上面的find_code函数差不多,不过它返回的是数据段的地址.</p>
+<p>idc.find_unknown(ea,flag)该功能用于查找IDA未识别为代码或数据的字节地址,未知类型需要通过观察或脚本进一步手动分析.</p>
+<p>idc.find_defined(ea, flag)它用于查找IDA标识为代码或数据的地址.</p>
+<p>idc.find_imm(ea, flag, value)用来寻找立即数.例如:相比于寻找一些类型,我们有些时候其实更希望能够找到特定的值,举个例子,你感觉代码里面肯定是用了 rand()函数来产生随机数的,但是你就是找不到它,咋办? 如果我们知道这个 rand()函数采用了0x343fd作为种子那么我们就可以去寻找这个值.</p>
 <h2 id="数据提取" class="heading-element"><span>数据提取</span>
   <a href="#%e6%95%b0%e6%8d%ae%e6%8f%90%e5%8f%96" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -2397,9 +2393,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div>
-
-  <div class="post-nav"><a href="/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" class="post-nav-item" rel="prev" title="STL库学习"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>STL库学习</a>
+  </div><div class="post-nav"><a href="/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" class="post-nav-item" rel="prev" title="STL库学习"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>STL库学习</a>
       <a href="/posts/android/android%E5%9F%BA%E7%A1%80/arm/" class="post-nav-item" rel="next" title="Arm指令">Arm指令<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
@@ -2414,5 +2408,5 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.9"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>
