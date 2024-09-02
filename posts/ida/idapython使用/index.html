@@ -11,7 +11,7 @@
   <meta itemprop="description" content="简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提供大量的实用函数,其中许多">
   <meta itemprop="datePublished" content="2021-08-26T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-08-26T00:00:00+00:00">
-  <meta itemprop="wordCount" content="12940">
+  <meta itemprop="wordCount" content="12734">
   <meta itemprop="image" content="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png">
   <meta itemprop="keywords" content="IDA"><meta property="og:url" content="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -46,7 +46,7 @@
               "url": "https:\/\/XiaLuoHun.top\/posts\/ida\/idapython%E4%BD%BF%E7%94%A8\/images\/VSCode%E8%B0%83%E8%AF%95.png",
               "width":  723 ,
               "height":  381 
-            }],"genre": "posts","keywords": "IDA","wordcount":  12940 ,
+            }],"genre": "posts","keywords": "IDA","wordcount":  12734 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/ida\/idapython%E4%BD%BF%E7%94%A8\/","datePublished": "2021-08-26T00:00:00+00:00","dateModified": "2021-08-26T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -182,7 +182,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>IDAPython使用笔记</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ida/" class="post-category" title="分类 - IDA"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> IDA</a></span></div><div class="post-meta-line"><span title="发布于 2021-08-26 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-08-26">2021-08-26</time></span>&nbsp;<span title="12940 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 13000 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 26 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ida/" class="post-category" title="分类 - IDA"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> IDA</a></span></div><div class="post-meta-line"><span title="发布于 2021-08-26 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2021-08-26">2021-08-26</time></span>&nbsp;<span title="12734 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 12800 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 26 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -207,6 +207,7 @@
         <li><a href="#访问原始数据">访问原始数据</a></li>
         <li><a href="#补丁">补丁</a></li>
         <li><a href="#输入输出">输入输出</a></li>
+        <li><a href="#pyqt">PyQt</a></li>
         <li><a href="#批生成文件">批生成文件</a></li>
         <li><a href="#可执行脚本">可执行脚本</a></li>
         <li><a href="#流程图">流程图</a></li>
@@ -223,13 +224,10 @@
   </a>
 </h2><p>IDAPython核心有如下3个Python模块:</p>
 <ul>
-<li><strong>idc</strong>:负责提供idc中所有的函数功能.</li>
-<li><strong>idautils</strong>:提供大量的实用函数,其中许多函数可生成各种数据库相关对象(如函数或交叉引用)的python列表.</li>
-<li><strong>idaapi</strong>:允许使用者通过类的形式,访问更多底层的数据.</li>
+<li><code>idc</code>:负责提供idc中所有的函数功能.</li>
+<li><code>idautils</code>:提供大量的实用函数,其中许多函数可生成各种数据库相关对象(如函数或交叉引用)的python列表.</li>
+<li><code>idaapi</code>:允许使用者通过类的形式,访问更多底层的数据.</li>
 </ul>
-<p>IDAPython会自动导入idc和idautils模块,idaapi模块需要自己手工导入.
-为了使用的清晰性,建议在开头都进行手工的import这三个模块.</p>
-<p>注意事项:由于IDAPython的升级,有些之前的函数名发生了变化,新旧关系的对应在文件<strong>idc_bc695.py</strong>,可以进行对照说明.</p>
 <h2 id="配置调试环境" class="heading-element"><span>配置调试环境</span>
   <a href="#%e9%85%8d%e7%bd%ae%e8%b0%83%e8%af%95%e7%8e%af%e5%a2%83" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -249,7 +247,7 @@
 </div><ol start="2">
 <li>配置环境变量</li>
 </ol>
-<p>修改<strong>PYTHONPATH</strong>环境变量.安装Python时,默认是不会自动进行配置的,所以如果没有的话要先新建一个.</p>
+<p>修改<code>PYTHONPATH</code>环境变量.安装Python时,默认是不会自动进行配置的,所以如果没有的话要先新建一个.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -258,36 +256,40 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="nl">D</span><span class="p">:</span><span class="err">\</span><span class="n">LuoHackTools</span><span class="err">\</span><span class="n">Tools</span><span class="err">\</span><span class="n">Disassemblers</span><span class="err">\</span><span class="n">IDA_Pro_v7</span><span class="mf">.5</span><span class="err">\</span><span class="n">python</span><span class="err">\</span><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="nl">D</span><span class="p">:</span><span class="err">\</span><span class="n">LuoHackTools</span><span class="err">\</span><span class="n">Tools</span><span class="err">\</span><span class="n">Disassemblers</span><span class="err">\</span><span class="n">IDA_Pro_v7</span><span class="mf">.5</span><span class="err">\</span><span class="n">plugins</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">XXX</span><span class="err">\</span><span class="n">IDA_Pro</span><span class="err">\</span><span class="n">python</span><span class="err">\</span><span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">XXX</span><span class="err">\</span><span class="n">IDA_Pro</span><span class="err">\</span><span class="n">plugins</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>修改ida_idaapi.py文件:</p>
-<p>这里我修改的路径为:</p>
-<p>D:/LuoHackTools/Tools/Disassemblers/IDA_Pro_v7.5/python/3/ida_idaapi.py</p>
-<p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9ida_idaapi%E6%96%87%E4%BB%B6.png" alt="修改ida_idaapi文件" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9ida_idaapi%E6%96%87%E4%BB%B6.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9ida_idaapi%E6%96%87%E4%BB%B6.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9ida_idaapi%E6%96%87%E4%BB%B6.png?size=large 2x" data-title="修改ida_idaapi文件" style="--width: 759px;--aspect-ratio: 759 / 136;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<ol start="3">
-<li>配置VSCode</li>
+</div><ol start="3">
+<li>VSCode,安装IDACode</li>
 </ol>
-<ul>
-<li>安装IDACode</li>
-</ul>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VS%E5%AE%89%E8%A3%85IDACode.png" alt="VS安装IDACode" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VS%E5%AE%89%E8%A3%85IDACode.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VS%E5%AE%89%E8%A3%85IDACode.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VS%E5%AE%89%E8%A3%85IDACode.png?size=large 2x" data-title="VS安装IDACode" style="--width: 267px;--aspect-ratio: 267 / 234;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ul>
 <li>配置IDACode,本机调试,默认即可</li>
 </ul>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E9%85%8D%E7%BD%AEIDACode.png" alt="配置IDACode" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E9%85%8D%E7%BD%AEIDACode.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E9%85%8D%E7%BD%AEIDACode.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E9%85%8D%E7%BD%AEIDACode.png?size=large 2x" data-title="配置IDACode" style="--width: 923px;--aspect-ratio: 923 / 645;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<ol start="4">
-<li>配置IDA</li>
+<ol start="5">
+<li>IDA, 安装IDACode插件</li>
 </ol>
-<ul>
-<li>安装IDACode插件</li>
-</ul>
 <p><a href="https://github.com/ioncodes/idacode/releases"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/ioncodes/idacode/releases</a></p>
 <ul>
 <li>修改idacode_utils/settings.py文件,将Python路径设置为IDA所用的Python路径</li>
 </ul>
-<p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9idacode%E6%96%87%E4%BB%B6.png" alt="修改idacode文件" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9idacode%E6%96%87%E4%BB%B6.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9idacode%E6%96%87%E4%BB%B6.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9idacode%E6%96%87%E4%BB%B6.png?size=large 2x" data-title="修改idacode文件" style="--width: 1030px;--aspect-ratio: 1030 / 171;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p>此时已经配置好调试环境了,打开IDA,查看输出窗口是否有如下提示,若有则说明成功!</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">HOST</span> <span class="o">=</span> <span class="s2">&#34;127.0.0.1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">PORT</span> <span class="o">=</span> <span class="mi">7065</span>
+</span></span><span class="line"><span class="cl"><span class="n">DEBUG_PORT</span> <span class="o">=</span> <span class="mi">7066</span>
+</span></span><span class="line"><span class="cl"><span class="n">PYTHON</span> <span class="o">=</span> <span class="s2">&#34;XXX/IDA_Pro/python311/python.exe&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOGGING</span> <span class="o">=</span> <span class="kc">False</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时已经配置好调试环境了,打开IDA,查看输出窗口是否有如下提示,若有则说明成功!</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -298,7 +300,6 @@
 </span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">IDACode</span><span class="p">]</span> <span class="n">Plugin</span> <span class="n">loaded</span><span class="p">,</span> <span class="n">use</span> <span class="n">Edit</span> <span class="o">-&gt;</span> <span class="n">Plugins</span> <span class="o">-&gt;</span> <span class="n">IDACode</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">server</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用示例:</p>
-<p>测试代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -333,7 +334,7 @@
 <p>此时VSCode可能会出现两种错误</p>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%991.png" alt="VSCode出错1" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%991.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%991.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%991.png?size=large 2x" data-title="VSCode出错1" style="--width: 383px;--aspect-ratio: 383 / 118;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%992.png" alt="VSCode出错2" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%992.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%992.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E5%87%BA%E9%94%992.png?size=large 2x" data-title="VSCode出错2" style="--width: 558px;--aspect-ratio: 558 / 134;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p><strong>解决方法如下</strong>:</p>
+<p><code>解决方法如下</code>:</p>
 <p>重启IDA,保证VSCode有且只有一个工作区文件夹.</p>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%9C%89%E4%B8%94%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png" alt="有且只有一个工作区文件夹" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%9C%89%E4%B8%94%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%9C%89%E4%B8%94%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E6%9C%89%E4%B8%94%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png?size=large 2x" data-title="有且只有一个工作区文件夹" style="--width: 630px;--aspect-ratio: 630 / 528;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="3">
@@ -387,24 +388,34 @@
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><ol>
-<li>VSCode下载<strong>Visual Studio IntelliCode</strong>插件</li>
-<li>安装<strong>微软Python语言服务</strong></li>
-</ol>
-<p>第1步执行完后,当进行编码时,VSCode会自动提醒你安装 微软Python语言服务(不安装的话,每次打开vscode都会提醒你安装),点击 Enable it and Reload Window 按钮,接下来就是比较漫长的等待.</p>
-<ol start="3">
-<li>打开VSCode的setting.json</li>
+<li>
+<p>VSCode安装<code>IntelliCode</code>插件</p>
+</li>
+<li>
+<p>修改VsCode配置文件,添加需要自动补全代码的Python文件所在路径</p>
+</li>
 </ol>
 <p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E7%9A%84setting.png" alt="VSCode的setting" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E7%9A%84setting.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E7%9A%84setting.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E7%9A%84setting.png?size=large 2x" data-title="VSCode的setting" style="--width: 967px;--aspect-ratio: 967 / 591;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<ol start="4">
-<li>修改Setting文件,添加需要自动补全代码的Python文件所在路径.</li>
-</ol>
-<p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9settings%E6%96%87%E4%BB%B6.png" alt="修改settings文件" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9settings%E6%96%87%E4%BB%B6.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9settings%E6%96%87%E4%BB%B6.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/%E4%BF%AE%E6%94%B9settings%E6%96%87%E4%BB%B6.png?size=large 2x" data-title="修改settings文件" style="--width: 1011px;--aspect-ratio: 1011 / 451;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p>接下来,在VSCode中书写IDAPython代码就会自动补全代码了.</p>
+<p>修改settings文件内容如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="s2">&#34;python.autoComplete.extraPaths&#34;</span><span class="err">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;XXX/IDA_Pro/python/3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;XXX/IDA_Pro/python311/Lib/site-packages&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span><span class="err">,</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>接下来,在VSCode中书写IDAPython代码就会自动补全代码了.</p>
 <h2 id="基本操作" class="heading-element"><span>基本操作</span>
   <a href="#%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p><strong>获取当前地址</strong>:</p>
+</h2><p><code>获取当前地址</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -414,15 +425,21 @@
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">here</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_screen_ea</span><span class="p">()</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取当前地址空间的最小地址和最大地址</strong>:</p>
+</div><p><code>获取当前地址空间的最小地址和最大地址</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">MinEA</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">MaxEA</span><span class="p">()</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idaapi</span><span class="o">.</span><span class="n">cvar</span><span class="o">.</span><span class="n">inf</span><span class="o">.</span><span class="n">min_ea</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_inf_attr</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">INF_MIN_EA</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">idaapi</span><span class="o">.</span><span class="n">cvar</span><span class="o">.</span><span class="n">inf</span><span class="o">.</span><span class="n">max_ea</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_inf_attr</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">INF_MAX_EA</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>在ida的反汇编窗口中,下面的每一个信息都可以用函数获取到.</p>
 <div class="highlight"><div class="chroma">
@@ -465,7 +482,7 @@
   </a>
 </h2><p>打印一行数据好像并没什么卵用,但是IDAPython的强大之处在于它能遍历所有的指令,
 所有的交叉引用地址,还有搜索所有的代码和数据.后面两项功能稍后再做介绍,我们
-先从<strong>遍历所有段的指令</strong>开始讲起.</p>
+先从<code>遍历所有段</code>的指令开始讲起.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -476,32 +493,40 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idc</span> 
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idautils</span> 
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idaapi</span> 
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idc</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idautils</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idaapi</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">seg</span> <span class="ow">in</span> <span class="n">idautils</span><span class="o">.</span><span class="n">Segments</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">get_segm_name</span><span class="p">(</span><span class="n">seg</span><span class="p">),</span><span class="n">idc</span><span class="o">.</span><span class="n">get_segm_start</span><span class="p">(</span><span class="n">seg</span><span class="p">),</span><span class="n">idc</span><span class="o">.</span><span class="n">get_segm_end</span><span class="p">(</span><span class="n">seg</span><span class="p">))</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">get_segm_name</span><span class="p">(</span><span class="n">seg</span><span class="p">),</span><span class="nb">hex</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">get_segm_start</span><span class="p">(</span><span class="n">seg</span><span class="p">)),</span><span class="nb">hex</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">get_segm_end</span><span class="p">(</span><span class="n">seg</span><span class="p">)))</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="函数" class="heading-element"><span>函数</span>
   <a href="#%e5%87%bd%e6%95%b0" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p><strong>遍历所有函数</strong>:</p>
+</h2><p>遍历所有函数:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">idautils</span><span class="o">.</span><span class="n">Functions</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="n">idc</span><span class="o">.</span><span class="n">get_func_name</span><span class="p">(</span><span class="n">func</span><span class="p">))</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idc</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idautils</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idaapi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">idautils</span><span class="o">.</span><span class="n">Functions</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">func</span><span class="p">),</span><span class="n">idc</span><span class="o">.</span><span class="n">get_func_name</span><span class="p">(</span><span class="n">func</span><span class="p">))</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Functions()将返回一个保存着已知函数首地址的数组,同样此函数也可以用来查找在指定地址范围的函数列表.</p>
 <p>get_func_name(ea)用来获取函数名,ea这个参数可以是处于函数中的任何地址.</p>
 <p>idaapi.get_func_qty()获取此binary中识别的函数的个数.</p>
 <p>idaapi.getn_func(1)获取第1个函数的对象.</p>
-<p><strong>获取函数的边界信息</strong>:</p>
+<p>获取函数的边界信息:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -562,7 +587,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">FUNCATTR_OWNER</span>   <span class="o">=</span> <span class="mi">16</span>     <span class="c1"># readonly: chunk owner (valid only for tail chunks)</span>
 </span></span><span class="line"><span class="cl"><span class="n">FUNCATTR_REFQTY</span>  <span class="o">=</span> <span class="mi">20</span>     <span class="c1"># readonly: number of chunk parents (valid only for tail chunks)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>利用函数名获取一个函数的地址</strong>:</p>
+</div><p><code>利用函数名获取一个函数的地址</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -572,7 +597,7 @@
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Python</span><span class="o">&gt;</span><span class="n">idc</span><span class="o">.</span><span class="n">get_name_ea_simple</span><span class="p">(</span><span class="s2">&#34;sub_43371B&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="mh">0x43371b</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>遍历函数的所有指令</strong>:</p>
+</div><p><code>遍历函数的所有指令</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -624,7 +649,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">item</span><span class="p">),</span><span class="n">idc</span><span class="o">.</span><span class="n">GetDisasm</span><span class="p">(</span><span class="n">item</span><span class="p">))</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取ea地址的上一条指令的地址</strong>:</p>
+</div><p><code>获取ea地址的上一条指令的地址</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -650,7 +675,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">GetFrameArgsSize</span><span class="p">(</span><span class="n">ea</span><span class="p">):</span> <span class="k">return</span> <span class="n">get_func_attr</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">FUNCATTR_ARGSIZE</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">GetFunctionFlags</span><span class="p">(</span><span class="n">ea</span><span class="p">):</span> <span class="k">return</span> <span class="n">get_func_attr</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">FUNCATTR_FLAGS</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>例如用如下代码<strong>获取函数的标志</strong>:</p>
+</div><p>例如用如下代码<code>获取函数的标志</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -741,6 +766,9 @@
 </span><span class="lnt">32
 </span><span class="lnt">33
 </span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nl">FUNC_NORET:</span> <span class="err">这个标志表示某个函数是否有返回值.</span>
@@ -752,11 +780,14 @@
 </span></span><span class="line"><span class="cl"><span class="nl">FUNC_LIB:</span> <span class="err">这个表示用于寻找库函数的代码</span><span class="nf">.识别库函数代码是非常有必要的</span><span class="p">,</span><span class="err">因为我们在分析的</span>
 </span></span><span class="line"><span class="cl"><span class="err">时候一般将其跳过</span><span class="nf">.下面的例子展示了如何使用这个标志.</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">for</span> <span class="no">func</span> <span class="no">in</span> <span class="no">idautils.Functions</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">flags</span> <span class="err">=</span> <span class="no">idc.get_func_attr</span><span class="p">(</span><span class="no">func</span><span class="p">,</span> <span class="no">FUNCATTR_FLAGS</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">import</span> <span class="no">idc</span>
+</span></span><span class="line"><span class="cl"><span class="nf">import</span> <span class="no">idautils</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">if</span> <span class="no">flags</span> <span class="err">&amp;</span> <span class="no">FUNC_LIB</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">print</span><span class="p">(</span><span class="no">hex</span><span class="p">(</span><span class="no">func</span><span class="p">),</span> <span class="err">&#34;</span><span class="no">FUNC_LIB</span><span class="err">&#34;</span><span class="p">,</span><span class="no">get_func_name</span><span class="p">(</span><span class="no">func</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nf">for</span> <span class="no">func</span> <span class="no">in</span> <span class="no">idautils.Functions</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">flags</span> <span class="err">=</span> <span class="no">idc.get_func_attr</span><span class="p">(</span><span class="no">func</span><span class="p">,</span> <span class="no">idc.FUNCATTR_FLAGS</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">if</span> <span class="no">flags</span> <span class="err">&amp;</span> <span class="no">idc.FUNC_LIB</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">print</span><span class="p">(</span><span class="no">hex</span><span class="p">(</span><span class="no">func</span><span class="p">),</span> <span class="err">&#34;</span><span class="no">FUNC_LIB</span><span class="err">&#34;</span><span class="p">,</span><span class="no">idc.get_func_name</span><span class="p">(</span><span class="no">func</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl"><span class="nl">FUNC_STATIC:</span> <span class="err">这个标志作用在于识别该函数在编译的是否是一个静态函数</span><span class="nf">.在C语言中静态函数被默认为是全局的.如果作者把这个函数定义为静态函数</span><span class="p">,</span><span class="err">那么这个函数只能被本文件中的函数访问</span><span class="no">.利用静态函数的判定我们可以更好的理解源代码的结构.</span>
 </span></span><span class="line"><span class="cl">
@@ -782,7 +813,7 @@
   <a href="#%e6%8c%87%e4%bb%a4" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>如果我们拥有一个函数中的指令地址,我们可以使用<strong>idautils.FuncItems(ea)<strong>来获</strong>取该函数中所有指令地址的集合</strong>.</p>
+</h2><p>如果我们拥有一个函数中的指令地址,我们可以使用<code>idautils.FuncItems(ea)</code>来获<code>取该函数中所有指令地址的集合</code>.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -804,17 +835,17 @@
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">item</span><span class="p">),</span><span class="n">idc</span><span class="o">.</span><span class="n">GetDisasm</span><span class="p">(</span><span class="n">item</span><span class="p">))</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取ea这个地址所在函数的所有指令的地址</strong>:</p>
+</div><p><code>获取ea这个地址所在函数的所有指令的地址</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">FuncItems</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#返回一个迭代器</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#返回一个迭代器</span>
+</span></span><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">FuncItems</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>现在我们已经完全掌握了如何循环遍历程序中的段,函数和指令,那我们就开始 show 一个非常有用的例子.有时候我们会逆向一段加壳的代码,这时知道代码中哪里进行了动态调用对分析是非常有帮助的.一个动态的调用可能是由 call 或者 jmp 加上一个操作数来实现的,比如说 call eax或者 jmp edi.</p>
+</div><p>现在我们已经完全掌握了如何循环遍历程序中的段,函数和指令,那我们就开始展示一个非常有用的例子.有时候我们会逆向一段加壳的代码,这时知道代码中哪里进行了动态调用对分析是非常有帮助的.一个动态的调用可能是由 call 或者 jmp 加上一个操作数来实现的,比如说 call eax或者 jmp edi.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -850,17 +881,17 @@
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="n">idc</span><span class="o">.</span><span class="n">o_reg</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">line</span><span class="p">),</span><span class="n">idc</span><span class="o">.</span><span class="n">GetDisasm</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取操作数类型</strong>:</p>
+</div><p><code>获取操作数类型</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">get_operand_type</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#n=0表示第一个操作数,n=1表示第二个操作数.</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#n=0表示第一个操作数,n=1表示第二个操作数.</span>
+</span></span><span class="line"><span class="cl"><span class="n">get_operand_type</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span><span class="n">n</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取当前指令的下一个指令的地址和上一个指令的地址</strong>:</p>
+</div><p><code>获取当前指令的下一个指令的地址和上一个指令的地址</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -868,11 +899,11 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">next_head</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">here</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">prev_head</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">here</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#这两个函数的功能获取的是下一条指令的地址而不是下一个地址</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#这两个函数的功能获取的是下一条指令的地址而不是下一个地址</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">next_head</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">here</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">prev_head</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">here</span><span class="p">())</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取下一个地址或者上一个</strong>:</p>
+</div><p><code>获取下一个地址或者上一个</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1136,7 +1167,7 @@
 </span></span><span class="line"><span class="cl">            <span class="n">idc</span><span class="o">.</span><span class="n">op_plain_offset</span><span class="p">(</span><span class="n">curr_addr</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="c1"># print( hex(curr_addr) )</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取操作数的值</strong>:</p>
+</div><p><code>获取操作数的值</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1144,7 +1175,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_operand_value</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>将操作数转换为一个偏移地址</strong>:</p>
+</div><p><code>将操作数转换为一个偏移地址</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1153,10 +1184,10 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">op_plain_offset</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#参数一:ea为地址.</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#参数一:ea为地址.</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#参数二:n为操作数的索引.</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#参数三:是基地址,该例子中只需要设置为0即可.</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="c1">#参数三:是基地址,该例子中只需要设置为0即可.</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">op_plain_offset</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="交叉引用xrefs" class="heading-element"><span>交叉引用(Xrefs)</span>
   <a href="#%e4%ba%a4%e5%8f%89%e5%bc%95%e7%94%a8xrefs" class="heading-mark">
@@ -1165,32 +1196,26 @@
 </h2><p>能够定位data段和code段的交叉引用非常重要,交叉引用的重要性在于它能够提供某个确定的数据或者某个函数被调用的位置.举个例子,如果我们想要知道哪些地址调用了WriteFile()函数,我们所要做的就是在导入表中找到 WriteFile()函数,然后查看其交叉引用即可.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idc</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idautils</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idaapi</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">addr</span> <span class="o">=</span> <span class="n">idc</span><span class="o">.</span><span class="n">get_name_ea_simple</span><span class="p">(</span><span class="s2">&#34;WriteFile&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">GetDisasm</span><span class="p">(</span><span class="n">addr</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idautils</span><span class="o">.</span><span class="n">CodeRefsTo</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">idc</span><span class="o">.</span><span class="n">GetDisasm</span><span class="p">(</span><span class="n">i</span><span class="p">))</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取API函数的地址</strong>:</p>
+</div><p><code>获取API函数的地址</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1198,7 +1223,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_name_ea_simple</span><span class="p">(</span><span class="s2">&#34;WriteFile&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取该API的所有交叉引用</strong>:</p>
+</div><p><code>获取该API的所有交叉引用</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1206,9 +1231,9 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">CodeRefsTo</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span><span class="n">flow</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#参数一:ea是我们想要寻找交叉引用的地址.</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#参数二:flow是一个bool值,它用于指定是否遵循正常的代码流.</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#参数一:ea是我们想要寻找交叉引用的地址.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#参数二:flow是一个bool值,它用于指定是否遵循正常的代码流.</span>
+</span></span><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">CodeRefsTo</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span><span class="n">flow</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>但有一点要注意:使用idautils.CodeRefsTo(ea，flow)的限制是,动态导入并手动重命名的API不会
 显示为代码交叉引用.比如下面我们利用idc.MakeName(ea,name)将一个dword的地址重命名为&quot;RtlCompareMemory&quot;.</p>
@@ -1230,17 +1255,17 @@
 </span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">MakeName</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="s2">&#34;RtlCompareMemory&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>IDA并不会将这些API标记为交叉引用代码,稍后我们将会使用一个通用的技术来获得所有的交叉引用.</p>
-<p><strong>获取在IDA中任何API和被重命名的函数的相关信息</strong>:</p>
+<p><code>获取在IDA中任何API和被重命名的函数的相关信息</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">Names</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#返回一个类型为(ea, str_name)的元组.</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#返回一个类型为(ea, str_name)的元组.</span>
+</span></span><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">Names</span><span class="p">()</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取任意地址所引用的代码</strong>:</p>
+</div><p><code>获取任意地址所引用的代码</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1248,7 +1273,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idautisl</span><span class="o">.</span><span class="n">CodeRefsFrom</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span><span class="n">flow</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>下面的例子展示<strong>获取某地址的引用信息</strong>.</p>
+</div><p>下面的例子展示<code>获取某地址的引用信息</code>.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1270,19 +1295,21 @@
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idautils</span><span class="o">.</span><span class="n">CodeRefsFrom</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="mi">0</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">idc</span><span class="o">.</span><span class="n">GetDisasm</span><span class="p">(</span><span class="n">i</span><span class="p">))</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>查找数据的交叉引用或者调用</strong>:</p>
+</div><p><code>查找数据的交叉引用或者调用</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">DataRefsTo</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#返回该数据地址的所有交叉引用(迭代器)</span>
-</span></span><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">DataRefsFrom</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#返回该地址所引用的数据地址</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#返回该数据地址的所有交叉引用(迭代器)</span>
+</span></span><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">DataRefsTo</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#返回该地址所引用的数据地址</span>
+</span></span><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">DataRefsFrom</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>在查找数据和代码的交叉引用的时候可能会有一些困惑,这里我们使用前面所提到的有一种更加通用的方法来获取交叉引用,该方法调用两个函数就能完成获取所有交叉引用地址和调用地址的效果,这两个函数就是 idautils.XrefsTo(ea,flags=0)和idautils.XrefsFrom(ea,flags=0).</p>
 <div class="highlight"><div class="chroma">
@@ -1318,12 +1345,12 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">XrefsTo</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span><span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#idc.ida_xref.XREF_ALL=0 (default)</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#idc.ida_xref.XREF_ALL=0 (default)</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#idc.ida_xref.XREF_FAR=1</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#idc.ida_xref.XREF_DATA=2</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="c1">#idc.ida_xref.XREF_DATA=2</span>
+</span></span><span class="line"><span class="cl"><span class="n">idautils</span><span class="o">.</span><span class="n">XrefsTo</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span><span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>xref.type</strong>来指明该交叉引用的类型.
+</div><p><code>xref.type</code>来指明该交叉引用的类型.
 idautils.XrefTypeName(xref.t ype)用来打印表示该类型的含义,这其中有十二种不同的类型.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1360,9 +1387,9 @@ idautils.XrefTypeName(xref.t ype)用来打印表示该类型的含义,这其中�
 </span></span><span class="line"><span class="cl">    <span class="n">ida_xref</span><span class="o">.</span><span class="n">fl_F</span>  <span class="p">:</span> <span class="s1">&#39;Ordinary_Flow&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>xref.frm</strong> 打印出该地址的交叉引用.
-<strong>xref.to</strong> 打印出该地址本身.
-<strong>xref.iscode</strong> 打印出该交叉引用是否在代码段中.
+</div><p><code>xref.frm</code> 打印出该地址的交叉引用.
+<code>xref.to</code> 打印出该地址本身.
+<code>xref.iscode</code> 打印出该交叉引用是否在代码段中.
 上述的代码我们使用了idautils.XrefsTo(ea, 1)并将其flag位设为了1,如果我们将flag设为0,那么它将会显示该地址的任意交叉引用.设置flag为0获取的交叉引用不只是来自于分支跳转指令,同时还会来自正常的指令流程,设置flag为1可以略过正常指令流程造成的交叉引用.</p>
 <h2 id="搜索" class="heading-element"><span>搜索</span>
   <a href="#%e6%90%9c%e7%b4%a2" class="heading-mark">
@@ -1393,10 +1420,10 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </div>
 </div><p>上面的类型不必要都看一遍,但是还是要看看一些常用的类型:</p>
 <ul>
-<li><strong>SEARCH_UP</strong> 和<strong>SEARCH_DOWN</strong> 用来指明搜索的方向.</li>
-<li><strong>SEARCH_NEXT</strong> 用来获取下一个已经找到的对象</li>
-<li><strong>SEARCH_CASE</strong> 用来指明是否区分大小写</li>
-<li><strong>SEARCH_NOSHOW</strong> 用来指明是否显示搜索的进度</li>
+<li><code>SEARCH_UP</code> 和<code>SEARCH_DOWN</code> 用来指明搜索的方向.</li>
+<li><code>SEARCH_NEXT</code> 用来获取下一个已经找到的对象</li>
+<li><code>SEARCH_CASE</code> 用来指明是否区分大小写</li>
+<li><code>SEARCH_NOSHOW</code> 用来指明是否显示搜索的进度</li>
 </ul>
 <p>searchstr 是我们要查找的内容,radix 参数在写处理器模块时使用,这超出本书要讲解的范围,所以我推荐你去看一看 Chris Eagle 的“The IDA Pro Book”的第 19 章,所以这里我们把radix参数留空.现在让我们来实现刚才提到的那三个字节的搜索好了:</p>
 <div class="highlight"><div class="chroma">
@@ -1461,7 +1488,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">addr</span><span class="o">!=</span> <span class="n">idc</span><span class="o">.</span><span class="n">BADADDR</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">addr</span><span class="p">),</span><span class="n">idc</span><span class="o">.</span><span class="n">GetDisasm</span><span class="p">(</span><span class="n">addr</span><span class="p">))</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>搜索字符串</strong>:</p>
+</div><p><code>搜索字符串</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1472,12 +1499,12 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">find_text</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">searchstr</span><span class="p">,</span> <span class="n">from_bc695</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#参数一:ea是地址.</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#参数一:ea是地址.</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#参数二:flag是搜索方向和搜索类型.</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#参数三:y是从ea开始搜索的行数,通常置0.</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#参数四:x是行中的坐标,通常置0.</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#参数五:searchstr是要搜索的字符串.</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="c1">#参数五:searchstr是要搜索的字符串.</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">find_text</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">searchstr</span><span class="p">,</span> <span class="n">from_bc695</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>现在我们开始查找字符串“NoRun”的出现的次数.当然你可以换换其他的字符串,可以从字符串窗口(shift+F12)获得.</p>
 <div class="highlight"><div class="chroma">
@@ -1514,7 +1541,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span></span><span class="line"><span class="cl">        <span class="n">addr</span> <span class="o">=</span> <span class="n">idc</span><span class="o">.</span><span class="n">next_head</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>因为我们利用了idc.NextHead(ea)使当前地址不断增长,所以就不需要在idc. FindText()中添加 SEARCH_NEXT的标志.为什么我们要手动的增加地址呢,因为一行字符串中可能出现多次要查找的字符串,往上翻认真阅读 SEARCH_NEXT的标志的意思.</p>
-<p><strong>判断一个地址的类型</strong>:</p>
+<p><code>判断一个地址的类型</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1540,19 +1567,15 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idc</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idautils</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idaapi</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">ea</span> <span class="o">=</span> <span class="n">idc</span><span class="o">.</span><span class="n">here</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="n">idc</span><span class="o">.</span><span class="n">get_full_flags</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">isCode</span><span class="p">(</span><span class="n">f</span><span class="p">))</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">is_code</span><span class="p">(</span><span class="n">f</span><span class="p">))</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>寻找被标志为代码的下一个地址</strong>:</p>
+</div><p><code>寻找被标志为代码的下一个地址</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1580,12 +1603,12 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 <p>idc.find_data(ea,flag)和上面的find_code函数差不多,不过它返回的是数据段的地址.</p>
 <p>idc.find_unknown(ea,flag)该功能用于查找IDA未识别为代码或数据的字节地址,未知类型需要通过观察或脚本进一步手动分析.</p>
 <p>idc.find_defined(ea, flag)它用于查找IDA标识为代码或数据的地址.</p>
-<p>idc.find_imm(ea, flag, value)用来寻找立即数.例如:相比于寻找一些类型,我们有些时候其实更希望能够找到特定的值,举个例子,你感觉代码里面肯定是用了 rand()函数来产生随机数的,但是你就是找不到它,咋办? 如果我们知道这个 rand()函数采用了0x343fd作为种子那么我们就可以去寻找这个值.</p>
+<p>idc.find_imm(ea, flag, value)用来寻找立即数.例如:相比于寻找一些类型,我们有些时候其实更希望能够找到特定的值,举个例子,你感觉代码里面肯定是用了rand()函数来产生随机数的,但是你就是找不到它,咋办? 如果我们知道这个rand()函数采用了0x343fd作为种子那么我们就可以去寻找这个值.</p>
 <h2 id="数据提取" class="heading-element"><span>数据提取</span>
   <a href="#%e6%95%b0%e6%8d%ae%e6%8f%90%e5%8f%96" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p><strong>获取用户鼠标选中部分的起始和结束地址</strong>:</p>
+</h2><p><code>获取用户鼠标选中部分的起始和结束地址</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1609,13 +1632,9 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idc</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idautils</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idaapi</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idaapi</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">p0</span> <span class="o">=</span> <span class="n">idaapi</span><span class="o">.</span><span class="n">twinpos_t</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">p1</span> <span class="o">=</span> <span class="n">idaapi</span><span class="o">.</span><span class="n">twinpos_t</span><span class="p">()</span>
@@ -1636,7 +1655,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 <li>重复性注释</li>
 </ul>
 <p>重复性注释会因为某些地址引用了当前地址的内容,而会自动添加上注释.</p>
-<p><strong>添加注释</strong>:</p>
+<p><code>添加注释</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1644,7 +1663,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">set_cmt</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">cmt</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>添加重复性注释</strong>:</p>
+</div><p><code>添加重复性注释</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1652,7 +1671,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">set_cmt</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">cmt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取常规注释</strong>:</p>
+</div><p><code>获取常规注释</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1660,7 +1679,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_cmt</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取重复性注释</strong>:</p>
+</div><p><code>获取重复性注释</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1668,7 +1687,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_cmt</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>函数添加获取注释</strong>:</p>
+</div><p><code>函数添加获取注释</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1680,73 +1699,71 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">set_func_cmt</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">cmt</span><span class="p">,</span> <span class="n">repeatable</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#参数一:ea可以是函数中的任何地址</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#参数一:ea可以是函数中的任何地址</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#参数二:cmt就是我们要添加的注释</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#参数三:repeatable是否为重复性注释</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#将函数的注释标记为可重复性的话,那么它会在任何调用该函数的地方添加注释</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">set_func_cmt</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">cmt</span><span class="p">,</span> <span class="n">repeatable</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_func_cmt</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">repeatable</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>重命名某个地址的函数</strong>:</p>
+</div><p><code>重命名某个地址的函数</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#可在idc_bc695.py文件中查看</span>
-</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">MakeName</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">MakeNameEx</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idaapi</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">使用idc.MakeName的话,如果某一个函数名称已经被使用了,那么ida会抛出一个警告的对话.为了跳过该对话框,我们使用idc.MakeNameEx,将flag的值设置为256或者SN_NOWARN即可.</div>
-    </div>
-  </div>
-<h2 id="访问原始数据" class="heading-element"><span>访问原始数据</span>
+</div><h2 id="访问原始数据" class="heading-element"><span>访问原始数据</span>
   <a href="#%e8%ae%bf%e9%97%ae%e5%8e%9f%e5%a7%8b%e6%95%b0%e6%8d%ae" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><p>在逆向工程中获取原始数据是非常重要的,原始数据是16进制的字节,它们被解释为数据或代码,ida中我们可以在反汇编窗口的左侧可以看到这些原始数据.(IDA中显示的设置方法:菜单栏–&gt;选项–&gt;常规–&gt;反汇编–&gt;机器码字节数，填入一个数就ok了–&gt;确定).</p>
-<p><strong>获取指定地址数据</strong>:</p>
+<p><code>获取指定地址数据</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_wide_byte</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>  <span class="c1">#获取1字节</span>
-</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_wide_word</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>  <span class="c1">#获取2字节</span>
-</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_wide_dword</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span> <span class="c1">#获取4字节</span>
-</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_qword</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>      <span class="c1">#获取8字节</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#获取1字节</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_wide_byte</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#获取2字节</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_wide_word</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl"><span class="c1">#获取4字节</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_wide_dword</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#获取8字节</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_qword</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">GetFloat</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">GetDouble</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>获取指定地址指定字节数</strong>:</p>
+</div><p><code>获取指定地址指定字节数</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_bytes</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">use_dbg</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#返回bytes类型</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#返回bytes类型</span>
+</span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">get_bytes</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">use_dbg</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="补丁" class="heading-element"><span>补丁</span>
   <a href="#%e8%a1%a5%e4%b8%81" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><p>有时候我们在逆向一个恶意软件的时候,样本会有被加密的字符串.这会阻碍我们分析的过程和阻止我们通过字符串来定位关键点.这种情况下给idb文件打补丁就很有用了.</p>
-<p><strong>Patch相关函数</strong>:</p>
+<p><code>Patch相关函数</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1773,22 +1790,145 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ida_kernwin</span><span class="o">.</span><span class="n">ask_file</span><span class="p">(</span><span class="n">for_saving</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">prompt</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#参数一:forsave 0,打开一个文件对话框;1,打开一个文件保存对话框.</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#参数一:forsave 0,打开一个文件对话框;1,打开一个文件保存对话框.</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#参数二:mask用来指定文件后缀或者模式,如:&#34;*.dll&#34;.</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#参数三:prompt 窗口的名字.</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="c1">#参数三:prompt 窗口的名字.</span>
+</span></span><span class="line"><span class="cl"><span class="n">ida_kernwin</span><span class="o">.</span><span class="n">ask_file</span><span class="p">(</span><span class="n">for_saving</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">prompt</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="pyqt" class="heading-element"><span>PyQt</span>
+  <a href="#pyqt" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在某些情况下使用图形界面和代码交互是很有用的,在IDA Python中使用PyQt的代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idc</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idaapi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyPluginFormClass</span><span class="p">(</span><span class="n">idaapi</span><span class="o">.</span><span class="n">PluginForm</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">OnCreate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Get parent widget</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FormToPyQtWidget</span><span class="p">(</span><span class="n">form</span><span class="p">)</span> <span class="c1"># IDAPython</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">PopulateForm</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">PopulateForm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Create layout</span>
+</span></span><span class="line"><span class="cl">        <span class="n">layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Create Table Widget</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">example_row</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidget</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Address&#34;</span><span class="p">,</span> <span class="s2">&#34;Mnemonic&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">example_row</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">column_names</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">example_row</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">example_row</span><span class="o">.</span><span class="n">setHorizontalHeaderLabels</span><span class="p">(</span><span class="n">column_names</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">example_row</span><span class="o">.</span><span class="n">doubleClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">JumpSearch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">example_row</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Create Button</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">addbtn</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s2">&#34;Add Address&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">addbtn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">AddAddress</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addbtn</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># make our created layout the dialogs layout</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">AddAddress</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ea</span> <span class="o">=</span> <span class="n">idc</span><span class="o">.</span><span class="n">here</span><span class="p">()</span> <span class="c1"># IDAPython</span>
+</span></span><span class="line"><span class="cl">        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">example_row</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">example_row</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">h</span> <span class="o">=</span> <span class="s2">&#34;0x</span><span class="si">%x</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">ea</span>
+</span></span><span class="line"><span class="cl">        <span class="n">item</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">item</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span> <span class="o">^</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">example_row</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">example_row</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">idc</span><span class="o">.</span><span class="n">print_insn_mnem</span><span class="p">(</span><span class="n">ea</span><span class="p">)))</span> <span class="c1"># IDAPython</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">example_row</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">JumpSearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">example_row</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">row</span><span class="p">(),</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ea</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">idaapi</span><span class="o">.</span><span class="n">jumpto</span><span class="p">(</span><span class="n">ea</span><span class="p">)</span> <span class="c1"># IDAPython</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plg</span> <span class="o">=</span> <span class="n">MyPluginFormClass</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">plg</span><span class="o">.</span><span class="n">Show</span><span class="p">(</span><span class="s2">&#34;Jump Around&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="批生成文件" class="heading-element"><span>批生成文件</span>
   <a href="#%e6%89%b9%e7%94%9f%e6%88%90%e6%96%87%e4%bb%b6" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>有时,为目录中的所有文件创建IDB或ASM可能很有用.在分析属于同一系列恶意软件的一组样本时,这可以帮助节省时间,比起手工做这件事情,写一个批处理文件会容易许多,我们只需要将-B 该参数传给 idat.exe即可.下面的代码可以被复制到包含我们想为其生成文件的所有文件的目录中.</p>
+</h2><p>有时,为目录中的所有文件创建IDB或ASM可能很有用,我们只需借助<code>idat.exe</code>的<code>-B</code>参数即可.</p>
+<p>给指定目录下的所有程序生成idb的代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">D:/LuoHackTools/Tools/Disassemblers/IDA_Pro_v7.5/idat.exe -B </span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">import os
+</span></span><span class="line"><span class="cl">import subprocess
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">idat_path = &#34;XXX/IDA_Pro/idat.exe&#34;
+</span></span><span class="line"><span class="cl">file_path = &#39;XXX&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">for root, dirs, files in os.walk(file_path):
+</span></span><span class="line"><span class="cl">    for file in files:
+</span></span><span class="line"><span class="cl">        file_path = os.path.join(root, file)
+</span></span><span class="line"><span class="cl">        if(file_path.endswith(&#34;.exe&#34;)):
+</span></span><span class="line"><span class="cl">            subprocess.call([idat_path, &#34;-B&#34;, file_path])</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="可执行脚本" class="heading-element"><span>可执行脚本</span>
   <a href="#%e5%8f%af%e6%89%a7%e8%a1%8c%e8%84%9a%e6%9c%ac" class="heading-mark">
@@ -1848,7 +1988,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">idc</span><span class="o">.</span><span class="n">qexit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>上面两个十分重要的函数,一个是<strong>idaapi.auto_wait()</strong>,一个是<strong>idc.qexit(0)</strong>,当ida打开一个文件的时候,等待IDA分析完成是很重要的,因为IDA分析一个文件需要花大量的时间.这时候你不能执行 IDAPython 脚本,所以你可使用idaapi.auto_wait()来等待IDA文件分析结束,它会在IDA分析完成之前一直等待,一旦分析完成,控制权就会交到脚本身上.然后我们同样需要使用idc.qexit(0)来结束脚本的执行,如果不这么做的话,IDB可以会在关闭的时候出问题.</p>
+</div><p>上面两个十分重要的函数,一个是<code>idaapi.auto_wait()</code>,一个是<code>idc.qexit(0)</code>,当ida打开一个文件的时候,等待IDA分析完成是很重要的,因为IDA分析一个文件需要花大量的时间.这时候你不能执行IDAPython脚本,所以你可使用idaapi.auto_wait()来等待IDA文件分析结束,它会在IDA分析完成之前一直等待,一旦分析完成,控制权就会交到脚本身上.然后我们同样需要使用idc.qexit(0)来结束脚本的执行,如果不这么做的话,IDB可以会在关闭的时候出问题.</p>
 <h2 id="流程图" class="heading-element"><span>流程图</span>
   <a href="#%e6%b5%81%e7%a8%8b%e5%9b%be" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -1926,24 +2066,24 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 </div>
 </div><p>idapython也提供获取此函数栈帧的api,获取到之后是一个结构体,操作结构体成员就可以获取到函数栈帧内的所有变量.相关的函数说明如下:</p>
 <ul>
-<li><strong>idaapi.get_func(ea)</strong>: retrieves the func_t structure for the function at ea.</li>
-<li><strong>idaapi.get_frame(func_t foo)</strong>: returns the struct_t structure for the function frame specified by foo.</li>
-<li><strong>idautils.DecodeInstruction(ea)</strong>: returns the inst_t representing instruction at ea,和函数idaapi.decode_insn功能相同.</li>
-<li><strong>idaapi.get_stkvar(op_t op, sval_t v)</strong>: op is a reference to an instruction, v is the immediate value in the operand. Usually you just use op.addr. It returns a tuple, (member_t, val). member_t is a pointer to the stack variable, which is what we need. val is the same value as the soff field in the member_t for the stack var. More on this later.</li>
-<li><strong>idaapi.xreflist_t()</strong>: creates a new xreflist of xreflist_entry_t.</li>
-<li><strong>idaapi.build_stkvar_xrefs(xreflist_t xrefs, func_t func, member_t member)</strong>: fills xrefs with xreflist_entry_t‘s that represent the stack var xrefs given by member in func.</li>
-<li><strong>struct_t.get_member(x)</strong>: You can use this method to iterate all stack variables in a frame to retrieve all member_t‘s. If you want to build xrefs for all stack variables, this is usually easier.</li>
-<li><strong>idc.get_member_name(id, member_offset)</strong>: id is the struct sid，member_offset. get the member name defined in the name.</li>
-<li><strong>idc.get_member_offset(id,name)</strong>：Get offset.</li>
+<li><code>idaapi.get_func(ea)</code>: retrieves the func_t structure for the function at ea.</li>
+<li><code>idaapi.get_frame(func_t foo)</code>: returns the struct_t structure for the function frame specified by foo.</li>
+<li><code>idautils.DecodeInstruction(ea)</code>: returns the inst_t representing instruction at ea,和函数idaapi.decode_insn功能相同.</li>
+<li><code>idaapi.get_stkvar(op_t op, sval_t v)</code>: op is a reference to an instruction, v is the immediate value in the operand. Usually you just use op.addr. It returns a tuple, (member_t, val). member_t is a pointer to the stack variable, which is what we need. val is the same value as the soff field in the member_t for the stack var. More on this later.</li>
+<li><code>idaapi.xreflist_t()</code>: creates a new xreflist of xreflist_entry_t.</li>
+<li><code>idaapi.build_stkvar_xrefs(xreflist_t xrefs, func_t func, member_t member)</code>: fills xrefs with xreflist_entry_t‘s that represent the stack var xrefs given by member in func.</li>
+<li><code>struct_t.get_member(x)</code>: You can use this method to iterate all stack variables in a frame to retrieve all member_t‘s. If you want to build xrefs for all stack variables, this is usually easier.</li>
+<li><code>idc.get_member_name(id, member_offset)</code>: id is the struct sid，member_offset. get the member name defined in the name.</li>
+<li><code>idc.get_member_offset(id,name)</code>：Get offset.</li>
 </ul>
 <p>下面对iautils.DecodeInstruction(ea)指令进行一个简单的说明,这是一个指令解码的API,如果解码失败返回None,否则将返回一个包含该指令及其操作数的指令对象.</p>
 <p>比较重要的指令属性如下:</p>
 <ul>
-<li><strong>inst.itype</strong>:标志当前指令的类型,是一个整数,不同的opcode可能有相同的itype,但是opcode不是itype.</li>
-<li><strong>inst.size</strong>:表示解码后的指令长度.</li>
-<li><strong>inst.ops[]</strong>:以0为索引的数组,用来保存操作数的相关信息.</li>
-<li><strong>inst.Op1&hellip;inst.OpN</strong>:以1位索引起始操作数组别名,和inst.ops[n+1]等价.</li>
-<li><strong>inst.ea</strong>:指令的线性地址.</li>
+<li><code>inst.itype</code>:标志当前指令的类型,是一个整数,不同的opcode可能有相同的itype,但是opcode不是itype.</li>
+<li><code>inst.size</code>:表示解码后的指令长度.</li>
+<li><code>inst.ops[]</code>:以0为索引的数组,用来保存操作数的相关信息.</li>
+<li><code>inst.Op1...inst.OpN</code>:以1位索引起始操作数组别名,和inst.ops[n+1]等价.</li>
+<li><code>inst.ea</code>:指令的线性地址.</li>
 </ul>
 <p>你可能会想知道opcode和它的itype之间到底是什么关系.其实很简单,在IDA中,开源数据库处理器模块负责根据opcode来填充itype字段.在IDA SDK中,你可以找到一个allins.hpp的头文件.该头文件包含了所有支持的处理器模块的枚举数据其中包含了受支持的所有指令:</p>
 <div class="highlight"><div class="chroma">
@@ -2027,16 +2167,16 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
 <p>操作数的定义是ua.hpp中的op_t结构.</p>
 <ul>
 <li>
-<p><strong>op.flags</strong>：操作数的标志.</p>
+<p><code>op.flags</code>：操作数的标志.</p>
 </li>
 <li>
-<p><strong>op.dtype</strong>：操作数的长度类型.idaapi.dt_xxx常量,可以通过该常量来获取操作数的字节大小（1 == idaapi.dt_byte,2 == idaapi.dt_word等等）.</p>
+<p><code>op.dtype</code>：操作数的长度类型.idaapi.dt_xxx常量,可以通过该常量来获取操作数的字节大小（1 == idaapi.dt_byte,2 == idaapi.dt_word等等）.</p>
 </li>
 <li>
-<p><strong>op.type</strong>：操作数类型.idc.o_xxx常量.</p>
+<p><code>op.type</code>：操作数类型.idc.o_xxx常量.</p>
 </li>
 <li>
-<p><strong>specflags1…specflags4</strong>：处理器相关标志.</p>
+<p><code>specflags1…specflags4</code>：处理器相关标志.</p>
 </li>
 </ul>
 <p>以下是受支持的操作数类型(o_xxx):</p>
