@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Android脱壳核心原理   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="概述 Android App脱壳的本质就是对内存中处于解密状态的dex文件的dump,不管是函数抽取壳、dex2c或者vmp,首先要做的是对整体dex的du"><meta name="keywords" content='Android'>
+<meta name="description" content="概述 Android App脱壳的本质就是对内存中处于解密状态的dex文件的dump,不管是函数抽取壳、dex2c或者vmp,首先要做的是对整体dex的dump,然后对脱下来的dex文件进行修复.
+"><meta name="keywords" content='Android'>
   <meta itemprop="name" content="Android脱壳核心原理">
-  <meta itemprop="description" content="概述 Android App脱壳的本质就是对内存中处于解密状态的dex文件的dump,不管是函数抽取壳、dex2c或者vmp,首先要做的是对整体dex的du">
+  <meta itemprop="description" content="概述 Android App脱壳的本质就是对内存中处于解密状态的dex文件的dump,不管是函数抽取壳、dex2c或者vmp,首先要做的是对整体dex的dump,然后对脱下来的dex文件进行修复.">
   <meta itemprop="datePublished" content="2022-08-30T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-08-30T00:00:00+00:00">
   <meta itemprop="wordCount" content="3167">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="Android"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="Android脱壳核心原理">
-  <meta property="og:description" content="概述 Android App脱壳的本质就是对内存中处于解密状态的dex文件的dump,不管是函数抽取壳、dex2c或者vmp,首先要做的是对整体dex的du">
+  <meta property="og:description" content="概述 Android App脱壳的本质就是对内存中处于解密状态的dex文件的dump,不管是函数抽取壳、dex2c或者vmp,首先要做的是对整体dex的dump,然后对脱下来的dex文件进行修复.">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/images/LuoGetDexFile.png">
   <meta name="twitter:title" content="Android脱壳核心原理">
-  <meta name="twitter:description" content="概述 Android App脱壳的本质就是对内存中处于解密状态的dex文件的dump,不管是函数抽取壳、dex2c或者vmp,首先要做的是对整体dex的du">
+  <meta name="twitter:description" content="概述 Android App脱壳的本质就是对内存中处于解密状态的dex文件的dump,不管是函数抽取壳、dex2c或者vmp,首先要做的是对整体dex的dump,然后对脱下来的dex文件进行修复.">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" title="Android脱壳核心原理   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/android/android-hook/lsposed/xposed%E5%92%8Clsposed%E5%AE%89%E8%A3%85/" title="Xposed和Lsposed安装" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -184,10 +185,7 @@
         <span class="collection-count">4</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
       <div class="details-content collection-content">
         <nav>
-          <ul class="collection-list">
-                <li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/app%E5%8A%A0%E5%A3%B3%E5%92%8C%E8%84%B1%E5%A3%B3/" title="App加壳和脱壳">App加壳和脱壳</a></li><li class="collection-item"><span class="active" title="Android脱壳核心原理">Android脱壳核心原理</span></li>
-                <li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" title="Fart流程和原理分析">Fart流程和原理分析</a></li>
-                <li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" title="Android-DexVMP快速分析">Android-DexVMP快速分析</a></li></ul>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/app%E5%8A%A0%E5%A3%B3%E5%92%8C%E8%84%B1%E5%A3%B3/" title="App加壳和脱壳">App加壳和脱壳</a></li><li class="collection-item"><span class="active" title="Android脱壳核心原理">Android脱壳核心原理</span></li><li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" title="Fart流程和原理分析">Fart流程和原理分析</a></li><li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" title="Android-DexVMP快速分析">Android-DexVMP快速分析</a></li></ul>
           <div class="collection-nav-simple"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/app%E5%8A%A0%E5%A3%B3%E5%92%8C%E8%84%B1%E5%A3%B3/" class="collection-nav-item" rel="prev" title="App加壳和脱壳"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></a><span class="text-secondary">2/4</span><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="collection-nav-item" rel="next" title="Fart流程和原理分析"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
         </nav>
       </div>
@@ -204,32 +202,28 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#快速定位脱壳点">快速定位脱壳点</a>
       <ul>
-        <li><a href="#概述">概述</a></li>
-        <li><a href="#快速定位脱壳点">快速定位脱壳点</a>
-          <ul>
-            <li><a href="#直接查找法">直接查找法</a></li>
-            <li><a href="#间接查找法">间接查找法</a></li>
-          </ul>
-        </li>
-        <li><a href="#art下寻找脱壳点">ART下寻找脱壳点</a>
-          <ul>
-            <li><a href="#dex的加载流程">dex的加载流程</a></li>
-            <li><a href="#dex2oat的编译流程">dex2oat的编译流程</a></li>
-            <li><a href="#类的加载和初始化流程">类的加载和初始化流程</a></li>
-            <li><a href="#函数执行过程中出现的脱壳点">函数执行过程中出现的脱壳点</a></li>
-          </ul>
-        </li>
-        <li><a href="#示例">示例</a>
-          <ul>
-            <li><a href="#hook代码">Hook代码</a></li>
-            <li><a href="#修改android源码">修改Android源码</a></li>
-          </ul>
-        </li>
-        <li><a href="#参考链接">参考链接</a></li>
+        <li><a href="#直接查找法">直接查找法</a></li>
+        <li><a href="#间接查找法">间接查找法</a></li>
       </ul>
     </li>
+    <li><a href="#art下寻找脱壳点">ART下寻找脱壳点</a>
+      <ul>
+        <li><a href="#dex的加载流程">dex的加载流程</a></li>
+        <li><a href="#dex2oat的编译流程">dex2oat的编译流程</a></li>
+        <li><a href="#类的加载和初始化流程">类的加载和初始化流程</a></li>
+        <li><a href="#函数执行过程中出现的脱壳点">函数执行过程中出现的脱壳点</a></li>
+      </ul>
+    </li>
+    <li><a href="#示例">示例</a>
+      <ul>
+        <li><a href="#hook代码">Hook代码</a></li>
+        <li><a href="#修改android源码">修改Android源码</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 id="概述" class="heading-element"><span>概述</span>
@@ -1142,8 +1136,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" class="post-nav-item" rel="prev" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>DEFCON议题解读｜Dll劫持新思路——修改环境变量</a>
-      <a href="/posts/android/android-hook/lsposed/xposed%E5%92%8Clsposed%E5%AE%89%E8%A3%85/" class="post-nav-item" rel="next" title="Xposed和Lsposed安装">Xposed和Lsposed安装<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" class="post-nav-item" rel="prev" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>DEFCON议题解读｜Dll劫持新思路——修改环境变量</a><a href="/posts/android/android-hook/lsposed/xposed%E5%92%8Clsposed%E5%AE%89%E8%A3%85/" class="post-nav-item" rel="next" title="Xposed和Lsposed安装">Xposed和Lsposed安装<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -1157,5 +1150,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

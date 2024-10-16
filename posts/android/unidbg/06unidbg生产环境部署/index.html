@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Unidbg生产环境部署   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="Unidbg Unidbg可以模拟执行so的方法,对于爬虫工程师来说,需要每次调用加密算法获取结果并添加到请求中获取最终的数据,故我们需要一个算法服务器"><meta name="keywords" content='Unidbg'>
+<meta name="description" content=" Unidbg Unidbg可以模拟执行so的方法,对于爬虫工程师来说,需要每次调用加密算法获取结果并添加到请求中获取最终的数据,故我们需要一个算法服务器来实现上述需求. 初识Spring Boot Spring:创建微服务应用程序的框架,比如我们常见的Web应用服务.
+"><meta name="keywords" content='Unidbg'>
   <meta itemprop="name" content="Unidbg生产环境部署">
-  <meta itemprop="description" content="Unidbg Unidbg可以模拟执行so的方法,对于爬虫工程师来说,需要每次调用加密算法获取结果并添加到请求中获取最终的数据,故我们需要一个算法服务器">
+  <meta itemprop="description" content="Unidbg Unidbg可以模拟执行so的方法,对于爬虫工程师来说,需要每次调用加密算法获取结果并添加到请求中获取最终的数据,故我们需要一个算法服务器来实现上述需求. 初识Spring Boot Spring:创建微服务应用程序的框架,比如我们常见的Web应用服务.">
   <meta itemprop="datePublished" content="2024-07-11T00:00:00+00:00">
   <meta itemprop="dateModified" content="2024-07-11T00:00:00+00:00">
   <meta itemprop="wordCount" content="2082">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="Unidbg"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/unidbg/06unidbg%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="Unidbg生产环境部署">
-  <meta property="og:description" content="Unidbg Unidbg可以模拟执行so的方法,对于爬虫工程师来说,需要每次调用加密算法获取结果并添加到请求中获取最终的数据,故我们需要一个算法服务器">
+  <meta property="og:description" content="Unidbg Unidbg可以模拟执行so的方法,对于爬虫工程师来说,需要每次调用加密算法获取结果并添加到请求中获取最终的数据,故我们需要一个算法服务器来实现上述需求. 初识Spring Boot Spring:创建微服务应用程序的框架,比如我们常见的Web应用服务.">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/unidbg/06unidbg%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/images/UnidbgBoot%E7%8E%AF%E5%A2%83%E6%B5%8B%E8%AF%95.png">
   <meta name="twitter:title" content="Unidbg生产环境部署">
-  <meta name="twitter:description" content="Unidbg Unidbg可以模拟执行so的方法,对于爬虫工程师来说,需要每次调用加密算法获取结果并添加到请求中获取最终的数据,故我们需要一个算法服务器">
+  <meta name="twitter:description" content="Unidbg Unidbg可以模拟执行so的方法,对于爬虫工程师来说,需要每次调用加密算法获取结果并添加到请求中获取最终的数据,故我们需要一个算法服务器来实现上述需求. 初识Spring Boot Spring:创建微服务应用程序的框架,比如我们常见的Web应用服务.">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/android/unidbg/06unidbg%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" title="Unidbg生产环境部署   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" title="Unidbg补环境实战" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/fridawindows/" title="Frida-Windows" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -184,9 +185,7 @@
         <span class="collection-count">3</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
       <div class="details-content collection-content">
         <nav>
-          <ul class="collection-list">
-                <li class="collection-item"><a href="/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" title="进入Unidbg的世界">进入Unidbg的世界</a></li>
-                <li class="collection-item"><a href="/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" title="Unidbg补环境实战">Unidbg补环境实战</a></li><li class="collection-item"><span class="active" title="Unidbg生产环境部署">Unidbg生产环境部署</span></li></ul>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" title="进入Unidbg的世界">进入Unidbg的世界</a></li><li class="collection-item"><a href="/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" title="Unidbg补环境实战">Unidbg补环境实战</a></li><li class="collection-item"><span class="active" title="Unidbg生产环境部署">Unidbg生产环境部署</span></li></ul>
           <div class="collection-nav-simple"><a href="/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" class="collection-nav-item" rel="prev" title="Unidbg补环境实战"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></a><span class="text-secondary">3/3</span><i class="fa-solid fa-angle-right fa-fw collection-nav-item text-secondary" aria-hidden="true"></i></div>
         </nav>
       </div>
@@ -203,35 +202,29 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#初识spring-boot">初识Spring Boot</a></li>
+    <li><a href="#spring-boot和unidbg结合">Spring Boot和Unidbg结合</a>
       <ul>
-        <li><a href="#初识spring-boot">初识Spring Boot</a></li>
-        <li><a href="#spring-boot和unidbg结合">Spring Boot和Unidbg结合</a>
-          <ul>
-            <li><a href="#测试so">测试so</a></li>
-            <li><a href="#模拟执行">模拟执行</a></li>
-            <li><a href="#web服务">Web服务</a></li>
-          </ul>
-        </li>
-        <li><a href="#unidbg-boot-server">Unidbg-boot-server</a>
-          <ul>
-            <li><a href="#环境测试">环境测试</a></li>
-            <li><a href="#添加模拟执行">添加模拟执行</a></li>
-          </ul>
-        </li>
-        <li><a href="#参考链接">参考链接</a></li>
+        <li><a href="#测试so">测试so</a></li>
+        <li><a href="#模拟执行">模拟执行</a></li>
+        <li><a href="#web服务">Web服务</a></li>
       </ul>
     </li>
+    <li><a href="#unidbg-boot-server">Unidbg-boot-server</a>
+      <ul>
+        <li><a href="#环境测试">环境测试</a></li>
+        <li><a href="#添加模拟执行">添加模拟执行</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><div class="details admonition info open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-info-circle fa-fw" aria-hidden="true"></i>Unidbg<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">Unidbg可以模拟执行so的方法,对于爬虫工程师来说,需要每次调用加密算法获取结果并添加到请求中获取最终的数据,故我们需要一个算法服务器来实现上述需求.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-circle-info" aria-hidden="true"></i>Unidbg<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">Unidbg可以模拟执行so的方法,对于爬虫工程师来说,需要每次调用加密算法获取结果并添加到请求中获取最终的数据,故我们需要一个算法服务器来实现上述需求.</div>
   </div>
+</div>
 <h2 id="初识spring-boot" class="heading-element"><span>初识Spring Boot</span>
   <a href="#%e5%88%9d%e8%af%86spring-boot" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -576,17 +569,15 @@
   </a>
 </h3><p>项目本身已有一个示例,我们只需按照示例去移植对应内容即可.</p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><ol>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><ol>
 <li>入口文件不需要动</li>
 <li>web目录下放置的是Controller文件</li>
 </ol>
 </div>
-    </div>
   </div>
+</div>
 <p>项目结构如下:</p>
 <p><img loading="lazy" src="./images/UnidbgBoot%E6%B7%BB%E5%8A%A0%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%84.png" alt="UnidbgBoot添加模拟执行结构" srcset="./images/UnidbgBoot%E6%B7%BB%E5%8A%A0%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%84.png?size=small, ./images/UnidbgBoot%E6%B7%BB%E5%8A%A0%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%84.png?size=medium 1.5x, ./images/UnidbgBoot%E6%B7%BB%E5%8A%A0%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%84.png?size=large 2x" data-title="UnidbgBoot添加模拟执行结构" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>我们只需新增上述三个文件即可.</p>
@@ -1016,8 +1007,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" class="post-nav-item" rel="prev" title="Unidbg补环境实战"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Unidbg补环境实战</a>
-      <a href="/posts/windows%E7%9B%B8%E5%85%B3/fridawindows/" class="post-nav-item" rel="next" title="Frida-Windows">Frida-Windows<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" class="post-nav-item" rel="prev" title="Unidbg补环境实战"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Unidbg补环境实战</a><a href="/posts/windows%E7%9B%B8%E5%85%B3/fridawindows/" class="post-nav-item" rel="next" title="Frida-Windows">Frida-Windows<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -1031,5 +1021,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

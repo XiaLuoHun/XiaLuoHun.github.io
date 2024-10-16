@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>X86逆向   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="除法 约定 两个无符号相除,结果仍然是无符号. 两个有符号相除,结果是有符号. 有符号数和无符号数混除,结果是无符号的. 基本概念 在C语言和其他多数高"><meta name="keywords" content='Windows'>
+<meta name="description" content="除法 约定 两个无符号相除,结果仍然是无符号. 两个有符号相除,结果是有符号. 有符号数和无符号数混除,结果是无符号的. 基本概念 在C语言和其他多数高级语言中,对整数除法规定为向零取整.
+"><meta name="keywords" content='Windows'>
   <meta itemprop="name" content="x86逆向">
-  <meta itemprop="description" content="除法 约定 两个无符号相除,结果仍然是无符号. 两个有符号相除,结果是有符号. 有符号数和无符号数混除,结果是无符号的. 基本概念 在C语言和其他多数高">
+  <meta itemprop="description" content="除法 约定 两个无符号相除,结果仍然是无符号. 两个有符号相除,结果是有符号. 有符号数和无符号数混除,结果是无符号的. 基本概念 在C语言和其他多数高级语言中,对整数除法规定为向零取整.">
   <meta itemprop="datePublished" content="2022-02-14T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-02-14T00:00:00+00:00">
   <meta itemprop="wordCount" content="10615">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="Windows"><meta property="og:url" content="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="x86逆向">
-  <meta property="og:description" content="除法 约定 两个无符号相除,结果仍然是无符号. 两个有符号相除,结果是有符号. 有符号数和无符号数混除,结果是无符号的. 基本概念 在C语言和其他多数高">
+  <meta property="og:description" content="除法 约定 两个无符号相除,结果仍然是无符号. 两个有符号相除,结果是有符号. 有符号数和无符号数混除,结果是无符号的. 基本概念 在C语言和其他多数高级语言中,对整数除法规定为向零取整.">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/images/%E5%BC%82%E5%B8%B8/%E5%BC%82%E5%B8%B8%E4%BF%A1%E6%81%AF%E5%85%B3%E7%B3%BB%E8%A1%A8.png">
   <meta name="twitter:title" content="x86逆向">
-  <meta name="twitter:description" content="除法 约定 两个无符号相除,结果仍然是无符号. 两个有符号相除,结果是有符号. 有符号数和无符号数混除,结果是无符号的. 基本概念 在C语言和其他多数高">
+  <meta name="twitter:description" content="除法 约定 两个无符号相除,结果仍然是无符号. 两个有符号相除,结果是有符号. 有符号数和无符号数混除,结果是无符号的. 基本概念 在C语言和其他多数高级语言中,对整数除法规定为向零取整.">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/" title="x86逆向   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/%E6%AD%A3%E8%83%BD%E9%87%8F/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E4%BA%BA%E5%91%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%BC%80%E5%86%85%E5%8D%B7/" title="网络安全技术人员如何避开内卷" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" title="x64逆向" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -184,8 +185,7 @@
         <span class="collection-count">2</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
       <div class="details-content collection-content">
         <nav>
-          <ul class="collection-list"><li class="collection-item"><span class="active" title="X86逆向">X86逆向</span></li>
-                <li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" title="X64逆向">X64逆向</a></li></ul>
+          <ul class="collection-list"><li class="collection-item"><span class="active" title="X86逆向">X86逆向</span></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" title="X64逆向">X64逆向</a></li></ul>
           <div class="collection-nav-simple"><i class="fa-solid fa-angle-left fa-fw collection-nav-item text-secondary" aria-hidden="true"></i><span class="text-secondary">1/2</span><a href="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" class="collection-nav-item" rel="next" title="X64逆向"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
         </nav>
       </div>
@@ -202,216 +202,212 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#除法">除法</a>
       <ul>
-        <li><a href="#除法">除法</a>
+        <li><a href="#约定">约定</a></li>
+        <li><a href="#基本概念">基本概念</a></li>
+        <li><a href="#无符号除法">无符号除法</a>
           <ul>
-            <li><a href="#约定">约定</a></li>
-            <li><a href="#基本概念">基本概念</a></li>
-            <li><a href="#无符号除法">无符号除法</a>
+            <li><a href="#除数为变量">除数为变量</a></li>
+            <li><a href="#除数为2的幂">除数为2的幂</a></li>
+            <li><a href="#除数为非2的幂">除数为非2的幂</a>
               <ul>
-                <li><a href="#除数为变量">除数为变量</a></li>
-                <li><a href="#除数为2的幂">除数为2的幂</a></li>
-                <li><a href="#除数为非2的幂">除数为非2的幂</a>
-                  <ul>
-                    <li><a href="#magicnumber无进位">MagicNumber无进位</a></li>
-                    <li><a href="#magicnumber有进位">MagicNumber有进位</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#有符号除法">有符号除法</a>
-              <ul>
-                <li><a href="#除数为正2的幂">除数为正2的幂</a></li>
-                <li><a href="#除数为正非2的幂">除数为正非2的幂</a>
-                  <ul>
-                    <li><a href="#magicnumber为正">MagicNumber为正</a></li>
-                    <li><a href="#magicnumber为负">MagicNumber为负</a></li>
-                  </ul>
-                </li>
-                <li><a href="#除数为负2的幂">除数为负2的幂</a></li>
-                <li><a href="#除数为负非2的幂">除数为负非2的幂</a>
-                  <ul>
-                    <li><a href="#magicnumber为正-1">MagicNumber为正</a></li>
-                    <li><a href="#magicnumber为负-1">MagicNumber为负</a></li>
-                  </ul>
-                </li>
+                <li><a href="#magicnumber无进位">MagicNumber无进位</a></li>
+                <li><a href="#magicnumber有进位">MagicNumber有进位</a></li>
               </ul>
             </li>
           </ul>
         </li>
-        <li><a href="#取模">取模</a>
+        <li><a href="#有符号除法">有符号除法</a>
           <ul>
-            <li><a href="#基础">基础</a></li>
-            <li><a href="#无符号取模">无符号取模</a>
+            <li><a href="#除数为正2的幂">除数为正2的幂</a></li>
+            <li><a href="#除数为正非2的幂">除数为正非2的幂</a>
               <ul>
-                <li><a href="#除数为2的幂-1">除数为2的幂</a></li>
-                <li><a href="#除数为非2的幂-1">除数为非2的幂</a></li>
+                <li><a href="#magicnumber为正">MagicNumber为正</a></li>
+                <li><a href="#magicnumber为负">MagicNumber为负</a></li>
               </ul>
             </li>
-            <li><a href="#有符号取模">有符号取模</a>
+            <li><a href="#除数为负2的幂">除数为负2的幂</a></li>
+            <li><a href="#除数为负非2的幂">除数为负非2的幂</a>
               <ul>
-                <li><a href="#除数为正2的幂-1">除数为正2的幂</a>
-                  <ul>
-                    <li><a href="#带分支">带分支</a></li>
-                    <li><a href="#不带分支">不带分支</a></li>
-                  </ul>
-                </li>
-                <li><a href="#除数为正非2的幂-1">除数为正非2的幂</a></li>
-                <li><a href="#除数为负2的幂-1">除数为负2的幂</a></li>
-                <li><a href="#除数为负非2的幂-1">除数为负非2的幂</a></li>
+                <li><a href="#magicnumber为正-1">MagicNumber为正</a></li>
+                <li><a href="#magicnumber为负-1">MagicNumber为负</a></li>
               </ul>
             </li>
           </ul>
         </li>
-        <li><a href="#三目运算">三目运算</a>
+      </ul>
+    </li>
+    <li><a href="#取模">取模</a>
+      <ul>
+        <li><a href="#基础">基础</a></li>
+        <li><a href="#无符号取模">无符号取模</a>
           <ul>
-            <li><a href="#基础-1">基础</a></li>
-            <li><a href="#低版本优化">低版本优化</a></li>
-            <li><a href="#高版本优化">高版本优化</a></li>
+            <li><a href="#除数为2的幂-1">除数为2的幂</a></li>
+            <li><a href="#除数为非2的幂-1">除数为非2的幂</a></li>
           </ul>
         </li>
-        <li><a href="#流程控制语句">流程控制语句</a>
+        <li><a href="#有符号取模">有符号取模</a>
           <ul>
-            <li><a href="#if">IF</a>
+            <li><a href="#除数为正2的幂-1">除数为正2的幂</a>
               <ul>
-                <li><a href="#单分支结构">单分支结构</a></li>
-                <li><a href="#双分支结构">双分支结构</a></li>
-                <li><a href="#多分支结构">多分支结构</a></li>
+                <li><a href="#带分支">带分支</a></li>
+                <li><a href="#不带分支">不带分支</a></li>
               </ul>
             </li>
-            <li><a href="#switchcase">SwitchCase</a>
-              <ul>
-                <li><a href="#case语句3">Case语句&lt;=3</a></li>
-                <li><a href="#case语句3且每两个case值之间的差值6">case语句&gt;3,且每两个Case值之间的差值&lt;=6</a></li>
-                <li><a href="#case语句3最大case值-最小case值255">case语句&gt;3,最大case值-最小case值&lt;=255</a></li>
-                <li><a href="#case语句3最大case值-最小case值255-1">case语句&gt;3,最大case值-最小case值&gt;255</a></li>
-              </ul>
-            </li>
-            <li><a href="#循环语句">循环语句</a>
-              <ul>
-                <li><a href="#dowhile">DoWhile</a></li>
-                <li><a href="#while">While</a></li>
-                <li><a href="#for">For</a></li>
-              </ul>
-            </li>
+            <li><a href="#除数为正非2的幂-1">除数为正非2的幂</a></li>
+            <li><a href="#除数为负2的幂-1">除数为负2的幂</a></li>
+            <li><a href="#除数为负非2的幂-1">除数为负非2的幂</a></li>
           </ul>
         </li>
-        <li><a href="#函数调用方式">函数调用方式</a>
+      </ul>
+    </li>
+    <li><a href="#三目运算">三目运算</a>
+      <ul>
+        <li><a href="#基础-1">基础</a></li>
+        <li><a href="#低版本优化">低版本优化</a></li>
+        <li><a href="#高版本优化">高版本优化</a></li>
+      </ul>
+    </li>
+    <li><a href="#流程控制语句">流程控制语句</a>
+      <ul>
+        <li><a href="#if">IF</a>
           <ul>
-            <li><a href="#_cdecl">_cdecl</a></li>
-            <li><a href="#_stdcall">_stdcall</a></li>
-            <li><a href="#_fastcall">_fastcall</a></li>
+            <li><a href="#单分支结构">单分支结构</a></li>
+            <li><a href="#双分支结构">双分支结构</a></li>
+            <li><a href="#多分支结构">多分支结构</a></li>
           </ul>
         </li>
-        <li><a href="#变量相关">变量相关</a>
+        <li><a href="#switchcase">SwitchCase</a>
           <ul>
-            <li><a href="#全局变量">全局变量</a></li>
-            <li><a href="#局部变量">局部变量</a></li>
-            <li><a href="#局部静态变量">局部静态变量</a></li>
-            <li><a href="#堆变量">堆变量</a></li>
+            <li><a href="#case语句3">Case语句&lt;=3</a></li>
+            <li><a href="#case语句3且每两个case值之间的差值6">case语句&gt;3,且每两个Case值之间的差值&lt;=6</a></li>
+            <li><a href="#case语句3最大case值-最小case值255">case语句&gt;3,最大case值-最小case值&lt;=255</a></li>
+            <li><a href="#case语句3最大case值-最小case值255-1">case语句&gt;3,最大case值-最小case值&gt;255</a></li>
           </ul>
         </li>
-        <li><a href="#x87浮点指令集">X87浮点指令集</a>
+        <li><a href="#循环语句">循环语句</a>
           <ul>
-            <li><a href="#特征">特征</a></li>
-            <li><a href="#运算过程">运算过程</a></li>
-            <li><a href="#指令">指令</a></li>
-            <li><a href="#探测浮点标志位">探测浮点标志位</a></li>
-            <li><a href="#参考资料">参考资料</a></li>
+            <li><a href="#dowhile">DoWhile</a></li>
+            <li><a href="#while">While</a></li>
+            <li><a href="#for">For</a></li>
           </ul>
         </li>
-        <li><a href="#多媒体指令集">多媒体指令集</a>
+      </ul>
+    </li>
+    <li><a href="#函数调用方式">函数调用方式</a>
+      <ul>
+        <li><a href="#_cdecl">_cdecl</a></li>
+        <li><a href="#_stdcall">_stdcall</a></li>
+        <li><a href="#_fastcall">_fastcall</a></li>
+      </ul>
+    </li>
+    <li><a href="#变量相关">变量相关</a>
+      <ul>
+        <li><a href="#全局变量">全局变量</a></li>
+        <li><a href="#局部变量">局部变量</a></li>
+        <li><a href="#局部静态变量">局部静态变量</a></li>
+        <li><a href="#堆变量">堆变量</a></li>
+      </ul>
+    </li>
+    <li><a href="#x87浮点指令集">X87浮点指令集</a>
+      <ul>
+        <li><a href="#特征">特征</a></li>
+        <li><a href="#运算过程">运算过程</a></li>
+        <li><a href="#指令">指令</a></li>
+        <li><a href="#探测浮点标志位">探测浮点标志位</a></li>
+        <li><a href="#参考资料">参考资料</a></li>
+      </ul>
+    </li>
+    <li><a href="#多媒体指令集">多媒体指令集</a>
+      <ul>
+        <li><a href="#mmx">MMX</a></li>
+        <li><a href="#sse">SSE</a></li>
+        <li><a href="#avx">AVX</a></li>
+        <li><a href="#vs中设置多媒体指令集">VS中设置多媒体指令集</a></li>
+      </ul>
+    </li>
+    <li><a href="#数组">数组</a>
+      <ul>
+        <li><a href="#一维数组">一维数组</a></li>
+        <li><a href="#二维数组">二维数组</a></li>
+        <li><a href="#三维数组">三维数组</a></li>
+      </ul>
+    </li>
+    <li><a href="#结构体">结构体</a>
+      <ul>
+        <li><a href="#指针访问结构体成员">指针访问结构体成员</a></li>
+        <li><a href="#参数为结构体变量">参数为结构体变量</a></li>
+        <li><a href="#参数为结构体指针">参数为结构体指针</a></li>
+        <li><a href="#函数返回值为结构体">函数返回值为结构体</a></li>
+      </ul>
+    </li>
+    <li><a href="#c之变量相关">C++之变量相关</a>
+      <ul>
+        <li><a href="#类对象为局部变量">类对象为局部变量</a>
           <ul>
-            <li><a href="#mmx">MMX</a></li>
-            <li><a href="#sse">SSE</a></li>
-            <li><a href="#avx">AVX</a></li>
-            <li><a href="#vs中设置多媒体指令集">VS中设置多媒体指令集</a></li>
+            <li><a href="#识别成员函数">识别成员函数</a></li>
+            <li><a href="#识别构造函数">识别构造函数</a></li>
+            <li><a href="#识别析构函数">识别析构函数</a></li>
           </ul>
         </li>
-        <li><a href="#数组">数组</a>
+        <li><a href="#类对象为全局变量">类对象为全局变量</a></li>
+        <li><a href="#类对象为堆变量">类对象为堆变量</a>
           <ul>
-            <li><a href="#一维数组">一维数组</a></li>
-            <li><a href="#二维数组">二维数组</a></li>
-            <li><a href="#三维数组">三维数组</a></li>
+            <li><a href="#new单个对象">New单个对象</a></li>
+            <li><a href="#new对象数组">New对象数组</a></li>
           </ul>
         </li>
-        <li><a href="#结构体">结构体</a>
+      </ul>
+    </li>
+    <li><a href="#c之对象相关">C++之对象相关</a>
+      <ul>
+        <li><a href="#对象传参">对象传参</a>
           <ul>
-            <li><a href="#指针访问结构体成员">指针访问结构体成员</a></li>
-            <li><a href="#参数为结构体变量">参数为结构体变量</a></li>
-            <li><a href="#参数为结构体指针">参数为结构体指针</a></li>
-            <li><a href="#函数返回值为结构体">函数返回值为结构体</a></li>
+            <li><a href="#无拷贝构造">无拷贝构造</a></li>
+            <li><a href="#有拷贝构造">有拷贝构造</a></li>
           </ul>
         </li>
-        <li><a href="#c之变量相关">C++之变量相关</a>
+        <li><a href="#对象返回">对象返回</a>
           <ul>
-            <li><a href="#类对象为局部变量">类对象为局部变量</a>
-              <ul>
-                <li><a href="#识别成员函数">识别成员函数</a></li>
-                <li><a href="#识别构造函数">识别构造函数</a></li>
-                <li><a href="#识别析构函数">识别析构函数</a></li>
-              </ul>
-            </li>
-            <li><a href="#类对象为全局变量">类对象为全局变量</a></li>
-            <li><a href="#类对象为堆变量">类对象为堆变量</a>
-              <ul>
-                <li><a href="#new单个对象">New单个对象</a></li>
-                <li><a href="#new对象数组">New对象数组</a></li>
-              </ul>
-            </li>
+            <li><a href="#拷贝构造">拷贝构造</a></li>
+            <li><a href="#浅拷贝">浅拷贝</a></li>
+            <li><a href="#无名对象">无名对象</a></li>
+            <li><a href="#特征-1">特征</a></li>
           </ul>
         </li>
-        <li><a href="#c之对象相关">C++之对象相关</a>
+        <li><a href="#运算符重载">运算符重载</a></li>
+        <li><a href="#静态局部">静态局部</a></li>
+      </ul>
+    </li>
+    <li><a href="#c之单重继承">C++之单重继承</a>
+      <ul>
+        <li><a href="#虚函数">虚函数</a>
           <ul>
-            <li><a href="#对象传参">对象传参</a>
-              <ul>
-                <li><a href="#无拷贝构造">无拷贝构造</a></li>
-                <li><a href="#有拷贝构造">有拷贝构造</a></li>
-              </ul>
-            </li>
-            <li><a href="#对象返回">对象返回</a>
-              <ul>
-                <li><a href="#拷贝构造">拷贝构造</a></li>
-                <li><a href="#浅拷贝">浅拷贝</a></li>
-                <li><a href="#无名对象">无名对象</a></li>
-                <li><a href="#特征-1">特征</a></li>
-              </ul>
-            </li>
-            <li><a href="#运算符重载">运算符重载</a></li>
-            <li><a href="#静态局部">静态局部</a></li>
+            <li><a href="#调用方式">调用方式</a></li>
+            <li><a href="#构造函数">构造函数</a></li>
+            <li><a href="#初始化列表">初始化列表</a></li>
+            <li><a href="#析构函数">析构函数</a></li>
           </ul>
         </li>
-        <li><a href="#c之单重继承">C++之单重继承</a>
+        <li><a href="#单重继承有虚函数">单重继承有虚函数</a>
           <ul>
-            <li><a href="#虚函数">虚函数</a>
-              <ul>
-                <li><a href="#调用方式">调用方式</a></li>
-                <li><a href="#构造函数">构造函数</a></li>
-                <li><a href="#初始化列表">初始化列表</a></li>
-                <li><a href="#析构函数">析构函数</a></li>
-              </ul>
-            </li>
-            <li><a href="#单重继承有虚函数">单重继承有虚函数</a>
-              <ul>
-                <li><a href="#构造函数-1">构造函数</a></li>
-                <li><a href="#技巧之交叉引用">技巧之交叉引用</a></li>
-              </ul>
-            </li>
+            <li><a href="#构造函数-1">构造函数</a></li>
+            <li><a href="#技巧之交叉引用">技巧之交叉引用</a></li>
           </ul>
         </li>
-        <li><a href="#c之对象关系">C++之对象关系</a></li>
-        <li><a href="#c之多重继承">C++之多重继承</a></li>
-        <li><a href="#c之菱形结构">C++之菱形结构</a></li>
-        <li><a href="#异常">异常</a>
-          <ul>
-            <li><a href="#基本数据类型异常">基本数据类型异常</a></li>
-            <li><a href="#无脑定位异常处理函数">无脑定位异常处理函数</a></li>
-            <li><a href="#异常信息关系表">异常信息关系表</a></li>
-            <li><a href="#还原异常处理结构上半部分表">还原异常处理结构(上半部分表)</a></li>
-            <li><a href="#还原具体的异常处理代码下半部分表">还原具体的异常处理代码(下半部分表)</a></li>
-          </ul>
-        </li>
+      </ul>
+    </li>
+    <li><a href="#c之对象关系">C++之对象关系</a></li>
+    <li><a href="#c之多重继承">C++之多重继承</a></li>
+    <li><a href="#c之菱形结构">C++之菱形结构</a></li>
+    <li><a href="#异常">异常</a>
+      <ul>
+        <li><a href="#基本数据类型异常">基本数据类型异常</a></li>
+        <li><a href="#无脑定位异常处理函数">无脑定位异常处理函数</a></li>
+        <li><a href="#异常信息关系表">异常信息关系表</a></li>
+        <li><a href="#还原异常处理结构上半部分表">还原异常处理结构(上半部分表)</a></li>
+        <li><a href="#还原具体的异常处理代码下半部分表">还原具体的异常处理代码(下半部分表)</a></li>
       </ul>
     </li>
   </ul>
@@ -1961,13 +1957,11 @@ $$</p>
 </span></span><span class="line"><span class="cl"><span class="err">注意</span><span class="o">:</span><span class="err">会进行二分优化和前面三种混合优化</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">break语句,对应的跳转一定是跳向SWITCH_END.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">break语句,对应的跳转一定是跳向SWITCH_END.</div>
   </div>
+</div>
 <h3 id="循环语句" class="heading-element"><span>循环语句</span>
   <a href="#%e5%be%aa%e7%8e%af%e8%af%ad%e5%8f%a5" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -2178,17 +2172,15 @@ $$</p>
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">被优化为DoWhile循环</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>//Break语句</p>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><p>//Break语句</p>
 <p>循环语句中,跳转循环体,可识别为break语句</p>
 <p>//Continue语句</p>
 <p>Release版,经常会将Continue语句优化为If_Else双分支结构</p>
 </div>
-    </div>
   </div>
+</div>
 <h2 id="函数调用方式" class="heading-element"><span>函数调用方式</span>
   <a href="#%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8%e6%96%b9%e5%bc%8f" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -2488,13 +2480,11 @@ $$</p>
 <p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/images/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%8C%87%E4%BB%A4%E9%9B%86/SSE1.png" alt="SSE1" srcset="/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/images/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%8C%87%E4%BB%A4%E9%9B%86/SSE1.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/images/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%8C%87%E4%BB%A4%E9%9B%86/SSE1.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/images/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%8C%87%E4%BB%A4%E9%9B%86/SSE1.png?size=large 2x" data-title="SSE1" style="--width: 1043px;--aspect-ratio: 1043 / 516;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/images/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%8C%87%E4%BB%A4%E9%9B%86/SSE2.png" alt="SSE2" srcset="/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/images/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%8C%87%E4%BB%A4%E9%9B%86/SSE2.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/images/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%8C%87%E4%BB%A4%E9%9B%86/SSE2.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/images/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%8C%87%E4%BB%A4%E9%9B%86/SSE2.png?size=large 2x" data-title="SSE2" style="--width: 1042px;--aspect-ratio: 1042 / 483;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">movaps指令,要求内存地址为模16.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">movaps指令,要求内存地址为模16.</div>
   </div>
+</div>
 <h3 id="avx" class="heading-element"><span>AVX</span>
   <a href="#avx" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -4030,19 +4020,17 @@ $$</p>
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">析构函数会回填虚表地址.</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>为什么析构函数会填写虚表?</p>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><p>为什么析构函数会填写虚表?</p>
 <p>假设有类A和类B.
 B继承A,构造时填写的是B的虚表.
 而当B析构完,还需要析构A,但此时this指针中的虚表填写的是B的虚表.
 如果此时我们通过虚表间接访问,就会访问到B的函数,但是B已经析构完了.
 故需要在析构的时候回填虚表.</p>
 </div>
-    </div>
   </div>
+</div>
 <h3 id="单重继承有虚函数" class="heading-element"><span>单重继承有虚函数</span>
   <a href="#%e5%8d%95%e9%87%8d%e7%bb%a7%e6%89%bf%e6%9c%89%e8%99%9a%e5%87%bd%e6%95%b0" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -4303,17 +4291,15 @@ B继承A,构造时填写的是B的虚表.
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">当红色对象析构时,紫色对象可在可不在.</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>当无虚表时,继承和包含无法区分.</p>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><p>当无虚表时,继承和包含无法区分.</p>
 <p>因为面向对象,是通过行为区分的,不是通过数据区分的.</p>
 <p>虚表用来区分每个对象是什么.</p>
 <p>数据用来区分同类型实体的差异.</p>
 </div>
-    </div>
   </div>
+</div>
 <h2 id="c之多重继承" class="heading-element"><span>C++之多重继承</span>
   <a href="#c%e4%b9%8b%e5%a4%9a%e9%87%8d%e7%bb%a7%e6%89%bf" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -4729,15 +4715,13 @@ B继承A,构造时填写的是B的虚表.
 </span></span><span class="line"><span class="cl">因为虚表中,纯虚函数项填了一个提示错误信息,并关闭的函数指针即_purecall的函数指针.</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>在构造函数或析构函数中调虚函数,不会触发多态.</p>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><p>在构造函数或析构函数中调虚函数,不会触发多态.</p>
 <p>因为构造函数或析构函数中会回填虚表,填自身对象的虚表地址.</p>
 </div>
-    </div>
   </div>
+</div>
 <h2 id="c之菱形结构" class="heading-element"><span>C++之菱形结构</span>
   <a href="#c%e4%b9%8b%e8%8f%b1%e5%bd%a2%e7%bb%93%e6%9e%84" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -5081,8 +5065,7 @@ B继承A,构造时填写的是B的虚表.
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/%E6%AD%A3%E8%83%BD%E9%87%8F/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E4%BA%BA%E5%91%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%BC%80%E5%86%85%E5%8D%B7/" class="post-nav-item" rel="prev" title="网络安全技术人员如何避开内卷"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>网络安全技术人员如何避开内卷</a>
-      <a href="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" class="post-nav-item" rel="next" title="X64逆向">X64逆向<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/%E6%AD%A3%E8%83%BD%E9%87%8F/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E4%BA%BA%E5%91%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%BC%80%E5%86%85%E5%8D%B7/" class="post-nav-item" rel="prev" title="网络安全技术人员如何避开内卷"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>网络安全技术人员如何避开内卷</a><a href="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" class="post-nav-item" rel="next" title="X64逆向">X64逆向<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -5096,5 +5079,5 @@ B继承A,构造时填写的是B的虚表.
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

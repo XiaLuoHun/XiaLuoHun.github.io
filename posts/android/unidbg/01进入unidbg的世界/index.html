@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>进入Unidbg的世界   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="概述 Unidbg是一个基于Unicorn的逆向工具,可以黑盒调用Android和iOS中的so文件.这使逆向人员无须了解so内部算法原理,只"><meta name="keywords" content='Unidbg'>
+<meta name="description" content="概述 Unidbg是一个基于Unicorn的逆向工具,可以黑盒调用Android和iOS中的so文件.这使逆向人员无须了解so内部算法原理,只需主动调用so中的函数,传入所需的参数,补全运行所需的环境,即可得到需要的结果.
+"><meta name="keywords" content='Unidbg'>
   <meta itemprop="name" content="进入Unidbg的世界">
-  <meta itemprop="description" content="概述 Unidbg是一个基于Unicorn的逆向工具,可以黑盒调用Android和iOS中的so文件.这使逆向人员无须了解so内部算法原理,只">
+  <meta itemprop="description" content="概述 Unidbg是一个基于Unicorn的逆向工具,可以黑盒调用Android和iOS中的so文件.这使逆向人员无须了解so内部算法原理,只需主动调用so中的函数,传入所需的参数,补全运行所需的环境,即可得到需要的结果.">
   <meta itemprop="datePublished" content="2024-06-24T00:00:00+00:00">
   <meta itemprop="dateModified" content="2024-06-24T00:00:00+00:00">
   <meta itemprop="wordCount" content="7332">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="Unidbg"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="进入Unidbg的世界">
-  <meta property="og:description" content="概述 Unidbg是一个基于Unicorn的逆向工具,可以黑盒调用Android和iOS中的so文件.这使逆向人员无须了解so内部算法原理,只">
+  <meta property="og:description" content="概述 Unidbg是一个基于Unicorn的逆向工具,可以黑盒调用Android和iOS中的so文件.这使逆向人员无须了解so内部算法原理,只需主动调用so中的函数,传入所需的参数,补全运行所需的环境,即可得到需要的结果.">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/images/setJni.png">
   <meta name="twitter:title" content="进入Unidbg的世界">
-  <meta name="twitter:description" content="概述 Unidbg是一个基于Unicorn的逆向工具,可以黑盒调用Android和iOS中的so文件.这使逆向人员无须了解so内部算法原理,只">
+  <meta name="twitter:description" content="概述 Unidbg是一个基于Unicorn的逆向工具,可以黑盒调用Android和iOS中的so文件.这使逆向人员无须了解so内部算法原理,只需主动调用so中的函数,传入所需的参数,补全运行所需的环境,即可得到需要的结果.">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" title="进入Unidbg的世界   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" title="x64Dbg-命令详解" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/android/unidbg/03android-so%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B/" title="Android so-加载、链接、初始化流程" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -184,9 +185,7 @@
         <span class="collection-count">3</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
       <div class="details-content collection-content">
         <nav>
-          <ul class="collection-list"><li class="collection-item"><span class="active" title="进入Unidbg的世界">进入Unidbg的世界</span></li>
-                <li class="collection-item"><a href="/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" title="Unidbg补环境实战">Unidbg补环境实战</a></li>
-                <li class="collection-item"><a href="/posts/android/unidbg/06unidbg%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" title="Unidbg生产环境部署">Unidbg生产环境部署</a></li></ul>
+          <ul class="collection-list"><li class="collection-item"><span class="active" title="进入Unidbg的世界">进入Unidbg的世界</span></li><li class="collection-item"><a href="/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" title="Unidbg补环境实战">Unidbg补环境实战</a></li><li class="collection-item"><a href="/posts/android/unidbg/06unidbg%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" title="Unidbg生产环境部署">Unidbg生产环境部署</a></li></ul>
           <div class="collection-nav-simple"><i class="fa-solid fa-angle-left fa-fw collection-nav-item text-secondary" aria-hidden="true"></i><span class="text-secondary">1/3</span><a href="/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" class="collection-nav-item" rel="next" title="Unidbg补环境实战"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
         </nav>
       </div>
@@ -203,46 +202,42 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#模拟执行初探">模拟执行初探</a>
       <ul>
-        <li><a href="#概述">概述</a></li>
-        <li><a href="#模拟执行初探">模拟执行初探</a>
-          <ul>
-            <li><a href="#测试apk">测试Apk</a></li>
-            <li><a href="#符号调用">符号调用</a></li>
-            <li><a href="#地址调用">地址调用</a></li>
-            <li><a href="#模拟执行">模拟执行</a></li>
-          </ul>
-        </li>
-        <li><a href="#修补执行环境">修补执行环境</a>
-          <ul>
-            <li><a href="#测试apk-1">测试Apk</a></li>
-            <li><a href="#模拟执行-1">模拟执行</a></li>
-          </ul>
-        </li>
-        <li><a href="#unidbg-hook">Unidbg Hook</a>
-          <ul>
-            <li><a href="#测试apk-2">测试Apk</a></li>
-            <li><a href="#hookzz">HookZz</a></li>
-            <li><a href="#dobby">Dobby</a></li>
-            <li><a href="#xhook">xHook</a></li>
-          </ul>
-        </li>
-        <li><a href="#unidbg-patch">Unidbg Patch</a>
-          <ul>
-            <li><a href="#测试apk-3">测试Apk</a></li>
-            <li><a href="#patch">Patch</a></li>
-          </ul>
-        </li>
-        <li><a href="#unidbg-debugger">Unidbg Debugger</a>
-          <ul>
-            <li><a href="#测试apk-4">测试Apk</a></li>
-            <li><a href="#debugger">Debugger</a></li>
-          </ul>
-        </li>
-        <li><a href="#参考链接">参考链接</a></li>
+        <li><a href="#测试apk">测试Apk</a></li>
+        <li><a href="#符号调用">符号调用</a></li>
+        <li><a href="#地址调用">地址调用</a></li>
+        <li><a href="#模拟执行">模拟执行</a></li>
       </ul>
     </li>
+    <li><a href="#修补执行环境">修补执行环境</a>
+      <ul>
+        <li><a href="#测试apk-1">测试Apk</a></li>
+        <li><a href="#模拟执行-1">模拟执行</a></li>
+      </ul>
+    </li>
+    <li><a href="#unidbg-hook">Unidbg Hook</a>
+      <ul>
+        <li><a href="#测试apk-2">测试Apk</a></li>
+        <li><a href="#hookzz">HookZz</a></li>
+        <li><a href="#dobby">Dobby</a></li>
+        <li><a href="#xhook">xHook</a></li>
+      </ul>
+    </li>
+    <li><a href="#unidbg-patch">Unidbg Patch</a>
+      <ul>
+        <li><a href="#测试apk-3">测试Apk</a></li>
+        <li><a href="#patch">Patch</a></li>
+      </ul>
+    </li>
+    <li><a href="#unidbg-debugger">Unidbg Debugger</a>
+      <ul>
+        <li><a href="#测试apk-4">测试Apk</a></li>
+        <li><a href="#debugger">Debugger</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 id="概述" class="heading-element"><span>概述</span>
@@ -1967,13 +1962,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ixHook</span><span class="p">.</span><span class="na">refresh</span><span class="p">();</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">上述传入的函数名称是原始名称,而不是经过IDA解释后的名称.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">上述传入的函数名称是原始名称,而不是经过IDA解释后的名称.</div>
   </div>
+</div>
 <h2 id="unidbg-patch" class="heading-element"><span>Unidbg Patch</span>
   <a href="#unidbg-patch" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -2507,8 +2500,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" class="post-nav-item" rel="prev" title="X64Dbg-命令详解"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>X64Dbg-命令详解</a>
-      <a href="/posts/android/unidbg/03android-so%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B/" class="post-nav-item" rel="next" title="Android So-加载、链接、初始化流程">Android So-加载、链接、初始化流程<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" class="post-nav-item" rel="prev" title="X64Dbg-命令详解"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>X64Dbg-命令详解</a><a href="/posts/android/unidbg/03android-so%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B/" class="post-nav-item" rel="next" title="Android So-加载、链接、初始化流程">Android So-加载、链接、初始化流程<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -2522,5 +2514,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

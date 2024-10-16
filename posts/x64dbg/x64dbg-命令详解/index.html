@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>X64Dbg-命令详解   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值: 数字 默认情况下,所有数字都解释为16进制,也可以在值前加x或0x作为前缀来表明该"><meta name="keywords" content='x64Dbg'>
+<meta name="description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值:
+"><meta name="keywords" content='x64Dbg'>
   <meta itemprop="name" content="x64Dbg-命令详解">
-  <meta itemprop="description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值: 数字 默认情况下,所有数字都解释为16进制,也可以在值前加x或0x作为前缀来表明该">
+  <meta itemprop="description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值:">
   <meta itemprop="datePublished" content="2024-06-17T00:00:00+00:00">
   <meta itemprop="dateModified" content="2024-06-17T00:00:00+00:00">
   <meta itemprop="wordCount" content="5448">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="X64Dbg"><meta property="og:url" content="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="x64Dbg-命令详解">
-  <meta property="og:description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值: 数字 默认情况下,所有数字都解释为16进制,也可以在值前加x或0x作为前缀来表明该">
+  <meta property="og:description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值:">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/images/x64Dbg.png">
   <meta name="twitter:title" content="x64Dbg-命令详解">
-  <meta name="twitter:description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值: 数字 默认情况下,所有数字都解释为16进制,也可以在值前加x或0x作为前缀来表明该">
+  <meta name="twitter:description" content="值 很多命令都接受表达式和值作为参数.下面是所有受支持的数值:">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" title="x64Dbg-命令详解   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/java/arthas/" title="Arthas" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" title="进入Unidbg的世界" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -190,57 +191,53 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#值">值</a>
       <ul>
-        <li><a href="#值">值</a>
-          <ul>
-            <li><a href="#数字">数字</a></li>
-            <li><a href="#变量">变量</a></li>
-            <li><a href="#寄存器">寄存器</a></li>
-            <li><a href="#标志">标志</a></li>
-            <li><a href="#内存位置">内存位置</a></li>
-            <li><a href="#标签符号">标签/符号</a></li>
-            <li><a href="#dll导出">DLL导出</a></li>
-            <li><a href="#模块基地址">模块基地址</a></li>
-            <li><a href="#rva文件偏移">RVA/文件偏移</a></li>
-            <li><a href="#模块入口点">模块入口点</a></li>
-          </ul>
-        </li>
-        <li><a href="#表达式">表达式</a>
-          <ul>
-            <li><a href="#运算符">运算符</a></li>
-            <li><a href="#快速赋值">快速赋值</a></li>
-          </ul>
-        </li>
-        <li><a href="#表达式函数">表达式函数</a>
-          <ul>
-            <li><a href="#字符串">字符串</a></li>
-            <li><a href="#模块">模块</a></li>
-            <li><a href="#进程信息">进程信息</a></li>
-            <li><a href="#常规函数">常规函数</a></li>
-            <li><a href="#内存">内存</a></li>
-            <li><a href="#反汇编">反汇编</a></li>
-            <li><a href="#跟踪">跟踪</a></li>
-            <li><a href="#内存指针">内存指针</a></li>
-            <li><a href="#函数">函数</a></li>
-            <li><a href="#引用">引用</a></li>
-            <li><a href="#参数">参数</a></li>
-            <li><a href="#异常">异常</a></li>
-            <li><a href="#插件">插件</a></li>
-          </ul>
-        </li>
-        <li><a href="#变量-1">变量</a>
-          <ul>
-            <li><a href="#设置变量">设置变量</a></li>
-            <li><a href="#保留变量">保留变量</a></li>
-          </ul>
-        </li>
-        <li><a href="#条件断点">条件断点</a></li>
-        <li><a href="#条件跟踪">条件跟踪</a></li>
-        <li><a href="#字符串格式">字符串格式</a></li>
-        <li><a href="#参考链接">参考链接</a></li>
+        <li><a href="#数字">数字</a></li>
+        <li><a href="#变量">变量</a></li>
+        <li><a href="#寄存器">寄存器</a></li>
+        <li><a href="#标志">标志</a></li>
+        <li><a href="#内存位置">内存位置</a></li>
+        <li><a href="#标签符号">标签/符号</a></li>
+        <li><a href="#dll导出">DLL导出</a></li>
+        <li><a href="#模块基地址">模块基地址</a></li>
+        <li><a href="#rva文件偏移">RVA/文件偏移</a></li>
+        <li><a href="#模块入口点">模块入口点</a></li>
       </ul>
     </li>
+    <li><a href="#表达式">表达式</a>
+      <ul>
+        <li><a href="#运算符">运算符</a></li>
+        <li><a href="#快速赋值">快速赋值</a></li>
+      </ul>
+    </li>
+    <li><a href="#表达式函数">表达式函数</a>
+      <ul>
+        <li><a href="#字符串">字符串</a></li>
+        <li><a href="#模块">模块</a></li>
+        <li><a href="#进程信息">进程信息</a></li>
+        <li><a href="#常规函数">常规函数</a></li>
+        <li><a href="#内存">内存</a></li>
+        <li><a href="#反汇编">反汇编</a></li>
+        <li><a href="#跟踪">跟踪</a></li>
+        <li><a href="#内存指针">内存指针</a></li>
+        <li><a href="#函数">函数</a></li>
+        <li><a href="#引用">引用</a></li>
+        <li><a href="#参数">参数</a></li>
+        <li><a href="#异常">异常</a></li>
+        <li><a href="#插件">插件</a></li>
+      </ul>
+    </li>
+    <li><a href="#变量-1">变量</a>
+      <ul>
+        <li><a href="#设置变量">设置变量</a></li>
+        <li><a href="#保留变量">保留变量</a></li>
+      </ul>
+    </li>
+    <li><a href="#条件断点">条件断点</a></li>
+    <li><a href="#条件跟踪">条件跟踪</a></li>
+    <li><a href="#字符串格式">字符串格式</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 id="值" class="heading-element"><span>值</span>
@@ -266,18 +263,16 @@
 </h3><p>除浮点寄存器外的所有寄存器(如RAX、EAX、AL)都可以用作变量.</p>
 <p>像XMM0、YMM0以及ST(0)这样的浮点寄存器不能用作变量使用,但它们可以通过字符串格式的浮点类型进行记录.目前不支持AVX-512寄存器.</p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><ul>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><ul>
 <li>除以下寄存器外,大多数寄存器的变量名称和它们的名称相同</li>
 <li>x86控制字标志被命名为_x87CW_UM</li>
 <li>除架构中的寄存器外,x64Dbg还提供了以下寄存器:CAX、CBX、CCX、CDX、CSP、CBP、CSI、CDI、CIP.这些寄存器在32位平台上映射为32位寄存器,在64位平台上映射为64位寄存器</li>
 </ul>
 </div>
-    </div>
   </div>
+</div>
 <h3 id="标志" class="heading-element"><span>标志</span>
   <a href="#%e6%a0%87%e5%bf%97" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -296,55 +291,53 @@
   </a>
 </h3><p>可以使用以下表达式对内存位置进行读取或写入.</p>
 <table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">[addr]</td>
-<td style="text-align:left">从addr指向的内存读取4或8字节内容</td>
-</tr>
-<tr>
-<td style="text-align:left">n:[addr]</td>
-<td style="text-align:left">从addr指向的内存读取n字节内容</td>
-</tr>
-<tr>
-<td style="text-align:left">seg:[addr]</td>
-<td style="text-align:left">从addr的段读取DWORD或QWORD大小内容</td>
-</tr>
-<tr>
-<td style="text-align:left">byte:[addr]</td>
-<td style="text-align:left">从addr指向的内存读取1字节内容</td>
-</tr>
-<tr>
-<td style="text-align:left">word:[addr]</td>
-<td style="text-align:left">从addr指向的内存读取2字节内容</td>
-</tr>
-<tr>
-<td style="text-align:left">dword:[addr]</td>
-<td style="text-align:left">从addr指向的内存读取4字节内容</td>
-</tr>
-<tr>
-<td style="text-align:left">qword:[addr]</td>
-<td style="text-align:left">从addr指向的内存读取8字节内容</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">[addr]</td>
+          <td style="text-align: left">从addr指向的内存读取4或8字节内容</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">n:[addr]</td>
+          <td style="text-align: left">从addr指向的内存读取n字节内容</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">seg:[addr]</td>
+          <td style="text-align: left">从addr的段读取DWORD或QWORD大小内容</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">byte:[addr]</td>
+          <td style="text-align: left">从addr指向的内存读取1字节内容</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">word:[addr]</td>
+          <td style="text-align: left">从addr指向的内存读取2字节内容</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dword:[addr]</td>
+          <td style="text-align: left">从addr指向的内存读取4字节内容</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">qword:[addr]</td>
+          <td style="text-align: left">从addr指向的内存读取8字节内容</td>
+      </tr>
+  </tbody>
 </table>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><ul>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><ul>
 <li>n是要读取的字节数,在x32上应小于4,在x64上应小于8,否则会出错</li>
 <li>seg可以是gs、es、cs、fs、ds以及ss.只有fs和gs有效</li>
 </ul>
 </div>
-    </div>
   </div>
+</div>
 <h3 id="标签符号" class="heading-element"><span>标签/符号</span>
   <a href="#%e6%a0%87%e7%ad%be%e7%ac%a6%e5%8f%b7" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -371,17 +364,15 @@
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="n">LuoExport</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><ul>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><ul>
 <li>当module为空字符串时,将默认为当前CPU窗口显示的模块</li>
 <li>使用.或:是等价的</li>
 </ul>
 </div>
-    </div>
   </div>
+</div>
 <h3 id="模块基地址" class="heading-element"><span>模块基地址</span>
   <a href="#%e6%a8%a1%e5%9d%97%e5%9f%ba%e5%9c%b0%e5%9d%80" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -422,13 +413,11 @@
 </span></span><span class="line"><span class="cl"><span class="o">:</span><span class="err">#</span><span class="mi">400</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">当module为空字符串时(如:$1000),默认为当前CPU窗口显示的模块</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">当module为空字符串时(如:$1000),默认为当前CPU窗口显示的模块</div>
   </div>
+</div>
 <h3 id="模块入口点" class="heading-element"><span>模块入口点</span>
   <a href="#%e6%a8%a1%e5%9d%97%e5%85%a5%e5%8f%a3%e7%82%b9" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -442,13 +431,11 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">module:entry、module:oep、module:ep</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">当模块中有名为entry、oep或ep时,将返回这个导出函数的地址.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">当模块中有名为entry、oep或ep时,将返回这个导出函数的地址.</div>
   </div>
+</div>
 <h2 id="表达式" class="heading-element"><span>表达式</span>
   <a href="#%e8%a1%a8%e8%be%be%e5%bc%8f" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -491,424 +478,424 @@
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-<th style="text-align:left">示例命令</th>
-<th style="text-align:left">结果</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">ansi(addr[, count])</td>
-<td style="text-align:left">从addr打印以空字符结尾的ANSI字符串.当count指定时,字符串将被截断.</td>
-<td style="text-align:left">log &ldquo;{ansi(0x402000,10)}&rdquo;</td>
-<td style="text-align:left">Hello XiaLuoHun!</td>
-</tr>
-<tr>
-<td style="text-align:left">utf8(addr[, count])</td>
-<td style="text-align:left">从addr打印以空字符结尾的UTF-8字符串.当count指定时,字符串将被截断.</td>
-<td style="text-align:left">log &ldquo;{utf8(0x402000)}&rdquo;</td>
-<td style="text-align:left">Hello XiaLuoHun!</td>
-</tr>
-<tr>
-<td style="text-align:left">utf16(addr[, count])</td>
-<td style="text-align:left">从addr打印以空字符结尾的UTF-16字符串.当count指定时,字符串将被截断.</td>
-<td style="text-align:left">log &ldquo;{utf16(0x405000,2)}&rdquo;</td>
-<td style="text-align:left">He</td>
-</tr>
-<tr>
-<td style="text-align:left">strstr(str1, str2)</td>
-<td style="text-align:left">查找子字符串</td>
-<td style="text-align:left">log &ldquo;{strstr(utf8(0x402000),&ldquo;Luo&rdquo;)}&rdquo;</td>
-<td style="text-align:left">1</td>
-</tr>
-<tr>
-<td style="text-align:left">streq(str1, str2)</td>
-<td style="text-align:left">比较两个字符串</td>
-<td style="text-align:left">log &ldquo;{streq(utf8(0x402000),&ldquo;Luo&rdquo;)}&rdquo;</td>
-<td style="text-align:left">0</td>
-</tr>
-<tr>
-<td style="text-align:left">strlen(str)</td>
-<td style="text-align:left">计算字符串的长度</td>
-<td style="text-align:left">log &ldquo;{strlen(utf8(0x402000))}&rdquo;</td>
-<td style="text-align:left">10</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+          <th style="text-align: left">示例命令</th>
+          <th style="text-align: left">结果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">ansi(addr[, count])</td>
+          <td style="text-align: left">从addr打印以空字符结尾的ANSI字符串.当count指定时,字符串将被截断.</td>
+          <td style="text-align: left">log &ldquo;{ansi(0x402000,10)}&rdquo;</td>
+          <td style="text-align: left">Hello XiaLuoHun!</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">utf8(addr[, count])</td>
+          <td style="text-align: left">从addr打印以空字符结尾的UTF-8字符串.当count指定时,字符串将被截断.</td>
+          <td style="text-align: left">log &ldquo;{utf8(0x402000)}&rdquo;</td>
+          <td style="text-align: left">Hello XiaLuoHun!</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">utf16(addr[, count])</td>
+          <td style="text-align: left">从addr打印以空字符结尾的UTF-16字符串.当count指定时,字符串将被截断.</td>
+          <td style="text-align: left">log &ldquo;{utf16(0x405000,2)}&rdquo;</td>
+          <td style="text-align: left">He</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">strstr(str1, str2)</td>
+          <td style="text-align: left">查找子字符串</td>
+          <td style="text-align: left">log &ldquo;{strstr(utf8(0x402000),&ldquo;Luo&rdquo;)}&rdquo;</td>
+          <td style="text-align: left">1</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">streq(str1, str2)</td>
+          <td style="text-align: left">比较两个字符串</td>
+          <td style="text-align: left">log &ldquo;{streq(utf8(0x402000),&ldquo;Luo&rdquo;)}&rdquo;</td>
+          <td style="text-align: left">0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">strlen(str)</td>
+          <td style="text-align: left">计算字符串的长度</td>
+          <td style="text-align: left">log &ldquo;{strlen(utf8(0x402000))}&rdquo;</td>
+          <td style="text-align: left">10</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="模块" class="heading-element"><span>模块</span>
   <a href="#%e6%a8%a1%e5%9d%97" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">mod.party(addr)</td>
-<td style="text-align:left">获取addr的模块编号.0表示用户模块,1表示系统模块</td>
-</tr>
-<tr>
-<td style="text-align:left">mod.base(addr)</td>
-<td style="text-align:left">获取addr模块基址</td>
-</tr>
-<tr>
-<td style="text-align:left">mod.size(addr)</td>
-<td style="text-align:left">获取addr模块大小</td>
-</tr>
-<tr>
-<td style="text-align:left">mod.hash(addr)</td>
-<td style="text-align:left">获取addr模块Hash</td>
-</tr>
-<tr>
-<td style="text-align:left">mod.entry(addr)</td>
-<td style="text-align:left">获取addr模块入口</td>
-</tr>
-<tr>
-<td style="text-align:left">mod.system(addr)</td>
-<td style="text-align:left">判断addr是属于系统模块.若是返回1,否则返回0</td>
-</tr>
-<tr>
-<td style="text-align:left">mod.user(addr)</td>
-<td style="text-align:left">判断addr是属于用户模块.若是返回1,否则返回0</td>
-</tr>
-<tr>
-<td style="text-align:left">mod.main()</td>
-<td style="text-align:left">获取主模块基地址</td>
-</tr>
-<tr>
-<td style="text-align:left">mod.rva(addr)</td>
-<td style="text-align:left">获取addr所属模块的RVA.若地址不在模块中,返回0</td>
-</tr>
-<tr>
-<td style="text-align:left">mod.offset(addr)</td>
-<td style="text-align:left">获取addr的文件偏移量.若地址不在模块中,返回0</td>
-</tr>
-<tr>
-<td style="text-align:left">mod.isexport(addr)</td>
-<td style="text-align:left">判断addr是否是模块导出函数.若是返回1</td>
-</tr>
-<tr>
-<td style="text-align:left">mod.fromname(str)</td>
-<td style="text-align:left">获取str模块基址</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">mod.party(addr)</td>
+          <td style="text-align: left">获取addr的模块编号.0表示用户模块,1表示系统模块</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mod.base(addr)</td>
+          <td style="text-align: left">获取addr模块基址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mod.size(addr)</td>
+          <td style="text-align: left">获取addr模块大小</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mod.hash(addr)</td>
+          <td style="text-align: left">获取addr模块Hash</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mod.entry(addr)</td>
+          <td style="text-align: left">获取addr模块入口</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mod.system(addr)</td>
+          <td style="text-align: left">判断addr是属于系统模块.若是返回1,否则返回0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mod.user(addr)</td>
+          <td style="text-align: left">判断addr是属于用户模块.若是返回1,否则返回0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mod.main()</td>
+          <td style="text-align: left">获取主模块基地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mod.rva(addr)</td>
+          <td style="text-align: left">获取addr所属模块的RVA.若地址不在模块中,返回0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mod.offset(addr)</td>
+          <td style="text-align: left">获取addr的文件偏移量.若地址不在模块中,返回0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mod.isexport(addr)</td>
+          <td style="text-align: left">判断addr是否是模块导出函数.若是返回1</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mod.fromname(str)</td>
+          <td style="text-align: left">获取str模块基址</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="进程信息" class="heading-element"><span>进程信息</span>
   <a href="#%e8%bf%9b%e7%a8%8b%e4%bf%a1%e6%81%af" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">peb()</td>
-<td style="text-align:left">获取PEB地址</td>
-</tr>
-<tr>
-<td style="text-align:left">teb()</td>
-<td style="text-align:left">获取TEB地址</td>
-</tr>
-<tr>
-<td style="text-align:left">tid()</td>
-<td style="text-align:left">获取当前线程ID</td>
-</tr>
-<tr>
-<td style="text-align:left">kusd(),KUSD(),KUSER_SHARED_DATA()</td>
-<td style="text-align:left">获取KUSER_SHARED_DATA结构地址</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">peb()</td>
+          <td style="text-align: left">获取PEB地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">teb()</td>
+          <td style="text-align: left">获取TEB地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">tid()</td>
+          <td style="text-align: left">获取当前线程ID</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">kusd(),KUSD(),KUSER_SHARED_DATA()</td>
+          <td style="text-align: left">获取KUSER_SHARED_DATA结构地址</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="常规函数" class="heading-element"><span>常规函数</span>
   <a href="#%e5%b8%b8%e8%a7%84%e5%87%bd%e6%95%b0" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-<th style="text-align:left">示例命令</th>
-<th style="text-align:left">结果</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">bswap(value)</td>
-<td style="text-align:left">反转字节</td>
-<td style="text-align:left">log &ldquo;{bswap(0x12345678)}&rdquo;</td>
-<td style="text-align:left">78563412</td>
-</tr>
-<tr>
-<td style="text-align:left">ternary(condition, val1, val2)</td>
-<td style="text-align:left">如果条件为真, 返回val1,否则返回val2</td>
-<td style="text-align:left">log &ldquo;{ternary(0,1,2)}&rdquo;</td>
-<td style="text-align:left">2</td>
-</tr>
-<tr>
-<td style="text-align:left">GetTickCount()</td>
-<td style="text-align:left">获取从操作系统启动所经过的毫秒数</td>
-<td style="text-align:left">log &ldquo;{GetTickCount()}&rdquo;</td>
-<td style="text-align:left">121A1D0</td>
-</tr>
-<tr>
-<td style="text-align:left">rdtsc()</td>
-<td style="text-align:left">获取RDTSC指令结果,该指令返回CPU自启动以来的时钟周期数</td>
-<td style="text-align:left">log &ldquo;{rdtsc()}&rdquo;</td>
-<td style="text-align:left">5C51E17C</td>
-</tr>
-<tr>
-<td style="text-align:left">isdebuggerfocused()</td>
-<td style="text-align:left">判断是否聚焦x64dbg.若是返回1,否则返回0</td>
-<td style="text-align:left">log &ldquo;{isdebuggerfocused()}&rdquo;</td>
-<td style="text-align:left">1</td>
-</tr>
-<tr>
-<td style="text-align:left">isdebuggeefocused()</td>
-<td style="text-align:left">判断是否聚焦调试程序.若是返回1,否则返回0</td>
-<td style="text-align:left">log &ldquo;{isdebuggeefocused()}&rdquo;</td>
-<td style="text-align:left">0</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+          <th style="text-align: left">示例命令</th>
+          <th style="text-align: left">结果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">bswap(value)</td>
+          <td style="text-align: left">反转字节</td>
+          <td style="text-align: left">log &ldquo;{bswap(0x12345678)}&rdquo;</td>
+          <td style="text-align: left">78563412</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ternary(condition, val1, val2)</td>
+          <td style="text-align: left">如果条件为真, 返回val1,否则返回val2</td>
+          <td style="text-align: left">log &ldquo;{ternary(0,1,2)}&rdquo;</td>
+          <td style="text-align: left">2</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">GetTickCount()</td>
+          <td style="text-align: left">获取从操作系统启动所经过的毫秒数</td>
+          <td style="text-align: left">log &ldquo;{GetTickCount()}&rdquo;</td>
+          <td style="text-align: left">121A1D0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">rdtsc()</td>
+          <td style="text-align: left">获取RDTSC指令结果,该指令返回CPU自启动以来的时钟周期数</td>
+          <td style="text-align: left">log &ldquo;{rdtsc()}&rdquo;</td>
+          <td style="text-align: left">5C51E17C</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">isdebuggerfocused()</td>
+          <td style="text-align: left">判断是否聚焦x64dbg.若是返回1,否则返回0</td>
+          <td style="text-align: left">log &ldquo;{isdebuggerfocused()}&rdquo;</td>
+          <td style="text-align: left">1</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">isdebuggeefocused()</td>
+          <td style="text-align: left">判断是否聚焦调试程序.若是返回1,否则返回0</td>
+          <td style="text-align: left">log &ldquo;{isdebuggeefocused()}&rdquo;</td>
+          <td style="text-align: left">0</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="内存" class="heading-element"><span>内存</span>
   <a href="#%e5%86%85%e5%ad%98" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">mem.valid(addr)</td>
-<td style="text-align:left">判断addr是否有效.若是返回1,否则返回0</td>
-</tr>
-<tr>
-<td style="text-align:left">mem.base(addr)</td>
-<td style="text-align:left">获取addr内存页的基地址</td>
-</tr>
-<tr>
-<td style="text-align:left">mem.size(addr)</td>
-<td style="text-align:left">获取addr内存页的大小</td>
-</tr>
-<tr>
-<td style="text-align:left">mem.iscode(addr)</td>
-<td style="text-align:left">判断addr是否是可执行页面.若是返回1,否则返回0</td>
-</tr>
-<tr>
-<td style="text-align:left">mem.decodepointer(ptr)</td>
-<td style="text-align:left">调用了API DecodePointer</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">mem.valid(addr)</td>
+          <td style="text-align: left">判断addr是否有效.若是返回1,否则返回0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mem.base(addr)</td>
+          <td style="text-align: left">获取addr内存页的基地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mem.size(addr)</td>
+          <td style="text-align: left">获取addr内存页的大小</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mem.iscode(addr)</td>
+          <td style="text-align: left">判断addr是否是可执行页面.若是返回1,否则返回0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">mem.decodepointer(ptr)</td>
+          <td style="text-align: left">调用了API DecodePointer</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="反汇编" class="heading-element"><span>反汇编</span>
   <a href="#%e5%8f%8d%e6%b1%87%e7%bc%96" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">dis.len(addr)</td>
-<td style="text-align:left">获取addr指令长度</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.iscond(addr)</td>
-<td style="text-align:left">判断addr处是否为条件指令(JCC).若是返回1,否则返回0</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.isbranch(addr)</td>
-<td style="text-align:left">判断addr处是否为分支指令(JCC/CALL).同上</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.isret(addr)</td>
-<td style="text-align:left">判断addr处是否为RET指令.同上</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.iscall(addr)</td>
-<td style="text-align:left">判断addr处是否为CALL指令.同上</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.ismem(addr)</td>
-<td style="text-align:left">判断addr处指令是否有内存操作数.同上</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.isnop(addr)</td>
-<td style="text-align:left">判断addr处是为NOP指令.同上</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.isunusual(addr)</td>
-<td style="text-align:left">判断addr处是为异常指令.同上</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.branchdest(addr)</td>
-<td style="text-align:left">获取addr处的分支目标地址(即在addr处按下Enter键后的地址)</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.branchexec(addr)</td>
-<td style="text-align:left">判断addr处分支是否执行.若是返回1,否则返回0</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.imm(addr)</td>
-<td style="text-align:left">获取addr处指令中的立即数</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.brtrue(addr)</td>
-<td style="text-align:left">获取addr处的分支目标地址</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.brfalse(addr)</td>
-<td style="text-align:left">如果addr处是条件跳转指令则返回下一条指令地址,否则返回0</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.next(addr)</td>
-<td style="text-align:left">获取addr处下一条指令地址</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.prev(addr)</td>
-<td style="text-align:left">获取addr处前一条指令地址</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.iscallsystem(addr)</td>
-<td style="text-align:left">判断addr处的指令是否进入系统模块.如是返回1,否则返回0</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.mnemonic(addr)</td>
-<td style="text-align:left">返回addr处指令的助记符(str).可以和字符串表达式函数配合使用,如str.streq(dis.mnemonic(cip), &ldquo;cpuid&rdquo;)</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.text(addr)</td>
-<td style="text-align:left">获取addr处的指令文本</td>
-</tr>
-<tr>
-<td style="text-align:left">dis.match(addr, str)</td>
-<td style="text-align:left">判断addr处指令是否匹配正则表达式str.如是返回1,否则返回0</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">dis.len(addr)</td>
+          <td style="text-align: left">获取addr指令长度</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.iscond(addr)</td>
+          <td style="text-align: left">判断addr处是否为条件指令(JCC).若是返回1,否则返回0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.isbranch(addr)</td>
+          <td style="text-align: left">判断addr处是否为分支指令(JCC/CALL).同上</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.isret(addr)</td>
+          <td style="text-align: left">判断addr处是否为RET指令.同上</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.iscall(addr)</td>
+          <td style="text-align: left">判断addr处是否为CALL指令.同上</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.ismem(addr)</td>
+          <td style="text-align: left">判断addr处指令是否有内存操作数.同上</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.isnop(addr)</td>
+          <td style="text-align: left">判断addr处是为NOP指令.同上</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.isunusual(addr)</td>
+          <td style="text-align: left">判断addr处是为异常指令.同上</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.branchdest(addr)</td>
+          <td style="text-align: left">获取addr处的分支目标地址(即在addr处按下Enter键后的地址)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.branchexec(addr)</td>
+          <td style="text-align: left">判断addr处分支是否执行.若是返回1,否则返回0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.imm(addr)</td>
+          <td style="text-align: left">获取addr处指令中的立即数</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.brtrue(addr)</td>
+          <td style="text-align: left">获取addr处的分支目标地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.brfalse(addr)</td>
+          <td style="text-align: left">如果addr处是条件跳转指令则返回下一条指令地址,否则返回0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.next(addr)</td>
+          <td style="text-align: left">获取addr处下一条指令地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.prev(addr)</td>
+          <td style="text-align: left">获取addr处前一条指令地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.iscallsystem(addr)</td>
+          <td style="text-align: left">判断addr处的指令是否进入系统模块.如是返回1,否则返回0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.mnemonic(addr)</td>
+          <td style="text-align: left">返回addr处指令的助记符(str).可以和字符串表达式函数配合使用,如str.streq(dis.mnemonic(cip), &ldquo;cpuid&rdquo;)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.text(addr)</td>
+          <td style="text-align: left">获取addr处的指令文本</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dis.match(addr, str)</td>
+          <td style="text-align: left">判断addr处指令是否匹配正则表达式str.如是返回1,否则返回0</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="跟踪" class="heading-element"><span>跟踪</span>
   <a href="#%e8%b7%9f%e8%b8%aa" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">tr.enabled(addr)</td>
-<td style="text-align:left">判断addr是否启用了跟踪覆盖.如是返回1,否则返回0</td>
-</tr>
-<tr>
-<td style="text-align:left">tr.hitcount(addr)</td>
-<td style="text-align:left">判断addr是否已被跟踪覆盖.同上</td>
-</tr>
-<tr>
-<td style="text-align:left">tr.isrecording(),tr.runtraceenabled()</td>
-<td style="text-align:left">判断是否启用跟踪记录.同上</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">tr.enabled(addr)</td>
+          <td style="text-align: left">判断addr是否启用了跟踪覆盖.如是返回1,否则返回0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">tr.hitcount(addr)</td>
+          <td style="text-align: left">判断addr是否已被跟踪覆盖.同上</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">tr.isrecording(),tr.runtraceenabled()</td>
+          <td style="text-align: left">判断是否启用跟踪记录.同上</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="内存指针" class="heading-element"><span>内存指针</span>
   <a href="#%e5%86%85%e5%ad%98%e6%8c%87%e9%92%88" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">ReadByte(addr),Byte(addr),byte(addr)</td>
-<td style="text-align:left">从addr读取1字节并返回</td>
-</tr>
-<tr>
-<td style="text-align:left">ReadWord(addr),Word(addr),word(addr)</td>
-<td style="text-align:left">从addr读取2字节并返回</td>
-</tr>
-<tr>
-<td style="text-align:left">ReadDword(addr),Dword(addr),dword(addr)</td>
-<td style="text-align:left">从addr读取4字节并返回</td>
-</tr>
-<tr>
-<td style="text-align:left">ReadQword(addr),Qword(addr),qword(addr)</td>
-<td style="text-align:left">从addr读取8字节并返回(仅限x64)</td>
-</tr>
-<tr>
-<td style="text-align:left">ReadPtr(addr),ReadPointer(addr),ptr(addr),Pointer(addr),pointer(addr)</td>
-<td style="text-align:left">从addr读取一个指针(4/8字节)并返回</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">ReadByte(addr),Byte(addr),byte(addr)</td>
+          <td style="text-align: left">从addr读取1字节并返回</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ReadWord(addr),Word(addr),word(addr)</td>
+          <td style="text-align: left">从addr读取2字节并返回</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ReadDword(addr),Dword(addr),dword(addr)</td>
+          <td style="text-align: left">从addr读取4字节并返回</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ReadQword(addr),Qword(addr),qword(addr)</td>
+          <td style="text-align: left">从addr读取8字节并返回(仅限x64)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ReadPtr(addr),ReadPointer(addr),ptr(addr),Pointer(addr),pointer(addr)</td>
+          <td style="text-align: left">从addr读取一个指针(4/8字节)并返回</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="函数" class="heading-element"><span>函数</span>
   <a href="#%e5%87%bd%e6%95%b0" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">func.start(addr)</td>
-<td style="text-align:left">获取addr所在的函数头地址</td>
-</tr>
-<tr>
-<td style="text-align:left">func.end(addr)</td>
-<td style="text-align:left">获取addr所在的函数尾地址</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">func.start(addr)</td>
+          <td style="text-align: left">获取addr所在的函数头地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">func.end(addr)</td>
+          <td style="text-align: left">获取addr所在的函数尾地址</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="引用" class="heading-element"><span>引用</span>
   <a href="#%e5%bc%95%e7%94%a8" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">ref.count()</td>
-<td style="text-align:left">获取当前引用视图中的条目数</td>
-</tr>
-<tr>
-<td style="text-align:left">ref.addr(index)</td>
-<td style="text-align:left">获取index引用的地址</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">ref.count()</td>
+          <td style="text-align: left">获取当前引用视图中的条目数</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ref.addr(index)</td>
+          <td style="text-align: left">获取index引用的地址</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="参数" class="heading-element"><span>参数</span>
   <a href="#%e5%8f%82%e6%95%b0" class="heading-mark">
@@ -916,60 +903,60 @@
   </a>
 </h3><p>假设此时堆栈顶部为返回地址</p>
 <table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">arg.get(index)</td>
-<td style="text-align:left">获取第index参数(从0开始)</td>
-</tr>
-<tr>
-<td style="text-align:left">arg.set(index, value)</td>
-<td style="text-align:left">设置第index处的参数(从0开始)</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">arg.get(index)</td>
+          <td style="text-align: left">获取第index参数(从0开始)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">arg.set(index, value)</td>
+          <td style="text-align: left">设置第index处的参数(从0开始)</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="异常" class="heading-element"><span>异常</span>
   <a href="#%e5%bc%82%e5%b8%b8" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">ex.firstchance()</td>
-<td style="text-align:left">最后一个异常是否为首次偶发异常</td>
-</tr>
-<tr>
-<td style="text-align:left">ex.addr()</td>
-<td style="text-align:left">最后一个异常地址.即导致异常的指令地址</td>
-</tr>
-<tr>
-<td style="text-align:left">ex.code()</td>
-<td style="text-align:left">最后一个异常代码</td>
-</tr>
-<tr>
-<td style="text-align:left">ex.flags()</td>
-<td style="text-align:left">最后一个异常标志</td>
-</tr>
-<tr>
-<td style="text-align:left">ex.infocount()</td>
-<td style="text-align:left">最后一个异常信息计数(参数个数)</td>
-</tr>
-<tr>
-<td style="text-align:left">ex.info(index)</td>
-<td style="text-align:left">最后一个异常信息,如果索引超过范围则为0</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">ex.firstchance()</td>
+          <td style="text-align: left">最后一个异常是否为首次偶发异常</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ex.addr()</td>
+          <td style="text-align: left">最后一个异常地址.即导致异常的指令地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ex.code()</td>
+          <td style="text-align: left">最后一个异常代码</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ex.flags()</td>
+          <td style="text-align: left">最后一个异常标志</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ex.infocount()</td>
+          <td style="text-align: left">最后一个异常信息计数(参数个数)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ex.info(index)</td>
+          <td style="text-align: left">最后一个异常信息,如果索引超过范围则为0</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="插件" class="heading-element"><span>插件</span>
   <a href="#%e6%8f%92%e4%bb%b6" class="heading-mark">
@@ -1201,13 +1188,11 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{p:cip} {i:cip}</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">当使用跟踪步过时,即使条件为真,被调试对象也不会在已跳过的调用中暂停.如果需要暂停应使用跟踪步进</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">当使用跟踪步过时,即使条件为真,被调试对象也不会在已跳过的调用中暂停.如果需要暂停应使用跟踪步进</div>
   </div>
+</div>
 <h2 id="字符串格式" class="heading-element"><span>字符串格式</span>
   <a href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%a0%bc%e5%bc%8f" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -1226,155 +1211,155 @@
 </div>
 </div><p>简单类型如下:</p>
 <table>
-<thead>
-<tr>
-<th style="text-align:left">类型</th>
-<th style="text-align:left">含义</th>
-<th style="text-align:left">示例命令</th>
-<th style="text-align:left">结果</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">d</td>
-<td style="text-align:left">有符号十进制</td>
-<td style="text-align:left">log &ldquo;{d:FFFFFFFF}&rdquo;</td>
-<td style="text-align:left">-1</td>
-</tr>
-<tr>
-<td style="text-align:left">u</td>
-<td style="text-align:left">无符号十进制</td>
-<td style="text-align:left">log &ldquo;{u:FFFFFFFF}&rdquo;</td>
-<td style="text-align:left">4294967295</td>
-</tr>
-<tr>
-<td style="text-align:left">p</td>
-<td style="text-align:left">零前缀指针</td>
-<td style="text-align:left">log &ldquo;{p:0x401000}&rdquo;</td>
-<td style="text-align:left">00401000</td>
-</tr>
-<tr>
-<td style="text-align:left">s</td>
-<td style="text-align:left">字符串指针</td>
-<td style="text-align:left">log &ldquo;{s:0x402000}&rdquo;</td>
-<td style="text-align:left">&ldquo;Hello XiaLuoHun!&rdquo;</td>
-</tr>
-<tr>
-<td style="text-align:left">x</td>
-<td style="text-align:left">十六进制</td>
-<td style="text-align:left">log &ldquo;{x:0x10}&rdquo;</td>
-<td style="text-align:left">10</td>
-</tr>
-<tr>
-<td style="text-align:left">a</td>
-<td style="text-align:left">地址信息</td>
-<td style="text-align:left">log &ldquo;{a:0x401000}&rdquo;</td>
-<td style="text-align:left">x32dbg.00401000</td>
-</tr>
-<tr>
-<td style="text-align:left">i</td>
-<td style="text-align:left">输出汇编指令</td>
-<td style="text-align:left">log &ldquo;{i:0x405102}&rdquo;</td>
-<td style="text-align:left">call 0x0040B122</td>
-</tr>
-<tr>
-<td style="text-align:left">f</td>
-<td style="text-align:left">单精度浮点指针或寄存器</td>
-<td style="text-align:left">log &ldquo;{f:0x401000}&rdquo;</td>
-<td style="text-align:left">9.86338</td>
-</tr>
-<tr>
-<td style="text-align:left">F</td>
-<td style="text-align:left">双精度浮点指针或寄存器</td>
-<td style="text-align:left">log &ldquo;{F:0x401000}&rdquo;</td>
-<td style="text-align:left">3.72778552425271e-095</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">类型</th>
+          <th style="text-align: left">含义</th>
+          <th style="text-align: left">示例命令</th>
+          <th style="text-align: left">结果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">d</td>
+          <td style="text-align: left">有符号十进制</td>
+          <td style="text-align: left">log &ldquo;{d:FFFFFFFF}&rdquo;</td>
+          <td style="text-align: left">-1</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">u</td>
+          <td style="text-align: left">无符号十进制</td>
+          <td style="text-align: left">log &ldquo;{u:FFFFFFFF}&rdquo;</td>
+          <td style="text-align: left">4294967295</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">p</td>
+          <td style="text-align: left">零前缀指针</td>
+          <td style="text-align: left">log &ldquo;{p:0x401000}&rdquo;</td>
+          <td style="text-align: left">00401000</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">s</td>
+          <td style="text-align: left">字符串指针</td>
+          <td style="text-align: left">log &ldquo;{s:0x402000}&rdquo;</td>
+          <td style="text-align: left">&ldquo;Hello XiaLuoHun!&rdquo;</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">x</td>
+          <td style="text-align: left">十六进制</td>
+          <td style="text-align: left">log &ldquo;{x:0x10}&rdquo;</td>
+          <td style="text-align: left">10</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">a</td>
+          <td style="text-align: left">地址信息</td>
+          <td style="text-align: left">log &ldquo;{a:0x401000}&rdquo;</td>
+          <td style="text-align: left">x32dbg.00401000</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">i</td>
+          <td style="text-align: left">输出汇编指令</td>
+          <td style="text-align: left">log &ldquo;{i:0x405102}&rdquo;</td>
+          <td style="text-align: left">call 0x0040B122</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">f</td>
+          <td style="text-align: left">单精度浮点指针或寄存器</td>
+          <td style="text-align: left">log &ldquo;{f:0x401000}&rdquo;</td>
+          <td style="text-align: left">9.86338</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">F</td>
+          <td style="text-align: left">双精度浮点指针或寄存器</td>
+          <td style="text-align: left">log &ldquo;{F:0x401000}&rdquo;</td>
+          <td style="text-align: left">3.72778552425271e-095</td>
+      </tr>
+  </tbody>
 </table>
 <p>复杂类型如下:</p>
 <table>
-<thead>
-<tr>
-<th style="text-align:left">语法</th>
-<th style="text-align:left">含义</th>
-<th style="text-align:left">示例命令</th>
-<th style="text-align:left">结果</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">{mem;size@address}</td>
-<td style="text-align:left">从address开始打印size个字节</td>
-<td style="text-align:left">log &ldquo;{mem;2@0x400108}&rdquo;</td>
-<td style="text-align:left">504A</td>
-</tr>
-<tr>
-<td style="text-align:left">{winerror@code}</td>
-<td style="text-align:left">输出Windows错误码名称以及描述</td>
-<td style="text-align:left">log &ldquo;{winerror@0x5}&rdquo;</td>
-<td style="text-align:left">ERROR_ACCESS_DENIED:拒绝访问.</td>
-</tr>
-<tr>
-<td style="text-align:left">{ntstatus@code}</td>
-<td style="text-align:left">输出NTSTATUS错误码名称以及描述</td>
-<td style="text-align:left">log &ldquo;{ntstatus@0}&rdquo;</td>
-<td style="text-align:left">STATUS_SUCCESS:STATUS_SUCCESS</td>
-</tr>
-<tr>
-<td style="text-align:left">{ascii[;length]@address}</td>
-<td style="text-align:left">以ascii编码进行解析,从address开始打印length个字节</td>
-<td style="text-align:left">log &ldquo;{ascii;10@0x00402000}&rdquo;</td>
-<td style="text-align:left">Hello XiaLuoHun!</td>
-</tr>
-<tr>
-<td style="text-align:left">{ansi[;length]@address}</td>
-<td style="text-align:left">以ansi编码进行解析,从address开始打印length个字节</td>
-<td style="text-align:left">log &ldquo;{ansi;c@0x00402000}&rdquo;</td>
-<td style="text-align:left">Hello XiaLuo</td>
-</tr>
-<tr>
-<td style="text-align:left">{utf8[;length]@address}</td>
-<td style="text-align:left">以utf8编码进行解析,从address开始打印length个字节</td>
-<td style="text-align:left">log &ldquo;{utf8;10@0x00402000}&rdquo;</td>
-<td style="text-align:left">Hello XiaLuoHun!</td>
-</tr>
-<tr>
-<td style="text-align:left">{utf16[;length]@address}</td>
-<td style="text-align:left">以utf16编码进行解析,从address开始打印length个双字节</td>
-<td style="text-align:left">log &ldquo;{utf16;2@0x00405000}&rdquo;</td>
-<td style="text-align:left">He</td>
-</tr>
-<tr>
-<td style="text-align:left">{disasm@address}</td>
-<td style="text-align:left">输出address处的汇编,同{i:address}</td>
-<td style="text-align:left">log &ldquo;{disasm@0x405102}&rdquo;</td>
-<td style="text-align:left">call 0x0040B122</td>
-</tr>
-<tr>
-<td style="text-align:left">{modname@address}</td>
-<td style="text-align:left">输出address所属的模块名</td>
-<td style="text-align:left">log &ldquo;{modname@0x401000}&rdquo;</td>
-<td style="text-align:left">x32dbg.exe</td>
-</tr>
-<tr>
-<td style="text-align:left">log &ldquo;{bswap[;size]@value}&rdquo;</td>
-<td style="text-align:left">从value的低位开始倒数打印size个字节</td>
-<td style="text-align:left">log &ldquo;{bswap;1@0x12345678}&rdquo;</td>
-<td style="text-align:left">78</td>
-</tr>
-<tr>
-<td style="text-align:left">{label@address}</td>
-<td style="text-align:left">输出address处的标签</td>
-<td style="text-align:left">log &ldquo;{label@0x405102}&rdquo;</td>
-<td style="text-align:left">OptionalHeader.AddressOfEntryPoint</td>
-</tr>
-<tr>
-<td style="text-align:left">{comment@address}</td>
-<td style="text-align:left">输出address处的注释</td>
-<td style="text-align:left">log &ldquo;{comment@0x405107}&rdquo;</td>
-<td style="text-align:left">XiaLuoHun</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">语法</th>
+          <th style="text-align: left">含义</th>
+          <th style="text-align: left">示例命令</th>
+          <th style="text-align: left">结果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">{mem;size@address}</td>
+          <td style="text-align: left">从address开始打印size个字节</td>
+          <td style="text-align: left">log &ldquo;{mem;2@0x400108}&rdquo;</td>
+          <td style="text-align: left">504A</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">{winerror@code}</td>
+          <td style="text-align: left">输出Windows错误码名称以及描述</td>
+          <td style="text-align: left">log &ldquo;{winerror@0x5}&rdquo;</td>
+          <td style="text-align: left">ERROR_ACCESS_DENIED:拒绝访问.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">{ntstatus@code}</td>
+          <td style="text-align: left">输出NTSTATUS错误码名称以及描述</td>
+          <td style="text-align: left">log &ldquo;{ntstatus@0}&rdquo;</td>
+          <td style="text-align: left">STATUS_SUCCESS:STATUS_SUCCESS</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">{ascii[;length]@address}</td>
+          <td style="text-align: left">以ascii编码进行解析,从address开始打印length个字节</td>
+          <td style="text-align: left">log &ldquo;{ascii;10@0x00402000}&rdquo;</td>
+          <td style="text-align: left">Hello XiaLuoHun!</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">{ansi[;length]@address}</td>
+          <td style="text-align: left">以ansi编码进行解析,从address开始打印length个字节</td>
+          <td style="text-align: left">log &ldquo;{ansi;c@0x00402000}&rdquo;</td>
+          <td style="text-align: left">Hello XiaLuo</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">{utf8[;length]@address}</td>
+          <td style="text-align: left">以utf8编码进行解析,从address开始打印length个字节</td>
+          <td style="text-align: left">log &ldquo;{utf8;10@0x00402000}&rdquo;</td>
+          <td style="text-align: left">Hello XiaLuoHun!</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">{utf16[;length]@address}</td>
+          <td style="text-align: left">以utf16编码进行解析,从address开始打印length个双字节</td>
+          <td style="text-align: left">log &ldquo;{utf16;2@0x00405000}&rdquo;</td>
+          <td style="text-align: left">He</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">{disasm@address}</td>
+          <td style="text-align: left">输出address处的汇编,同{i:address}</td>
+          <td style="text-align: left">log &ldquo;{disasm@0x405102}&rdquo;</td>
+          <td style="text-align: left">call 0x0040B122</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">{modname@address}</td>
+          <td style="text-align: left">输出address所属的模块名</td>
+          <td style="text-align: left">log &ldquo;{modname@0x401000}&rdquo;</td>
+          <td style="text-align: left">x32dbg.exe</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">log &ldquo;{bswap[;size]@value}&rdquo;</td>
+          <td style="text-align: left">从value的低位开始倒数打印size个字节</td>
+          <td style="text-align: left">log &ldquo;{bswap;1@0x12345678}&rdquo;</td>
+          <td style="text-align: left">78</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">{label@address}</td>
+          <td style="text-align: left">输出address处的标签</td>
+          <td style="text-align: left">log &ldquo;{label@0x405102}&rdquo;</td>
+          <td style="text-align: left">OptionalHeader.AddressOfEntryPoint</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">{comment@address}</td>
+          <td style="text-align: left">输出address处的注释</td>
+          <td style="text-align: left">log &ldquo;{comment@0x405107}&rdquo;</td>
+          <td style="text-align: left">XiaLuoHun</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="参考链接" class="heading-element"><span>参考链接</span>
   <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
@@ -1403,8 +1388,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/java/arthas/" class="post-nav-item" rel="prev" title="Arthas"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Arthas</a>
-      <a href="/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" class="post-nav-item" rel="next" title="进入Unidbg的世界">进入Unidbg的世界<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/java/arthas/" class="post-nav-item" rel="prev" title="Arthas"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Arthas</a><a href="/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" class="post-nav-item" rel="next" title="进入Unidbg的世界">进入Unidbg的世界<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -1418,5 +1402,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

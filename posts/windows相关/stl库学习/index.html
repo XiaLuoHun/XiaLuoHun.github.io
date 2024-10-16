@@ -6,16 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>STL库学习   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="这里以VS2017 Release版本为示例: String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize; //字符串长度 size_t _Myres; //"><meta name="keywords" content='Windows'>
+<meta name="description" content="这里以VS2017 Release版本为示例:
+String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize;	//字符串长度 size_t _Myres;	//最大字符串长度 }; Vector(大小0xC) 1 2 3 4 5 6 struct vector { T* _Myfirst;	//数组起始地址 T* _Mylast; T* _Myend; }; Map(大小0x8) 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod(大小0x10 &#43; 键值对):
+"><meta name="keywords" content='Windows'>
   <meta itemprop="name" content="STL库学习">
-  <meta itemprop="description" content="这里以VS2017 Release版本为示例: String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize; //字符串长度 size_t _Myres; //">
+  <meta itemprop="description" content="这里以VS2017 Release版本为示例:
+String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize;	//字符串长度 size_t _Myres;	//最大字符串长度 }; Vector(大小0xC) 1 2 3 4 5 6 struct vector { T* _Myfirst;	//数组起始地址 T* _Mylast; T* _Myend; }; Map(大小0x8) 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod(大小0x10 &#43; 键值对):">
   <meta itemprop="datePublished" content="2020-10-10T00:00:00+00:00">
   <meta itemprop="dateModified" content="2020-10-10T00:00:00+00:00">
   <meta itemprop="wordCount" content="330">
   <meta itemprop="keywords" content="Windows"><meta property="og:url" content="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="STL库学习">
-  <meta property="og:description" content="这里以VS2017 Release版本为示例: String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize; //字符串长度 size_t _Myres; //">
+  <meta property="og:description" content="这里以VS2017 Release版本为示例:
+String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize;	//字符串长度 size_t _Myres;	//最大字符串长度 }; Vector(大小0xC) 1 2 3 4 5 6 struct vector { T* _Myfirst;	//数组起始地址 T* _Mylast; T* _Myend; }; Map(大小0x8) 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod(大小0x10 &#43; 键值对):">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -25,7 +29,8 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="STL库学习">
-  <meta name="twitter:description" content="这里以VS2017 Release版本为示例: String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize; //字符串长度 size_t _Myres; //">
+  <meta name="twitter:description" content="这里以VS2017 Release版本为示例:
+String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize;	//字符串长度 size_t _Myres;	//最大字符串长度 }; Vector(大小0xC) 1 2 3 4 5 6 struct vector { T* _Myfirst;	//数组起始地址 T* _Mylast; T* _Myend; }; Map(大小0x8) 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod(大小0x10 &#43; 键值对):">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" title="STL库学习   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/about/" title="" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/" title="IDAPython使用笔记" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -46,8 +51,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -182,14 +187,10 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#string大小0x18">String(大小0x18)</a></li>
-        <li><a href="#vector大小0xc">Vector(大小0xC)</a></li>
-        <li><a href="#map大小0x8">Map(大小0x8)</a></li>
-        <li><a href="#list大小0x8">List(大小0x8)</a></li>
-      </ul>
-    </li>
+    <li><a href="#string大小0x18">String(大小0x18)</a></li>
+    <li><a href="#vector大小0xc">Vector(大小0xC)</a></li>
+    <li><a href="#map大小0x8">Map(大小0x8)</a></li>
+    <li><a href="#list大小0x8">List(大小0x8)</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><p>这里以VS2017 Release版本为示例:</p>
@@ -342,8 +343,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav">
-      <a href="/posts/ida/idapython%E4%BD%BF%E7%94%A8/" class="post-nav-item" rel="next" title="IDAPython使用笔记">IDAPython使用笔记<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/ida/idapython%E4%BD%BF%E7%94%A8/" class="post-nav-item" rel="next" title="IDAPython使用笔记">IDAPython使用笔记<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -357,5 +357,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

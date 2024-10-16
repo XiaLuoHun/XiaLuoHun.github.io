@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>IDAPython使用笔记   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提供大量的实用函数,其中许多"><meta name="keywords" content='IDA'>
+<meta name="description" content="简介 IDAPython核心有如下3个Python模块:
+"><meta name="keywords" content='IDA'>
   <meta itemprop="name" content="IDAPython使用笔记">
-  <meta itemprop="description" content="简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提供大量的实用函数,其中许多">
+  <meta itemprop="description" content="简介 IDAPython核心有如下3个Python模块:">
   <meta itemprop="datePublished" content="2021-08-26T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-08-26T00:00:00+00:00">
   <meta itemprop="wordCount" content="12734">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="IDA"><meta property="og:url" content="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="IDAPython使用笔记">
-  <meta property="og:description" content="简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提供大量的实用函数,其中许多">
+  <meta property="og:description" content="简介 IDAPython核心有如下3个Python模块:">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png">
   <meta name="twitter:title" content="IDAPython使用笔记">
-  <meta name="twitter:description" content="简介 IDAPython核心有如下3个Python模块: idc:负责提供idc中所有的函数功能. idautils:提供大量的实用函数,其中许多">
+  <meta name="twitter:description" content="简介 IDAPython核心有如下3个Python模块:">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/" title="IDAPython使用笔记   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" title="STL库学习" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/arm/" title="Arm指令" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -190,32 +191,28 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#简介">简介</a></li>
-        <li><a href="#配置调试环境">配置调试环境</a></li>
-        <li><a href="#配置python代码自动补全">配置Python代码自动补全</a></li>
-        <li><a href="#基本操作">基本操作</a></li>
-        <li><a href="#段操作">段操作</a></li>
-        <li><a href="#函数">函数</a></li>
-        <li><a href="#指令">指令</a></li>
-        <li><a href="#操作数">操作数</a></li>
-        <li><a href="#交叉引用xrefs">交叉引用(Xrefs)</a></li>
-        <li><a href="#搜索">搜索</a></li>
-        <li><a href="#数据提取">数据提取</a></li>
-        <li><a href="#注释和重命名">注释和重命名</a></li>
-        <li><a href="#访问原始数据">访问原始数据</a></li>
-        <li><a href="#补丁">补丁</a></li>
-        <li><a href="#输入输出">输入输出</a></li>
-        <li><a href="#pyqt">PyQt</a></li>
-        <li><a href="#批生成文件">批生成文件</a></li>
-        <li><a href="#可执行脚本">可执行脚本</a></li>
-        <li><a href="#流程图">流程图</a></li>
-        <li><a href="#函数栈帧的访问">函数栈帧的访问</a></li>
-        <li><a href="#调试">调试</a></li>
-        <li><a href="#同类总结参考">同类总结参考</a></li>
-      </ul>
-    </li>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#配置调试环境">配置调试环境</a></li>
+    <li><a href="#配置python代码自动补全">配置Python代码自动补全</a></li>
+    <li><a href="#基本操作">基本操作</a></li>
+    <li><a href="#段操作">段操作</a></li>
+    <li><a href="#函数">函数</a></li>
+    <li><a href="#指令">指令</a></li>
+    <li><a href="#操作数">操作数</a></li>
+    <li><a href="#交叉引用xrefs">交叉引用(Xrefs)</a></li>
+    <li><a href="#搜索">搜索</a></li>
+    <li><a href="#数据提取">数据提取</a></li>
+    <li><a href="#注释和重命名">注释和重命名</a></li>
+    <li><a href="#访问原始数据">访问原始数据</a></li>
+    <li><a href="#补丁">补丁</a></li>
+    <li><a href="#输入输出">输入输出</a></li>
+    <li><a href="#pyqt">PyQt</a></li>
+    <li><a href="#批生成文件">批生成文件</a></li>
+    <li><a href="#可执行脚本">可执行脚本</a></li>
+    <li><a href="#流程图">流程图</a></li>
+    <li><a href="#函数栈帧的访问">函数栈帧的访问</a></li>
+    <li><a href="#调试">调试</a></li>
+    <li><a href="#同类总结参考">同类总结参考</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 id="简介" class="heading-element"><span>简介</span>
@@ -376,13 +373,11 @@
 </div>
 </div><p><img loading="lazy" src="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png" alt="VSCode调试" srcset="/posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png?size=small, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png?size=medium 1.5x, /posts/ida/idapython%E4%BD%BF%E7%94%A8/images/VSCode%E8%B0%83%E8%AF%95.png?size=large 2x" data-title="VSCode调试" style="--width: 723px;--aspect-ratio: 723 / 381;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">不要将breakpoint放到文件末尾,因为调试的时候,他会断在breakpoint的下条语句.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">不要将breakpoint放到文件末尾,因为调试的时候,他会断在breakpoint的下条语句.</div>
   </div>
+</div>
 <h2 id="配置python代码自动补全" class="heading-element"><span>配置Python代码自动补全</span>
   <a href="#%e9%85%8d%e7%bd%aepython%e4%bb%a3%e7%a0%81%e8%87%aa%e5%8a%a8%e8%a1%a5%e5%85%a8" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -2533,8 +2528,7 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" class="post-nav-item" rel="prev" title="STL库学习"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>STL库学习</a>
-      <a href="/posts/android/android%E5%9F%BA%E7%A1%80/arm/" class="post-nav-item" rel="next" title="Arm指令">Arm指令<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" class="post-nav-item" rel="prev" title="STL库学习"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>STL库学习</a><a href="/posts/android/android%E5%9F%BA%E7%A1%80/arm/" class="post-nav-item" rel="next" title="Arm指令">Arm指令<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -2548,5 +2542,5 @@ ea代表啥就不说了,flag代表搜索方向或者条件.flag有好几种不�
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

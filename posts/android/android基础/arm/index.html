@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Arm指令   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="基本概念 Arm处理器特点 体积小、低功耗、低成本、高性能. 支持Thumb(16位)/ARM(32位)双指令集,能很好的兼容8位/16位器件. 大"><meta name="keywords" content='Android'>
+<meta name="description" content="基本概念 Arm处理器特点 体积小、低功耗、低成本、高性能. 支持Thumb(16位)/ARM(32位)双指令集,能很好的兼容8位/16位器件. 大量使用寄存器,指令执行速度更快. 大多数数据操作都在寄存器中完成. 寻址方式灵活简单,执行效率高. 指令长度固定. 数据和指令类型 Arm约定数据长度如下:
+"><meta name="keywords" content='Android'>
   <meta itemprop="name" content="Arm指令">
-  <meta itemprop="description" content="基本概念 Arm处理器特点 体积小、低功耗、低成本、高性能. 支持Thumb(16位)/ARM(32位)双指令集,能很好的兼容8位/16位器件. 大">
+  <meta itemprop="description" content="基本概念 Arm处理器特点 体积小、低功耗、低成本、高性能. 支持Thumb(16位)/ARM(32位)双指令集,能很好的兼容8位/16位器件. 大量使用寄存器,指令执行速度更快. 大多数数据操作都在寄存器中完成. 寻址方式灵活简单,执行效率高. 指令长度固定. 数据和指令类型 Arm约定数据长度如下:">
   <meta itemprop="datePublished" content="2021-08-29T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-08-29T00:00:00+00:00">
   <meta itemprop="wordCount" content="8096">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="Android"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/arm/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="Arm指令">
-  <meta property="og:description" content="基本概念 Arm处理器特点 体积小、低功耗、低成本、高性能. 支持Thumb(16位)/ARM(32位)双指令集,能很好的兼容8位/16位器件. 大">
+  <meta property="og:description" content="基本概念 Arm处理器特点 体积小、低功耗、低成本、高性能. 支持Thumb(16位)/ARM(32位)双指令集,能很好的兼容8位/16位器件. 大量使用寄存器,指令执行速度更快. 大多数数据操作都在寄存器中完成. 寻址方式灵活简单,执行效率高. 指令长度固定. 数据和指令类型 Arm约定数据长度如下:">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/arm/images/Arm/Arm%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F1.png">
   <meta name="twitter:title" content="Arm指令">
-  <meta name="twitter:description" content="基本概念 Arm处理器特点 体积小、低功耗、低成本、高性能. 支持Thumb(16位)/ARM(32位)双指令集,能很好的兼容8位/16位器件. 大">
+  <meta name="twitter:description" content="基本概念 Arm处理器特点 体积小、低功耗、低成本、高性能. 支持Thumb(16位)/ARM(32位)双指令集,能很好的兼容8位/16位器件. 大量使用寄存器,指令执行速度更快. 大多数数据操作都在寄存器中完成. 寻址方式灵活简单,执行效率高. 指令长度固定. 数据和指令类型 Arm约定数据长度如下:">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/arm/" title="Arm指令   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/" title="IDAPython使用笔记" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/%E5%B9%B3%E5%8F%B0api/github/" title="Github Api调用" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -192,70 +193,66 @@
   <ul>
     <li>
       <ul>
-        <li>
+        <li><a href="#基本概念">基本概念</a>
           <ul>
-            <li><a href="#基本概念">基本概念</a>
-              <ul>
-                <li><a href="#arm处理器特点">Arm处理器特点</a></li>
-                <li><a href="#数据和指令类型">数据和指令类型</a></li>
-                <li><a href="#工作状态">工作状态</a></li>
-                <li><a href="#寄存器">寄存器</a></li>
-              </ul>
-            </li>
-            <li><a href="#编译环境">编译环境</a>
-              <ul>
-                <li><a href="#手工编译">手工编译</a></li>
-                <li><a href="#cmake编译">Cmake编译</a></li>
-                <li><a href="#ndk-build编译">ndk-build编译</a></li>
-              </ul>
-            </li>
-            <li><a href="#arm调试">Arm调试</a></li>
-            <li><a href="#寻址方式">寻址方式</a></li>
-            <li><a href="#arm指令格式">Arm指令格式</a></li>
-            <li><a href="#存储器访问指令">存储器访问指令</a>
-              <ul>
-                <li><a href="#单寄存器">单寄存器</a></li>
-                <li><a href="#多寄存器">多寄存器</a></li>
-                <li><a href="#寄存器和存储器交换">寄存器和存储器交换</a></li>
-              </ul>
-            </li>
-            <li><a href="#数据处理指令">数据处理指令</a>
-              <ul>
-                <li><a href="#指令编码">指令编码</a></li>
-                <li><a href="#操作码表">操作码表</a></li>
-                <li><a href="#数据传送指令">数据传送指令</a></li>
-                <li><a href="#算术逻辑运算指令">算术逻辑运算指令</a></li>
-                <li><a href="#逻辑指令">逻辑指令</a></li>
-                <li><a href="#比较指令">比较指令</a></li>
-                <li><a href="#乘法指令">乘法指令</a></li>
-                <li><a href="#除法指令">除法指令</a></li>
-              </ul>
-            </li>
-            <li><a href="#跳转指令">跳转指令</a>
-              <ul>
-                <li><a href="#条件码">条件码</a></li>
-                <li><a href="#指令编码-1">指令编码</a></li>
-                <li><a href="#ida静态分析切换指令集">IDA静态分析,切换指令集</a></li>
-                <li><a href="#指令示例">指令示例</a></li>
-              </ul>
-            </li>
-            <li><a href="#其他指令">其他指令</a>
-              <ul>
-                <li><a href="#中断指令">中断指令</a></li>
-                <li><a href="#伪指令">伪指令</a></li>
-              </ul>
-            </li>
-            <li><a href="#浮点指令">浮点指令</a></li>
-            <li><a href="#arm指令参考">Arm指令参考</a></li>
-            <li><a href="#arm应用">Arm应用</a>
-              <ul>
-                <li><a href="#内联汇编">内联汇编</a></li>
-                <li><a href="#裸函数">裸函数</a></li>
-                <li><a href="#混合编译">混合编译</a></li>
-                <li><a href="#调试">调试</a></li>
-                <li><a href="#代码注入">代码注入</a></li>
-              </ul>
-            </li>
+            <li><a href="#arm处理器特点">Arm处理器特点</a></li>
+            <li><a href="#数据和指令类型">数据和指令类型</a></li>
+            <li><a href="#工作状态">工作状态</a></li>
+            <li><a href="#寄存器">寄存器</a></li>
+          </ul>
+        </li>
+        <li><a href="#编译环境">编译环境</a>
+          <ul>
+            <li><a href="#手工编译">手工编译</a></li>
+            <li><a href="#cmake编译">Cmake编译</a></li>
+            <li><a href="#ndk-build编译">ndk-build编译</a></li>
+          </ul>
+        </li>
+        <li><a href="#arm调试">Arm调试</a></li>
+        <li><a href="#寻址方式">寻址方式</a></li>
+        <li><a href="#arm指令格式">Arm指令格式</a></li>
+        <li><a href="#存储器访问指令">存储器访问指令</a>
+          <ul>
+            <li><a href="#单寄存器">单寄存器</a></li>
+            <li><a href="#多寄存器">多寄存器</a></li>
+            <li><a href="#寄存器和存储器交换">寄存器和存储器交换</a></li>
+          </ul>
+        </li>
+        <li><a href="#数据处理指令">数据处理指令</a>
+          <ul>
+            <li><a href="#指令编码">指令编码</a></li>
+            <li><a href="#操作码表">操作码表</a></li>
+            <li><a href="#数据传送指令">数据传送指令</a></li>
+            <li><a href="#算术逻辑运算指令">算术逻辑运算指令</a></li>
+            <li><a href="#逻辑指令">逻辑指令</a></li>
+            <li><a href="#比较指令">比较指令</a></li>
+            <li><a href="#乘法指令">乘法指令</a></li>
+            <li><a href="#除法指令">除法指令</a></li>
+          </ul>
+        </li>
+        <li><a href="#跳转指令">跳转指令</a>
+          <ul>
+            <li><a href="#条件码">条件码</a></li>
+            <li><a href="#指令编码-1">指令编码</a></li>
+            <li><a href="#ida静态分析切换指令集">IDA静态分析,切换指令集</a></li>
+            <li><a href="#指令示例">指令示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#其他指令">其他指令</a>
+          <ul>
+            <li><a href="#中断指令">中断指令</a></li>
+            <li><a href="#伪指令">伪指令</a></li>
+          </ul>
+        </li>
+        <li><a href="#浮点指令">浮点指令</a></li>
+        <li><a href="#arm指令参考">Arm指令参考</a></li>
+        <li><a href="#arm应用">Arm应用</a>
+          <ul>
+            <li><a href="#内联汇编">内联汇编</a></li>
+            <li><a href="#裸函数">裸函数</a></li>
+            <li><a href="#混合编译">混合编译</a></li>
+            <li><a href="#调试">调试</a></li>
+            <li><a href="#代码注入">代码注入</a></li>
           </ul>
         </li>
       </ul>
@@ -284,45 +281,45 @@
   </a>
 </h4><p>Arm约定数据长度如下:</p>
 <table>
-<thead>
-<tr>
-<th style="text-align:left">byte(字节)</th>
-<th style="text-align:left">8bits</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Halfword(半字)</td>
-<td style="text-align:left">16bits</td>
-</tr>
-<tr>
-<td style="text-align:left">Word(字)</td>
-<td style="text-align:left">32bits</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">byte(字节)</th>
+          <th style="text-align: left">8bits</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Halfword(半字)</td>
+          <td style="text-align: left">16bits</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Word(字)</td>
+          <td style="text-align: left">32bits</td>
+      </tr>
+  </tbody>
 </table>
 <p>Arm指令集:</p>
 <table>
-<thead>
-<tr>
-<th style="text-align:left">指令集</th>
-<th style="text-align:left">指令长度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">thumb</td>
-<td style="text-align:left">2字节(16位)</td>
-</tr>
-<tr>
-<td style="text-align:left">arm</td>
-<td style="text-align:left">4字节(32位)</td>
-</tr>
-<tr>
-<td style="text-align:left">thumb2(常用)</td>
-<td style="text-align:left">2字节和4字节混合</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">指令集</th>
+          <th style="text-align: left">指令长度</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">thumb</td>
+          <td style="text-align: left">2字节(16位)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">arm</td>
+          <td style="text-align: left">4字节(32位)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">thumb2(常用)</td>
+          <td style="text-align: left">2字节和4字节混合</td>
+      </tr>
+  </tbody>
 </table>
 <h4 id="工作状态" class="heading-element"><span>工作状态</span>
   <a href="#%e5%b7%a5%e4%bd%9c%e7%8a%b6%e6%80%81" class="heading-mark">
@@ -1004,95 +1001,95 @@
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><table>
-<thead>
-<tr>
-<th>操作码</th>
-<th>指令助记符</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0000</td>
-<td>AND</td>
-<td>逻辑与操作指令</td>
-</tr>
-<tr>
-<td>0001</td>
-<td>EOR</td>
-<td>逻辑异或操作指令</td>
-</tr>
-<tr>
-<td>0010</td>
-<td>SUB</td>
-<td>减法运算指令</td>
-</tr>
-<tr>
-<td>0011</td>
-<td>RSB</td>
-<td>逆向减法指令</td>
-</tr>
-<tr>
-<td>0100</td>
-<td>ADD</td>
-<td>加法运算指令</td>
-</tr>
-<tr>
-<td>0101</td>
-<td>ADC</td>
-<td>带进位加法</td>
-</tr>
-<tr>
-<td>0110</td>
-<td>SBC</td>
-<td>带进位减法指令</td>
-</tr>
-<tr>
-<td>0111</td>
-<td>RSC</td>
-<td>带进位逆向减法指令</td>
-</tr>
-<tr>
-<td>1000</td>
-<td>TST</td>
-<td>位测试指令</td>
-</tr>
-<tr>
-<td>1001</td>
-<td>TEQ</td>
-<td>相等测试指令</td>
-</tr>
-<tr>
-<td>1010</td>
-<td>CMP</td>
-<td>比较指令</td>
-</tr>
-<tr>
-<td>1011</td>
-<td>CMN</td>
-<td>负数比较指令</td>
-</tr>
-<tr>
-<td>1100</td>
-<td>ORR</td>
-<td>逻辑或操作指令</td>
-</tr>
-<tr>
-<td>1101</td>
-<td>MOV</td>
-<td>数据传送</td>
-</tr>
-<tr>
-<td>1110</td>
-<td>BIC</td>
-<td>位清除指令</td>
-</tr>
-<tr>
-<td>1111</td>
-<td>MVN</td>
-<td>数据非传送</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>操作码</th>
+          <th>指令助记符</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0000</td>
+          <td>AND</td>
+          <td>逻辑与操作指令</td>
+      </tr>
+      <tr>
+          <td>0001</td>
+          <td>EOR</td>
+          <td>逻辑异或操作指令</td>
+      </tr>
+      <tr>
+          <td>0010</td>
+          <td>SUB</td>
+          <td>减法运算指令</td>
+      </tr>
+      <tr>
+          <td>0011</td>
+          <td>RSB</td>
+          <td>逆向减法指令</td>
+      </tr>
+      <tr>
+          <td>0100</td>
+          <td>ADD</td>
+          <td>加法运算指令</td>
+      </tr>
+      <tr>
+          <td>0101</td>
+          <td>ADC</td>
+          <td>带进位加法</td>
+      </tr>
+      <tr>
+          <td>0110</td>
+          <td>SBC</td>
+          <td>带进位减法指令</td>
+      </tr>
+      <tr>
+          <td>0111</td>
+          <td>RSC</td>
+          <td>带进位逆向减法指令</td>
+      </tr>
+      <tr>
+          <td>1000</td>
+          <td>TST</td>
+          <td>位测试指令</td>
+      </tr>
+      <tr>
+          <td>1001</td>
+          <td>TEQ</td>
+          <td>相等测试指令</td>
+      </tr>
+      <tr>
+          <td>1010</td>
+          <td>CMP</td>
+          <td>比较指令</td>
+      </tr>
+      <tr>
+          <td>1011</td>
+          <td>CMN</td>
+          <td>负数比较指令</td>
+      </tr>
+      <tr>
+          <td>1100</td>
+          <td>ORR</td>
+          <td>逻辑或操作指令</td>
+      </tr>
+      <tr>
+          <td>1101</td>
+          <td>MOV</td>
+          <td>数据传送</td>
+      </tr>
+      <tr>
+          <td>1110</td>
+          <td>BIC</td>
+          <td>位清除指令</td>
+      </tr>
+      <tr>
+          <td>1111</td>
+          <td>MVN</td>
+          <td>数据非传送</td>
+      </tr>
+  </tbody>
 </table>
 <h4 id="数据传送指令" class="heading-element"><span>数据传送指令</span>
   <a href="#%e6%95%b0%e6%8d%ae%e4%bc%a0%e9%80%81%e6%8c%87%e4%bb%a4" class="heading-mark">
@@ -2026,13 +2023,11 @@ ndk编程中不同指令集要包含不同路径下的unistd-common.h.</li>
 </div>
 </div><p><a href="/posts/android/android%E5%9F%BA%E7%A1%80/arm/Arm_LuoDebug.7z">Arm_LuoDebug.7z</a></p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">不是父子进程之间调试,就需要root权限.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">不是父子进程之间调试,就需要root权限.</div>
   </div>
+</div>
 <h4 id="代码注入" class="heading-element"><span>代码注入</span>
   <a href="#%e4%bb%a3%e7%a0%81%e6%b3%a8%e5%85%a5" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -2654,8 +2649,7 @@ ndk编程中不同指令集要包含不同路径下的unistd-common.h.</li>
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/ida/idapython%E4%BD%BF%E7%94%A8/" class="post-nav-item" rel="prev" title="IDAPython使用笔记"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>IDAPython使用笔记</a>
-      <a href="/posts/%E5%B9%B3%E5%8F%B0api/github/" class="post-nav-item" rel="next" title="Github Api调用">Github Api调用<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/ida/idapython%E4%BD%BF%E7%94%A8/" class="post-nav-item" rel="prev" title="IDAPython使用笔记"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>IDAPython使用笔记</a><a href="/posts/%E5%B9%B3%E5%8F%B0api/github/" class="post-nav-item" rel="next" title="Github Api调用">Github Api调用<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -2669,5 +2663,5 @@ ndk编程中不同指令集要包含不同路径下的unistd-common.h.</li>
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>LSPosed-Native层Hook   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="前言 使用Xposed进行Android App Native层Hook的方式需要借助第三方Hook库,且使用起来十分麻烦,LSPosed经过改良后,"><meta name="keywords" content='Lsposed'>
+<meta name="description" content="前言 使用Xposed进行Android App Native层Hook的方式需要借助第三方Hook库,且使用起来十分麻烦,LSPosed经过改良后,支持了Native层的Hook,使用流程十分简单.下面通过一个示例来展示下LSPosed Native层的Hook流程.
+"><meta name="keywords" content='Lsposed'>
   <meta itemprop="name" content="LSPosed-Native层Hook">
-  <meta itemprop="description" content="前言 使用Xposed进行Android App Native层Hook的方式需要借助第三方Hook库,且使用起来十分麻烦,LSPosed经过改良后,">
+  <meta itemprop="description" content="前言 使用Xposed进行Android App Native层Hook的方式需要借助第三方Hook库,且使用起来十分麻烦,LSPosed经过改良后,支持了Native层的Hook,使用流程十分简单.下面通过一个示例来展示下LSPosed Native层的Hook流程.">
   <meta itemprop="datePublished" content="2022-10-27T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-10-27T00:00:00+00:00">
   <meta itemprop="wordCount" content="1158">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="Lsposed"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android-hook/lsposed/lsposed-native%E5%B1%82hook/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="LSPosed-Native层Hook">
-  <meta property="og:description" content="前言 使用Xposed进行Android App Native层Hook的方式需要借助第三方Hook库,且使用起来十分麻烦,LSPosed经过改良后,">
+  <meta property="og:description" content="前言 使用Xposed进行Android App Native层Hook的方式需要借助第三方Hook库,且使用起来十分麻烦,LSPosed经过改良后,支持了Native层的Hook,使用流程十分简单.下面通过一个示例来展示下LSPosed Native层的Hook流程.">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/android-hook/lsposed/lsposed-native%E5%B1%82hook/images/%E6%B3%A8%E5%85%A5%E7%9A%84so%E6%96%87%E4%BB%B6.png">
   <meta name="twitter:title" content="LSPosed-Native层Hook">
-  <meta name="twitter:description" content="前言 使用Xposed进行Android App Native层Hook的方式需要借助第三方Hook库,且使用起来十分麻烦,LSPosed经过改良后,">
+  <meta name="twitter:description" content="前言 使用Xposed进行Android App Native层Hook的方式需要借助第三方Hook库,且使用起来十分麻烦,LSPosed经过改良后,支持了Native层的Hook,使用流程十分简单.下面通过一个示例来展示下LSPosed Native层的Hook流程.">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/android/android-hook/lsposed/lsposed-native%E5%B1%82hook/" title="LSPosed-Native层Hook   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/android/android-hook/lsposed/lsposed-hook%E5%8A%A0%E5%9B%BA%E5%BA%94%E7%94%A8/" title="LSPosed-Hook加固应用" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/android/android-rom/%E6%B7%BB%E5%8A%A0sdcard%E6%9D%83%E9%99%90/" title="给所有App添加sdcard权限" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -184,10 +185,7 @@
         <span class="collection-count">4</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
       <div class="details-content collection-content">
         <nav>
-          <ul class="collection-list">
-                <li class="collection-item"><a href="/posts/android/android-hook/lsposed/xposed%E5%92%8Clsposed%E5%AE%89%E8%A3%85/" title="Xposed和Lsposed安装">Xposed和Lsposed安装</a></li>
-                <li class="collection-item"><a href="/posts/android/android-hook/lsposed/lsposed-hook%E5%8A%A0%E5%9B%BA%E5%BA%94%E7%94%A8/" title="LSPosed-Hook加固应用">LSPosed-Hook加固应用</a></li>
-                <li class="collection-item"><a href="/posts/android/android-hook/lsposed/lsposed-java%E5%B1%82hook/" title="LSPosed-Java层Hook">LSPosed-Java层Hook</a></li><li class="collection-item"><span class="active" title="LSPosed-Native层Hook">LSPosed-Native层Hook</span></li></ul>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/android/android-hook/lsposed/xposed%E5%92%8Clsposed%E5%AE%89%E8%A3%85/" title="Xposed和Lsposed安装">Xposed和Lsposed安装</a></li><li class="collection-item"><a href="/posts/android/android-hook/lsposed/lsposed-hook%E5%8A%A0%E5%9B%BA%E5%BA%94%E7%94%A8/" title="LSPosed-Hook加固应用">LSPosed-Hook加固应用</a></li><li class="collection-item"><a href="/posts/android/android-hook/lsposed/lsposed-java%E5%B1%82hook/" title="LSPosed-Java层Hook">LSPosed-Java层Hook</a></li><li class="collection-item"><span class="active" title="LSPosed-Native层Hook">LSPosed-Native层Hook</span></li></ul>
           <div class="collection-nav-simple"><a href="/posts/android/android-hook/lsposed/lsposed-java%E5%B1%82hook/" class="collection-nav-item" rel="prev" title="LSPosed-Java层Hook"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></a><span class="text-secondary">4/4</span><i class="fa-solid fa-angle-right fa-fw collection-nav-item text-secondary" aria-hidden="true"></i></div>
         </nav>
       </div>
@@ -204,14 +202,10 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#前言">前言</a></li>
-        <li><a href="#测试apk">测试Apk</a></li>
-        <li><a href="#hook示例">Hook示例</a></li>
-        <li><a href="#参考链接">参考链接</a></li>
-      </ul>
-    </li>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#测试apk">测试Apk</a></li>
+    <li><a href="#hook示例">Hook示例</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 id="前言" class="heading-element"><span>前言</span>
@@ -653,8 +647,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/android/android-hook/lsposed/lsposed-hook%E5%8A%A0%E5%9B%BA%E5%BA%94%E7%94%A8/" class="post-nav-item" rel="prev" title="LSPosed-Hook加固应用"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>LSPosed-Hook加固应用</a>
-      <a href="/posts/android/android-rom/%E6%B7%BB%E5%8A%A0sdcard%E6%9D%83%E9%99%90/" class="post-nav-item" rel="next" title="给所有App添加sdcard权限">给所有App添加sdcard权限<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/android/android-hook/lsposed/lsposed-hook%E5%8A%A0%E5%9B%BA%E5%BA%94%E7%94%A8/" class="post-nav-item" rel="prev" title="LSPosed-Hook加固应用"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>LSPosed-Hook加固应用</a><a href="/posts/android/android-rom/%E6%B7%BB%E5%8A%A0sdcard%E6%9D%83%E9%99%90/" class="post-nav-item" rel="next" title="给所有App添加sdcard权限">给所有App添加sdcard权限<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -668,5 +661,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

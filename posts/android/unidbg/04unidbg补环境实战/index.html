@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Unidbg补环境实战   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="Unidbg Unidbg的作用是模拟执行so中的函数,处于Native层.而Java层的函数可以通过JNI调用Native层函数,那么Native层也"><meta name="keywords" content='Unidbg'>
+<meta name="description" content=" Unidbg Unidbg的作用是模拟执行so中的函数,处于Native层.而Java层的函数可以通过JNI调用Native层函数,那么Native层也可以通过JNI去调用Java层的函数.
+在Native层调用Java层函数的时候,因为Unidbg中没有这些函数的实现,模拟执行必然失败.故我们需要在Unidbg中补充这些Java层函数,让Native层的函数去调用.
+"><meta name="keywords" content='Unidbg'>
   <meta itemprop="name" content="Unidbg补环境实战">
-  <meta itemprop="description" content="Unidbg Unidbg的作用是模拟执行so中的函数,处于Native层.而Java层的函数可以通过JNI调用Native层函数,那么Native层也">
+  <meta itemprop="description" content="Unidbg Unidbg的作用是模拟执行so中的函数,处于Native层.而Java层的函数可以通过JNI调用Native层函数,那么Native层也可以通过JNI去调用Java层的函数.
+在Native层调用Java层函数的时候,因为Unidbg中没有这些函数的实现,模拟执行必然失败.故我们需要在Unidbg中补充这些Java层函数,让Native层的函数去调用.">
   <meta itemprop="datePublished" content="2024-07-10T00:00:00+00:00">
   <meta itemprop="dateModified" content="2024-07-10T00:00:00+00:00">
   <meta itemprop="wordCount" content="10872">
@@ -16,7 +19,8 @@
   <meta itemprop="keywords" content="Unidbg"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="Unidbg补环境实战">
-  <meta property="og:description" content="Unidbg Unidbg的作用是模拟执行so中的函数,处于Native层.而Java层的函数可以通过JNI调用Native层函数,那么Native层也">
+  <meta property="og:description" content="Unidbg Unidbg的作用是模拟执行so中的函数,处于Native层.而Java层的函数可以通过JNI调用Native层函数,那么Native层也可以通过JNI去调用Java层的函数.
+在Native层调用Java层函数的时候,因为Unidbg中没有这些函数的实现,模拟执行必然失败.故我们需要在Unidbg中补充这些Java层函数,让Native层的函数去调用.">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +32,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/images/Enumeration%E5%A4%84%E7%90%86%E9%80%BB%E8%BE%91.png">
   <meta name="twitter:title" content="Unidbg补环境实战">
-  <meta name="twitter:description" content="Unidbg Unidbg的作用是模拟执行so中的函数,处于Native层.而Java层的函数可以通过JNI调用Native层函数,那么Native层也">
+  <meta name="twitter:description" content="Unidbg Unidbg的作用是模拟执行so中的函数,处于Native层.而Java层的函数可以通过JNI调用Native层函数,那么Native层也可以通过JNI去调用Java层的函数.
+在Native层调用Java层函数的时候,因为Unidbg中没有这些函数的实现,模拟执行必然失败.故我们需要在Unidbg中补充这些Java层函数,让Native层的函数去调用.">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" title="Unidbg补环境实战   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/android/unidbg/03android-so%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B/" title="Android so-加载、链接、初始化流程" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/android/unidbg/06unidbg%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" title="Unidbg生产环境部署" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +59,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -184,9 +189,7 @@
         <span class="collection-count">3</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
       <div class="details-content collection-content">
         <nav>
-          <ul class="collection-list">
-                <li class="collection-item"><a href="/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" title="进入Unidbg的世界">进入Unidbg的世界</a></li><li class="collection-item"><span class="active" title="Unidbg补环境实战">Unidbg补环境实战</span></li>
-                <li class="collection-item"><a href="/posts/android/unidbg/06unidbg%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" title="Unidbg生产环境部署">Unidbg生产环境部署</a></li></ul>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" title="进入Unidbg的世界">进入Unidbg的世界</a></li><li class="collection-item"><span class="active" title="Unidbg补环境实战">Unidbg补环境实战</span></li><li class="collection-item"><a href="/posts/android/unidbg/06unidbg%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" title="Unidbg生产环境部署">Unidbg生产环境部署</a></li></ul>
           <div class="collection-nav-simple"><a href="/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" class="collection-nav-item" rel="prev" title="进入Unidbg的世界"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></a><span class="text-secondary">2/3</span><a href="/posts/android/unidbg/06unidbg%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" class="collection-nav-item" rel="next" title="Unidbg生产环境部署"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
         </nav>
       </div>
@@ -203,56 +206,50 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#补环境入门">补环境入门</a>
       <ul>
-        <li><a href="#补环境入门">补环境入门</a>
-          <ul>
-            <li><a href="#测试apk">测试Apk</a></li>
-            <li><a href="#模拟执行">模拟执行</a></li>
-          </ul>
-        </li>
-        <li><a href="#jni_onload">JNI_OnLoad</a>
-          <ul>
-            <li><a href="#测试apk-1">测试Apk</a></li>
-            <li><a href="#模拟执行-1">模拟执行</a></li>
-          </ul>
-        </li>
-        <li><a href="#文件标识">文件标识</a>
-          <ul>
-            <li><a href="#测试apk-2">测试Apk</a></li>
-            <li><a href="#detectfile">detectFile</a></li>
-            <li><a href="#detectfilenew">detectFileNew</a></li>
-          </ul>
-        </li>
-        <li><a href="#设备风控">设备风控</a>
-          <ul>
-            <li><a href="#测试apk-3">测试Apk</a></li>
-            <li><a href="#sysinfo">SysInfo</a></li>
-            <li><a href="#getappfilesdir">getAppFilesDir</a></li>
-          </ul>
-        </li>
-        <li><a href="#补环境加强">补环境加强</a>
-          <ul>
-            <li><a href="#测试apk-4">测试Apk</a></li>
-            <li><a href="#模拟执行-2">模拟执行</a></li>
-          </ul>
-        </li>
-        <li><a href="#补环境通用规则">补环境通用规则</a></li>
-        <li><a href="#参考链接">参考链接</a></li>
+        <li><a href="#测试apk">测试Apk</a></li>
+        <li><a href="#模拟执行">模拟执行</a></li>
       </ul>
     </li>
+    <li><a href="#jni_onload">JNI_OnLoad</a>
+      <ul>
+        <li><a href="#测试apk-1">测试Apk</a></li>
+        <li><a href="#模拟执行-1">模拟执行</a></li>
+      </ul>
+    </li>
+    <li><a href="#文件标识">文件标识</a>
+      <ul>
+        <li><a href="#测试apk-2">测试Apk</a></li>
+        <li><a href="#detectfile">detectFile</a></li>
+        <li><a href="#detectfilenew">detectFileNew</a></li>
+      </ul>
+    </li>
+    <li><a href="#设备风控">设备风控</a>
+      <ul>
+        <li><a href="#测试apk-3">测试Apk</a></li>
+        <li><a href="#sysinfo">SysInfo</a></li>
+        <li><a href="#getappfilesdir">getAppFilesDir</a></li>
+      </ul>
+    </li>
+    <li><a href="#补环境加强">补环境加强</a>
+      <ul>
+        <li><a href="#测试apk-4">测试Apk</a></li>
+        <li><a href="#模拟执行-2">模拟执行</a></li>
+      </ul>
+    </li>
+    <li><a href="#补环境通用规则">补环境通用规则</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><div class="details admonition info open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-info-circle fa-fw" aria-hidden="true"></i>Unidbg<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>Unidbg的作用是模拟执行so中的函数,处于Native层.而Java层的函数可以通过JNI调用Native层函数,那么Native层也可以通过JNI去调用Java层的函数.</p>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-circle-info" aria-hidden="true"></i>Unidbg<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><p>Unidbg的作用是模拟执行so中的函数,处于Native层.而Java层的函数可以通过JNI调用Native层函数,那么Native层也可以通过JNI去调用Java层的函数.</p>
 <p>在Native层调用Java层函数的时候,因为Unidbg中没有这些函数的实现,模拟执行必然失败.故我们需要在Unidbg中补充这些Java层函数,让Native层的函数去调用.</p>
 </div>
-    </div>
   </div>
+</div>
 <h2 id="补环境入门" class="heading-element"><span>补环境入门</span>
   <a href="#%e8%a1%a5%e7%8e%af%e5%a2%83%e5%85%a5%e9%97%a8" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -3208,13 +3205,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">在准备参数,发起函数调用时,Long类型的参数必须显示声明,即在整数后面加L,不能使用隐式声明.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">在准备参数,发起函数调用时,Long类型的参数必须显示声明,即在整数后面加L,不能使用隐式声明.</div>
   </div>
+</div>
 <ol start="2">
 <li>基本类型的包装类、字符串、基本类型数组、对象数组等直接传递,对象内部会做封装,也可以自己调用new StringPbject(vm, st)、new ByteArray(vm, value)等.</li>
 </ol>
@@ -3382,8 +3377,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/android/unidbg/03android-so%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B/" class="post-nav-item" rel="prev" title="Android So-加载、链接、初始化流程"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Android So-加载、链接、初始化流程</a>
-      <a href="/posts/android/unidbg/06unidbg%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" class="post-nav-item" rel="next" title="Unidbg生产环境部署">Unidbg生产环境部署<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/android/unidbg/03android-so%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B/" class="post-nav-item" rel="prev" title="Android So-加载、链接、初始化流程"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Android So-加载、链接、初始化流程</a><a href="/posts/android/unidbg/06unidbg%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" class="post-nav-item" rel="next" title="Unidbg生产环境部署">Unidbg生产环境部署<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -3397,5 +3391,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

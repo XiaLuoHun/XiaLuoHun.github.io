@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Http(s)网络框架分析   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="HttpURLConnection 开发流程 配置 需在AndroidManifest.xml文件赋予权限: 1 &lt;uses-permission android:name=&#34;android.permission.INTERNET&#34;/&gt; 布局 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt; &lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34; xmlns:tools=&#34;http://schemas.android.com/tools&#34; android:layout_width=&#34;match_parent&#34; android:layout_height=&#34;match_parent&#34; android:orientation=&#34;vertical&#34; android:gravity=&#34;center|center_horizontal|center_vertical&#34;"><meta name="keywords" content='抓包'>
+<meta name="description" content="HttpURLConnection 开发流程 配置 需在AndroidManifest.xml文件赋予权限:
+"><meta name="keywords" content='抓包'>
   <meta itemprop="name" content="Http(s)网络框架分析">
-  <meta itemprop="description" content="HttpURLConnection 开发流程 配置 需在AndroidManifest.xml文件赋予权限: 1 &lt;uses-permission android:name=&#34;android.permission.INTERNET&#34;/&gt; 布局 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt; &lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34; xmlns:tools=&#34;http://schemas.android.com/tools&#34; android:layout_width=&#34;match_parent&#34; android:layout_height=&#34;match_parent&#34; android:orientation=&#34;vertical&#34; android:gravity=&#34;center|center_horizontal|center_vertical&#34;">
+  <meta itemprop="description" content="HttpURLConnection 开发流程 配置 需在AndroidManifest.xml文件赋予权限:">
   <meta itemprop="datePublished" content="2022-05-29T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-05-29T00:00:00+00:00">
   <meta itemprop="wordCount" content="7680">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="抓包"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="Http(s)网络框架分析">
-  <meta property="og:description" content="HttpURLConnection 开发流程 配置 需在AndroidManifest.xml文件赋予权限: 1 &lt;uses-permission android:name=&#34;android.permission.INTERNET&#34;/&gt; 布局 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt; &lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34; xmlns:tools=&#34;http://schemas.android.com/tools&#34; android:layout_width=&#34;match_parent&#34; android:layout_height=&#34;match_parent&#34; android:orientation=&#34;vertical&#34; android:gravity=&#34;center|center_horizontal|center_vertical&#34;">
+  <meta property="og:description" content="HttpURLConnection 开发流程 配置 需在AndroidManifest.xml文件赋予权限:">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/images/Http%E5%9C%B0%E5%9D%80%E5%92%8C%E7%AB%AF%E5%8F%A3.png">
   <meta name="twitter:title" content="Http(s)网络框架分析">
-  <meta name="twitter:description" content="HttpURLConnection 开发流程 配置 需在AndroidManifest.xml文件赋予权限: 1 &lt;uses-permission android:name=&#34;android.permission.INTERNET&#34;/&gt; 布局 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt; &lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34; xmlns:tools=&#34;http://schemas.android.com/tools&#34; android:layout_width=&#34;match_parent&#34; android:layout_height=&#34;match_parent&#34; android:orientation=&#34;vertical&#34; android:gravity=&#34;center|center_horizontal|center_vertical&#34;">
+  <meta name="twitter:description" content="HttpURLConnection 开发流程 配置 需在AndroidManifest.xml文件赋予权限:">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/" title="Http(s)网络框架分析   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/" title="Objection使用" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/" title="AES" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -184,11 +185,7 @@
         <span class="collection-count">5</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
       <div class="details-content collection-content">
         <nav>
-          <ul class="collection-list">
-                <li class="collection-item"><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/" title="抓包详解">抓包详解</a></li><li class="collection-item"><span class="active" title="Http(s)网络框架分析">Http(s)网络框架分析</span></li>
-                <li class="collection-item"><a href="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/" title="SSL Pinning案例">SSL Pinning案例</a></li>
-                <li class="collection-item"><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/" title="双向校验案例">双向校验案例</a></li>
-                <li class="collection-item"><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/" title="网络通讯协议分析">网络通讯协议分析</a></li></ul>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/" title="抓包详解">抓包详解</a></li><li class="collection-item"><span class="active" title="Http(s)网络框架分析">Http(s)网络框架分析</span></li><li class="collection-item"><a href="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/" title="SSL Pinning案例">SSL Pinning案例</a></li><li class="collection-item"><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E5%8F%8C%E5%90%91%E6%A0%A1%E9%AA%8C%E6%A1%88%E4%BE%8B/" title="双向校验案例">双向校验案例</a></li><li class="collection-item"><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/" title="网络通讯协议分析">网络通讯协议分析</a></li></ul>
           <div class="collection-nav-simple"><a href="/posts/android/android%E6%8A%93%E5%8C%85/%E6%8A%93%E5%8C%85%E8%AF%A6%E8%A7%A3/" class="collection-nav-item" rel="prev" title="抓包详解"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></a><span class="text-secondary">2/5</span><a href="/posts/android/android%E6%8A%93%E5%8C%85/ssl-pinning%E6%A1%88%E4%BE%8B/" class="collection-nav-item" rel="next" title="SSL Pinning案例"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
         </nav>
       </div>
@@ -205,78 +202,74 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#httpurlconnection">HttpURLConnection</a>
       <ul>
-        <li><a href="#httpurlconnection">HttpURLConnection</a>
+        <li><a href="#开发流程">开发流程</a>
           <ul>
-            <li><a href="#开发流程">开发流程</a>
+            <li><a href="#配置">配置</a></li>
+            <li><a href="#布局">布局</a></li>
+            <li><a href="#代码">代码</a></li>
+          </ul>
+        </li>
+        <li><a href="#自吐脚本开发">&ldquo;自吐&quot;脚本开发</a>
+          <ul>
+            <li><a href="#hook-url">Hook URL</a></li>
+            <li><a href="#hook-httpurlconnection">Hook HttpURLConnection</a>
               <ul>
-                <li><a href="#配置">配置</a></li>
-                <li><a href="#布局">布局</a></li>
-                <li><a href="#代码">代码</a></li>
-              </ul>
-            </li>
-            <li><a href="#自吐脚本开发">&ldquo;自吐&quot;脚本开发</a>
-              <ul>
-                <li><a href="#hook-url">Hook URL</a></li>
-                <li><a href="#hook-httpurlconnection">Hook HttpURLConnection</a>
-                  <ul>
-                    <li><a href="#前期研究">前期研究</a></li>
-                    <li><a href="#自吐脚本">&ldquo;自吐&quot;脚本</a></li>
-                  </ul>
-                </li>
+                <li><a href="#前期研究">前期研究</a></li>
+                <li><a href="#自吐脚本">&ldquo;自吐&quot;脚本</a></li>
               </ul>
             </li>
           </ul>
         </li>
-        <li><a href="#okhttp3">okhttp3</a>
-          <ul>
-            <li><a href="#开发流程-1">开发流程</a>
-              <ul>
-                <li><a href="#配置-1">配置</a></li>
-                <li><a href="#布局-1">布局</a></li>
-                <li><a href="#代码-1">代码</a></li>
-              </ul>
-            </li>
-            <li><a href="#自吐脚本开发-1">&ldquo;自吐&quot;脚本开发</a>
-              <ul>
-                <li><a href="#初步研究">初步研究</a></li>
-                <li><a href="#okhttp拦截器机制">okhttp拦截器机制</a></li>
-                <li><a href="#进一步研究">进一步研究</a></li>
-                <li><a href="#hook方案">Hook方案</a></li>
-                <li><a href="#成果展示">成果展示</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="#终极自吐-socket">终极&quot;自吐&rdquo; Socket</a>
-          <ul>
-            <li><a href="#理论基础">理论基础</a></li>
-            <li><a href="#http">Http</a>
-              <ul>
-                <li><a href="#前期研究-1">前期研究</a></li>
-                <li><a href="#自吐脚本-1">&ldquo;自吐&quot;脚本</a></li>
-              </ul>
-            </li>
-            <li><a href="#https">Https</a>
-              <ul>
-                <li><a href="#前期研究-2">前期研究</a></li>
-                <li><a href="#自吐脚本-2">&ldquo;自吐&quot;脚本</a></li>
-              </ul>
-            </li>
-            <li><a href="#hookaddress">hookAddress</a>
-              <ul>
-                <li><a href="#前期研究-3">前期研究</a></li>
-                <li><a href="#自吐脚本-3">&ldquo;自吐&quot;脚本</a></li>
-              </ul>
-            </li>
-            <li><a href="#hooksocket汇总">hookSocket汇总</a></li>
-            <li><a href="#总结">总结</a></li>
-          </ul>
-        </li>
-        <li><a href="#参考链接">参考链接</a></li>
       </ul>
     </li>
+    <li><a href="#okhttp3">okhttp3</a>
+      <ul>
+        <li><a href="#开发流程-1">开发流程</a>
+          <ul>
+            <li><a href="#配置-1">配置</a></li>
+            <li><a href="#布局-1">布局</a></li>
+            <li><a href="#代码-1">代码</a></li>
+          </ul>
+        </li>
+        <li><a href="#自吐脚本开发-1">&ldquo;自吐&quot;脚本开发</a>
+          <ul>
+            <li><a href="#初步研究">初步研究</a></li>
+            <li><a href="#okhttp拦截器机制">okhttp拦截器机制</a></li>
+            <li><a href="#进一步研究">进一步研究</a></li>
+            <li><a href="#hook方案">Hook方案</a></li>
+            <li><a href="#成果展示">成果展示</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#终极自吐-socket">终极&quot;自吐&rdquo; Socket</a>
+      <ul>
+        <li><a href="#理论基础">理论基础</a></li>
+        <li><a href="#http">Http</a>
+          <ul>
+            <li><a href="#前期研究-1">前期研究</a></li>
+            <li><a href="#自吐脚本-1">&ldquo;自吐&quot;脚本</a></li>
+          </ul>
+        </li>
+        <li><a href="#https">Https</a>
+          <ul>
+            <li><a href="#前期研究-2">前期研究</a></li>
+            <li><a href="#自吐脚本-2">&ldquo;自吐&quot;脚本</a></li>
+          </ul>
+        </li>
+        <li><a href="#hookaddress">hookAddress</a>
+          <ul>
+            <li><a href="#前期研究-3">前期研究</a></li>
+            <li><a href="#自吐脚本-3">&ldquo;自吐&quot;脚本</a></li>
+          </ul>
+        </li>
+        <li><a href="#hooksocket汇总">hookSocket汇总</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 id="httpurlconnection" class="heading-element"><span>HttpURLConnection</span>
@@ -1230,13 +1223,11 @@
 </ol>
 <p><img loading="lazy" src="/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/images/%E6%8B%A6%E6%88%AA%E6%97%A5%E5%BF%971.png" alt="拦截日志1" srcset="/posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/images/%E6%8B%A6%E6%88%AA%E6%97%A5%E5%BF%971.png?size=small, /posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/images/%E6%8B%A6%E6%88%AA%E6%97%A5%E5%BF%971.png?size=medium 1.5x, /posts/android/android%E6%8A%93%E5%8C%85/hook%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%B9%8Bhttps%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90/images/%E6%8B%A6%E6%88%AA%E6%97%A5%E5%BF%971.png?size=large 2x" data-title="拦截日志1" style="--width: 2496px;--aspect-ratio: 2496 / 486;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">上述只打印了请求信息,并没有打印response.是因为此时response对象还需进一步处理.这些前人已经替我们完成了,okhttp官方还提供了一个日志拦截打印器(okhttp3:logging-interceptor).接下来对官方的代码稍作修改,并替换上述的LoggingInterceptor类即可.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">上述只打印了请求信息,并没有打印response.是因为此时response对象还需进一步处理.这些前人已经替我们完成了,okhttp官方还提供了一个日志拦截打印器(okhttp3:logging-interceptor).接下来对官方的代码稍作修改,并替换上述的LoggingInterceptor类即可.</div>
   </div>
+</div>
 <ol start="4">
 <li>下方的代码就是对头部信息进行处理,并添加对response的处理和打印.</li>
 </ol>
@@ -2365,8 +2356,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/" class="post-nav-item" rel="prev" title="Objection使用"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Objection使用</a>
-      <a href="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/" class="post-nav-item" rel="next" title="AES">AES<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/" class="post-nav-item" rel="prev" title="Objection使用"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Objection使用</a><a href="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/" class="post-nav-item" rel="next" title="AES">AES<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -2380,5 +2370,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>App加壳和脱壳   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="目前市场上不加壳的App很少见,可以说要想完成对一个App的逆向分析,脱壳是第一步! ClassLoader JVM的类加载器 三种类加载器: Bootstrap ClassLoader"><meta name="keywords" content='Android'>
+<meta name="description" content="目前市场上不加壳的App很少见,可以说要想完成对一个App的逆向分析,脱壳是第一步!
+ClassLoader JVM的类加载器 三种类加载器:
+"><meta name="keywords" content='Android'>
   <meta itemprop="name" content="App加壳和脱壳">
-  <meta itemprop="description" content="目前市场上不加壳的App很少见,可以说要想完成对一个App的逆向分析,脱壳是第一步! ClassLoader JVM的类加载器 三种类加载器: Bootstrap ClassLoader">
+  <meta itemprop="description" content="目前市场上不加壳的App很少见,可以说要想完成对一个App的逆向分析,脱壳是第一步!
+ClassLoader JVM的类加载器 三种类加载器:">
   <meta itemprop="datePublished" content="2021-12-15T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-12-15T00:00:00+00:00">
   <meta itemprop="wordCount" content="8887">
@@ -16,7 +19,8 @@
   <meta itemprop="keywords" content="Android"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/app%E5%8A%A0%E5%A3%B3%E5%92%8C%E8%84%B1%E5%A3%B3/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="App加壳和脱壳">
-  <meta property="og:description" content="目前市场上不加壳的App很少见,可以说要想完成对一个App的逆向分析,脱壳是第一步! ClassLoader JVM的类加载器 三种类加载器: Bootstrap ClassLoader">
+  <meta property="og:description" content="目前市场上不加壳的App很少见,可以说要想完成对一个App的逆向分析,脱壳是第一步!
+ClassLoader JVM的类加载器 三种类加载器:">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +32,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/app%E5%8A%A0%E5%A3%B3%E5%92%8C%E8%84%B1%E5%A3%B3/images/%E5%8A%A0%E5%A3%B3%E5%BA%94%E7%94%A8%E7%9A%84%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
   <meta name="twitter:title" content="App加壳和脱壳">
-  <meta name="twitter:description" content="目前市场上不加壳的App很少见,可以说要想完成对一个App的逆向分析,脱壳是第一步! ClassLoader JVM的类加载器 三种类加载器: Bootstrap ClassLoader">
+  <meta name="twitter:description" content="目前市场上不加壳的App很少见,可以说要想完成对一个App的逆向分析,脱壳是第一步!
+ClassLoader JVM的类加载器 三种类加载器:">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/app%E5%8A%A0%E5%A3%B3%E5%92%8C%E8%84%B1%E5%A3%B3/" title="App加壳和脱壳   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/vmware/" title="VMware内存修改" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/" title="x64Dbg之SearchAndReplaceMem" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +59,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -184,10 +189,7 @@
         <span class="collection-count">4</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
       <div class="details-content collection-content">
         <nav>
-          <ul class="collection-list"><li class="collection-item"><span class="active" title="App加壳和脱壳">App加壳和脱壳</span></li>
-                <li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" title="Android脱壳核心原理">Android脱壳核心原理</a></li>
-                <li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" title="Fart流程和原理分析">Fart流程和原理分析</a></li>
-                <li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" title="Android-DexVMP快速分析">Android-DexVMP快速分析</a></li></ul>
+          <ul class="collection-list"><li class="collection-item"><span class="active" title="App加壳和脱壳">App加壳和脱壳</span></li><li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" title="Android脱壳核心原理">Android脱壳核心原理</a></li><li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" title="Fart流程和原理分析">Fart流程和原理分析</a></li><li class="collection-item"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" title="Android-DexVMP快速分析">Android-DexVMP快速分析</a></li></ul>
           <div class="collection-nav-simple"><i class="fa-solid fa-angle-left fa-fw collection-nav-item text-secondary" aria-hidden="true"></i><span class="text-secondary">1/4</span><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" class="collection-nav-item" rel="next" title="Android脱壳核心原理"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
         </nav>
       </div>
@@ -204,54 +206,50 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#classloader">ClassLoader</a>
       <ul>
-        <li><a href="#classloader">ClassLoader</a>
-          <ul>
-            <li><a href="#jvm的类加载器">JVM的类加载器</a></li>
-            <li><a href="#android的类加载器">Android的类加载器</a></li>
-          </ul>
-        </li>
-        <li><a href="#动态加载示例">动态加载示例</a></li>
-        <li><a href="#加壳app运行流程">加壳App运行流程</a>
-          <ul>
-            <li><a href="#app启动流程">App启动流程</a></li>
-            <li><a href="#app运行流程">App运行流程</a></li>
-            <li><a href="#加壳应用的运行流程">加壳应用的运行流程</a></li>
-          </ul>
-        </li>
-        <li><a href="#生命周期类处理">生命周期类处理</a></li>
-        <li><a href="#加壳技术">加壳技术</a>
-          <ul>
-            <li><a href="#发展">发展</a></li>
-            <li><a href="#识别">识别</a></li>
-            <li><a href="#各种壳解决方案">各种壳解决方案</a></li>
-          </ul>
-        </li>
-        <li><a href="#一代壳dex整体加固">一代壳(Dex整体加固)</a>
-          <ul>
-            <li><a href="#dalvik">Dalvik</a></li>
-            <li><a href="#art">ART</a></li>
-          </ul>
-        </li>
-        <li><a href="#二代壳函数抽取">二代壳(函数抽取)</a>
-          <ul>
-            <li><a href="#dalvik-1">Dalvik</a></li>
-            <li><a href="#art-1">ART</a></li>
-          </ul>
-        </li>
-        <li><a href="#fart演变">Fart演变</a>
-          <ul>
-            <li><a href="#v10-classloader中dump">V1.0 Classloader中Dump</a></li>
-            <li><a href="#v20-海量的脱壳点">V2.0 &ldquo;海量&quot;的脱壳点</a></li>
-            <li><a href="#v30-优中选优">V3.0 优中选优</a></li>
-            <li><a href="#v40-双保险">V4.0 双保险</a></li>
-          </ul>
-        </li>
-        <li><a href="#youpk">Youpk</a></li>
-        <li><a href="#参考链接">参考链接</a></li>
+        <li><a href="#jvm的类加载器">JVM的类加载器</a></li>
+        <li><a href="#android的类加载器">Android的类加载器</a></li>
       </ul>
     </li>
+    <li><a href="#动态加载示例">动态加载示例</a></li>
+    <li><a href="#加壳app运行流程">加壳App运行流程</a>
+      <ul>
+        <li><a href="#app启动流程">App启动流程</a></li>
+        <li><a href="#app运行流程">App运行流程</a></li>
+        <li><a href="#加壳应用的运行流程">加壳应用的运行流程</a></li>
+      </ul>
+    </li>
+    <li><a href="#生命周期类处理">生命周期类处理</a></li>
+    <li><a href="#加壳技术">加壳技术</a>
+      <ul>
+        <li><a href="#发展">发展</a></li>
+        <li><a href="#识别">识别</a></li>
+        <li><a href="#各种壳解决方案">各种壳解决方案</a></li>
+      </ul>
+    </li>
+    <li><a href="#一代壳dex整体加固">一代壳(Dex整体加固)</a>
+      <ul>
+        <li><a href="#dalvik">Dalvik</a></li>
+        <li><a href="#art">ART</a></li>
+      </ul>
+    </li>
+    <li><a href="#二代壳函数抽取">二代壳(函数抽取)</a>
+      <ul>
+        <li><a href="#dalvik-1">Dalvik</a></li>
+        <li><a href="#art-1">ART</a></li>
+      </ul>
+    </li>
+    <li><a href="#fart演变">Fart演变</a>
+      <ul>
+        <li><a href="#v10-classloader中dump">V1.0 Classloader中Dump</a></li>
+        <li><a href="#v20-海量的脱壳点">V2.0 &ldquo;海量&quot;的脱壳点</a></li>
+        <li><a href="#v30-优中选优">V3.0 优中选优</a></li>
+        <li><a href="#v40-双保险">V4.0 双保险</a></li>
+      </ul>
+    </li>
+    <li><a href="#youpk">Youpk</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><p>目前市场上不加壳的App很少见,可以说要想完成对一个App的逆向分析,脱壳是第一步!</p>
@@ -1125,30 +1123,30 @@
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><table>
-<thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:left">是否Native化</th>
-<th style="text-align:left">函数体无效</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">函数抽取类壳</td>
-<td style="text-align:left">✘</td>
-<td style="text-align:left">✔</td>
-</tr>
-<tr>
-<td style="text-align:left">VMP壳</td>
-<td style="text-align:left">✔</td>
-<td style="text-align:left">Native化</td>
-</tr>
-<tr>
-<td style="text-align:left">Dex2C壳</td>
-<td style="text-align:left">✔</td>
-<td style="text-align:left">Native化</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left"></th>
+          <th style="text-align: left">是否Native化</th>
+          <th style="text-align: left">函数体无效</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">函数抽取类壳</td>
+          <td style="text-align: left">✘</td>
+          <td style="text-align: left">✔</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">VMP壳</td>
+          <td style="text-align: left">✔</td>
+          <td style="text-align: left">Native化</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Dex2C壳</td>
+          <td style="text-align: left">✔</td>
+          <td style="text-align: left">Native化</td>
+      </tr>
+  </tbody>
 </table>
 <p>VMP和Dex2C的区分:</p>
 <p><strong>VMP</strong>:核心原理是Dalvik和Art下的解释器,对Smali指令流的解析执行过程.</p>
@@ -1156,25 +1154,25 @@
 <p><strong>Dex2C</strong>:将Java函数转成C函数.</p>
 <p>可参考:https://github.com/amimo/dcc</p>
 <table>
-<thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:left">注册地址是否相同</th>
-<th style="text-align:left">函数逻辑是否相似</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">VMP壳</td>
-<td style="text-align:left">✔</td>
-<td style="text-align:left">✔</td>
-</tr>
-<tr>
-<td style="text-align:left">Dex2C壳</td>
-<td style="text-align:left">✘</td>
-<td style="text-align:left">✘</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left"></th>
+          <th style="text-align: left">注册地址是否相同</th>
+          <th style="text-align: left">函数逻辑是否相似</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">VMP壳</td>
+          <td style="text-align: left">✔</td>
+          <td style="text-align: left">✔</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Dex2C壳</td>
+          <td style="text-align: left">✘</td>
+          <td style="text-align: left">✘</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="各种壳解决方案" class="heading-element"><span>各种壳解决方案</span>
   <a href="#%e5%90%84%e7%a7%8d%e5%a3%b3%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" class="heading-mark">
@@ -2048,8 +2046,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/vmware/" class="post-nav-item" rel="prev" title="VMware内存修改"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>VMware内存修改</a>
-      <a href="/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/" class="post-nav-item" rel="next" title="X64Dbg之SearchAndReplaceMem">X64Dbg之SearchAndReplaceMem<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/vmware/" class="post-nav-item" rel="prev" title="VMware内存修改"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>VMware内存修改</a><a href="/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/" class="post-nav-item" rel="next" title="X64Dbg之SearchAndReplaceMem">X64Dbg之SearchAndReplaceMem<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -2063,5 +2060,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

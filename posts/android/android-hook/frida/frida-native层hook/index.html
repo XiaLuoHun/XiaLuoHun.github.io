@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Frida-Native层Hook   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="概述 1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr,"><meta name="keywords" content='Frida'>
+<meta name="description" content="概述 1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr, callbacks) Interceptor.attach(addr, { onEnter(args) { //在函数调用前产生的回调,在这个函数中可以处理函数参数的相关内容. //被Hook的函数参数内容是以数组的方式存储在args中. }, onLeave(retval) { //在被Hook的目标函数执行完成后执行的函数. //被Hook的函数返回值用retval变量来表示. } }); 要实现对一个native层函数的Hook,最重要的就是找到该函数的首地址.
+"><meta name="keywords" content='Frida'>
   <meta itemprop="name" content="Frida-Native层Hook">
-  <meta itemprop="description" content="概述 1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr,">
+  <meta itemprop="description" content="概述 1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr, callbacks) Interceptor.attach(addr, { onEnter(args) { //在函数调用前产生的回调,在这个函数中可以处理函数参数的相关内容. //被Hook的函数参数内容是以数组的方式存储在args中. }, onLeave(retval) { //在被Hook的目标函数执行完成后执行的函数. //被Hook的函数返回值用retval变量来表示. } }); 要实现对一个native层函数的Hook,最重要的就是找到该函数的首地址.">
   <meta itemprop="datePublished" content="2021-11-25T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-11-25T00:00:00+00:00">
   <meta itemprop="wordCount" content="2405">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="Frida"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android-hook/frida/frida-native%E5%B1%82hook/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="Frida-Native层Hook">
-  <meta property="og:description" content="概述 1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr,">
+  <meta property="og:description" content="概述 1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr, callbacks) Interceptor.attach(addr, { onEnter(args) { //在函数调用前产生的回调,在这个函数中可以处理函数参数的相关内容. //被Hook的函数参数内容是以数组的方式存储在args中. }, onLeave(retval) { //在被Hook的目标函数执行完成后执行的函数. //被Hook的函数返回值用retval变量来表示. } }); 要实现对一个native层函数的Hook,最重要的就是找到该函数的首地址.">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/android-hook/frida/frida-native%E5%B1%82hook/images/NativeHook%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C1.png">
   <meta name="twitter:title" content="Frida-Native层Hook">
-  <meta name="twitter:description" content="概述 1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr,">
+  <meta name="twitter:description" content="概述 1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr, callbacks) Interceptor.attach(addr, { onEnter(args) { //在函数调用前产生的回调,在这个函数中可以处理函数参数的相关内容. //被Hook的函数参数内容是以数组的方式存储在args中. }, onLeave(retval) { //在被Hook的目标函数执行完成后执行的函数. //被Hook的函数返回值用retval变量来表示. } }); 要实现对一个native层函数的Hook,最重要的就是找到该函数的首地址.">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/android/android-hook/frida/frida-native%E5%B1%82hook/" title="Frida-Native层Hook   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kali%E9%85%8D%E7%BD%AE/" title="Kali配置" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" title="Frida-Java层Hook" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -184,12 +185,7 @@
         <span class="collection-count">6</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
       <div class="details-content collection-content">
         <nav>
-          <ul class="collection-list">
-                <li class="collection-item"><a href="/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" title="Frida-Java层Hook">Frida-Java层Hook</a></li><li class="collection-item"><span class="active" title="Frida-Native层Hook">Frida-Native层Hook</span></li>
-                <li class="collection-item"><a href="/posts/android/android-hook/frida/frida%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E4%B8%8Erpc/" title="Frida主动调用与RPC">Frida主动调用与RPC</a></li>
-                <li class="collection-item"><a href="/posts/android/android-hook/frida/frida-hook%E5%A4%A7%E5%85%A8/" title="Frida Hook大全">Frida Hook大全</a></li>
-                <li class="collection-item"><a href="/posts/android/android-hook/frida/frida%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/" title="Frida源码编译">Frida源码编译</a></li>
-                <li class="collection-item"><a href="/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/" title="Objection使用">Objection使用</a></li></ul>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" title="Frida-Java层Hook">Frida-Java层Hook</a></li><li class="collection-item"><span class="active" title="Frida-Native层Hook">Frida-Native层Hook</span></li><li class="collection-item"><a href="/posts/android/android-hook/frida/frida%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E4%B8%8Erpc/" title="Frida主动调用与RPC">Frida主动调用与RPC</a></li><li class="collection-item"><a href="/posts/android/android-hook/frida/frida-hook%E5%A4%A7%E5%85%A8/" title="Frida Hook大全">Frida Hook大全</a></li><li class="collection-item"><a href="/posts/android/android-hook/frida/frida%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/" title="Frida源码编译">Frida源码编译</a></li><li class="collection-item"><a href="/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/" title="Objection使用">Objection使用</a></li></ul>
           <div class="collection-nav-simple"><a href="/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" class="collection-nav-item" rel="prev" title="Frida-Java层Hook"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></a><span class="text-secondary">2/6</span><a href="/posts/android/android-hook/frida/frida%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E4%B8%8Erpc/" class="collection-nav-item" rel="next" title="Frida主动调用与RPC"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
         </nav>
       </div>
@@ -206,22 +202,18 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#native层函数导出">Native层函数导出</a>
       <ul>
-        <li><a href="#概述">概述</a></li>
-        <li><a href="#native层函数导出">Native层函数导出</a>
-          <ul>
-            <li><a href="#测试apk">测试Apk</a></li>
-            <li><a href="#hook示例">Hook示例</a></li>
-          </ul>
-        </li>
-        <li><a href="#native层函数未导出">Native层函数未导出</a>
-          <ul>
-            <li><a href="#动态注册的函数">动态注册的函数</a></li>
-            <li><a href="#测试apk-1">测试Apk</a></li>
-            <li><a href="#hook示例-1">Hook示例</a></li>
-          </ul>
-        </li>
+        <li><a href="#测试apk">测试Apk</a></li>
+        <li><a href="#hook示例">Hook示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#native层函数未导出">Native层函数未导出</a>
+      <ul>
+        <li><a href="#动态注册的函数">动态注册的函数</a></li>
+        <li><a href="#测试apk-1">测试Apk</a></li>
+        <li><a href="#hook示例-1">Hook示例</a></li>
       </ul>
     </li>
   </ul>
@@ -741,13 +733,11 @@
 </span></span><span class="line"><span class="cl"><span class="nx">setImmediate</span><span class="p">(</span><span class="nx">main</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">虽然每次重新运行App时,函数的偏移地址是不会改变的,但是这是建立在App未被重新编译的基础上.如果在一次运行后App代码发生修改,并重新在AndroidStudio中编译运行,那么新的App函数的偏移地址是会发生改变的,此时应重新使用hook_RegisterNatives.js脚本获取相应函数的新偏移值并修改Hook脚本,然后再进行注入.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">虽然每次重新运行App时,函数的偏移地址是不会改变的,但是这是建立在App未被重新编译的基础上.如果在一次运行后App代码发生修改,并重新在AndroidStudio中编译运行,那么新的App函数的偏移地址是会发生改变的,此时应重新使用hook_RegisterNatives.js脚本获取相应函数的新偏移值并修改Hook脚本,然后再进行注入.</div>
   </div>
+</div>
 </div><hr class="awesome-hr" />
     <h2 id="see-also">相关内容</h2>
     <ul><li>
@@ -770,8 +760,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kali%E9%85%8D%E7%BD%AE/" class="post-nav-item" rel="prev" title="Kali配置"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Kali配置</a>
-      <a href="/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" class="post-nav-item" rel="next" title="Frida-Java层Hook">Frida-Java层Hook<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kali%E9%85%8D%E7%BD%AE/" class="post-nav-item" rel="prev" title="Kali配置"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Kali配置</a><a href="/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" class="post-nav-item" rel="next" title="Frida-Java层Hook">Frida-Java层Hook<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -785,5 +774,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

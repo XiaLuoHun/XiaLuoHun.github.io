@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Android So-加载、链接、初始化流程   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="初探Linker 当我们使用Android Studio进行NDK开发时,先在Java类中编写native方法的声明,之后在cpp文件中编写相应"><meta name="keywords" content='Unidbg'>
+<meta name="description" content="初探Linker 当我们使用Android Studio进行NDK开发时,先在Java类中编写native方法的声明,之后在cpp文件中编写相应函数的实现,最后根据CMakeLists.txt将cpp代码编译为so,并在Java类中使用System.loadLibrary方法将Apk安装包中lib目录下相应架构的so文件载入内存.那该方法如何将so文件载入内存? 这需要我们深入源码来探究它内部的代码逻辑.
+"><meta name="keywords" content='Unidbg'>
   <meta itemprop="name" content="Android so-加载、链接、初始化流程">
-  <meta itemprop="description" content="初探Linker 当我们使用Android Studio进行NDK开发时,先在Java类中编写native方法的声明,之后在cpp文件中编写相应">
+  <meta itemprop="description" content="初探Linker 当我们使用Android Studio进行NDK开发时,先在Java类中编写native方法的声明,之后在cpp文件中编写相应函数的实现,最后根据CMakeLists.txt将cpp代码编译为so,并在Java类中使用System.loadLibrary方法将Apk安装包中lib目录下相应架构的so文件载入内存.那该方法如何将so文件载入内存? 这需要我们深入源码来探究它内部的代码逻辑.">
   <meta itemprop="datePublished" content="2024-06-29T00:00:00+00:00">
   <meta itemprop="dateModified" content="2024-06-29T00:00:00+00:00">
   <meta itemprop="wordCount" content="6636">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="Unidbg"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/unidbg/03android-so%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="Android so-加载、链接、初始化流程">
-  <meta property="og:description" content="初探Linker 当我们使用Android Studio进行NDK开发时,先在Java类中编写native方法的声明,之后在cpp文件中编写相应">
+  <meta property="og:description" content="初探Linker 当我们使用Android Studio进行NDK开发时,先在Java类中编写native方法的声明,之后在cpp文件中编写相应函数的实现,最后根据CMakeLists.txt将cpp代码编译为so,并在Java类中使用System.loadLibrary方法将Apk安装包中lib目录下相应架构的so文件载入内存.那该方法如何将so文件载入内存? 这需要我们深入源码来探究它内部的代码逻辑.">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/unidbg/03android-so%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B/images/loadlibrary%E5%85%A5%E5%8F%A3.png">
   <meta name="twitter:title" content="Android so-加载、链接、初始化流程">
-  <meta name="twitter:description" content="初探Linker 当我们使用Android Studio进行NDK开发时,先在Java类中编写native方法的声明,之后在cpp文件中编写相应">
+  <meta name="twitter:description" content="初探Linker 当我们使用Android Studio进行NDK开发时,先在Java类中编写native方法的声明,之后在cpp文件中编写相应函数的实现,最后根据CMakeLists.txt将cpp代码编译为so,并在Java类中使用System.loadLibrary方法将Apk安装包中lib目录下相应架构的so文件载入内存.那该方法如何将so文件载入内存? 这需要我们深入源码来探究它内部的代码逻辑.">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/android/unidbg/03android-so%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B/" title="Android so-加载、链接、初始化流程   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" title="进入Unidbg的世界" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" title="Unidbg补环境实战" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -190,24 +191,20 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#初探linker">初探Linker</a>
       <ul>
-        <li><a href="#初探linker">初探Linker</a>
-          <ul>
-            <li><a href="#java层代码跟踪">Java层代码跟踪</a></li>
-            <li><a href="#native层代码跟踪">Native层代码跟踪</a></li>
-          </ul>
-        </li>
-        <li><a href="#深入linker">深入Linker</a>
-          <ul>
-            <li><a href="#so加载">so加载</a></li>
-            <li><a href="#so链接">so链接</a></li>
-            <li><a href="#so初始化">so初始化</a></li>
-          </ul>
-        </li>
-        <li><a href="#参考链接">参考链接</a></li>
+        <li><a href="#java层代码跟踪">Java层代码跟踪</a></li>
+        <li><a href="#native层代码跟踪">Native层代码跟踪</a></li>
       </ul>
     </li>
+    <li><a href="#深入linker">深入Linker</a>
+      <ul>
+        <li><a href="#so加载">so加载</a></li>
+        <li><a href="#so链接">so链接</a></li>
+        <li><a href="#so初始化">so初始化</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 id="初探linker" class="heading-element"><span>初探Linker</span>
@@ -794,13 +791,11 @@
 </div>
 </div><p>该函数主要是计算处so文件中需要加载到内存的PT_LOAD段的总大小,并开辟相应大小的内存空间.</p>
 <div class="details admonition tip open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><code>load_bias_</code>是偏移值,假设so文件中某PT_LOAD段的开始虚拟地址addr = 0x100,而实际上的加载地址start = 0x1000,那么当寻找0x300这个地方的数据时,实际的操作为0x1000 + 0x300 - 0x100,也就是0x300 + 0x1000 - 0x100即0x300 + start - addr.<code>load_bias_</code>为start和addr的差值,当需要得到内存中的真实地址时,只需加上这个偏移即可.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-regular fa-lightbulb" aria-hidden="true"></i>技巧<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><code>load_bias_</code>是偏移值,假设so文件中某PT_LOAD段的开始虚拟地址addr = 0x100,而实际上的加载地址start = 0x1000,那么当寻找0x300这个地方的数据时,实际的操作为0x1000 + 0x300 - 0x100,也就是0x300 + 0x1000 - 0x100即0x300 + start - addr.<code>load_bias_</code>为start和addr的差值,当需要得到内存中的真实地址时,只需加上这个偏移即可.</div>
   </div>
+</div>
 <p>跟踪ReserveAddressSpace函数内的phdr_table_get_load_size如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2336,8 +2331,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" class="post-nav-item" rel="prev" title="进入Unidbg的世界"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>进入Unidbg的世界</a>
-      <a href="/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" class="post-nav-item" rel="next" title="Unidbg补环境实战">Unidbg补环境实战<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" class="post-nav-item" rel="prev" title="进入Unidbg的世界"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>进入Unidbg的世界</a><a href="/posts/android/unidbg/04unidbg%E8%A1%A5%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98/" class="post-nav-item" rel="next" title="Unidbg补环境实战">Unidbg补环境实战<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -2351,5 +2345,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

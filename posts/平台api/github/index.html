@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Github Api调用   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="概述 v3版Api的文档链接 v3版Api的官方教程 基本访问路径 只是读取的话,完全不用任何授权,可以在命令行、Insomnia、网页等各种情况下"><meta name="keywords" content='Github'>
+<meta name="description" content="概述 v3版Api的文档链接
+"><meta name="keywords" content='Github'>
   <meta itemprop="name" content="Github Api调用">
-  <meta itemprop="description" content="概述 v3版Api的文档链接 v3版Api的官方教程 基本访问路径 只是读取的话,完全不用任何授权,可以在命令行、Insomnia、网页等各种情况下">
+  <meta itemprop="description" content="概述 v3版Api的文档链接">
   <meta itemprop="datePublished" content="2021-08-31T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-08-31T00:00:00+00:00">
   <meta itemprop="wordCount" content="3790">
@@ -16,7 +17,7 @@
   <meta itemprop="keywords" content="Github"><meta property="og:url" content="https://XiaLuoHun.top/posts/%E5%B9%B3%E5%8F%B0api/github/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="Github Api调用">
-  <meta property="og:description" content="概述 v3版Api的文档链接 v3版Api的官方教程 基本访问路径 只是读取的话,完全不用任何授权,可以在命令行、Insomnia、网页等各种情况下">
+  <meta property="og:description" content="概述 v3版Api的文档链接">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/%E5%B9%B3%E5%8F%B0api/github/images/OAuthApps2.png">
   <meta name="twitter:title" content="Github Api调用">
-  <meta name="twitter:description" content="概述 v3版Api的文档链接 v3版Api的官方教程 基本访问路径 只是读取的话,完全不用任何授权,可以在命令行、Insomnia、网页等各种情况下">
+  <meta name="twitter:description" content="概述 v3版Api的文档链接">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/%E5%B9%B3%E5%8F%B0api/github/" title="Github Api调用   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/arm/" title="Arm指令" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/smali/" title="Smali" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +55,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -190,57 +191,53 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#基本访问路径">基本访问路径</a>
       <ul>
-        <li><a href="#概述">概述</a></li>
-        <li><a href="#基本访问路径">基本访问路径</a>
-          <ul>
-            <li><a href="#个人所有repo">个人所有repo</a></li>
-            <li><a href="#repo详细信息">repo详细信息</a></li>
-            <li><a href="#获取某个repo的内容列表">获取某个repo的内容列表</a></li>
-            <li><a href="#获取repo中子目录的内容列表">获取repo中子目录的内容列表</a></li>
-            <li><a href="#获取某文件的原始内容raw">获取某文件的原始内容(Raw)</a></li>
-            <li><a href="#repo中所有的commits列表">repo中所有的commits列表</a></li>
-            <li><a href="#某一条commit详情">某一条commit详情</a></li>
-            <li><a href="#issues列表">issues列表</a></li>
-            <li><a href="#某条issue详情">某条issue详情</a></li>
-            <li><a href="#某issue中的comments列表">某issue中的comments列表</a></li>
-            <li><a href="#某comment详情">某comment详情</a></li>
-          </ul>
-        </li>
-        <li><a href="#查询参数">查询参数</a></li>
-        <li><a href="#权限认证">权限认证</a>
-          <ul>
-            <li><a href="#basic-authentication">Basic authentication</a></li>
-            <li><a href="#oauth2-token">OAuth2 token</a></li>
-            <li><a href="#oauth2-keysecret">OAuth2 key/secret</a></li>
-          </ul>
-        </li>
-        <li><a href="#增改删contents">增改删contents</a>
-          <ul>
-            <li><a href="#增">增</a></li>
-            <li><a href="#改">改</a></li>
-            <li><a href="#删">删</a></li>
-          </ul>
-        </li>
-        <li><a href="#增改删issues">增改删issues</a>
-          <ul>
-            <li><a href="#增-1">增</a></li>
-            <li><a href="#改-1">改</a></li>
-            <li><a href="#锁住某条issue">锁住某条issue</a></li>
-            <li><a href="#解锁某条issue">解锁某条issue</a></li>
-          </ul>
-        </li>
-        <li><a href="#增改删comments">增改删comments</a>
-          <ul>
-            <li><a href="#增-2">增</a></li>
-            <li><a href="#改-2">改</a></li>
-            <li><a href="#删-1">删</a></li>
-          </ul>
-        </li>
-        <li><a href="#参考链接">参考链接</a></li>
+        <li><a href="#个人所有repo">个人所有repo</a></li>
+        <li><a href="#repo详细信息">repo详细信息</a></li>
+        <li><a href="#获取某个repo的内容列表">获取某个repo的内容列表</a></li>
+        <li><a href="#获取repo中子目录的内容列表">获取repo中子目录的内容列表</a></li>
+        <li><a href="#获取某文件的原始内容raw">获取某文件的原始内容(Raw)</a></li>
+        <li><a href="#repo中所有的commits列表">repo中所有的commits列表</a></li>
+        <li><a href="#某一条commit详情">某一条commit详情</a></li>
+        <li><a href="#issues列表">issues列表</a></li>
+        <li><a href="#某条issue详情">某条issue详情</a></li>
+        <li><a href="#某issue中的comments列表">某issue中的comments列表</a></li>
+        <li><a href="#某comment详情">某comment详情</a></li>
       </ul>
     </li>
+    <li><a href="#查询参数">查询参数</a></li>
+    <li><a href="#权限认证">权限认证</a>
+      <ul>
+        <li><a href="#basic-authentication">Basic authentication</a></li>
+        <li><a href="#oauth2-token">OAuth2 token</a></li>
+        <li><a href="#oauth2-keysecret">OAuth2 key/secret</a></li>
+      </ul>
+    </li>
+    <li><a href="#增改删contents">增改删contents</a>
+      <ul>
+        <li><a href="#增">增</a></li>
+        <li><a href="#改">改</a></li>
+        <li><a href="#删">删</a></li>
+      </ul>
+    </li>
+    <li><a href="#增改删issues">增改删issues</a>
+      <ul>
+        <li><a href="#增-1">增</a></li>
+        <li><a href="#改-1">改</a></li>
+        <li><a href="#锁住某条issue">锁住某条issue</a></li>
+        <li><a href="#解锁某条issue">解锁某条issue</a></li>
+      </ul>
+    </li>
+    <li><a href="#增改删comments">增改删comments</a>
+      <ul>
+        <li><a href="#增-2">增</a></li>
+        <li><a href="#改-2">改</a></li>
+        <li><a href="#删-1">删</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
   </ul>
 </nav></div>
       </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 id="概述" class="heading-element"><span>概述</span>
@@ -275,26 +272,22 @@
   </a>
 </h3><p><a href="https://api.github.com/repos/"target="_blank" rel="external nofollow noopener noreferrer">https://api.github.com/repos/</a>用户名/仓库名/contents</p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">只会返回根目录的内容.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">只会返回根目录的内容.</div>
   </div>
+</div>
 <h3 id="获取repo中子目录的内容列表" class="heading-element"><span>获取repo中子目录的内容列表</span>
   <a href="#%e8%8e%b7%e5%8f%96repo%e4%b8%ad%e5%ad%90%e7%9b%ae%e5%bd%95%e7%9a%84%e5%86%85%e5%ae%b9%e5%88%97%e8%a1%a8" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><p><a href="https://api.github.com/repos/"target="_blank" rel="external nofollow noopener noreferrer">https://api.github.com/repos/</a>用户名/仓库名/contents/目录名</p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">一定要完全遵循原文件名的大小写,否则无法获得信息.如果是更深层的内容,则在链接列按照顺序逐级写上目录名称.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">一定要完全遵循原文件名的大小写,否则无法获得信息.如果是更深层的内容,则在链接列按照顺序逐级写上目录名称.</div>
   </div>
+</div>
 <p>获取repo中某文件信息:</p>
 <p><a href="https://api.github.com/repos/"target="_blank" rel="external nofollow noopener noreferrer">https://api.github.com/repos/</a>用户名/仓库名/contents/文件路径</p>
 <p>文件路径是文件的完整路径,区分大小写,只会返回文件基本信息.</p>
@@ -340,15 +333,13 @@
 </h3><p><a href="https://api.github.com/repos/"target="_blank" rel="external nofollow noopener noreferrer">https://api.github.com/repos/</a>用户名/仓库名/issues/comments/评论详情的ID</p>
 <p>其中评论ID是从issues列表中获得的.</p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>访问的链接最后不能有/,如https://api.github.com/users/XiaLuoHun是可以访问到个人信息的,但是https://api.github.com/users/XiaLuoHun/就不行了,唯一不同是多了一个/.</p>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><p>访问的链接最后不能有/,如https://api.github.com/users/XiaLuoHun是可以访问到个人信息的,但是https://api.github.com/users/XiaLuoHun/就不行了,唯一不同是多了一个/.</p>
 <p>Github的API访问链接是区分大小写的.</p>
 </div>
-    </div>
   </div>
+</div>
 <h2 id="查询参数" class="heading-element"><span>查询参数</span>
   <a href="#%e6%9f%a5%e8%af%a2%e5%8f%82%e6%95%b0" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -394,13 +385,11 @@
 <p>位于github个人账号设置-&gt;开发者设置-&gt;个人token.创建一个新token时,可以选择具体的权限,创建成功时一定要复制到本地保存,只会让你看见一次,如果忘记的话就需要重新生成(其实丢了也不算麻烦).</p>
 <p><img loading="lazy" src="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E8%AE%BE%E7%BD%AEtoken.png" alt="设置token" srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E8%AE%BE%E7%BD%AEtoken.png?size=small, /posts/%E5%B9%B3%E5%8F%B0api/github/images/%E8%AE%BE%E7%BD%AEtoken.png?size=medium 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/%E8%AE%BE%E7%BD%AEtoken.png?size=large 2x" data-title="设置token" style="--width: 1202px;--aspect-ratio: 1202 / 299;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">token字符串不能存储在github的repo中,经过测试,一旦提交的文件中包含这个token字符串,那么github就会自动删除这个token.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">token字符串不能存储在github的repo中,经过测试,一旦提交的文件中包含这个token字符串,那么github就会自动删除这个token.</div>
   </div>
+</div>
 <p>用token通过权限认证:</p>
 <ol>
 <li>作为url中的参数明文传输.</li>
@@ -435,32 +424,28 @@
 <p>得到这两个值之后,直接在访问任何api的url连接后面显性加上这两个参数即可完成认证,如:
 <a href="https://api.github.com/users/YOUR-USERR-NAME?client_id=YOUR-CLIENT-ID&amp;client_secret=YOUR-CLIENT-SECRET"target="_blank" rel="external nofollow noopener noreferrer">https://api.github.com/users/YOUR-USERR-NAME?client_id=YOUR-CLIENT-ID&client_secret=YOUR-CLIENT-SECRET</a></p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">目前这种认证方式不支持查询以外的操作,也就是只能GET获取某些api信息,不能执行request里的任何put/PATCH/delete操作.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">目前这种认证方式不支持查询以外的操作,也就是只能GET获取某些api信息,不能执行request里的任何put/PATCH/delete操作.</div>
   </div>
+</div>
 <h2 id="增改删contents" class="heading-element"><span>增改删contents</span>
   <a href="#%e5%a2%9e%e6%94%b9%e5%88%a0contents" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><a href="https://docs.github.com/en/rest/reference/repos#contents"target="_blank" rel="external nofollow noopener noreferrer">官方文档</a>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><ul>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><ul>
 <li>必须添加权限验证(上面有写).</li>
 <li>数据传送格式选择json.</li>
 <li>文件内容必须是把内容转为Base64字符串再存到json变量中.</li>
 <li>文件路径中如果有不存在的文件夹,则会自动创建.</li>
 </ul>
 </div>
-    </div>
   </div>
+</div>
 <h3 id="增" class="heading-element"><span>增</span>
   <a href="#%e5%a2%9e" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -516,11 +501,9 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><ul>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content"><ul>
 <li>
 <p>必须指定该文件的sha码,相当于文件的ID.</p>
 </li>
@@ -530,8 +513,8 @@
 </li>
 </ul>
 </div>
-    </div>
   </div>
+</div>
 <p>示例:</p>
 <p><img loading="lazy" src="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E6%9B%B4%E6%96%B0%E6%96%87%E4%BB%B6.png" alt="更新文件" srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/%E6%9B%B4%E6%96%B0%E6%96%87%E4%BB%B6.png?size=small, /posts/%E5%B9%B3%E5%8F%B0api/github/images/%E6%9B%B4%E6%96%B0%E6%96%87%E4%BB%B6.png?size=medium 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/%E6%9B%B4%E6%96%B0%E6%96%87%E4%BB%B6.png?size=large 2x" data-title="更新文件" style="--width: 866px;--aspect-ratio: 866 / 719;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <h3 id="删" class="heading-element"><span>删</span>
@@ -587,13 +570,11 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">issue的数据里面是可以加label,milestone和assignees的.但是milestone和assignees必须是与已有的名次完全对应才行,否则无法完成创建.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">issue的数据里面是可以加label,milestone和assignees的.但是milestone和assignees必须是与已有的名次完全对应才行,否则无法完成创建.</div>
   </div>
+</div>
 <h3 id="改-1" class="heading-element"><span>改</span>
   <a href="#%e6%94%b9-1" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -619,13 +600,11 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">如果json中加入空白的labels或assignees,如&quot;labels&quot;: [],作用就是清空所有的标签和相关人.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">如果json中加入空白的labels或assignees,如&quot;labels&quot;: [],作用就是清空所有的标签和相关人.</div>
   </div>
+</div>
 <h3 id="锁住某条issue" class="heading-element"><span>锁住某条issue</span>
   <a href="#%e9%94%81%e4%bd%8f%e6%9f%90%e6%9d%a1issue" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -706,13 +685,11 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">地址中,issues后不用序号了,因为可以通过唯一的评论ID追查到.查看评论ID的方法,可参考上面的 某issue中的comments列表.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">地址中,issues后不用序号了,因为可以通过唯一的评论ID追查到.查看评论ID的方法,可参考上面的 某issue中的comments列表.</div>
   </div>
+</div>
 <p>示例:</p>
 <p><img loading="lazy" src="/posts/%E5%B9%B3%E5%8F%B0api/github/images/comments%E6%94%B9.png" alt="comments改" srcset="/posts/%E5%B9%B3%E5%8F%B0api/github/images/comments%E6%94%B9.png?size=small, /posts/%E5%B9%B3%E5%8F%B0api/github/images/comments%E6%94%B9.png?size=medium 1.5x, /posts/%E5%B9%B3%E5%8F%B0api/github/images/comments%E6%94%B9.png?size=large 2x" data-title="comments改" style="--width: 662px;--aspect-ratio: 662 / 718;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <h3 id="删-1" class="heading-element"><span>删</span>
@@ -751,8 +728,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/android/android%E5%9F%BA%E7%A1%80/arm/" class="post-nav-item" rel="prev" title="Arm指令"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Arm指令</a>
-      <a href="/posts/android/android%E5%9F%BA%E7%A1%80/smali/" class="post-nav-item" rel="next" title="Smali">Smali<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/android/android%E5%9F%BA%E7%A1%80/arm/" class="post-nav-item" rel="prev" title="Arm指令"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Arm指令</a><a href="/posts/android/android%E5%9F%BA%E7%A1%80/smali/" class="post-nav-item" rel="next" title="Smali">Smali<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -766,5 +742,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

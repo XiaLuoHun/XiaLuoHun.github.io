@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
   <head>
-	<meta name="generator" content="Hugo 0.133.1">
+	<meta name="generator" content="Hugo 0.136.0">
     
-      <meta name="theme" content='FixIt v0.3.11'>
+      <meta name="theme" content='FixIt v0.3.13'>
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -12,8 +12,8 @@
 <meta name="description" content="个人笔记本"><meta name="keywords" content='逆向, 破解'>
   <meta itemprop="name" content="夏洛魂的个人博客">
   <meta itemprop="description" content="个人笔记本">
-  <meta itemprop="datePublished" content="2024-09-11T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2024-09-11T00:00:00+00:00"><meta property="og:url" content="https://XiaLuoHun.top/">
+  <meta itemprop="datePublished" content="2024-10-15T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2024-10-15T00:00:00+00:00"><meta property="og:url" content="https://XiaLuoHun.top/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="夏洛魂的个人博客">
   <meta property="og:description" content="个人笔记本">
@@ -35,8 +35,8 @@
         "name": "夏洛魂"
       },"description": "个人笔记本","name": "夏洛魂的个人博客"
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -163,42 +163,169 @@
     </a><a href="/index.xml" title="RSS"target="_blank" rel="external nofollow noopener noreferrer me"><i class="fa-solid fa-rss fa-fw" aria-hidden="true"></i>
     </a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+      <a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" aria-label="Windows进程注入技术"><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/images/%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B9%8BAppInit_DLLs.png" alt="Windows进程注入技术" data-title="Windows进程注入技术" width="50%" height="50%" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a>
+    </div><h2 class="single-title" itemprop="name headline"><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/">Windows进程注入技术</a>
+  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-03-24 00:00:00'>发布于 <time datetime="2022-03-24">2022-03-24</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a></span></div><div class="content"><h3 id="注册表" class="heading-element"><span>注册表</span>
+  <a href="#%e6%b3%a8%e5%86%8c%e8%a1%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 id="appinit_dlls" class="heading-element"><span>AppInit_DLLs</span>
+  <a href="#appinit_dlls" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs</p></div><div class="post-footer">
+    <a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/windows/' class="post-tag">Windows</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
       <a href="/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/" aria-label="Python之FileNotFoundError"><img loading="lazy" src="/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/images/%E9%94%99%E8%AF%AF.png" alt="Python之FileNotFoundError" data-title="Python之FileNotFoundError" width="50%" height="50%" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a>
     </div><h2 class="single-title" itemprop="name headline"><a href="/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/">Python之FileNotFoundError</a>
-  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-03-23 00:00:00'>发布于 <time datetime="2022-03-23">2022-03-23</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/" class="post-category" title="分类 - 那些年遇过的坑"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 那些年遇过的坑</a></span></div><div class="content">现象 Python在Windows上处理长路径时,会出现下列错误. 解决方案 将HKEY_LOCAL_MACHINE\SYSTEM\Current</div><div class="post-footer">
+  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-03-23 00:00:00'>发布于 <time datetime="2022-03-23">2022-03-23</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/" class="post-category" title="分类 - 那些年遇过的坑"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 那些年遇过的坑</a></span></div><div class="content"><h3 id="现象" class="heading-element"><span>现象</span>
+  <a href="#%e7%8e%b0%e8%b1%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Python在Windows上处理长路径时,会出现下列错误.</p></div><div class="post-footer">
     <a href="/posts/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%81%87%E8%BF%87%E7%9A%84%E5%9D%91/python%E4%B9%8Bfilenotfounderror/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/python/' class="post-tag">Python</a></div></div>
-</article>
-<article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
       <a href="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/" aria-label="栈溢出原理与实践"><img loading="lazy" src="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/images/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA3.png" alt="栈溢出原理与实践" data-title="栈溢出原理与实践" width="50%" height="50%" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a>
     </div><h2 class="single-title" itemprop="name headline"><a href="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/">栈溢出原理与实践</a>
-  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-02-22 00:00:00'>发布于 <time datetime="2022-02-22">2022-02-22</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - 漏洞相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 漏洞相关</a></span></div><div class="content">栈结构 寄存器环境 局部变量 调用方栈 返回地址 参数 实验环境 编译器 VS2022 编译选项 1、属性-&gt;C/C++-&gt;常规-&gt;SDL检查(否 (/sdl-)). 2、</div><div class="post-footer">
+  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-02-22 00:00:00'>发布于 <time datetime="2022-02-22">2022-02-22</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - 漏洞相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 漏洞相关</a></span></div><div class="content"><h3 id="栈结构" class="heading-element"><span>栈结构</span>
+  <a href="#%e6%a0%88%e7%bb%93%e6%9e%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+  <thead>
+      <tr>
+          <th style="text-align: center">寄存器环境</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">局部变量</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">调用方栈</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">返回地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">参数</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="实验环境" class="heading-element"><span>实验环境</span>
+  <a href="#%e5%ae%9e%e9%aa%8c%e7%8e%af%e5%a2%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">编译器</th>
+          <th>VS2022</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">编译选项</td>
+          <td>1、属性-&gt;C/C++-&gt;常规-&gt;SDL检查(否 (/sdl-)).<br />2、属性-&gt;C/C++-&gt;代码生成-&gt;安全检查(禁用安全检查 (/GS-)).<br />3、属性-&gt;链接器-&gt;高级-&gt;随机基址(否 (/DYNAMICBASE:NO))<br />4、属性-&gt;链接器-&gt;高级-&gt;数据执行保护(DEP)(否 (/NXCOMPAT:NO))</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">build版本</td>
+          <td>x86 Release</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="实验例子" class="heading-element"><span>实验例子</span>
+  <a href="#%e5%ae%9e%e9%aa%8c%e4%be%8b%e5%ad%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;windows.H&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">szBuf</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="n">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;pwd.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r+&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">szBuf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">szBuf</span><span class="p">,</span> <span class="s">&#34;Hello&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;ok</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;error</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="漏洞利用" class="heading-element"><span>漏洞利用</span>
+  <a href="#%e6%bc%8f%e6%b4%9e%e5%88%a9%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>上述代码中fscanf没有长度检查,所以会造成栈溢出,可以被我们利用.</p></div><div class="post-footer">
     <a href="/posts/%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/' class="post-tag">栈溢出</a></div></div>
-</article>
-<article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
       <a href="/posts/android/android-hook/frida/frida%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E4%B8%8Erpc/" aria-label="Frida主动调用与RPC"><img loading="lazy" src="/posts/android/android-hook/frida/frida%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E4%B8%8Erpc/images/%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80.png" alt="Frida主动调用与RPC" data-title="Frida主动调用与RPC" width="50%" height="50%" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a>
     </div><h2 class="single-title" itemprop="name headline"><a href="/posts/android/android-hook/frida/frida%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E4%B8%8Erpc/">Frida主动调用与RPC</a>
-  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-02-21 00:00:00'>发布于 <time datetime="2022-02-21">2022-02-21</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android-frida/" class="post-category" title="分类 - Android Frida"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android Frida</a> 和 <a href="/collections/frida-android/" class="post-collection" title="合集 - Frida Android"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> Frida Android</a></span></div><div class="content">Frida RPC开发姿势 Frida是一款基于Python和JavaScript的进程级Hook框架,其中JavaScript语言承担了Hook函数的</div><div class="post-footer">
+  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-02-21 00:00:00'>发布于 <time datetime="2022-02-21">2022-02-21</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android-frida/" class="post-category" title="分类 - Android Frida"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android Frida</a> 和 <a href="/collections/frida-android/" class="post-collection" title="合集 - Frida Android"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> Frida Android</a></span></div><div class="content"><h3 id="frida-rpc开发姿势" class="heading-element"><span>Frida RPC开发姿势</span>
+  <a href="#frida-rpc%e5%bc%80%e5%8f%91%e5%a7%bf%e5%8a%bf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Frida是一款基于Python和JavaScript的进程级Hook框架,其中JavaScript语言承担了Hook函数的主要工作,而Python语言则相当于一个提供给外界的绑定接口,使用者可以通过Python语言将JavaScript脚本注入进程中.官方也在下方仓库中提供了通过Python远程外部调用JavaScript中函数的方式.</p></div><div class="post-footer">
     <a href="/posts/android/android-hook/frida/frida%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E4%B8%8Erpc/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/frida/' class="post-tag">Frida</a></div></div>
-</article>
-<article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
       <a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" aria-label="IDA常见错误"><img loading="lazy" src="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/images/JUMPOUT2.png" alt="IDA常见错误" data-title="IDA常见错误" width="50%" height="50%" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a>
     </div><h2 class="single-title" itemprop="name headline"><a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">IDA常见错误</a>
-  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-02-15 00:00:00'>发布于 <time datetime="2022-02-15">2022-02-15</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ida/" class="post-category" title="分类 - IDA"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> IDA</a></span></div><div class="content">JUMPOUT(xxxx) 样本 修复我1.exe 原因 Jmp到一个未知值的时候,IDA就会出现这种错误. 修复 将上图内红框中的汇编,nop掉即可. 修复调用约定 样本 修复我2</div><div class="post-footer">
+  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-02-15 00:00:00'>发布于 <time datetime="2022-02-15">2022-02-15</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/ida/" class="post-category" title="分类 - IDA"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> IDA</a></span></div><div class="content"><h3 id="jumpoutxxxx" class="heading-element"><span>JUMPOUT(xxxx)</span>
+  <a href="#jumpoutxxxx" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 id="样本" class="heading-element"><span>样本</span>
+  <a href="#%e6%a0%b7%e6%9c%ac" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><a href="%e4%bf%ae%e5%a4%8d%e6%88%911.exe">修复我1.exe</a></p></div><div class="post-footer">
     <a href="/posts/ida/ida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/ida/' class="post-tag">IDA</a></div></div>
-</article>
-<article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
       <a href="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" aria-label="x64逆向"><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%BC%82%E5%B8%B8/%E5%AE%9A%E4%BD%8DCatch%E4%BB%A3%E7%A0%81%E5%9D%975.png" alt="x64逆向" data-title="x64逆向" width="50%" height="50%" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a>
     </div><h2 class="single-title" itemprop="name headline"><a href="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/">X64逆向</a>
-  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-02-15 00:00:00'>发布于 <time datetime="2022-02-15">2022-02-15</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a> 和 <a href="/collections/c++%E9%80%86%E5%90%91/" class="post-collection" title="合集 - C++逆向"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> C++逆向</a></span></div><div class="content">寄存器 函数调用约定 四寄存器fast-call调用约定,调用方平栈,一般是函数开头申请栈空间,函数结尾平栈. 整型参数: 前4个参数传入指定的寄存</div><div class="post-footer">
+  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-02-15 00:00:00'>发布于 <time datetime="2022-02-15">2022-02-15</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a> 和 <a href="/collections/c++%E9%80%86%E5%90%91/" class="post-collection" title="合集 - C++逆向"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> C++逆向</a></span></div><div class="content"><h3 id="寄存器" class="heading-element"><span>寄存器</span>
+  <a href="#%e5%af%84%e5%ad%98%e5%99%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%AF%84%E5%AD%98%E5%99%A8/%E5%AF%84%E5%AD%98%E5%99%A81.png" alt="寄存器1" srcset="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%AF%84%E5%AD%98%E5%99%A8/%E5%AF%84%E5%AD%98%E5%99%A81.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%AF%84%E5%AD%98%E5%99%A8/%E5%AF%84%E5%AD%98%E5%99%A81.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/images/%E5%AF%84%E5%AD%98%E5%99%A8/%E5%AF%84%E5%AD%98%E5%99%A81.png?size=large 2x" data-title="寄存器1" style="--width: 751px;--aspect-ratio: 751 / 522;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p></div><div class="post-footer">
     <a href="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/windows/' class="post-tag">Windows</a></div></div>
-</article>
-<article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
-      <a href="/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/" aria-label="x86逆向"><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/images/%E5%BC%82%E5%B8%B8/%E5%BC%82%E5%B8%B8%E4%BF%A1%E6%81%AF%E5%85%B3%E7%B3%BB%E8%A1%A8.png" alt="x86逆向" data-title="x86逆向" width="50%" height="50%" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a>
-    </div><h2 class="single-title" itemprop="name headline"><a href="/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/">X86逆向</a>
-  </h2><div class="post-meta"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span>&nbsp;<span class="post-publish" title='2022-02-14 00:00:00'>发布于 <time datetime="2022-02-14">2022-02-14</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a> 和 <a href="/collections/c++%E9%80%86%E5%90%91/" class="post-collection" title="合集 - C++逆向"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> C++逆向</a></span></div><div class="content">除法 约定 两个无符号相除,结果仍然是无符号. 两个有符号相除,结果是有符号. 有符号数和无符号数混除,结果是无符号的. 基本概念 在C语言和其他多数高</div><div class="post-footer">
-    <a href="/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/windows/' class="post-tag">Windows</a></div></div>
-</article>
-<ul class="pagination"><li class="page-item">
+</article><ul class="pagination"><li class="page-item">
           <span class="page-link">
             <a href="/">1</a>
           </span>
@@ -228,7 +355,7 @@
           <span class="page-link" aria-hidden="true">&hellip;</span>
         </li><li class="page-item">
           <span class="page-link">
-            <a href="/page/12/">12</a>
+            <a href="/page/13/">13</a>
           </span>
         </li></ul></div></main><footer class="footer">
     <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
@@ -239,5 +366,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/typeit/index.umd.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"typeit":{"cursorChar":"|","cursorSpeed":1100,"duration":1000,"loop":false,"speed":100},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/typeit/index.umd.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"typeit":{"cursorChar":"|","cursorSpeed":1100,"duration":1000,"loop":false,"speed":100},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

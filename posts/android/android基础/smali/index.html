@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Smali   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="Smali是Android dex文件的反汇编. Dalvik Android移动设备平台的核心组成部分之一,支持已转换为.dex(即Dalvik Execu"><meta name="keywords" content='Android'>
+<meta name="description" content="Smali是Android dex文件的反汇编.
+Dalvik Android移动设备平台的核心组成部分之一,支持已转换为.dex(即Dalvik Executable)格式的Java应用程序的运行.
+"><meta name="keywords" content='Android'>
   <meta itemprop="name" content="Smali">
-  <meta itemprop="description" content="Smali是Android dex文件的反汇编. Dalvik Android移动设备平台的核心组成部分之一,支持已转换为.dex(即Dalvik Execu">
+  <meta itemprop="description" content="Smali是Android dex文件的反汇编.
+Dalvik Android移动设备平台的核心组成部分之一,支持已转换为.dex(即Dalvik Executable)格式的Java应用程序的运行.">
   <meta itemprop="datePublished" content="2021-09-05T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-09-05T00:00:00+00:00">
   <meta itemprop="wordCount" content="6305">
@@ -16,7 +19,8 @@
   <meta itemprop="keywords" content="Android"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/smali/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="Smali">
-  <meta property="og:description" content="Smali是Android dex文件的反汇编. Dalvik Android移动设备平台的核心组成部分之一,支持已转换为.dex(即Dalvik Execu">
+  <meta property="og:description" content="Smali是Android dex文件的反汇编.
+Dalvik Android移动设备平台的核心组成部分之一,支持已转换为.dex(即Dalvik Executable)格式的Java应用程序的运行.">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +32,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/smali/images/Smali/AndroidMenifest%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8EDebug.png">
   <meta name="twitter:title" content="Smali">
-  <meta name="twitter:description" content="Smali是Android dex文件的反汇编. Dalvik Android移动设备平台的核心组成部分之一,支持已转换为.dex(即Dalvik Execu">
+  <meta name="twitter:description" content="Smali是Android dex文件的反汇编.
+Dalvik Android移动设备平台的核心组成部分之一,支持已转换为.dex(即Dalvik Executable)格式的Java应用程序的运行.">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/smali/" title="Smali   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/%E5%B9%B3%E5%8F%B0api/github/" title="Github Api调用" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/android/android%E5%9F%BA%E7%A1%80/arm%E9%80%86%E5%90%91/" title="Arm逆向" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -54,8 +59,8 @@
         "name": "夏洛魂"
       },"description": ""
   }
-  </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
       <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
@@ -192,46 +197,42 @@
   <ul>
     <li>
       <ul>
-        <li>
+        <li><a href="#dalvik">Dalvik</a>
           <ul>
-            <li><a href="#dalvik">Dalvik</a>
+            <li><a href="#指令格式">指令格式</a></li>
+            <li><a href="#字符串池">字符串池</a></li>
+          </ul>
+        </li>
+        <li><a href="#dex反汇编工具">Dex反汇编工具</a></li>
+        <li><a href="#smali汇编">Smali汇编</a>
+          <ul>
+            <li><a href="#概述">概述</a></li>
+            <li><a href="#指令">指令</a>
               <ul>
-                <li><a href="#指令格式">指令格式</a></li>
-                <li><a href="#字符串池">字符串池</a></li>
+                <li><a href="#nop">nop</a></li>
+                <li><a href="#move">move</a></li>
+                <li><a href="#return">return</a></li>
+                <li><a href="#const">const</a></li>
+                <li><a href="#monitor">monitor</a></li>
+                <li><a href="#check-case">check-case</a></li>
+                <li><a href="#instance-of">instance-of</a></li>
+                <li><a href="#new-instance">new-instance</a></li>
+                <li><a href="#数组">数组</a></li>
+                <li><a href="#分支">分支</a></li>
+                <li><a href="#字段操作">字段操作</a></li>
+                <li><a href="#方法操作">方法操作</a></li>
+                <li><a href="#异常">异常</a></li>
               </ul>
             </li>
-            <li><a href="#dex反汇编工具">Dex反汇编工具</a></li>
-            <li><a href="#smali汇编">Smali汇编</a>
-              <ul>
-                <li><a href="#概述">概述</a></li>
-                <li><a href="#指令">指令</a>
-                  <ul>
-                    <li><a href="#nop">nop</a></li>
-                    <li><a href="#move">move</a></li>
-                    <li><a href="#return">return</a></li>
-                    <li><a href="#const">const</a></li>
-                    <li><a href="#monitor">monitor</a></li>
-                    <li><a href="#check-case">check-case</a></li>
-                    <li><a href="#instance-of">instance-of</a></li>
-                    <li><a href="#new-instance">new-instance</a></li>
-                    <li><a href="#数组">数组</a></li>
-                    <li><a href="#分支">分支</a></li>
-                    <li><a href="#字段操作">字段操作</a></li>
-                    <li><a href="#方法操作">方法操作</a></li>
-                    <li><a href="#异常">异常</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#smali调试">Smali调试</a>
-              <ul>
-                <li><a href="#jdbexe">jdb.exe</a></li>
-                <li><a href="#android调试运行">Android调试运行</a></li>
-                <li><a href="#jeb">Jeb</a></li>
-                <li><a href="#androidstudio">AndroidStudio</a></li>
-                <li><a href="#反调试">反调试</a></li>
-              </ul>
-            </li>
+          </ul>
+        </li>
+        <li><a href="#smali调试">Smali调试</a>
+          <ul>
+            <li><a href="#jdbexe">jdb.exe</a></li>
+            <li><a href="#android调试运行">Android调试运行</a></li>
+            <li><a href="#jeb">Jeb</a></li>
+            <li><a href="#androidstudio">AndroidStudio</a></li>
+            <li><a href="#反调试">反调试</a></li>
           </ul>
         </li>
       </ul>
@@ -293,13 +294,11 @@ mov v0, 0x12345678
 <p>dex2jar和jd-gui:Java字节码&ndash;&gt;Dex字节码,Dex字节码&ndash;&gt;Java字节码.Java有很多成熟的反编译工具,
 我们可以利用dex2jar这个工具将Dex字节码转换为Java字节码,就可以使用Java的反编译工具了.</p>
 <div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">d-gui的反编译结果不是很可靠.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">d-gui的反编译结果不是很可靠.</div>
   </div>
+</div>
 <p>JEB(神器):将IDA的每个字母加1就是JEB.Android版的IDA.</p>
 <p>baksmali:反汇编Dex文件.</p>
 <p>smali:将修改后的smali文件重新编译为Dex文件.通常我们使用Jeb寻找关键位置,然后baksmali修改,smali重新编译.
@@ -318,66 +317,66 @@ mov v0, 0x12345678
 <p>不用任何寄存器存函数返回值.</p>
 <p>类型表示:</p>
 <table>
-<thead>
-<tr>
-<th>语法</th>
-<th>类型</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>V</td>
-<td>void</td>
-</tr>
-<tr>
-<td>Z</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td>B</td>
-<td>byte</td>
-</tr>
-<tr>
-<td>S</td>
-<td>short</td>
-</tr>
-<tr>
-<td>C</td>
-<td>char</td>
-</tr>
-<tr>
-<td>I</td>
-<td>int</td>
-</tr>
-<tr>
-<td>J</td>
-<td>long</td>
-</tr>
-<tr>
-<td>F</td>
-<td>float</td>
-</tr>
-<tr>
-<td>D</td>
-<td>double</td>
-</tr>
-<tr>
-<td>L</td>
-<td>类类型</td>
-</tr>
-<tr>
-<td>[</td>
-<td>一维数组</td>
-</tr>
-<tr>
-<td>[[</td>
-<td>二维数组</td>
-</tr>
-<tr>
-<td>[[[</td>
-<td>三维数组</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>语法</th>
+          <th>类型</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>V</td>
+          <td>void</td>
+      </tr>
+      <tr>
+          <td>Z</td>
+          <td>boolean</td>
+      </tr>
+      <tr>
+          <td>B</td>
+          <td>byte</td>
+      </tr>
+      <tr>
+          <td>S</td>
+          <td>short</td>
+      </tr>
+      <tr>
+          <td>C</td>
+          <td>char</td>
+      </tr>
+      <tr>
+          <td>I</td>
+          <td>int</td>
+      </tr>
+      <tr>
+          <td>J</td>
+          <td>long</td>
+      </tr>
+      <tr>
+          <td>F</td>
+          <td>float</td>
+      </tr>
+      <tr>
+          <td>D</td>
+          <td>double</td>
+      </tr>
+      <tr>
+          <td>L</td>
+          <td>类类型</td>
+      </tr>
+      <tr>
+          <td>[</td>
+          <td>一维数组</td>
+      </tr>
+      <tr>
+          <td>[[</td>
+          <td>二维数组</td>
+      </tr>
+      <tr>
+          <td>[[[</td>
+          <td>三维数组</td>
+      </tr>
+  </tbody>
 </table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1562,13 +1561,11 @@ move-wide就是用来传送64位整型.</p>
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">return</span><span class="w"> </span><span class="n">v0</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">这种带模板的,Jeb是没办法还原成上述的原始Java代码的.</div>
-    </div>
+  <div class="details-summary admonition-title"><i class="icon fa-fw fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+  <div class="details-content">
+    <div class="admonition-content">这种带模板的,Jeb是没办法还原成上述的原始Java代码的.</div>
   </div>
+</div>
 <ol start="4">
 <li>while</li>
 </ol>
@@ -2472,8 +2469,7 @@ sput,给静态字段赋值.</p>
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/%E5%B9%B3%E5%8F%B0api/github/" class="post-nav-item" rel="prev" title="Github Api调用"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Github Api调用</a>
-      <a href="/posts/android/android%E5%9F%BA%E7%A1%80/arm%E9%80%86%E5%90%91/" class="post-nav-item" rel="next" title="Arm逆向">Arm逆向<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/%E5%B9%B3%E5%8F%B0api/github/" class="post-nav-item" rel="prev" title="Github Api调用"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Github Api调用</a><a href="/posts/android/android%E5%9F%BA%E7%A1%80/arm%E9%80%86%E5%90%91/" class="post-nav-item" rel="next" title="Arm逆向">Arm逆向<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
@@ -2487,5 +2483,5 @@ sput,给静态字段赋值.</p>
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.11"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.13"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>
