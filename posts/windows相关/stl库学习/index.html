@@ -6,20 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>STL库学习   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
-<meta name="description" content="这里以VS2017 Release版本为示例:
-String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize;	//字符串长度 size_t _Myres;	//最大字符串长度 }; Vector(大小0xC) 1 2 3 4 5 6 struct vector { T* _Myfirst;	//数组起始地址 T* _Mylast; T* _Myend; }; Map(大小0x8) 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod(大小0x10 &#43; 键值对):
+<meta name="description" content="std::string 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize; //字符串长度 size_t _Myres; //最大字符串长度 }; std::vector 1 2 3 4 5 6 struct vector { T* _Myfirst; //数组起始地址 T* _Mylast; //已使用的数组结束地址 T* _Myend; //最大数组结束地址 }; std::map 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod:
 "><meta name="keywords" content='Windows'>
   <meta itemprop="name" content="STL库学习">
-  <meta itemprop="description" content="这里以VS2017 Release版本为示例:
-String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize;	//字符串长度 size_t _Myres;	//最大字符串长度 }; Vector(大小0xC) 1 2 3 4 5 6 struct vector { T* _Myfirst;	//数组起始地址 T* _Mylast; T* _Myend; }; Map(大小0x8) 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod(大小0x10 &#43; 键值对):">
+  <meta itemprop="description" content="std::string 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize; //字符串长度 size_t _Myres; //最大字符串长度 }; std::vector 1 2 3 4 5 6 struct vector { T* _Myfirst; //数组起始地址 T* _Mylast; //已使用的数组结束地址 T* _Myend; //最大数组结束地址 }; std::map 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod:">
   <meta itemprop="datePublished" content="2020-10-10T00:00:00+00:00">
   <meta itemprop="dateModified" content="2020-10-10T00:00:00+00:00">
-  <meta itemprop="wordCount" content="330">
+  <meta itemprop="wordCount" content="302">
   <meta itemprop="keywords" content="Windows"><meta property="og:url" content="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
   <meta property="og:title" content="STL库学习">
-  <meta property="og:description" content="这里以VS2017 Release版本为示例:
-String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize;	//字符串长度 size_t _Myres;	//最大字符串长度 }; Vector(大小0xC) 1 2 3 4 5 6 struct vector { T* _Myfirst;	//数组起始地址 T* _Mylast; T* _Myend; }; Map(大小0x8) 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod(大小0x10 &#43; 键值对):">
+  <meta property="og:description" content="std::string 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize; //字符串长度 size_t _Myres; //最大字符串长度 }; std::vector 1 2 3 4 5 6 struct vector { T* _Myfirst; //数组起始地址 T* _Mylast; //已使用的数组结束地址 T* _Myend; //最大数组结束地址 }; std::map 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod:">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -29,8 +26,7 @@ String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="STL库学习">
-  <meta name="twitter:description" content="这里以VS2017 Release版本为示例:
-String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize;	//字符串长度 size_t _Myres;	//最大字符串长度 }; Vector(大小0xC) 1 2 3 4 5 6 struct vector { T* _Myfirst;	//数组起始地址 T* _Mylast; T* _Myend; }; Map(大小0x8) 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod(大小0x10 &#43; 键值对):">
+  <meta name="twitter:description" content="std::string 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[16]; char* _Ptr; } size_t _Mysize; //字符串长度 size_t _Myres; //最大字符串长度 }; std::vector 1 2 3 4 5 6 struct vector { T* _Myfirst; //数组起始地址 T* _Mylast; //已使用的数组结束地址 T* _Myend; //最大数组结束地址 }; std::map 1 2 3 4 5 struct map { Tree_nod* _MyHead; unsigned int _Mysize; }; Tree_nod:">
 <meta name="application-name" content="夏洛魂">
 <meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" title="STL库学习   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/about/" title="" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/ida/idapython%E4%BD%BF%E7%94%A8/" title="IDAPython使用记录" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
@@ -43,7 +39,7 @@ String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/XiaLuoHun.top\/posts\/windows%E7%9B%B8%E5%85%B3\/stl%E5%BA%93%E5%AD%A6%E4%B9%A0\/"
-    },"genre": "posts","keywords": "Windows","wordcount":  330 ,
+    },"genre": "posts","keywords": "Windows","wordcount":  302 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/windows%E7%9B%B8%E5%85%B3\/stl%E5%BA%93%E5%AD%A6%E4%B9%A0\/","datePublished": "2020-10-10T00:00:00+00:00","dateModified": "2020-10-10T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -114,12 +110,23 @@ String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[
   </div>
   <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"><div class="details collection-details open">
+      <div class="details-summary collection-summary">
+        <i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i>
+        <span class="collection-name" data-collections="合集">Win逆向</span>
+        <span class="collection-count">8</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+      <div class="details-content collection-content">
+        <nav>
+          <ul class="collection-list"><li class="collection-item"><span class="active" title="STL库学习">STL库学习</span></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/" title="X86逆向">X86逆向</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/x64%E9%80%86%E5%90%91/" title="X64逆向">X64逆向</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" title="Windows进程注入技术">Windows进程注入技术</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量">DEFCON议题解读｜Dll劫持新思路——修改环境变量</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/" title=".NET程序hook的另一种优雅实现-C&#43;&#43;/CLI">.NET程序hook的另一种优雅实现-C&#43;&#43;/CLI</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/fridawindows/" title="Frida-Windows">Frida-Windows</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/qt6%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80%E5%AF%BB%E6%89%BE/" title="Qt6-信号与槽函数地址寻找">Qt6-信号与槽函数地址寻找</a></li></ul>
+          <div class="collection-nav-simple"><i class="fa-solid fa-angle-left fa-fw collection-nav-item text-secondary" aria-hidden="true"></i><span class="text-secondary">1/8</span><a href="/posts/windows%E7%9B%B8%E5%85%B3/x86%E9%80%86%E5%90%91/" class="collection-nav-item" rel="next" title="X86逆向"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+        </nav>
+      </div>
+    </div></aside>
 
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>STL库学习</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a></span></div><div class="post-meta-line"><span title="发布于 2020-10-10 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2020-10-10">2020-10-10</time></span>&nbsp;<span title="330 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 400 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a> 和 <a href="/collections/win%E9%80%86%E5%90%91/" class="post-collection" title="合集 - Win逆向"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> Win逆向</a></span></div><div class="post-meta-line"><span title="发布于 2020-10-10 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2020-10-10">2020-10-10</time></span>&nbsp;<span title="302 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 400 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -127,15 +134,14 @@ String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#string大小0x18">String(大小0x18)</a></li>
-    <li><a href="#vector大小0xc">Vector(大小0xC)</a></li>
-    <li><a href="#map大小0x8">Map(大小0x8)</a></li>
-    <li><a href="#list大小0x8">List(大小0x8)</a></li>
+    <li><a href="#stdstring">std::string</a></li>
+    <li><a href="#stdvector">std::vector</a></li>
+    <li><a href="#stdmap">std::map</a></li>
+    <li><a href="#stdlist">std::list</a></li>
   </ul>
 </nav></div>
-      </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><p>这里以VS2017 Release版本为示例:</p>
-<h2 id="string大小0x18" class="heading-element"><span>String(大小0x18)</span>
-  <a href="#string%e5%a4%a7%e5%b0%8f0x18" class="heading-mark">
+      </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 id="stdstring" class="heading-element"><span>std::string</span>
+  <a href="#stdstring" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><div class="highlight"><div class="chroma">
@@ -159,12 +165,12 @@ String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">_Buf</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span><span class="o">*</span> <span class="n">_Ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">size_t</span> <span class="n">_Mysize</span><span class="p">;</span>		<span class="c1">//字符串长度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">size_t</span> <span class="n">_Myres</span><span class="p">;</span>		<span class="c1">//最大字符串长度
+</span></span><span class="line"><span class="cl">    <span class="kt">size_t</span> <span class="n">_Mysize</span><span class="p">;</span> <span class="c1">//字符串长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">size_t</span> <span class="n">_Myres</span><span class="p">;</span>  <span class="c1">//最大字符串长度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="vector大小0xc" class="heading-element"><span>Vector(大小0xC)</span>
-  <a href="#vector%e5%a4%a7%e5%b0%8f0xc" class="heading-mark">
+</div><h2 id="stdvector" class="heading-element"><span>std::vector</span>
+  <a href="#stdvector" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><div class="highlight"><div class="chroma">
@@ -179,13 +185,13 @@ String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">vector</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">T</span><span class="o">*</span> <span class="n">_Myfirst</span><span class="p">;</span>	<span class="c1">//数组起始地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">T</span><span class="o">*</span> <span class="n">_Mylast</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">T</span><span class="o">*</span> <span class="n">_Myend</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">	<span class="n">T</span><span class="o">*</span> <span class="n">_Myfirst</span><span class="p">;</span> <span class="c1">//数组起始地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">T</span><span class="o">*</span> <span class="n">_Mylast</span><span class="p">;</span> <span class="c1">//已使用的数组结束地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">T</span><span class="o">*</span> <span class="n">_Myend</span><span class="p">;</span>  <span class="c1">//最大数组结束地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="map大小0x8" class="heading-element"><span>Map(大小0x8)</span>
-  <a href="#map%e5%a4%a7%e5%b0%8f0x8" class="heading-mark">
+</div><h2 id="stdmap" class="heading-element"><span>std::map</span>
+  <a href="#stdmap" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><div class="highlight"><div class="chroma">
@@ -203,32 +209,34 @@ String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[
 </span></span><span class="line"><span class="cl">	<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">_Mysize</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>Tree_nod(大小0x10 + 键值对):</p>
+</div><p>Tree_nod:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">__declspec</span><span class="p">(</span><span class="nf">align</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="n">Tree_nod</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">Tree_nod</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Tree_nod</span><span class="o">*</span> <span class="n">_Left</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Tree_nod</span><span class="o">*</span> <span class="n">_Parent</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Tree_nod</span><span class="o">*</span> <span class="n">_Right</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">_Color</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">_Isnil</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">map_pair</span> <span class="n">_Myval</span><span class="p">;</span>			<span class="c1">//键值对
+</span></span><span class="line"><span class="cl">    <span class="c1">//对齐
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">map_pair</span> <span class="n">_Myval</span><span class="p">;</span> <span class="c1">//键值对
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="list大小0x8" class="heading-element"><span>List(大小0x8)</span>
-  <a href="#list%e5%a4%a7%e5%b0%8f0x8" class="heading-mark">
+</div><h2 id="stdlist" class="heading-element"><span>std::list</span>
+  <a href="#stdlist" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><div class="highlight"><div class="chroma">
@@ -242,8 +250,8 @@ String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">list</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">List_node</span><span class="o">*</span> <span class="n">_MyHead</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">_Mysize</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">List_node</span><span class="o">*</span> <span class="n">_MyHead</span><span class="p">;</span> <span class="c1">//list-&gt;MyHead-&gt;Next为列表第一个值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">_Mysize</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>List_node(大小0x8 + 值):</p>
@@ -257,11 +265,11 @@ String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">__declspec</span><span class="p">(</span><span class="nf">align</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="n">List_node</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">List_node</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">List_node</span><span class="o">*</span> <span class="n">_Next</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">List_node</span><span class="o">*</span> <span class="n">_Prev</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">_Myval</span><span class="p">;</span>		<span class="c1">//值
+</span></span><span class="line"><span class="cl">    <span class="n">List_node</span><span class="o">*</span> <span class="n">_Prev</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">_Myval</span><span class="p">;</span> <span class="c1">//值
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>list-&gt;MyHead-&gt;Next为list.front();</p>
@@ -297,5 +305,5 @@ String(大小0x18) 1 2 3 4 5 6 7 8 9 10 struct string { Union _Bxty { char _Buf[
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.15"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.16-99137317"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>
