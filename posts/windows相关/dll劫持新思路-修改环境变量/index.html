@@ -12,7 +12,7 @@
   <meta itemprop="description" content="简介 在2022年的Defcon大会上,安全研究人员Wietze Beukema通过对进程级环境变量的研究,提出了一种Dll劫持新思路,下面就其中涉及的技术点展开介绍.">
   <meta itemprop="datePublished" content="2022-08-24T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-08-24T00:00:00+00:00">
-  <meta itemprop="wordCount" content="2497">
+  <meta itemprop="wordCount" content="2361">
   <meta itemprop="image" content="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B.png">
   <meta itemprop="keywords" content="Windows"><meta property="og:url" content="https://XiaLuoHun.top/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.top\/posts\/windows%E7%9B%B8%E5%85%B3\/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F\/images\/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B.png",
               "width":  702 ,
               "height":  268 
-            }],"genre": "posts","keywords": "Windows","wordcount":  2497 ,
+            }],"genre": "posts","keywords": "Windows","wordcount":  2361 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/windows%E7%9B%B8%E5%85%B3\/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F\/","datePublished": "2022-08-24T00:00:00+00:00","dateModified": "2022-08-24T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -134,7 +134,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>DEFCON议题解读｜Dll劫持新思路——修改环境变量</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a> 和 <a href="/collections/win%E9%80%86%E5%90%91/" class="post-collection" title="合集 - Win逆向"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> Win逆向</a></span></div><div class="post-meta-line"><span title="发布于 2022-08-24 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-08-24">2022-08-24</time></span>&nbsp;<span title="2497 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 2500 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Win相关</a> 和 <a href="/collections/win%E9%80%86%E5%90%91/" class="post-collection" title="合集 - Win逆向"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> Win逆向</a></span></div><div class="post-meta-line"><span title="发布于 2022-08-24 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-08-24">2022-08-24</time></span>&nbsp;<span title="2361 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 2400 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -177,8 +177,8 @@
   </a>
 </h2><p>程序可能会依赖Windows定义好的环境变量来确定某些文件的位置,尤其对于Windows内置程序来说大量依赖环境变量来寻找系统盘文件.如下展示的是Windows系统盘ws2_32.dll中的代码片段:</p>
 <p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E5%88%A9%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%A1%AE%E5%AE%9A%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE.png" alt="利用环境变量确定文件位置" srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E5%88%A9%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%A1%AE%E5%AE%9A%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E5%88%A9%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%A1%AE%E5%AE%9A%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E5%88%A9%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%A1%AE%E5%AE%9A%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE.png?size=large 2x" data-title="利用环境变量确定文件位置" style="--width: 1708px;--aspect-ratio: 1708 / 873;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p>正常来说&quot;%SystemRoot%/System32/mswsock.dll&quot;会被解析为&quot;C:/Windows/System32/mswsock.dll&quot;,但是这里面有一个不确定的因素就是&quot;%SystemRoot%&quot;,假设我们修改了环境变量&quot;%SystemRoot%&ldquo;的值为其他文件夹路径且在该路径下存放恶意Dll,那么程序就会加载我们设定的Dll,继而完成Dll劫持.</p>
-<p>如果直接更改&rdquo;%SystemRoot%&ldquo;的值,会对整个操作系统上运行的程序产生影响,但是我们可以只修改指定进程的环境变量,如创建以下vbs脚本,利用子进程默认继承其父进程环境变量的特性,修改Windows内置进程hostname.exe的环境变量&quot;SystemRoot&quot;为&quot;C:\Evil&rdquo;.</p>
+<p>正常来说<code>%SystemRoot%/System32/mswsock.dll</code>会被解析为<code>C:/Windows/System32/mswsock.dll</code>,但是这里面有一个不确定的因素就是<code>%SystemRoot%</code>,假设我们修改了环境变量<code>%SystemRoot%</code>的值为其他文件夹路径且在该路径下存放恶意Dll,那么程序就会加载我们设定的Dll,继而完成Dll劫持.</p>
+<p>如果直接更改<code>%SystemRoot%</code>的值,会对整个操作系统上运行的程序产生影响,但是我们可以只修改指定进程的环境变量,如创建以下vbs脚本,利用子进程默认继承其父进程环境变量的特性,修改Windows内置进程hostname.exe的环境变量<code>SystemRoot</code>为<code>C:\Evil</code>.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -205,8 +205,8 @@
   </a>
 </h3><p>这里先引用下Wietze Beukema文章中提到的修改Windows打印机服务的环境变量,看是否会成功加载指定目录下的Dll文件.</p>
 <ol>
-<li>首先将恶意Dll&quot;mswsock.dll&quot;放到指定目录&quot;C:\Evil\System32&quot;.</li>
-<li>在注册表spoolsv服务下创建&quot;Environment&quot;键值修改环境变量.</li>
+<li>首先将恶意Dll<code>mswsock.dll</code>放到指定目录<code>C:\Evil\System32</code>.</li>
+<li>在注册表spoolsv服务下创建<code>Environment</code>键值修改环境变量.</li>
 </ol>
 <p><img loading="lazy" src="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E4%BF%AE%E6%94%B9spoolsv%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="修改spoolsv环境变量" srcset="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E4%BF%AE%E6%94%B9spoolsv%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png?size=small, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E4%BF%AE%E6%94%B9spoolsv%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png?size=medium 1.5x, /posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/images/%E4%BF%AE%E6%94%B9spoolsv%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png?size=large 2x" data-title="修改spoolsv环境变量" style="--width: 1660px;--aspect-ratio: 1660 / 918;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <ol start="3">
@@ -305,7 +305,7 @@
 <p>我们自己写的程序或者模块可能会引用Windows系统Dll文件,但是Windows内部Dll文件大量引用环境变量,这会让我们的程序可能会受到此类Dll劫持手法的攻击.为了尽可能的减少风险,在编码时我们可以遵循以下规则:</p>
 <ol>
 <li>
-<p>程序代码使用GetWindowsDirectory代替环境变量&quot;%SystemRoot%&quot;,或者使用GetSystemDirectory直接拿系统盘System32路径.</p>
+<p>程序代码使用GetWindowsDirectory代替环境变量<code>%SystemRoot%</code>,或者使用GetSystemDirectory直接拿系统盘System32路径.</p>
 </li>
 <li>
 <p>对系统Dll进行路径检测.</p>
@@ -338,7 +338,9 @@
     <div class="post-info-line">
       <div class="post-info-mod">
         <span title="更新于 2022-08-24 00:00:00">更新于 2022-08-24&nbsp;</span>
-      </div></div><div class="post-info-line">
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
         <div class="post-info-md"></div>
         <div class="post-info-share">
           <span></span>
@@ -357,12 +359,12 @@
   <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
       <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
     <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
-            <span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">
+            <span itemprop="copyrightYear">2020 - 2025</span><span class="author" itemprop="copyrightHolder">
               <a href="/">夏洛魂</a></span></div></div>
   </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric">0%</span>
         </div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;--bg-progress: #0076ff;--bg-progress-dark: #fff;"></div><noscript>
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.16-99137317"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.16"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

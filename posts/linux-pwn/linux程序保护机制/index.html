@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Linux程序保护机制   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
+<meta name="description" content="Canary 当函数存在缓冲区溢出漏洞时,攻击者可以覆盖栈上的返回地址来让shellcode执行.
+"><meta name="keywords" content='Linux Pwn'>
+  <meta itemprop="name" content="Linux程序保护机制">
+  <meta itemprop="description" content="Canary 当函数存在缓冲区溢出漏洞时,攻击者可以覆盖栈上的返回地址来让shellcode执行.">
+  <meta itemprop="datePublished" content="2024-11-29T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2024-11-29T00:00:00+00:00">
+  <meta itemprop="wordCount" content="2237">
+  <meta itemprop="image" content="https://XiaLuoHun.top/posts/linux-pwn/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/images/%E6%A0%88%E6%BA%A2%E5%87%BA%E4%BF%9D%E6%8A%A4%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81.png">
+  <meta itemprop="keywords" content="Linux Pwn"><meta property="og:url" content="https://XiaLuoHun.top/posts/linux-pwn/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="Linux程序保护机制">
+  <meta property="og:description" content="Canary 当函数存在缓冲区溢出漏洞时,攻击者可以覆盖栈上的返回地址来让shellcode执行.">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-11-29T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-11-29T00:00:00+00:00">
+    <meta property="article:tag" content="Linux Pwn">
+    <meta property="og:image" content="https://XiaLuoHun.top/posts/linux-pwn/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/images/%E6%A0%88%E6%BA%A2%E5%87%BA%E4%BF%9D%E6%8A%A4%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://XiaLuoHun.top/posts/linux-pwn/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/images/%E6%A0%88%E6%BA%A2%E5%87%BA%E4%BF%9D%E6%8A%A4%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81.png">
+  <meta name="twitter:title" content="Linux程序保护机制">
+  <meta name="twitter:description" content="Canary 当函数存在缓冲区溢出漏洞时,攻击者可以覆盖栈上的返回地址来让shellcode执行.">
+<meta name="application-name" content="夏洛魂">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/linux-pwn/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="Linux程序保护机制   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/linux-pwn/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/" title="Pwntools使用指北" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/linux-pwn/linux%E4%B8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%89%8B%E6%B3%95%E8%B5%8F%E6%9E%90/" title="Linux下漏洞利用手法赏析" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Linux程序保护机制",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.top\/posts\/linux-pwn\/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6\/"
+    },"image": [{
+              "@type": "ImageObject",
+              "url": "https:\/\/XiaLuoHun.top\/posts\/linux-pwn\/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6\/images\/%E6%A0%88%E6%BA%A2%E5%87%BA%E4%BF%9D%E6%8A%A4%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81.png",
+              "width":  1554 ,
+              "height":  1006 
+            }],"genre": "posts","keywords": "Linux Pwn","wordcount":  2237 ,
+    "url": "https:\/\/XiaLuoHun.top\/posts\/linux-pwn\/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6\/","datePublished": "2024-11-29T00:00:00+00:00","dateModified": "2024-11-29T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "夏洛魂"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="输入关键词搜索" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="输入关键词搜索" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item"><a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"><div class="details collection-details open">
+      <div class="details-summary collection-summary">
+        <i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i>
+        <span class="collection-name" data-collections="合集">Linux Pwn</span>
+        <span class="collection-count">3</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+      <div class="details-content collection-content">
+        <nav>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/linux-pwn/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/" title="Pwntools使用指北">Pwntools使用指北</a></li><li class="collection-item"><span class="active" title="Linux程序保护机制">Linux程序保护机制</span></li><li class="collection-item"><a href="/posts/linux-pwn/linux%E4%B8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%89%8B%E6%B3%95%E8%B5%8F%E6%9E%90/" title="Linux下漏洞利用手法赏析">Linux下漏洞利用手法赏析</a></li></ul>
+          <div class="collection-nav-simple"><a href="/posts/linux-pwn/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/" class="collection-nav-item" rel="prev" title="Pwntools使用指北"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></a><span class="text-secondary">2/3</span><a href="/posts/linux-pwn/linux%E4%B8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%89%8B%E6%B3%95%E8%B5%8F%E6%9E%90/" class="collection-nav-item" rel="next" title="Linux下漏洞利用手法赏析"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+        </nav>
+      </div>
+    </div></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Linux程序保护机制</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/linux-pwn/" class="post-category" title="分类 - Linux Pwn"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Linux Pwn</a> 和 <a href="/collections/linux-pwn/" class="post-collection" title="合集 - Linux Pwn"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> Linux Pwn</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-29 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-29">2024-11-29</time></span>&nbsp;<span title="2237 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 2300 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#canary">Canary</a></li>
+    <li><a href="#fortify">FORTIFY</a></li>
+    <li><a href="#nx">NX</a></li>
+    <li><a href="#pie">PIE</a></li>
+    <li><a href="#relro">RELRO</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 id="canary" class="heading-element"><span>Canary</span>
+  <a href="#canary" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
+<li>
+<p>当函数存在缓冲区溢出漏洞时,攻击者可以覆盖栈上的返回地址来让shellcode执行.</p>
+</li>
+<li>
+<p>当启用栈保护后,函数执行后会先往栈里插入Cookie信息,当函数返回时会验证Cookie信息是否合法,如果不合法就停止程序运行.</p>
+</li>
+<li>
+<p>攻击者在覆盖返回地址时也会将Cookie信息覆盖掉,当函数返回时会因为Cookie检查失败而阻止shellcode执行.</p>
+</li>
+<li>
+<p>同Windows下的GS检查</p>
+</li>
+</ul>
+<p>gcc编译程序开启或关闭命令如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 默认情况下不开启栈溢出保护</span>
+</span></span><span class="line"><span class="cl">gcc luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启用栈保护, 只为局部变量中含char数组的函数插入保护代码</span>
+</span></span><span class="line"><span class="cl">gcc -fstack-protector luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启用栈保护,为所有函数插入保护代码</span>
+</span></span><span class="line"><span class="cl">gcc -fstack-protector-all luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 禁用栈保护</span>
+</span></span><span class="line"><span class="cl">gcc -fno-stack-protector luoPwn.c -o luoPwn</span></span></code></pre></td></tr></table>
+</div>
+</div><p>开启栈保护,程序示例代码如下:</p>
+<p><img loading="lazy" src="./images/%E6%A0%88%E6%BA%A2%E5%87%BA%E4%BF%9D%E6%8A%A4%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81.png" alt="栈溢出保护示例代码" srcset="./images/%E6%A0%88%E6%BA%A2%E5%87%BA%E4%BF%9D%E6%8A%A4%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81.png?size=small, ./images/%E6%A0%88%E6%BA%A2%E5%87%BA%E4%BF%9D%E6%8A%A4%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81.png?size=medium 1.5x, ./images/%E6%A0%88%E6%BA%A2%E5%87%BA%E4%BF%9D%E6%8A%A4%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81.png?size=large 2x" data-title="栈溢出保护示例代码" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="fortify" class="heading-element"><span>FORTIFY</span>
+  <a href="#fortify" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Fortify技术是gcc在编译源码时判断程序的哪些buffer会存在可能的溢出,在buffer大小已知的情况下,gcc会把strcpy、memcpy、memset等函数自动替换成相应的<code>__strcpy_chk</code>、<code>__memcpy_chk</code>、<code>__memset_chk</code>等函数,达到防止缓冲区溢出的作用。</p>
+<p>对格式化字符串有以下两个限制:</p>
+<ul>
+<li>限制%n对地址写入</li>
+<li>当使用位置参数时,必须连续使用.如只使用%3$p会报错,需使用<code>%1$p,$2$p,%3%p</code></li>
+</ul>
+<p>gcc编译程序开启或关闭命令如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 默认情况下不开启FORTIFY检查</span>
+</span></span><span class="line"><span class="cl">gcc luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 仅在编译时进行检查</span>
+</span></span><span class="line"><span class="cl">gcc -D_FORTIFY_SOURCE<span class="o">=</span><span class="m">1</span> -O2 luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 程序编译和执行均检查 使用-O优化,才会开启FORTIFY检查</span>
+</span></span><span class="line"><span class="cl">gcc -D_FORTIFY_SOURCE<span class="o">=</span><span class="m">2</span> -O2 luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 关闭FORTIFY检查</span>
+</span></span><span class="line"><span class="cl">gcc -D_FORTIFY_SOURCE<span class="o">=</span><span class="m">0</span> -O2 luoPwn.c -o luoPwn</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="nx" class="heading-element"><span>NX</span>
+  <a href="#nx" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>NX即No-eXecute(不可执行)的意思,NX(DEP)的基本原理是将数据所在内存页标识为不可执行,当程序溢出成功到达栈上执行shellcode时,程序会尝试在数据页面上执行指令,此时CPU就会抛出异常,而不是去执行恶意指令.</p>
+<p>gcc编译程序开启或关闭命令如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 默认情况下,开启NX</span>
+</span></span><span class="line"><span class="cl">gcc luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 开启NX</span>
+</span></span><span class="line"><span class="cl">gcc -z noexecstack luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 关闭NX</span>
+</span></span><span class="line"><span class="cl">gcc -z execstack luoPwn.c -o luoPwn</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="pie" class="heading-element"><span>PIE</span>
+  <a href="#pie" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><code>PIE(Position Independent Executable)</code>是一种编译技术,旨在使可执行文件位置无关.</p>
+<ul>
+<li>开启PIE:生成程序代码段和数据段重定位信息,允许程序在内存的任意位置加载.</li>
+<li>关闭PIE:程序加载基址固定,但程序堆、栈地址跟随Linux ASLR变化.</li>
+</ul>
+<p>gcc编译程序开启或关闭命令如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Kali默认情况下,开启PIE</span>
+</span></span><span class="line"><span class="cl">gcc luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 开启PIE</span>
+</span></span><span class="line"><span class="cl">gcc -fPIE luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 关闭PIE</span>
+</span></span><span class="line"><span class="cl">gcc -no-pie luoPwn.c -o luoPwn</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>ASLR(Address Space Layout Randomization)</code>是一种Linux系统安全技术,用于随机化进程的地址空间布局,以防止攻击者利用已知的内存地址进行攻击.通过以下方式进行工作:</p>
+<ul>
+<li>
+<p>共享库地址随机化:共享库(如libc)的加载地址会被随机化.</p>
+</li>
+<li>
+<p>栈地址随机化:每次程序运行时,栈的基地址会被随机化.</p>
+</li>
+<li>
+<p>堆地址随机化:堆的基地址会被随机化.</p>
+</li>
+<li>
+<p>内存映射区域随机化:通过mmap()分配的内存区域的基地址会被随机化.</p>
+</li>
+</ul>
+<p>Linux ASLR开启和关闭的命令如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 关闭Linux ASLR</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">0</span> &gt; /proc/sys/kernel/randomize_va_space
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 仅栈地址、共享库地址和内存映射区域随机化</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">1</span> &gt; /proc/sys/kernel/randomize_va_space
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 栈地址、共享库地址、内存映射区域随机化和堆地址随机化</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">2</span> &gt; /proc/sys/kernel/randomize_va_space</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当<code>关闭PIE,ASLR级别为0、1、和2</code>时对应的地址变化如下:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">ASLR</th>
+          <th style="text-align: left">程序加载基址</th>
+          <th style="text-align: left">共享库加载基址</th>
+          <th style="text-align: left">栈地址</th>
+          <th style="text-align: left">堆地址</th>
+          <th style="text-align: left">内存映射区域基地址</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">0</td>
+          <td style="text-align: left">固定</td>
+          <td style="text-align: left">固定</td>
+          <td style="text-align: left">固定</td>
+          <td style="text-align: left">固定</td>
+          <td style="text-align: left">固定</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">固定</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">固定</td>
+          <td style="text-align: left">随机</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2</td>
+          <td style="text-align: left">固定</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">随机</td>
+      </tr>
+  </tbody>
+</table>
+<p>当<code>开启PIE,ASLR级别为0、1、和2</code>时对应的地址变化如下:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">ASLR</th>
+          <th style="text-align: left">程序加载基址</th>
+          <th style="text-align: left">共享库加载基址</th>
+          <th style="text-align: left">栈地址</th>
+          <th style="text-align: left">堆地址</th>
+          <th style="text-align: left">内存映射区域基地址</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">0</td>
+          <td style="text-align: left">固定</td>
+          <td style="text-align: left">固定</td>
+          <td style="text-align: left">固定</td>
+          <td style="text-align: left">固定</td>
+          <td style="text-align: left">固定</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">固定,但根据程序加载地址变化而变化</td>
+          <td style="text-align: left">随机</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">随机</td>
+          <td style="text-align: left">随机</td>
+      </tr>
+  </tbody>
+</table>
+<p>测试代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;dlfcn.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">get_base_address</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FILE</span> <span class="o">*</span><span class="n">maps</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;/proc/self/maps&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">maps</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">perror</span><span class="p">(</span><span class="s">&#34;fopen&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">line</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="o">*</span><span class="n">base_address</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">fgets</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">line</span><span class="p">),</span> <span class="n">maps</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// printf(&#34;Line: %s&#34;, line);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sscanf</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34;%lx&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">base_address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">fclose</span><span class="p">(</span><span class="n">maps</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">base_address</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取程序的基地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="o">*</span><span class="n">base</span> <span class="o">=</span> <span class="n">get_base_address</span><span class="p">(</span><span class="s">&#34;luoPwn&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">base</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;程序的基地址: %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">base</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;无法获取程序的基地址</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取共享库libc的加载地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="o">*</span><span class="n">libc_addr</span> <span class="o">=</span> <span class="n">get_base_address</span><span class="p">(</span><span class="s">&#34;libc.so.6&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">libc_addr</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;共享库libc加载地址: %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">libc_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;无法获取共享库libc加载地址</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取栈地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">stack_var</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;栈地址: %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">stack_var</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取堆地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="o">*</span><span class="n">heap_var</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">heap_var</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">perror</span><span class="p">(</span><span class="s">&#34;malloc&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;堆地址: %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">heap_var</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;堆地址相对程序加载基址的偏移: %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">heap_var</span> <span class="o">-</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">base</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 使用mmap分配内存映射并获取基地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="o">*</span><span class="n">mmap_addr</span> <span class="o">=</span> <span class="n">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="mi">4096</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span><span class="p">,</span> <span class="n">MAP_PRIVATE</span> <span class="o">|</span> <span class="n">MAP_ANONYMOUS</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">mmap_addr</span> <span class="o">==</span> <span class="n">MAP_FAILED</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">perror</span><span class="p">(</span><span class="s">&#34;mmap&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;内存映射分配地址: %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mmap_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 释放堆内存和内存映射
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">free</span><span class="p">(</span><span class="n">heap_var</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">munmap</span><span class="p">(</span><span class="n">mmap_addr</span><span class="p">,</span> <span class="mi">4096</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="relro" class="heading-element"><span>RELRO</span>
+  <a href="#relro" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>RELRO(RELocation Read Only),通过将重定位表(如GOT表)设置为只读,防止攻击者修改这些表中的指针,从而劫持程序执行流程.</p>
+<ul>
+<li><code>Partial RELRO</code>:将.got段映射为只读,但.got.plt还是可以写.</li>
+<li><code>Full RELRO</code>:将.got.plt合并到.got段中,所以.got.plt将不复存在.</li>
+</ul>
+<p>gcc编译程序开启或关闭命令如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 默认情况下,Partial RELRO</span>
+</span></span><span class="line"><span class="cl">gcc luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Partial RELRO</span>
+</span></span><span class="line"><span class="cl">gcc -z lazy luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Full RELRO</span>
+</span></span><span class="line"><span class="cl">gcc -z now luoPwn.c -o luoPwn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 关闭</span>
+</span></span><span class="line"><span class="cl">gcc -z norelro luoPwn.c -o luoPwn</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考链接" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://tearorca.github.io/Linux%E5%92%8CWindows%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"target="_blank" rel="external nofollow noopener noreferrer">Linux和Windows保护机制</a></p>
+<p><a href="https://www.cnblogs.com/yidianhan/p/13996928.html"target="_blank" rel="external nofollow noopener noreferrer">Linux保护机制和绕过方式</a></p>
+<p><a href="https://www.cnblogs.com/rec0rd/p/7646857.html"target="_blank" rel="external nofollow noopener noreferrer">关于Linux下ASLR与PIE的一些理解</a></p>
+<p><a href="https://evilpan.com/2018/03/17/exploit-the-stack/"target="_blank" rel="external nofollow noopener noreferrer">栈溢出漏洞的利用和缓解</a></p>
+</div><hr class="awesome-hr" />
+    <h2 id="see-also">相关内容</h2>
+    <ul><li>
+          <a href="/posts/linux-pwn/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/" title="Pwntools使用指北">Pwntools使用指北</a></li><li>
+          <a href="/posts/ida/ida-coverage-diff/" title="IDA-Coverage Diff">IDA-Coverage Diff</a></li><li>
+          <a href="/posts/ida/ida-%E6%89%A7%E8%A1%8C%E8%B7%9F%E8%B8%AA%E6%8E%A2%E7%B4%A2/" title="IDA-执行跟踪探索">IDA-执行跟踪探索</a></li></ul><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2024-11-29 00:00:00">更新于 2024-11-29&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/linux-pwn/" class="post-tag" title="标签 - Linux Pwn">Linux Pwn</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/linux-pwn/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/" class="post-nav-item" rel="prev" title="Pwntools使用指北"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Pwntools使用指北</a><a href="/posts/linux-pwn/linux%E4%B8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%89%8B%E6%B3%95%E8%B5%8F%E6%9E%90/" class="post-nav-item" rel="next" title="Linux下漏洞利用手法赏析">Linux下漏洞利用手法赏析<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2025</span><span class="author" itemprop="copyrightHolder">
+              <a href="/">夏洛魂</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric">0%</span>
+        </div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;--bg-progress: #0076ff;--bg-progress-dark: #fff;"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.16"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

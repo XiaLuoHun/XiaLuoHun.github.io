@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Pwntools使用指北   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
+<meta name="description" content="概述 Pwntools是一个CTF框架和漏洞利用开发库.它使用Python编写,旨在实现快速原型设计和开发,并尽可能简化漏洞利用程序的编写.
+"><meta name="keywords" content='Linux Pwn'>
+  <meta itemprop="name" content="Pwntools使用指北">
+  <meta itemprop="description" content="概述 Pwntools是一个CTF框架和漏洞利用开发库.它使用Python编写,旨在实现快速原型设计和开发,并尽可能简化漏洞利用程序的编写.">
+  <meta itemprop="datePublished" content="2024-11-22T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2024-11-22T00:00:00+00:00">
+  <meta itemprop="wordCount" content="3743">
+  <meta itemprop="image" content="https://XiaLuoHun.top/posts/linux-pwn/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/images/pwntools.png">
+  <meta itemprop="keywords" content="Linux Pwn"><meta property="og:url" content="https://XiaLuoHun.top/posts/linux-pwn/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/">
+  <meta property="og:site_name" content="夏洛魂的个人博客">
+  <meta property="og:title" content="Pwntools使用指北">
+  <meta property="og:description" content="概述 Pwntools是一个CTF框架和漏洞利用开发库.它使用Python编写,旨在实现快速原型设计和开发,并尽可能简化漏洞利用程序的编写.">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-11-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-11-22T00:00:00+00:00">
+    <meta property="article:tag" content="Linux Pwn">
+    <meta property="og:image" content="https://XiaLuoHun.top/posts/linux-pwn/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/images/pwntools.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://XiaLuoHun.top/posts/linux-pwn/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/images/pwntools.png">
+  <meta name="twitter:title" content="Pwntools使用指北">
+  <meta name="twitter:description" content="概述 Pwntools是一个CTF框架和漏洞利用开发库.它使用Python编写,旨在实现快速原型设计和开发,并尽可能简化漏洞利用程序的编写.">
+<meta name="application-name" content="夏洛魂">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/linux-pwn/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/" title="Pwntools使用指北   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/ida/ida-coverage-diff/" title="IDA-Coverage Diff" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/linux-pwn/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="Linux程序保护机制" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Pwntools使用指北",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/XiaLuoHun.top\/posts\/linux-pwn\/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97\/"
+    },"image": [{
+              "@type": "ImageObject",
+              "url": "https:\/\/XiaLuoHun.top\/posts\/linux-pwn\/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97\/images\/pwntools.png",
+              "width":  2561 ,
+              "height":  1144 
+            }],"genre": "posts","keywords": "Linux Pwn","wordcount":  3743 ,
+    "url": "https:\/\/XiaLuoHun.top\/posts\/linux-pwn\/pwntools%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97\/","datePublished": "2024-11-22T00:00:00+00:00","dateModified": "2024-11-22T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "夏洛魂"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="输入关键词搜索" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="输入关键词搜索" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item"><a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"><div class="details collection-details open">
+      <div class="details-summary collection-summary">
+        <i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i>
+        <span class="collection-name" data-collections="合集">Linux Pwn</span>
+        <span class="collection-count">3</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+      <div class="details-content collection-content">
+        <nav>
+          <ul class="collection-list"><li class="collection-item"><span class="active" title="Pwntools使用指北">Pwntools使用指北</span></li><li class="collection-item"><a href="/posts/linux-pwn/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" title="Linux程序保护机制">Linux程序保护机制</a></li><li class="collection-item"><a href="/posts/linux-pwn/linux%E4%B8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%89%8B%E6%B3%95%E8%B5%8F%E6%9E%90/" title="Linux下漏洞利用手法赏析">Linux下漏洞利用手法赏析</a></li></ul>
+          <div class="collection-nav-simple"><i class="fa-solid fa-angle-left fa-fw collection-nav-item text-secondary" aria-hidden="true"></i><span class="text-secondary">1/3</span><a href="/posts/linux-pwn/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" class="collection-nav-item" rel="next" title="Linux程序保护机制"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+        </nav>
+      </div>
+    </div></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Pwntools使用指北</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/linux-pwn/" class="post-category" title="分类 - Linux Pwn"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Linux Pwn</a> 和 <a href="/collections/linux-pwn/" class="post-collection" title="合集 - Linux Pwn"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> Linux Pwn</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-22 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-22">2024-11-22</time></span>&nbsp;<span title="3743 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3800 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#管道tubes">管道(Tubes)</a>
+      <ul>
+        <li><a href="#程序连接">程序连接</a></li>
+        <li><a href="#发送数据">发送数据</a></li>
+        <li><a href="#接收数据">接收数据</a></li>
+        <li><a href="#操作整数">操作整数</a></li>
+        <li><a href="#示例代码">示例代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#实用工具utility">实用工具(Utility)</a>
+      <ul>
+        <li><a href="#打包和解包整数">打包和解包整数</a></li>
+        <li><a href="#文件输入输出">文件输入输出</a></li>
+        <li><a href="#编码和解码">编码和解码</a></li>
+        <li><a href="#cyclic">cyclic</a></li>
+      </ul>
+    </li>
+    <li><a href="#上下文context">上下文(Context)</a></li>
+    <li><a href="#elf">ELF</a>
+      <ul>
+        <li><a href="#加载elf">加载ELF</a></li>
+        <li><a href="#使用符号">使用符号</a></li>
+        <li><a href="#修改基地址">修改基地址</a></li>
+        <li><a href="#读取elf">读取ELF</a></li>
+        <li><a href="#修补elf">修补ELF</a></li>
+        <li><a href="#搜索elf">搜索ELF</a></li>
+        <li><a href="#构建elf">构建ELF</a></li>
+        <li><a href="#运行和调试elf">运行和调试ELF</a></li>
+      </ul>
+    </li>
+    <li><a href="#汇编">汇编</a>
+      <ul>
+        <li><a href="#基础汇编">基础汇编</a></li>
+        <li><a href="#汇编模版">汇编模版</a></li>
+        <li><a href="#命令行工具">命令行工具</a></li>
+        <li><a href="#异构架构">异构架构</a></li>
+      </ul>
+    </li>
+    <li><a href="#调试">调试</a>
+      <ul>
+        <li><a href="#gdb启动进程">GDB启动进程</a></li>
+        <li><a href="#gdb附加进程">GDB附加进程</a></li>
+      </ul>
+    </li>
+    <li><a href="#rop">ROP</a>
+      <ul>
+        <li><a href="#加载elf-1">加载ELF</a></li>
+        <li><a href="#修复地址">修复地址</a></li>
+        <li><a href="#检查gadgets">检查Gadgets</a></li>
+        <li><a href="#添加原始数据">添加原始数据</a></li>
+        <li><a href="#查看rop栈">查看ROP栈</a></li>
+        <li><a href="#提取原始字节">提取原始字节</a></li>
+        <li><a href="#函数调用">函数调用</a></li>
+        <li><a href="#按名称调用函数">按名称调用函数</a></li>
+        <li><a href="#多elf寻找gadgets">多ELF寻找Gadgets</a></li>
+        <li><a href="#获取shell">获取Shell</a></li>
+      </ul>
+    </li>
+    <li><a href="#日志">日志</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 id="概述" class="heading-element"><span>概述</span>
+  <a href="#%e6%a6%82%e8%bf%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Pwntools是一个CTF框架和漏洞利用开发库.它使用Python编写,旨在实现快速原型设计和开发,并尽可能简化漏洞利用程序的编写.</p>
+<p>通过下述命令进行安装:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple pwntools</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="管道tubes" class="heading-element"><span>管道(Tubes)</span>
+  <a href="#%e7%ae%a1%e9%81%93tubes" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Tubes是用于与进程进行通信的类,通常用于传输数据、发送或接收信息.</p>
+<p>pwntools提供了以下几种不同的Tube类型来处理不同的情况:</p>
+<ul>
+<li><code>process</code>:表示一个本地进程,你可以通过管道与它进行交互.</li>
+<li><code>remote</code>:表示与远程主机上程序的链接,你可以通过网络与远程程序进行交互.</li>
+<li><code>listen</code>:允许你在本地监听一个端口,等待远程连接.</li>
+<li><code>socket</code>:表示一个原始的网络套接字,允许更细粒度的网络交互.</li>
+</ul>
+<h3 id="程序连接" class="heading-element"><span>程序连接</span>
+  <a href="#%e7%a8%8b%e5%ba%8f%e8%bf%9e%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">语句</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">io = process(&ldquo;本地文件路径&rdquo;)</td>
+          <td style="text-align: left">本地连接</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">io = remote(&ldquo;本地文件路径&rdquo;)</td>
+          <td style="text-align: left">远程连接</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="发送数据" class="heading-element"><span>发送数据</span>
+  <a href="#%e5%8f%91%e9%80%81%e6%95%b0%e6%8d%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">语句</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">io.send(payload)</td>
+          <td style="text-align: left">发送payload</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">io.sendline(payload)</td>
+          <td style="text-align: left">发送payload,追加&rsquo;\n&rsquo;,进行换行</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">io.sendafter(str, payload)</td>
+          <td style="text-align: left">接收到str后,发送payload</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">io.sendlineafter(str, payload)</td>
+          <td style="text-align: left">接收到str后,发送payload,并进行换行</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="接收数据" class="heading-element"><span>接收数据</span>
+  <a href="#%e6%8e%a5%e6%94%b6%e6%95%b0%e6%8d%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">语句</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">io.recv(N)</td>
+          <td style="text-align: left">接收N个字符</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">io.recvline()</td>
+          <td style="text-align: left">接收数据,直到遇到换行符</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">io.recvuntil(delim)</td>
+          <td style="text-align: left">接收数据,直到遇到分隔符</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">io.recvregex(pattern)</td>
+          <td style="text-align: left">接收数据,直至满足一个regex模式</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">io.recvrepeat(timeout)</td>
+          <td style="text-align: left">接收数据,直到出现超时</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">io.clean()</td>
+          <td style="text-align: left">丢弃所有缓冲数据</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">io.interactive()</td>
+          <td style="text-align: left">直接与程序进行输入输出交互</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="操作整数" class="heading-element"><span>操作整数</span>
+  <a href="#%e6%93%8d%e4%bd%9c%e6%95%b4%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">语句</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">io.pack(int)</td>
+          <td style="text-align: left">发送一个字大小的打包整数</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">io.unpack()</td>
+          <td style="text-align: left">接收并解压缩一个字大小的整数</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="示例代码" class="heading-element"><span>示例代码</span>
+  <a href="#%e7%a4%ba%e4%be%8b%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">io</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">&#39;echo Hello, world&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="实用工具utility" class="heading-element"><span>实用工具(Utility)</span>
+  <a href="#%e5%ae%9e%e7%94%a8%e5%b7%a5%e5%85%b7utility" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="打包和解包整数" class="heading-element"><span>打包和解包整数</span>
+  <a href="#%e6%89%93%e5%8c%85%e5%92%8c%e8%a7%a3%e5%8c%85%e6%95%b4%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">pack</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;\x01\x00\x00\x00&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">pack</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;\xff\xff\xff\xff&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">pack</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;\x00\x00\x00\x01&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">p16</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;\x01\x00&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;AAAA&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;0x41414141&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">u16</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;AA&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;0x4141&#39;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="文件输入输出" class="heading-element"><span>文件输入输出</span>
+  <a href="#%e6%96%87%e4%bb%b6%e8%be%93%e5%85%a5%e8%be%93%e5%87%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="s1">&#39;luoFile&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;luoFile&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;data&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;luoFile&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;d&#39;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="编码和解码" class="heading-element"><span>编码和解码</span>
+  <a href="#%e7%bc%96%e7%a0%81%e5%92%8c%e8%a7%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Base64</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">b64d</span><span class="p">(</span><span class="n">b64e</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;luo pwntools&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># b&#39;luo pwntools&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#URL编码</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">urlencode</span><span class="p">(</span><span class="s2">&#34;luo pwntools&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># %6c%75%6f%20%70%77%6e%74%6f%6f%6c%73</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#16进制编码</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">enhex</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;luo pwntools&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;68656c6c6f&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">unhex</span><span class="p">(</span><span class="s1">&#39;6c756f2070776e746f6f6c73&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># b&#39;luo pwntools&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#位操作</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">bits</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;A&#39;</span><span class="p">))</span> <span class="c1">#&#39;A&#39; ASCII编码为65,二进制表示为01000001</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># [0, 1, 0, 0, 0, 0, 0, 1]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">unbits</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;A&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#16进制查看</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">hexdump</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;luo pwntools&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 00000000  6c 75 6f 20  70 77 6e 74  6f 6f 6c 73               │luo │pwnt│ools│</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cyclic" class="heading-element"><span>cyclic</span>
+  <a href="#cyclic" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 计算缓冲区到返回地址的距离</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">buffer_size</span> <span class="o">=</span> <span class="mi">200</span>
+</span></span><span class="line"><span class="cl"><span class="n">pattern</span> <span class="o">=</span> <span class="n">cyclic</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">crash_address</span> <span class="o">=</span> <span class="mh">0x61616167</span>
+</span></span><span class="line"><span class="cl"><span class="n">offset</span> <span class="o">=</span> <span class="n">cyclic_find</span><span class="p">(</span><span class="n">crash_address</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;offset: </span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="上下文context" class="heading-element"><span>上下文(Context)</span>
+  <a href="#%e4%b8%8a%e4%b8%8b%e6%96%87context" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>context模块允许你设置目标系统的平台架构以及调试信息等相关配置.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 操作系统为Linux,设置架构为64 位，</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">os</span> <span class="o">=</span> <span class="s1">&#39;linux&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置字节序为小端</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="s1">&#39;little&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置日志级别为 debug</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 一次设置多值</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="p">(</span><span class="n">os</span><span class="o">=</span><span class="s1">&#39;linux&#39;</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="s1">&#39;amd64&#39;</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;debug&#39;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="elf" class="heading-element"><span>ELF</span>
+  <a href="#elf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="加载elf" class="heading-element"><span>加载ELF</span>
+  <a href="#%e5%8a%a0%e8%bd%bdelf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/bash&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># [*] &#39;/bin/bash&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Arch:     amd64-64-little</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     RELRO:    Partial RELRO</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Stack:    Canary found</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     NX:       NX enabled</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     PIE:      No PIE</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     FORTIFY:  Enabled</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="使用符号" class="heading-element"><span>使用符号</span>
+  <a href="#%e4%bd%bf%e7%94%a8%e7%ac%a6%e5%8f%b7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
+<li><code>ELF.symbols</code>:列出所有已知符号.plt优先于got</li>
+<li><code>ELF.got</code>:只包含got</li>
+<li><code>ELF.plt</code>:只包含plt</li>
+<li><code>ELF.functions</code>:只包含函数(需要DWARF符号)</li>
+</ul>
+<p>示例代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/bash&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; license&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;bash_license&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; execve&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;execve&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; got.execve&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">got</span><span class="p">[</span><span class="s1">&#39;execve&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; plt.execve&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">plt</span><span class="p">[</span><span class="s1">&#39;execve&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; list_all_jobs&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="s1">&#39;list_all_jobs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="s1">&#39;/bin/bash&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Arch</span><span class="p">:</span>       <span class="n">amd64</span><span class="o">-</span><span class="mi">64</span><span class="o">-</span><span class="n">little</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RELRO</span><span class="p">:</span>      <span class="n">Full</span> <span class="n">RELRO</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Stack</span><span class="p">:</span>      <span class="n">Canary</span> <span class="n">found</span>
+</span></span><span class="line"><span class="cl">    <span class="n">NX</span><span class="p">:</span>         <span class="n">NX</span> <span class="n">enabled</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PIE</span><span class="p">:</span>        <span class="n">PIE</span> <span class="n">enabled</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FORTIFY</span><span class="p">:</span>    <span class="n">Enabled</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x130cc0</span> <span class="o">-&gt;</span> <span class="n">license</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x2f610</span> <span class="o">-&gt;</span> <span class="n">execve</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x133af0</span> <span class="o">-&gt;</span> <span class="n">got</span><span class="o">.</span><span class="n">execve</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x2f610</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">execve</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x60e80</span> <span class="o">-&gt;</span> <span class="n">list_all_jobs</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="修改基地址" class="heading-element"><span>修改基地址</span>
+  <a href="#%e4%bf%ae%e6%94%b9%e5%9f%ba%e5%9c%b0%e5%9d%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/bash&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; base address&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; entry point&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">entry</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; execve&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;execve&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;--------------------------&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="mh">0x12340000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; base address&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; entry point&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">entry</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; execve&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;execve&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="s1">&#39;/bin/bash&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Arch</span><span class="p">:</span>       <span class="n">amd64</span><span class="o">-</span><span class="mi">64</span><span class="o">-</span><span class="n">little</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RELRO</span><span class="p">:</span>      <span class="n">Full</span> <span class="n">RELRO</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Stack</span><span class="p">:</span>      <span class="n">Canary</span> <span class="n">found</span>
+</span></span><span class="line"><span class="cl">    <span class="n">NX</span><span class="p">:</span>         <span class="n">NX</span> <span class="n">enabled</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PIE</span><span class="p">:</span>        <span class="n">PIE</span> <span class="n">enabled</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FORTIFY</span><span class="p">:</span>    <span class="n">Enabled</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0</span> <span class="o">-&gt;</span> <span class="n">base</span> <span class="n">address</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x31760</span> <span class="o">-&gt;</span> <span class="n">entry</span> <span class="n">point</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x2f610</span> <span class="o">-&gt;</span> <span class="n">execve</span>
+</span></span><span class="line"><span class="cl"><span class="o">--------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x12340000</span> <span class="o">-&gt;</span> <span class="n">base</span> <span class="n">address</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x12371760</span> <span class="o">-&gt;</span> <span class="n">entry</span> <span class="n">point</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x1236f610</span> <span class="o">-&gt;</span> <span class="n">execve</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="读取elf" class="heading-element"><span>读取ELF</span>
+  <a href="#%e8%af%bb%e5%8f%96elf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/bash&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p_license</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;bash_license&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">license</span>   <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">p_license</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%#x</span><span class="s2"> -&gt; </span><span class="si">%#x</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">p_license</span><span class="p">,</span> <span class="n">license</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">license</span><span class="p">,</span> <span class="mi">14</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">disasm</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;main&#39;</span><span class="p">],</span> <span class="mi">12</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="s1">&#39;/bin/bash&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Arch</span><span class="p">:</span>       <span class="n">amd64</span><span class="o">-</span><span class="mi">64</span><span class="o">-</span><span class="n">little</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RELRO</span><span class="p">:</span>      <span class="n">Full</span> <span class="n">RELRO</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Stack</span><span class="p">:</span>      <span class="n">Canary</span> <span class="n">found</span>
+</span></span><span class="line"><span class="cl">    <span class="n">NX</span><span class="p">:</span>         <span class="n">NX</span> <span class="n">enabled</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PIE</span><span class="p">:</span>        <span class="n">PIE</span> <span class="n">enabled</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FORTIFY</span><span class="p">:</span>    <span class="n">Enabled</span>
+</span></span><span class="line"><span class="cl"><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x7f</span><span class="s1">ELF&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x130cc0</span> <span class="o">-&gt;</span> <span class="mh">0xfd7e0</span>
+</span></span><span class="line"><span class="cl"><span class="sa">b</span><span class="s1">&#39;License GPLv3+&#39;</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">2</span><span class="n">fee0</span><span class="p">:</span>       <span class="n">f3</span> <span class="mi">0</span><span class="n">f</span> <span class="mi">1</span><span class="n">e</span> <span class="n">fa</span>             <span class="n">endbr64</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">2</span><span class="n">fee4</span><span class="p">:</span>       <span class="mi">41</span> <span class="mi">57</span>                   <span class="n">push</span>   <span class="n">r15</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">2</span><span class="n">fee6</span><span class="p">:</span>       <span class="mi">41</span> <span class="mi">56</span>                   <span class="n">push</span>   <span class="n">r14</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">2</span><span class="n">fee8</span><span class="p">:</span>       <span class="mi">41</span> <span class="mi">55</span>                   <span class="n">push</span>   <span class="n">r13</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">2</span><span class="n">feea</span><span class="p">:</span>       <span class="mi">41</span> <span class="mi">54</span>                   <span class="n">push</span>   <span class="n">r12</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="修补elf" class="heading-element"><span>修补ELF</span>
+  <a href="#%e4%bf%ae%e8%a1%a5elf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/bash&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Cause a debug break on the &#39;exit&#39; command</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span><span class="o">.</span><span class="n">asm</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;exit_builtin&#39;</span><span class="p">],</span> <span class="s1">&#39;int3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Change the license</span>
+</span></span><span class="line"><span class="cl"><span class="n">p_license</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;bash_license&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">license</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">p_license</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">license</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;Hello, world!</span><span class="se">\n\x00</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./bash-modified&#39;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们使用下述命令来运行修改后的bash程序.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ chmod +x ./bash-modified
+</span></span><span class="line"><span class="cl">$ ./bash-modified -c <span class="s1">&#39;exit&#39;</span>
+</span></span><span class="line"><span class="cl">Trace/breakpoint <span class="nb">trap</span>
+</span></span><span class="line"><span class="cl">$ ./bash-modified --version <span class="p">|</span> grep <span class="s2">&#34;Hello&#34;</span>
+</span></span><span class="line"><span class="cl">Hello, world!</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="搜索elf" class="heading-element"><span>搜索ELF</span>
+  <a href="#%e6%90%9c%e7%b4%a2elf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/bash&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">address</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span> <span class="nb">hex</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x31e62</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x31f01</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="构建elf" class="heading-element"><span>构建ELF</span>
+  <a href="#%e6%9e%84%e5%bb%baelf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ELF</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xcc</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./int3-1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ELF</span><span class="o">.</span><span class="n">from_assembly</span><span class="p">(</span><span class="s1">&#39;int3&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./int3-2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ELF</span><span class="o">.</span><span class="n">from_assembly</span><span class="p">(</span><span class="s1">&#39;nop&#39;</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="s1">&#39;powerpc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./powerpc-nop&#39;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行和调试elf" class="heading-element"><span>运行和调试ELF</span>
+  <a href="#%e8%bf%90%e8%a1%8c%e5%92%8c%e8%b0%83%e8%af%95elf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 等同于 io = process(&#39;./luoPwn&#39;)</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;./luoPwn&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 等同于 io = gdb.debug(&#39;./luoPwn&#39;)</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/luoPwn&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">debug</span><span class="p">()</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="汇编" class="heading-element"><span>汇编</span>
+  <a href="#%e6%b1%87%e7%bc%96" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Pwntools让你在任何架构中进行汇编变的非常容易,并提供了多种可定制的ShellCode.</p>
+<h3 id="基础汇编" class="heading-element"><span>基础汇编</span>
+  <a href="#%e5%9f%ba%e7%a1%80%e6%b1%87%e7%bc%96" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;xor edi, edi&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;1\xff&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">enhex</span><span class="p">(</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;xor edi, edi&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 31ff</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="汇编模版" class="heading-element"><span>汇编模版</span>
+  <a href="#%e6%b1%87%e7%bc%96%e6%a8%a1%e7%89%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="https://docs.pwntools.com/en/latest/shellcraft.html"target="_blank" rel="external nofollow noopener noreferrer">shellcraft</a>模块会提供一些现成的汇编代码.</p>
+<p>如下生成一段简单的ShellCode,通过系统调用(execve)启动一个 /bin/sh shell</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#help(shellcraft.sh)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">sh</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">enhex</span><span class="p">(</span><span class="n">asm</span><span class="p">(</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">sh</span><span class="p">())))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl">    <span class="o">/*</span> <span class="n">execve</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;/bin///sh&#39;</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">],</span> <span class="n">envp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">    <span class="o">/*</span> <span class="n">push</span> <span class="sa">b</span><span class="s1">&#39;/bin///sh</span><span class="se">\x00</span><span class="s1">&#39;</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span> <span class="mh">0x68</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span> <span class="mh">0x732f2f2f</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span> <span class="mh">0x6e69622f</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mov</span> <span class="n">ebx</span><span class="p">,</span> <span class="n">esp</span>
+</span></span><span class="line"><span class="cl">    <span class="o">/*</span> <span class="n">push</span> <span class="n">argument</span> <span class="n">array</span> <span class="p">[</span><span class="s1">&#39;sh</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">    <span class="o">/*</span> <span class="n">push</span> <span class="s1">&#39;sh</span><span class="se">\x00\x00</span><span class="s1">&#39;</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span> <span class="mh">0x1010101</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xor</span> <span class="n">dword</span> <span class="n">ptr</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span> <span class="mh">0x1016972</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xor</span> <span class="n">ecx</span><span class="p">,</span> <span class="n">ecx</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span> <span class="n">ecx</span> <span class="o">/*</span> <span class="n">null</span> <span class="n">terminate</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pop</span> <span class="n">ecx</span>
+</span></span><span class="line"><span class="cl">    <span class="n">add</span> <span class="n">ecx</span><span class="p">,</span> <span class="n">esp</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span> <span class="n">ecx</span> <span class="o">/*</span> <span class="s1">&#39;sh</span><span class="se">\x00</span><span class="s1">&#39;</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mov</span> <span class="n">ecx</span><span class="p">,</span> <span class="n">esp</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xor</span> <span class="n">edx</span><span class="p">,</span> <span class="n">edx</span>
+</span></span><span class="line"><span class="cl">    <span class="o">/*</span> <span class="n">call</span> <span class="n">execve</span><span class="p">()</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span> <span class="n">SYS_execve</span> <span class="o">/*</span> <span class="mh">0xb</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pop</span> <span class="n">eax</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">int</span> <span class="mh">0x80</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="mi">6</span><span class="n">a68682f2f2f73682f62696e89e368010101018134247269010131c9516a045901e15189e131d26a0b58cd80</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="命令行工具" class="heading-element"><span>命令行工具</span>
+  <a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e5%b7%a5%e5%85%b7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
+<li><code>asm</code>:将汇编转换为机器码.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ asm nop
+</span></span><span class="line"><span class="cl"><span class="m">90</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ asm nop <span class="p">|</span> xxd 
+</span></span><span class="line"><span class="cl">00000000: <span class="m">90</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 从stdin上获取数据</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="s1">&#39;push ebx; pop edi&#39;</span> <span class="p">|</span> asm
+</span></span><span class="line"><span class="cl">535f
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 通过--format选项指定输出格式.支持的参数有raw、hex 、string 和 elf</span>
+</span></span><span class="line"><span class="cl">$ asm --format<span class="o">=</span>string <span class="s1">&#39;int3&#39;</span>
+</span></span><span class="line"><span class="cl">b<span class="s1">&#39;\xcc&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ asm --format<span class="o">=</span>hex <span class="s1">&#39;int3&#39;</span>   
+</span></span><span class="line"><span class="cl">cc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成arm架构下的汇编</span>
+</span></span><span class="line"><span class="cl">$ asm --context<span class="o">=</span>arm <span class="s1">&#39;mov r0, r1&#39;</span>
+</span></span><span class="line"><span class="cl">0100a0e1</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li><code>disasm</code>:将机器码反汇编为汇编指令.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ disasm cd80
+</span></span><span class="line"><span class="cl">   0:    <span class="nb">cd</span> <span class="m">80</span>                    int    0x80   
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ asm nop <span class="p">|</span> disasm
+</span></span><span class="line"><span class="cl">   0:    <span class="m">90</span>                       nop</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li><code>shellcraft</code>:是内部shellcraft模块的命令行接口.在命令行中,必须按arch.os.template的顺序指定完整的环境信息.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ shellcraft i386.linux.sh
+</span></span><span class="line"><span class="cl">6a68682f2f2f73682f62696e89e368010101018134247269010131c9516a045901e15189e131d26a0b58cd80
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#arm架构下汇编</span>
+</span></span><span class="line"><span class="cl">$ shellcraft arm.linux.sh
+</span></span><span class="line"><span class="cl">687000e3417144e304702de52f7f02e32f7347e304702de52f7206e3697e46e304702de50d00a0e1737806e304702de50cc02ce004c02de50410a0e30d1081e001c0a0e104c02de50d10a0e1022022e00b70a0e3000000ef</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="异构架构" class="heading-element"><span>异构架构</span>
+  <a href="#%e5%bc%82%e6%9e%84%e6%9e%b6%e6%9e%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>为其他平台进行汇编交互,需要安装适当版本的<code>binutils</code>.可参考<a href="https://github.com/Gallopsled/pwntools-tutorial/blob/master/installing.md"target="_blank" rel="external nofollow noopener noreferrer">installing.md</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> <span class="c1"># 使用下述命令进行全平台binutils安装</span>
+</span></span><span class="line"><span class="cl"> apt install binutils-*</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译arm架构下的汇编如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;arm&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;mov r0, r1&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;\x01\x00\xa0\xe1&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">enhex</span><span class="p">(</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;mov r0, r1&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0100a0e1</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="调试" class="heading-element"><span>调试</span>
+  <a href="#%e8%b0%83%e8%af%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>需要先进行gdb安装,如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install gdb gdbserver</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gdb启动进程" class="heading-element"><span>GDB启动进程</span>
+  <a href="#gdb%e5%90%af%e5%8a%a8%e8%bf%9b%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定GDB调试终端,需要先运行 tmux</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 进行tmux窗口后, 按下Ctrl + D, 即可取消窗口分割</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">terminal</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tmux&#39;</span><span class="p">,</span> <span class="s1">&#39;splitw&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">gdb_commands</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    b exit
+</span></span></span><span class="line"><span class="cl"><span class="s1">    b _exit
+</span></span></span><span class="line"><span class="cl"><span class="s1">    c
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span> <span class="o">=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&#34;/bin/bash&#34;</span><span class="p">,</span> <span class="n">gdb_commands</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">&#39;echo hello&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gdb附加进程" class="heading-element"><span>GDB附加进程</span>
+  <a href="#gdb%e9%99%84%e5%8a%a0%e8%bf%9b%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#context.log_level = &#39;debug&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">io</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">gdb_commands</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    b exit
+</span></span></span><span class="line"><span class="cl"><span class="s1">    b _exit
+</span></span></span><span class="line"><span class="cl"><span class="s1">    c
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">gdb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">gdb_commands</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="rop" class="heading-element"><span>ROP</span>
+  <a href="#rop" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>ROP全称为Return-oriented Programming(面向返回的编程,是一种绕过NX(禁止执行,也称为数据执行防护(DEP))的技术.</p>
+<h3 id="加载elf-1" class="heading-element"><span>加载ELF</span>
+  <a href="#%e5%8a%a0%e8%bd%bdelf-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#context.arch = &#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rop</span> <span class="o">=</span> <span class="n">ROP</span><span class="p">(</span><span class="n">elf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rop</span><span class="o">.</span><span class="n">rbx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Gadget地址 反汇编内容 加载的寄存器 堆栈调整大小</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gadget</span><span class="p">(</span><span class="mh">0x4a62</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pop rbx&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;rbx&#39;</span><span class="p">],</span> <span class="mh">0x10</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="修复地址" class="heading-element"><span>修复地址</span>
+  <a href="#%e4%bf%ae%e5%a4%8d%e5%9c%b0%e5%9d%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#context.arch = &#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">elf</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="mh">0xff000000</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span> <span class="o">=</span> <span class="n">ROP</span><span class="p">(</span><span class="n">elf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rop</span><span class="o">.</span><span class="n">rbx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gadget</span><span class="p">(</span><span class="mh">0xff004a62</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pop rbx&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;rbx&#39;</span><span class="p">],</span> <span class="mh">0x10</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="检查gadgets" class="heading-element"><span>检查Gadgets</span>
+  <a href="#%e6%a3%80%e6%9f%a5gadgets" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#context.arch = &#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">gadgets</span> <span class="o">=</span> <span class="n">ROP</span><span class="p">(</span><span class="n">elf</span><span class="p">)</span><span class="o">.</span><span class="n">gadgets</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">addr</span><span class="p">,</span> <span class="n">insns</span> <span class="ow">in</span> <span class="n">gadgets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">insns</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gadget</span><span class="p">(</span><span class="mh">0x784b</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;add esp, 0x10&#39;</span><span class="p">,</span> <span class="s1">&#39;pop rbx&#39;</span><span class="p">,</span> <span class="s1">&#39;pop rbp&#39;</span><span class="p">,</span> <span class="s1">&#39;pop r12&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="s1">&#39;rbx&#39;</span><span class="p">,</span> <span class="s1">&#39;rbp&#39;</span><span class="p">,</span> <span class="s1">&#39;r12&#39;</span><span class="p">],</span> <span class="mh">0x30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gadget</span><span class="p">(</span><span class="mh">0xc55e</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;add esp, 0x10&#39;</span><span class="p">,</span> <span class="s1">&#39;pop rbx&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="s1">&#39;rbx&#39;</span><span class="p">],</span> <span class="mh">0x20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gadget</span><span class="p">(</span><span class="mh">0x106ec</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;add esp, 0x130&#39;</span><span class="p">,</span> <span class="s1">&#39;pop rbx&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">304</span><span class="p">,</span> <span class="s1">&#39;rbx&#39;</span><span class="p">],</span> <span class="mh">0x140</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gadget</span><span class="p">(</span><span class="mh">0x14060</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;add esp, 0x18&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">24</span><span class="p">],</span> <span class="mh">0x20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gadget</span><span class="p">(</span><span class="mh">0x64da</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;add esp, 0x20&#39;</span><span class="p">,</span> <span class="s1">&#39;pop rbx&#39;</span><span class="p">,</span> <span class="s1">&#39;pop rbp&#39;</span><span class="p">,</span> <span class="s1">&#39;pop r12&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="s1">&#39;rbx&#39;</span><span class="p">,</span> <span class="s1">&#39;rbp&#39;</span><span class="p">,</span> <span class="s1">&#39;r12&#39;</span><span class="p">],</span> <span class="mh">0x40</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果上述结果中没有想要的,建议使用<a href="https://github.com/JonathanSalwan/ROPgadget"target="_blank" rel="external nofollow noopener noreferrer">ROPgadget</a>.</p>
+<h3 id="添加原始数据" class="heading-element"><span>添加原始数据</span>
+  <a href="#%e6%b7%bb%e5%8a%a0%e5%8e%9f%e5%a7%8b%e6%95%b0%e6%8d%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#context.arch = &#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rop</span> <span class="o">=</span> <span class="n">ROP</span><span class="p">(</span><span class="n">elf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="mh">0xcafebabe</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;asdf&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rop</span><span class="o">.</span><span class="n">chain</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xef\xbe\xad\xde\x00\x00\x00\x00\xbe\xba\xfe\xca\x00\x00\x00\x00</span><span class="s1">asdf&#39;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="查看rop栈" class="heading-element"><span>查看ROP栈</span>
+  <a href="#%e6%9f%a5%e7%9c%8brop%e6%a0%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#context.arch = &#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rop</span> <span class="o">=</span> <span class="n">ROP</span><span class="p">(</span><span class="n">elf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="mh">0xcafebabe</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;asdf&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rop</span><span class="o">.</span><span class="n">dump</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0000</span><span class="p">:</span>       <span class="mh">0xdeadbeef</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0008</span><span class="p">:</span>       <span class="mh">0xcafebabe</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0010</span><span class="p">:</span>       <span class="sa">b</span><span class="s1">&#39;asdf&#39;</span> <span class="s1">&#39;asdf&#39;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="提取原始字节" class="heading-element"><span>提取原始字节</span>
+  <a href="#%e6%8f%90%e5%8f%96%e5%8e%9f%e5%a7%8b%e5%ad%97%e8%8a%82" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#context.arch = &#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rop</span> <span class="o">=</span> <span class="n">ROP</span><span class="p">(</span><span class="n">elf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="mh">0xcafebabe</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;asdf&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">hexdump</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">rop</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下</span>
+</span></span><span class="line"><span class="cl"><span class="mi">00000000</span>  <span class="n">ef</span> <span class="n">be</span> <span class="n">ad</span> <span class="n">de</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="n">be</span> <span class="n">ba</span> <span class="n">fe</span> <span class="n">ca</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="err">│····│····│····│····│</span>
+</span></span><span class="line"><span class="cl"><span class="mi">00000010</span>  <span class="mi">61</span> <span class="mi">73</span> <span class="mi">64</span> <span class="mi">66</span>                                         <span class="err">│</span><span class="n">asdf</span><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="mi">00000014</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="函数调用" class="heading-element"><span>函数调用</span>
+  <a href="#%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>注意设置目标架构.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#context.arch = &#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rop</span> <span class="o">=</span> <span class="n">ROP</span><span class="p">(</span><span class="n">elf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rop</span><span class="o">.</span><span class="n">dump</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0000</span><span class="p">:</span>           <span class="mh">0x4b70</span> <span class="n">pop</span> <span class="n">rdi</span><span class="p">;</span> <span class="n">ret</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0008</span><span class="p">:</span>              <span class="mh">0x0</span> <span class="p">[</span><span class="n">arg0</span><span class="p">]</span> <span class="n">rdi</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0010</span><span class="p">:</span>           <span class="mh">0x4a02</span> <span class="n">pop</span> <span class="n">rsi</span><span class="p">;</span> <span class="n">ret</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0018</span><span class="p">:</span>              <span class="mh">0x1</span> <span class="p">[</span><span class="n">arg1</span><span class="p">]</span> <span class="n">rsi</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0020</span><span class="p">:</span>       <span class="mh">0xdeadbeef</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="按名称调用函数" class="heading-element"><span>按名称调用函数</span>
+  <a href="#%e6%8c%89%e5%90%8d%e7%a7%b0%e8%b0%83%e7%94%a8%e5%87%bd%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#context.arch = &#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rop</span> <span class="o">=</span> <span class="n">ROP</span><span class="p">(</span><span class="n">elf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">execve</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rop</span><span class="o">.</span><span class="n">dump</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0000</span><span class="p">:</span>           <span class="mh">0x4b70</span> <span class="n">pop</span> <span class="n">rdi</span><span class="p">;</span> <span class="n">ret</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0008</span><span class="p">:</span>       <span class="mh">0xdeadbeef</span> <span class="p">[</span><span class="n">arg0</span><span class="p">]</span> <span class="n">rdi</span> <span class="o">=</span> <span class="mi">3735928559</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0010</span><span class="p">:</span>           <span class="mh">0x42a0</span> <span class="n">execve</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="多elf寻找gadgets" class="heading-element"><span>多ELF寻找Gadgets</span>
+  <a href="#%e5%a4%9aelf%e5%af%bb%e6%89%begadgets" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#context.arch = &#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/bash&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">libc</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">elf</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="mh">0xAA000000</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="mh">0xBB000000</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span> <span class="o">=</span> <span class="n">ROP</span><span class="p">([</span><span class="n">elf</span><span class="p">,</span> <span class="n">libc</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rop</span><span class="o">.</span><span class="n">rax</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rop</span><span class="o">.</span><span class="n">rbx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rop</span><span class="o">.</span><span class="n">rcx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rop</span><span class="o">.</span><span class="n">rdx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gadget</span><span class="p">(</span><span class="mh">0xaa0686c3</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pop rax&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;rax&#39;</span><span class="p">],</span> <span class="mh">0x10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gadget</span><span class="p">(</span><span class="mh">0xaa031d88</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pop rbx&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;rbx&#39;</span><span class="p">],</span> <span class="mh">0x10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gadget</span><span class="p">(</span><span class="mh">0xbb0e2d4e</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pop rcx&#39;</span><span class="p">,</span> <span class="s1">&#39;pop rbx&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;rcx&#39;</span><span class="p">,</span> <span class="s1">&#39;rbx&#39;</span><span class="p">],</span> <span class="mh">0x18</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gadget</span><span class="p">(</span><span class="mh">0xaa030462</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pop rdx&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;rdx&#39;</span><span class="p">],</span> <span class="mh">0x10</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="获取shell" class="heading-element"><span>获取Shell</span>
+  <a href="#%e8%8e%b7%e5%8f%96shell" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>直接调用<code>execve</code>函数,然后从内存中找到<code>&quot;/bin/sh\x00&quot;</code>地址作为第一个参数.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#context.arch = &#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;/bin/bash&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">libc</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">elf</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="mh">0xAA000000</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="mh">0xBB000000</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span> <span class="o">=</span> <span class="n">ROP</span><span class="p">([</span><span class="n">elf</span><span class="p">,</span> <span class="n">libc</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">binsh</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;/bin/sh</span><span class="se">\x00</span><span class="s2">&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;binsh:</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">binsh</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop</span><span class="o">.</span><span class="n">execve</span><span class="p">(</span><span class="n">binsh</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rop</span><span class="o">.</span><span class="n">dump</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">hexdump</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">rop</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="n">binsh</span><span class="p">:</span><span class="mh">0xbb1a7e43</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0000</span><span class="p">:</span>       <span class="mh">0xaa0368b9</span> <span class="n">pop</span> <span class="n">rsi</span><span class="p">;</span> <span class="n">ret</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0008</span><span class="p">:</span>              <span class="mh">0x0</span> <span class="p">[</span><span class="n">arg1</span><span class="p">]</span> <span class="n">rsi</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0010</span><span class="p">:</span>       <span class="mh">0xaa031c86</span> <span class="n">pop</span> <span class="n">rdi</span><span class="p">;</span> <span class="n">ret</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0018</span><span class="p">:</span>       <span class="mh">0xbb1a7e43</span> <span class="p">[</span><span class="n">arg0</span><span class="p">]</span> <span class="n">rdi</span> <span class="o">=</span> <span class="mi">3139075651</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0020</span><span class="p">:</span>       <span class="mh">0xaa030462</span> <span class="n">pop</span> <span class="n">rdx</span><span class="p">;</span> <span class="n">ret</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0028</span><span class="p">:</span>              <span class="mh">0x0</span> <span class="p">[</span><span class="n">arg2</span><span class="p">]</span> <span class="n">rdx</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0030</span><span class="p">:</span>       <span class="mh">0xaa02f610</span> <span class="n">execve</span>
+</span></span><span class="line"><span class="cl"><span class="mi">00000000</span>  <span class="n">b9</span> <span class="mi">68</span> <span class="mi">03</span> <span class="n">aa</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="err">│·</span><span class="n">h</span><span class="err">··│····│····│····│</span>
+</span></span><span class="line"><span class="cl"><span class="mi">00000010</span>  <span class="mi">86</span> <span class="mi">1</span><span class="n">c</span> <span class="mi">03</span> <span class="n">aa</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">43</span> <span class="mi">7</span><span class="n">e</span> <span class="mi">1</span><span class="n">a</span> <span class="n">bb</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="err">│····│····│</span><span class="n">C</span><span class="o">~</span><span class="err">··│····│</span>
+</span></span><span class="line"><span class="cl"><span class="mi">00000020</span>  <span class="mi">62</span> <span class="mi">04</span> <span class="mi">03</span> <span class="n">aa</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="err">│</span><span class="n">b</span><span class="err">···│····│····│····│</span>
+</span></span><span class="line"><span class="cl"><span class="mi">00000030</span>  <span class="mi">10</span> <span class="n">f6</span> <span class="mi">02</span> <span class="n">aa</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>                            <span class="err">│····│····│</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="日志" class="heading-element"><span>日志</span>
+  <a href="#%e6%97%a5%e5%bf%97" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Info!&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Debug!&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Warning!&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">success</span><span class="p">(</span><span class="s1">&#39;SUCCESS&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">error</span><span class="p">(</span><span class="s1">&#39;ERROR!&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出如下:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 默认日志级别为info,不输出debug内容</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Info</span><span class="err">!</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="err">!</span><span class="p">]</span> <span class="ne">Warning</span><span class="err">!</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="n">SUCCESS</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">ERROR</span><span class="p">]</span> <span class="n">ERROR</span><span class="err">!</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>可通过命令行或者<code>context.log_level</code>设置日志级别</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 命令行</span>
+</span></span><span class="line"><span class="cl"><span class="n">python</span> <span class="o">./</span><span class="n">exp</span><span class="o">.</span><span class="n">py</span> <span class="n">DEBUG</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 默认log输出到stdout, 配置log_file输出到指定文件</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_file</span> <span class="o">=</span> <span class="s1">&#39;./log.txt&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">io</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#io = process(&#39;sh&#39;, level=&#39;debug&#39;)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">&#39;echo Hello, world&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考链接" class="heading-element"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://github.com/Gallopsled/pwntools"target="_blank" rel="external nofollow noopener noreferrer">pwntools Github</a></p>
+<p><a href="https://github.com/Gallopsled/pwntools-tutorial"target="_blank" rel="external nofollow noopener noreferrer">pwntools tutorial</a></p>
+<p><a href="https://docs.pwntools.com/en/latest/index.html"target="_blank" rel="external nofollow noopener noreferrer">pwntools docs</a></p>
+</div><hr class="awesome-hr" />
+    <h2 id="see-also">相关内容</h2>
+    <ul><li>
+          <a href="/posts/ida/ida-coverage-diff/" title="IDA-Coverage Diff">IDA-Coverage Diff</a></li><li>
+          <a href="/posts/ida/ida-%E6%89%A7%E8%A1%8C%E8%B7%9F%E8%B8%AA%E6%8E%A2%E7%B4%A2/" title="IDA-执行跟踪探索">IDA-执行跟踪探索</a></li><li>
+          <a href="/posts/ida/ida9%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" title="IDA9-C&#43;&#43;插件开发">IDA9-C&#43;&#43;插件开发</a></li></ul><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2024-11-22 00:00:00">更新于 2024-11-22&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span></span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/linux-pwn/" class="post-tag" title="标签 - Linux Pwn">Linux Pwn</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/ida/ida-coverage-diff/" class="post-nav-item" rel="prev" title="IDA-Coverage Diff"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>IDA-Coverage Diff</a><a href="/posts/linux-pwn/linux%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/" class="post-nav-item" rel="next" title="Linux程序保护机制">Linux程序保护机制<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2025</span><span class="author" itemprop="copyrightHolder">
+              <a href="/">夏洛魂</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric">0%</span>
+        </div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;--bg-progress: #0076ff;--bg-progress-dark: #fff;"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.16"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>
