@@ -5,18 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
-    <title>OLLVM移植和使用   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
+    <title>OLLVM使用   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
 <meta name="description" content="ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种优化是为了让代码更加复杂,达到混淆的目的.主要有以下3种混淆手段:
 "><meta name="keywords" content='LLVM'>
-  <meta itemprop="name" content="OLLVM移植和使用">
+  <meta itemprop="name" content="OLLVM使用">
   <meta itemprop="description" content="ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种优化是为了让代码更加复杂,达到混淆的目的.主要有以下3种混淆手段:">
   <meta itemprop="datePublished" content="2023-03-21T00:00:00+00:00">
   <meta itemprop="dateModified" content="2023-03-21T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1785">
-  <meta itemprop="image" content="https://XiaLuoHun.top/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/images/bug1.png">
-  <meta itemprop="keywords" content="LLVM"><meta property="og:url" content="https://XiaLuoHun.top/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/">
+  <meta itemprop="wordCount" content="1045">
+  <meta itemprop="keywords" content="LLVM"><meta property="og:url" content="https://XiaLuoHun.top/posts/llvm/ollvm%E4%BD%BF%E7%94%A8/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
-  <meta property="og:title" content="OLLVM移植和使用">
+  <meta property="og:title" content="OLLVM使用">
   <meta property="og:description" content="ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种优化是为了让代码更加复杂,达到混淆的目的.主要有以下3种混淆手段:">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
@@ -24,31 +23,24 @@
     <meta property="article:published_time" content="2023-03-21T00:00:00+00:00">
     <meta property="article:modified_time" content="2023-03-21T00:00:00+00:00">
     <meta property="article:tag" content="LLVM">
-    <meta property="og:image" content="https://XiaLuoHun.top/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/images/bug1.png">
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://XiaLuoHun.top/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/images/bug1.png">
-  <meta name="twitter:title" content="OLLVM移植和使用">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="OLLVM使用">
   <meta name="twitter:description" content="ollvm是一个基于llvm的开源项目,利用llvm会生成IR中间代码并通过pass进行优化的特点,通过增加Pass来对代码进行优化.但这种优化是为了让代码更加复杂,达到混淆的目的.主要有以下3种混淆手段:">
 <meta name="application-name" content="夏洛魂">
-<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/llvm/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8/" title="OLLVM移植和使用   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" title="LLVM基础" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/llvm/ollvm%E8%B0%83%E8%AF%95/" title="OLLVM调试" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://XiaLuoHun.top/posts/llvm/ollvm%E4%BD%BF%E7%94%A8/" title="OLLVM使用   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://XiaLuoHun.top/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" title="LLVM基础" /><link rel="next" type="text/html" href="https://XiaLuoHun.top/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bfla/" title="OLLVM研究之FLA" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
   {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "headline": "OLLVM移植和使用",
+    "headline": "OLLVM使用",
     "inLanguage": "zh-CN",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https:\/\/XiaLuoHun.top\/posts\/llvm\/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8\/"
-    },"image": [{
-              "@type": "ImageObject",
-              "url": "https:\/\/XiaLuoHun.top\/posts\/llvm\/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8\/images\/bug1.png",
-              "width":  1945 ,
-              "height":  968 
-            }],"genre": "posts","keywords": "LLVM","wordcount":  1785 ,
-    "url": "https:\/\/XiaLuoHun.top\/posts\/llvm\/ollvm%E7%A7%BB%E6%A4%8D%E5%92%8C%E4%BD%BF%E7%94%A8\/","datePublished": "2023-03-21T00:00:00+00:00","dateModified": "2023-03-21T00:00:00+00:00","publisher": {
+      "@id": "https:\/\/XiaLuoHun.top\/posts\/llvm\/ollvm%E4%BD%BF%E7%94%A8\/"
+    },"genre": "posts","keywords": "LLVM","wordcount":  1045 ,
+    "url": "https:\/\/XiaLuoHun.top\/posts\/llvm\/ollvm%E4%BD%BF%E7%94%A8\/","datePublished": "2023-03-21T00:00:00+00:00","dateModified": "2023-03-21T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -122,19 +114,19 @@
       <div class="details-summary collection-summary">
         <i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i>
         <span class="collection-name" data-collections="合集">LLVM</span>
-        <span class="collection-count">8</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
+        <span class="collection-count">4</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
       <div class="details-content collection-content">
         <nav>
-          <ul class="collection-list"><li class="collection-item"><a href="/posts/llvm/%E5%88%9D%E8%AF%86llvm/" title="初识LLVM">初识LLVM</a></li><li class="collection-item"><a href="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" title="LLVM基础">LLVM基础</a></li><li class="collection-item"><a href="/posts/llvm/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91/" title="函数名称加密Pass开发">函数名称加密Pass开发</a></li><li class="collection-item"><span class="active" title="OLLVM移植和使用">OLLVM移植和使用</span></li><li class="collection-item"><a href="/posts/llvm/ollvm%E8%B0%83%E8%AF%95/" title="OLLVM调试">OLLVM调试</a></li><li class="collection-item"><a href="/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bfla/" title="OLLVM研究之FLA">OLLVM研究之FLA</a></li><li class="collection-item"><a href="/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bbcf/" title="OLLVM研究之BCF">OLLVM研究之BCF</a></li><li class="collection-item"><a href="/posts/llvm/%E7%A7%BB%E6%A4%8Dollvm%E5%88%B0ndk%E4%B8%AD/" title="移植OLLVM到NDK中">移植OLLVM到NDK中</a></li></ul>
-          <div class="collection-nav-simple"><a href="/posts/llvm/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91/" class="collection-nav-item" rel="prev" title="函数名称加密Pass开发"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></a><span class="text-secondary">4/8</span><a href="/posts/llvm/ollvm%E8%B0%83%E8%AF%95/" class="collection-nav-item" rel="next" title="OLLVM调试"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" title="LLVM基础">LLVM基础</a></li><li class="collection-item"><span class="active" title="OLLVM使用">OLLVM使用</span></li><li class="collection-item"><a href="/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bfla/" title="OLLVM研究之FLA">OLLVM研究之FLA</a></li><li class="collection-item"><a href="/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bbcf/" title="OLLVM研究之BCF">OLLVM研究之BCF</a></li></ul>
+          <div class="collection-nav-simple"><a href="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" class="collection-nav-item" rel="prev" title="LLVM基础"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></a><span class="text-secondary">2/4</span><a href="/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bfla/" class="collection-nav-item" rel="next" title="OLLVM研究之FLA"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
         </nav>
       </div>
     </div></aside>
 
   <article class="page single">
-    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>OLLVM移植和使用</span>
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>OLLVM使用</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/llvm/" class="post-category" title="分类 - LLVM"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> LLVM</a> 和 <a href="/collections/llvm/" class="post-collection" title="合集 - LLVM"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> LLVM</a></span></div><div class="post-meta-line"><span title="发布于 2023-03-21 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-03-21">2023-03-21</time></span>&nbsp;<span title="1785 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1800 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/llvm/" class="post-category" title="分类 - LLVM"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> LLVM</a> 和 <a href="/collections/llvm/" class="post-collection" title="合集 - LLVM"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> LLVM</a></span></div><div class="post-meta-line"><span title="发布于 2023-03-21 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-03-21">2023-03-21</time></span>&nbsp;<span title="1045 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1100 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -142,15 +134,10 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#高版本移植">高版本移植</a></li>
-    <li><a href="#ollvm使用">ollvm使用</a>
-      <ul>
-        <li><a href="#指令替换sub">指令替换(sub)</a></li>
-        <li><a href="#虚假控制流bcf">虚假控制流(bcf)</a></li>
-        <li><a href="#控制流平坦化fla">控制流平坦化(fla)</a></li>
-        <li><a href="#函数注解">函数注解</a></li>
-      </ul>
-    </li>
+    <li><a href="#指令替换sub">指令替换(sub)</a></li>
+    <li><a href="#虚假控制流bcf">虚假控制流(bcf)</a></li>
+    <li><a href="#控制流平坦化fla">控制流平坦化(fla)</a></li>
+    <li><a href="#函数注解">函数注解</a></li>
     <li><a href="#参考链接">参考链接</a></li>
   </ul>
 </nav></div>
@@ -160,203 +147,13 @@
 <li>虚假控制流(Bogus Control Flow)</li>
 <li>控制流平坦化(Control Flow Flattening)</li>
 </ol>
-<h2 id="高版本移植" class="heading-element"><span>高版本移植</span>
-  <a href="#%e9%ab%98%e7%89%88%e6%9c%ac%e7%a7%bb%e6%a4%8d" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>ollvm目前官方版本是基于llvm4.0,现在我们将其移植到llvm9.0.1</p>
-<ol>
-<li>下载官方的ollvm最新版</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="2">
-<li>复制原版ollvm,{obfuscator}/include/llvm/Transforms/Obfuscation文件夹到llvm9.0.1同等目录下</li>
-</ol>
-<p><img loading="lazy" src="./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png" alt="ollvm头文件" srcset="./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png?size=small, ./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png?size=medium 1.5x, ./images/ollvm%e5%a4%b4%e6%96%87%e4%bb%b6.png?size=large 2x" data-title="ollvm头文件" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<ol start="3">
-<li>将CryptoUtils.h复制到llvm9.0.1的同等目录下</li>
-</ol>
-<p><img loading="lazy" src="./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png" alt="头文件移植" srcset="./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png?size=small, ./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png?size=medium 1.5x, ./images/%e5%a4%b4%e6%96%87%e4%bb%b6%e7%a7%bb%e6%a4%8d.png?size=large 2x" data-title="头文件移植" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<ol start="4">
-<li>复制原版ollvm,{obfuscator}/lib/llvm/Transforms/Obfuscation文件夹到llvm9.0.1同等目录下.</li>
-</ol>
-<p><img loading="lazy" src="./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png" alt="ollvm实现文件" srcset="./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png?size=small, ./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png?size=medium 1.5x, ./images/ollvm%e5%ae%9e%e7%8e%b0%e6%96%87%e4%bb%b6.png?size=large 2x" data-title="ollvm实现文件" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<ol start="5">
-<li>按照官方提交的commit记录来修改CMakeLists.txt以及LLVMBuild.txt文件.</li>
-</ol>
-<p><img loading="lazy" src="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png" alt="C文件修改" srcset="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png?size=small, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png?size=medium 1.5x, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9.png?size=large 2x" data-title="C文件修改" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p><img loading="lazy" src="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png" alt="C文件修改2" srcset="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png?size=small, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png?size=medium 1.5x, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b92.png?size=large 2x" data-title="C文件修改2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p><img loading="lazy" src="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png" alt="C文件修改3" srcset="./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png?size=small, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png?size=medium 1.5x, ./images/C%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b93.png?size=large 2x" data-title="C文件修改3" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<ol start="6">
-<li>按照ollvm最新的4.0版本,进行llvm9.0.1的{llvm-project}/llvm/lib/Transforms/IPO/PassManagerBuilder.cpp文件修改</li>
-</ol>
-<p>可以看下方官方提交的记录来进行修改,绿色的就是新增的.</p>
-<p><a href="https://github.com/obfuscator-llvm/obfuscator/commit/adbe45b199d4e42400ee646ad62a781f34b07860#diff-243d2d7bcf5596188ce66141702e60b552ed8af141b9c2b9d0209fb8e9c81fac"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/obfuscator-llvm/obfuscator/commit/adbe45b199d4e42400ee646ad62a781f34b07860#diff-243d2d7bcf5596188ce66141702e60b552ed8af141b9c2b9d0209fb8e9c81fac</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//PassManagerBuilder.cpp
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;llvm/Transforms/Obfuscation/BogusControlFlow.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;llvm/Transforms/Obfuscation/Flattening.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;llvm/Transforms/Obfuscation/Split.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;llvm/Transforms/Obfuscation/Substitution.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;llvm/CryptoUtils.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Flags for obfuscation
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="n">cl</span><span class="o">::</span><span class="n">opt</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">Flattening</span><span class="p">(</span><span class="s">&#34;fla&#34;</span><span class="p">,</span> <span class="n">cl</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="nb">false</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                                <span class="n">cl</span><span class="o">::</span><span class="n">desc</span><span class="p">(</span><span class="s">&#34;Enable the flattening pass&#34;</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">cl</span><span class="o">::</span><span class="n">opt</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">BogusControlFlow</span><span class="p">(</span><span class="s">&#34;bcf&#34;</span><span class="p">,</span> <span class="n">cl</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="nb">false</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                                      <span class="n">cl</span><span class="o">::</span><span class="n">desc</span><span class="p">(</span><span class="s">&#34;Enable bogus control flow&#34;</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">cl</span><span class="o">::</span><span class="n">opt</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">Substitution</span><span class="p">(</span><span class="s">&#34;sub&#34;</span><span class="p">,</span> <span class="n">cl</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="nb">false</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                                  <span class="n">cl</span><span class="o">::</span><span class="n">desc</span><span class="p">(</span><span class="s">&#34;Enable instruction substitutions&#34;</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">cl</span><span class="o">::</span><span class="n">opt</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">AesSeed</span><span class="p">(</span><span class="s">&#34;aesSeed&#34;</span><span class="p">,</span> <span class="n">cl</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                                    <span class="n">cl</span><span class="o">::</span><span class="n">desc</span><span class="p">(</span><span class="s">&#34;seed for the AES-CTR PRNG&#34;</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">cl</span><span class="o">::</span><span class="n">opt</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">Split</span><span class="p">(</span><span class="s">&#34;spli&#34;</span><span class="p">,</span> <span class="n">cl</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="nb">false</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">                           <span class="n">cl</span><span class="o">::</span><span class="n">desc</span><span class="p">(</span><span class="s">&#34;Enable basic block splitting&#34;</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">PassManagerBuilder</span><span class="o">::</span><span class="n">PassManagerBuilder</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"> 
-</span></span><span class="line"><span class="cl">	<span class="c1">//------------------------------------------
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Initialization of the global cryptographically
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// secure pseudo-random generator
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">AesSeed</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">llvm</span><span class="o">::</span><span class="n">cryptoutils</span><span class="o">-&gt;</span><span class="n">prng_seed</span><span class="p">(</span><span class="n">AesSeed</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">PassManagerBuilder</span><span class="o">::</span><span class="n">populateModulePassManager</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">legacy</span><span class="o">::</span><span class="n">PassManagerBase</span> <span class="o">&amp;</span><span class="n">MPM</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">MPM</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">createForceFunctionAttrsLegacyPass</span><span class="p">());</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1">//--------------
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">MPM</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">createSplitBasicBlock</span><span class="p">(</span><span class="n">Split</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">  <span class="n">MPM</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">createBogus</span><span class="p">(</span><span class="n">BogusControlFlow</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">//注意,这个地方跟官方版本不一样,进行了修改
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">Flattening</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">MPM</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">createLowerSwitchPass</span><span class="p">());</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">MPM</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">createFlattening</span><span class="p">(</span><span class="n">Flattening</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">  <span class="n">MPM</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">createSubstitution</span><span class="p">(</span><span class="n">Substitution</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">//--------------
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="7">
-<li>按照下方的链接,进行bcf bug修复.</li>
-</ol>
-<p><a href="https://github.com/obfuscator-llvm/obfuscator/pull/76/files"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/obfuscator-llvm/obfuscator/pull/76/files</a></p>
-<ol start="8">
-<li>此时进行编译,会出错,我们继续进行修改.</li>
-</ol>
-<p>注释掉下方的2行.然后在PassManagerBuilder.cpp文件中进行修改.(上方已修改过)</p>
-<p><img loading="lazy" src="./images/bug1.png" alt="bug1" srcset="./images/bug1.png?size=small, ./images/bug1.png?size=medium 1.5x, ./images/bug1.png?size=large 2x" data-title="bug1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p>还有一处是返回类型的修改,如下:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">//{llvm-project}/llvm/lib/Transforms/Obfuscation/BogusControlFlow.cpp
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">doF</span><span class="p">(</span><span class="n">Module</span> <span class="o">&amp;</span><span class="n">M</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//------
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//修改前
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">TerminatorInst</span> <span class="o">*</span> <span class="n">tbb</span><span class="o">=</span> <span class="n">fi</span><span class="o">-&gt;</span><span class="n">getTerminator</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//修改后
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Instruction</span> <span class="o">*</span> <span class="n">tbb</span><span class="o">=</span> <span class="n">fi</span><span class="o">-&gt;</span><span class="n">getTerminator</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//------
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="9">
-<li>此时进行编译即可.</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ninja LLVMObfuscation
-</span></span><span class="line"><span class="cl">ninja clang</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="ollvm使用" class="heading-element"><span>ollvm使用</span>
-  <a href="#ollvm%e4%bd%bf%e7%94%a8" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>下面按照官方给的例子,来进行ollvm特性的学习.</p>
+<p>下面按照官方给的例子,来进行ollvm特性的学习.</p>
 <p><a href="https://github.com/obfuscator-llvm/obfuscator/wiki/Features"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/obfuscator-llvm/obfuscator/wiki/Features</a></p>
-<h3 id="指令替换sub" class="heading-element"><span>指令替换(sub)</span>
+<h2 id="指令替换sub" class="heading-element"><span>指令替换(sub)</span>
   <a href="#%e6%8c%87%e4%bb%a4%e6%9b%bf%e6%8d%a2sub" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><p>原理:将一条运算指令,替换为多条等价运算指令.</p>
+</h2><p>原理:将一条运算指令,替换为多条等价运算指令.</p>
 <p>测试代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -405,11 +202,11 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -sub -mllvm -sub_loop=3 luoTst.c -o luoTst_sub3</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img loading="lazy" src="./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png" alt="等价替换2" srcset="./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png?size=small, ./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png?size=medium 1.5x, ./images/%e7%ad%89%e4%bb%b7%e6%9b%bf%e6%8d%a22.png?size=large 2x" data-title="等价替换2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h3 id="虚假控制流bcf" class="heading-element"><span>虚假控制流(bcf)</span>
+<h2 id="虚假控制流bcf" class="heading-element"><span>虚假控制流(bcf)</span>
   <a href="#%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%81bcf" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><p>原理:克隆一个真实块,并随机替换其中的一些指令,然后用一个永远为真的条件建立一个分支,克隆后的块是不会被执行的.</p>
+</h2><p>原理:克隆一个真实块,并随机替换其中的一些指令,然后用一个永远为真的条件建立一个分支,克隆后的块是不会被执行的.</p>
 <p>测试代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -449,11 +246,11 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -bcf luoTst.c -o luoTst_bcf</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img loading="lazy" src="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png" alt="虚假控制流1" srcset="./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png?size=small, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png?size=medium 1.5x, ./images/%e8%99%9a%e5%81%87%e6%8e%a7%e5%88%b6%e6%b5%811.png?size=large 2x" data-title="虚假控制流1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h3 id="控制流平坦化fla" class="heading-element"><span>控制流平坦化(fla)</span>
+<h2 id="控制流平坦化fla" class="heading-element"><span>控制流平坦化(fla)</span>
   <a href="#%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%96fla" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><p>原理:先实现一个永真循环,然后在这个循环中放入switch语句,将代码中除了开始块的所有BasicBlock放入这个switch语句的不同case中,通过修改switch的条件,来实现BasicBlock之间的跳转.</p>
+</h2><p>原理:先实现一个永真循环,然后在这个循环中放入switch语句,将代码中除了开始块的所有BasicBlock放入这个switch语句的不同case中,通过修改switch的条件,来实现BasicBlock之间的跳转.</p>
 <p>测试代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -553,11 +350,11 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">clang -mllvm -fla -mllvm -split -mllvm -split_num=10 luoTst.c -o luoTst_fla_split10</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img loading="lazy" src="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png" alt="控制流平坦化5" srcset="./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png?size=small, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png?size=medium 1.5x, ./images/%e6%8e%a7%e5%88%b6%e6%b5%81%e5%b9%b3%e5%9d%a6%e5%8c%965.png?size=large 2x" data-title="控制流平坦化5" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h3 id="函数注解" class="heading-element"><span>函数注解</span>
+<h2 id="函数注解" class="heading-element"><span>函数注解</span>
   <a href="#%e5%87%bd%e6%95%b0%e6%b3%a8%e8%a7%a3" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><p>可以使用注解的方式对指定函数进行指定的混淆方式.</p>
+</h2><p>可以使用注解的方式对指定函数进行指定的混淆方式.</p>
 <p>测试代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -647,8 +444,8 @@
     <h2 id="see-also">相关内容</h2>
     <ul><li>
           <a href="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" title="LLVM基础">LLVM基础</a></li><li>
-          <a href="/posts/llvm/%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E5%8A%A0%E5%AF%86pass%E5%BC%80%E5%8F%91/" title="函数名称加密Pass开发">函数名称加密Pass开发</a></li><li>
-          <a href="/posts/llvm/%E5%88%9D%E8%AF%86llvm/" title="初识LLVM">初识LLVM</a></li></ul><div class="post-footer" id="post-footer">
+          <a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" title="Fart流程和原理分析">Fart流程和原理分析</a></li><li>
+          <a href="/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E6%B7%BB%E5%8A%A0sdcard%E6%9D%83%E9%99%90/" title="给所有App添加sdcard权限">给所有App添加sdcard权限</a></li></ul><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
       <div class="post-info-mod">
@@ -667,7 +464,7 @@
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" class="post-nav-item" rel="prev" title="LLVM基础"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>LLVM基础</a><a href="/posts/llvm/ollvm%E8%B0%83%E8%AF%95/" class="post-nav-item" rel="next" title="OLLVM调试">OLLVM调试<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" class="post-nav-item" rel="prev" title="LLVM基础"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>LLVM基础</a><a href="/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bfla/" class="post-nav-item" rel="next" title="OLLVM研究之FLA">OLLVM研究之FLA<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
