@@ -12,7 +12,7 @@
   <meta itemprop="description" content="前言 使用Xposed进行Android App Native层Hook的方式需要借助第三方Hook库,且使用起来十分麻烦,LSPosed经过改良后,支持了Native层的Hook,使用流程十分简单.下面通过一个示例来展示下LSPosed Native层的Hook流程.">
   <meta itemprop="datePublished" content="2022-10-27T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-10-27T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1158">
+  <meta itemprop="wordCount" content="1156">
   <meta itemprop="image" content="https://XiaLuoHun.top/posts/android/android-hook/lsposed/lsposed-native%E5%B1%82hook/images/%E6%B3%A8%E5%85%A5%E7%9A%84so%E6%96%87%E4%BB%B6.png">
   <meta itemprop="keywords" content="Lsposed"><meta property="og:url" content="https://XiaLuoHun.top/posts/android/android-hook/lsposed/lsposed-native%E5%B1%82hook/">
   <meta property="og:site_name" content="夏洛魂的个人博客">
@@ -47,7 +47,7 @@
               "url": "https:\/\/XiaLuoHun.top\/posts\/android\/android-hook\/lsposed\/lsposed-native%E5%B1%82hook\/images\/%E6%B3%A8%E5%85%A5%E7%9A%84so%E6%96%87%E4%BB%B6.png",
               "width":  1175 ,
               "height":  580 
-            }],"genre": "posts","keywords": "Lsposed","wordcount":  1158 ,
+            }],"genre": "posts","keywords": "Lsposed","wordcount":  1156 ,
     "url": "https:\/\/XiaLuoHun.top\/posts\/android\/android-hook\/lsposed\/lsposed-native%E5%B1%82hook\/","datePublished": "2022-10-27T00:00:00+00:00","dateModified": "2022-10-27T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -134,7 +134,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>LSPosed-Native层Hook</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img class="avatar" src='/images/Luo.png' alt="夏洛魂" height="16" width="16">&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android-lsposed/" class="post-category" title="分类 - Android Lsposed"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android Lsposed</a> 和 <a href="/collections/lsposed/" class="post-collection" title="合集 - Lsposed"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> Lsposed</a></span></div><div class="post-meta-line"><span title="发布于 2022-10-27 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-10-27">2022-10-27</time></span>&nbsp;<span title="1158 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img class="avatar" src='/images/Luo.png' alt="夏洛魂" height="16" width="16">&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android-lsposed/" class="post-category" title="分类 - Android Lsposed"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Android Lsposed</a> 和 <a href="/collections/lsposed/" class="post-collection" title="合集 - Lsposed"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> Lsposed</a></span></div><div class="post-meta-line"><span title="发布于 2022-10-27 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-10-27">2022-10-27</time></span>&nbsp;<span title="1156 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -157,8 +157,7 @@
   <a href="#%e6%b5%8b%e8%af%95apk" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>MainActivity.java:</p>
-<div class="highlight"><div class="chroma">
+</h2><div class="highlight" title="MainActivity.java"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -235,8 +234,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">native</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">stringFromJNI</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>native-lib.cpp:</p>
-<div class="highlight"><div class="chroma">
+</div><div class="highlight" title="native-lib.cpp"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
