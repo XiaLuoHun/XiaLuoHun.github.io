@@ -125,7 +125,7 @@
   </div><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"><div class="details collection-details open">
       <div class="details-summary collection-summary">
         <i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i>
-        <span class="collection-name" data-collections="合集">X64Dbg</span>
+        <span class="collection-name" title="合集">X64Dbg</span>
         <span class="collection-count">2</span><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></div>
       <div class="details-content collection-content">
         <nav>
@@ -138,7 +138,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>X64Dbg之SearchAndReplaceMem</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/Luo.png" alt="夏洛魂" data-title="夏洛魂" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/x64dbg/" class="post-category" title="分类 - X64Dbg"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> X64Dbg</a> 和 <a href="/collections/x64dbg/" class="post-collection" title="合集 - X64Dbg"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> X64Dbg</a></span></div><div class="post-meta-line"><span title="发布于 2024-06-20 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-06-20">2024-06-20</time></span>&nbsp;<span title="302 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 400 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img class="avatar" src='/images/Luo.png' alt="夏洛魂" height="16" width="16">&nbsp;夏洛魂</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/x64dbg/" class="post-category" title="分类 - X64Dbg"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> X64Dbg</a> 和 <a href="/collections/x64dbg/" class="post-collection" title="合集 - X64Dbg"><i class="fa-solid fa-layer-group fa-fw" aria-hidden="true"></i> X64Dbg</a></span></div><div class="post-meta-line"><span title="发布于 2024-06-20 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-06-20">2024-06-20</time></span>&nbsp;<span title="302 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 400 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
     </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><p>在编写x64Dbg插件时用到以下两个函数,有坑!</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -151,7 +151,7 @@
 </div>
 </div><p>首先SearchAndReplaceMem只会在start开始的size大小范围内只替换一次,所以要结合FindMem来完成全部的替换.</p>
 <p>当FindMem查找的地址范围过大时,第二次查找会失败(示例中的Size为0x0000000040000000),出现下述错误.</p>
-<p><img loading="lazy" src="/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/images/%E9%94%99%E8%AF%AF1.png" alt="错误1" srcset="/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/images/%E9%94%99%E8%AF%AF1.png?size=small, /posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/images/%E9%94%99%E8%AF%AF1.png?size=medium 1.5x, /posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/images/%E9%94%99%E8%AF%AF1.png?size=large 2x" data-title="错误1" style="--width: 1128px;--aspect-ratio: 1128 / 676;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src='/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/images/%E9%94%99%E8%AF%AF1.png' alt="错误1" height="676" width="1128"></p>
 <p>正确的写法如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -225,16 +225,12 @@
 </div></div><hr class="awesome-hr" />
     <h2 id="see-also">相关内容</h2>
     <ul><li>
-          <a href="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" title="X64Dbg-命令详解">X64Dbg-命令详解</a></li><li>
-          <a href="/posts/java/arthas/" title="Arthas">Arthas</a></li><li>
-          <a href="/posts/web%E5%AE%89%E5%85%A8/dvwa%E9%80%9A%E5%85%B3%E8%AE%B0%E5%BD%95/" title="DVWA通关记录">DVWA通关记录</a></li></ul><div class="post-footer" id="post-footer">
+          <a href="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" title="X64Dbg-命令详解">X64Dbg-命令详解</a></li></ul><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
       <div class="post-info-mod">
         <span title="更新于 2024-06-20 00:00:00">更新于 2024-06-20&nbsp;</span>
-      </div><div class="post-info-license">
-            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
-          </div></div><div class="post-info-line">
+      </div></div><div class="post-info-line">
         <div class="post-info-md"></div>
         <div class="post-info-share">
           <span></span>
@@ -259,5 +255,5 @@
     <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
 </div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.16"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":200},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":true,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":1,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.17-8212d6fd"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>
