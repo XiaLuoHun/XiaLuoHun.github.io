@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>LLVM基础   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
+<meta name="description" content="对于llvm这样的编译框架来说,IR很重要,连接着编译器的前端和后端.实际上我们在llvm中编写的各种pass都是作用在llvm IR上的,因此我们很有必要来了解下llvm IR的结构.
+"><meta name="keywords" content='LLVM'>
+	<meta itemprop="name" content="LLVM基础">
+	<meta itemprop="description" content="对于llvm这样的编译框架来说,IR很重要,连接着编译器的前端和后端.实际上我们在llvm中编写的各种pass都是作用在llvm IR上的,因此我们很有必要来了解下llvm IR的结构.">
+	<meta itemprop="datePublished" content="2023-03-15T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2023-03-15T00:00:00+00:00">
+	<meta itemprop="wordCount" content="426">
+	<meta itemprop="image" content="https://xialuohun.top/posts/llvm/llvm%E5%9F%BA%E7%A1%80/images/IR%E7%BB%93%E6%9E%84.png">
+	<meta itemprop="keywords" content="LLVM"><meta property="og:url" content="https://xialuohun.top/posts/llvm/llvm%E5%9F%BA%E7%A1%80/">
+	<meta property="og:site_name" content="夏洛魂的个人博客">
+	<meta property="og:title" content="LLVM基础">
+	<meta property="og:description" content="对于llvm这样的编译框架来说,IR很重要,连接着编译器的前端和后端.实际上我们在llvm中编写的各种pass都是作用在llvm IR上的,因此我们很有必要来了解下llvm IR的结构.">
+	<meta property="og:locale" content="zh_cn">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2023-03-15T00:00:00+00:00">
+		<meta property="article:modified_time" content="2023-03-15T00:00:00+00:00">
+		<meta property="article:tag" content="LLVM">
+		<meta property="og:image" content="https://xialuohun.top/posts/llvm/llvm%E5%9F%BA%E7%A1%80/images/IR%E7%BB%93%E6%9E%84.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://xialuohun.top/posts/llvm/llvm%E5%9F%BA%E7%A1%80/images/IR%E7%BB%93%E6%9E%84.png">
+  <meta name="twitter:title" content="LLVM基础">
+  <meta name="twitter:description" content="对于llvm这样的编译框架来说,IR很重要,连接着编译器的前端和后端.实际上我们在llvm中编写的各种pass都是作用在llvm IR上的,因此我们很有必要来了解下llvm IR的结构."><meta name="application-name" content="夏洛魂">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#f6f8fa" data-dark="#151b23" content="#f6f8fa"><meta name="msapplication-TileColor" content="#2d89ef"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FF7359"><link rel="canonical" type="text/html" href="https://xialuohun.top/posts/llvm/llvm%E5%9F%BA%E7%A1%80/" title="LLVM基础   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://xialuohun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" title="Fart流程和原理分析" /><link rel="next" type="text/html" href="https://xialuohun.top/posts/llvm/ollvm%E4%BD%BF%E7%94%A8/" title="OLLVM使用" /><link rel="stylesheet" href="/css/unocss.min.css"><link rel="stylesheet" href="/css/main.min.css"><link rel="stylesheet" href="/css/pages/posts.min.css"><link rel="stylesheet" href="/css/custom.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><link rel="preload" href="/js/main.min.js" as="script"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "LLVM基础",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/xialuohun.top\/posts\/llvm\/llvm%E5%9F%BA%E7%A1%80\/"
+    },"image": [{
+              "@type": "ImageObject",
+              "url": "https:\/\/xialuohun.top\/posts\/llvm\/llvm%E5%9F%BA%E7%A1%80\/images\/IR%E7%BB%93%E6%9E%84.png",
+              "width":  568 ,
+              "height":  364 
+            }],"genre": "posts","keywords": "LLVM","wordcount":  426 ,
+    "url": "https:\/\/xialuohun.top\/posts\/llvm\/llvm%E5%9F%BA%E7%A1%80\/","datePublished": "2023-03-15T00:00:00+00:00","dateModified": "2023-03-15T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "夏洛魂"
+      },"description": ""
+  }
+  </script><script src="/js/head.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="wide"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search">
+            <button type="button" class="search-trigger desktop" aria-label="搜索" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+              搜索
+              <kbd></kbd>
+            </button>
+          </li>
+          <li class="menu-item delimiter"></li><li class="menu-item theme-switch-item">
+          <button type="button" class="theme-switch" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div><button type="button" class="search-trigger mobile" aria-label="搜索"><i class="fa-solid fa-search" aria-hidden="true"></i></button><button type="button" class="theme-switch" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+      <button type="button" class="menu-toggle" id="menu-toggle-mobile" aria-controls="menu-mobile" aria-expanded="false" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item"><a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"><div class="details collection-details open">
+      <div class="details-summary collection-summary">
+        <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+        <span class="collection-name" title="合集">LLVM</span>
+        <span class="collection-count">4</span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div>
+      <div class="details-content collection-content">
+        <nav>
+          <ul class="collection-list"><li class="collection-item"><span class="active" title="LLVM基础">LLVM基础</span></li><li class="collection-item"><a href="/posts/llvm/ollvm%E4%BD%BF%E7%94%A8/" title="OLLVM使用">OLLVM使用</a></li><li class="collection-item"><a href="/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bfla/" title="OLLVM研究之FLA">OLLVM研究之FLA</a></li><li class="collection-item"><a href="/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bbcf/" title="OLLVM研究之BCF">OLLVM研究之BCF</a></li></ul>
+          <div class="collection-nav-simple"><i class="fa-solid fa-angle-left collection-nav-item text-secondary" aria-hidden="true"></i><span class="text-secondary">1/4</span><a href="/posts/llvm/ollvm%E4%BD%BF%E7%94%A8/" class="collection-nav-item" rel="next" title="OLLVM使用"><i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+        </nav>
+      </div>
+    </div></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>LLVM基础</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://xialuohun.top" title="作者" target="_blank" rel="author external nofollow noopener noreferrer" class="author"><img class="avatar" src='/images/Luo.png' alt="夏洛魂" height="16" width="16">&nbsp;夏洛魂</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/llvm/" class="post-category" title="分类 - LLVM"><i class="fa-regular fa-folder" aria-hidden="true"></i> LLVM</a> 和 <a href="/collections/llvm/" class="post-collection" title="合集 - LLVM"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> LLVM</a></span></div><div class="post-meta-line"><span title="发布于 2023-03-15 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2023-03-15">2023-03-15</time></span>&nbsp;<span title="426 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 500 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
+    </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><p>对于llvm这样的编译框架来说,IR很重要,连接着编译器的前端和后端.实际上我们在llvm中编写的各种pass都是作用在llvm IR上的,因此我们很有必要来了解下llvm IR的结构.</p>
+<p>llvm IR主要分为以下4个层次:</p>
+<p><a class="lightgallery" target="_blank" href="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/images/IR%E7%BB%93%E6%9E%84.png" title="IR结构" data-thumbnail="/posts/llvm/llvm%E5%9F%BA%E7%A1%80/images/IR%E7%BB%93%E6%9E%84.png" data-sub-html="<h2>IR结构</h2>"><img loading="lazy" src='/posts/llvm/llvm%E5%9F%BA%E7%A1%80/images/IR%E7%BB%93%E6%9E%84.png' alt="IR结构" height="364" width="568"></a></p>
+<ul>
+<li>
+<p>Module:IR化的源文件</p>
+</li>
+<li>
+<p>Function:编程语言中的函数</p>
+</li>
+<li>
+<p>BasicBlock:一组顺序执行的指令集合,每个基本块的末尾是跳转或返回指令</p>
+</li>
+<li>
+<p>Instruction:llvm IR中的最小可执行单位,每一条指令单占一行</p>
+</li>
+</ul>
+<p>对上述4大层次来讲,次级都是上级的基本组成元素,我们可以通过以下代码来遍历Module中的每条指令.</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">printfModule</span><span class="p">(</span><span class="n">Module</span> <span class="o">&amp;</span><span class="n">M</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">Function</span> <span class="o">&amp;</span><span class="nl">F</span> <span class="p">:</span> <span class="n">M</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">errs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">==================函数开始=========================</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">errs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">F</span><span class="p">.</span><span class="n">getName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">BasicBlock</span> <span class="o">&amp;</span><span class="nl">BB</span> <span class="p">:</span> <span class="n">F</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">errs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">BB</span><span class="p">.</span><span class="n">getName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="n">Instruction</span> <span class="o">&amp;</span><span class="nl">I</span> <span class="p">:</span> <span class="n">BB</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">errs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">I</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">errs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">==================函数结束=========================</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2023-03-15 00:00:00">更新于 2023-03-15&nbsp;</span>
+      </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"></div><div class="post-info-share">
+          <span></span>
+        </div></div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/llvm/" class="post-tag" title="标签 - LLVM">LLVM</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/fart%E6%B5%81%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="post-nav-item" rel="prev" title="Fart流程和原理分析"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Fart流程和原理分析</a><a href="/posts/llvm/ollvm%E4%BD%BF%E7%94%A8/" class="post-nav-item" rel="next" title="OLLVM使用">OLLVM使用<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc animate__animated animate__fadeIn animate__faster" id="toc-auto" aria-label="目录"></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://xialuohun.top" target="_blank" rel="external nofollow noopener noreferrer">夏洛魂</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><button type="button" class="fixed-button back-to-top animate__faster hidden" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i><svg viewBox="0 0 100 100">
+              <circle class="bg" cx="50" cy="50" r="50"></circle>
+              <circle class="progress" cx="50" cy="50" r="50"></circle>
+            </svg></button></div><div id="mask"></div><dialog id="search-dialog" class="search-dialog" aria-label="搜索" closedby="any">
+      <div class="search-modal">
+        <div class="search-modal-header">
+          <span class="search-delimiter"></span>
+          <button type="button" class="search-close-btn" aria-label="Close Search Dialog"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="search-source-footer">
+          <div class="search-shortcuts">
+            <span class="search-shortcut">
+              <kbd><i class="lucide-arrow-up" aria-hidden="true"></i></kbd>
+              <kbd><i class="lucide-arrow-down" aria-hidden="true"></i></kbd>
+              切换
+            </span>
+            <span class="search-shortcut">
+              <kbd><i class="lucide-corner-down-left" aria-hidden="true"></i></kbd>
+              选择
+            </span>
+            <span class="search-shortcut">
+              <kbd>ESC</kbd>
+              关闭
+            </span>
+          </div><span class="search-engine">搜索引擎 <a href="https://fusejs.io/" target="_blank" rel="external nofollow noopener noreferrer">Fuse.js</a></span></div>
+      </div>
+    </dialog><div class="reading-progress-bar" style="left: 0;top: 0;--fi-bg-progress: #0076ff;--fi-bg-progress-dark: #fff;"></div><noscript>
+    <div class="noscript-warning bg-danger text-white text-base font-bold fixed text-center inset-x-0 bottom-0 w-full z-fixed">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete-js/index.production.js" defer></script><script src="/js/lib/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/js/lib/lightgallery.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script src="/js/config/c8d39f98d9b8a5f87593194ffe162348.min.js" defer></script><script src="/js/lib/file-tree.min.js" defer></script><script src="/js/main.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

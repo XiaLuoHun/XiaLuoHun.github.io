@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Frida-Native层Hook   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
+<meta name="description" content="概述1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr, callbacks) Interceptor.attach(addr, { onEnter(args) { //在函数调用前产生的回调,在这个函数中可以处理函数参数的相关内容. //被Hook的函数参数内容是以数组的方式存储在args中. }, onLeave(retval) { //在被Hook的目标函数执行完成后执行的函数. //被Hook的函数返回值用retval变量来表示. } }); 要实现对一个native层函数的Hook,最重要的就是找到该函数的首地址.
+"><meta name="keywords" content='Frida'>
+	<meta itemprop="name" content="Frida-Native层Hook">
+	<meta itemprop="description" content="概述1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr, callbacks) Interceptor.attach(addr, { onEnter(args) { //在函数调用前产生的回调,在这个函数中可以处理函数参数的相关内容. //被Hook的函数参数内容是以数组的方式存储在args中. }, onLeave(retval) { //在被Hook的目标函数执行完成后执行的函数. //被Hook的函数返回值用retval变量来表示. } }); 要实现对一个native层函数的Hook,最重要的就是找到该函数的首地址.">
+	<meta itemprop="datePublished" content="2021-11-25T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2021-11-25T00:00:00+00:00">
+	<meta itemprop="wordCount" content="2405">
+	<meta itemprop="image" content="https://xialuohun.top/posts/android/android-hook/frida/frida-native%E5%B1%82hook/images/NativeHook%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C1.png">
+	<meta itemprop="keywords" content="Frida"><meta property="og:url" content="https://xialuohun.top/posts/android/android-hook/frida/frida-native%E5%B1%82hook/">
+	<meta property="og:site_name" content="夏洛魂的个人博客">
+	<meta property="og:title" content="Frida-Native层Hook">
+	<meta property="og:description" content="概述1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr, callbacks) Interceptor.attach(addr, { onEnter(args) { //在函数调用前产生的回调,在这个函数中可以处理函数参数的相关内容. //被Hook的函数参数内容是以数组的方式存储在args中. }, onLeave(retval) { //在被Hook的目标函数执行完成后执行的函数. //被Hook的函数返回值用retval变量来表示. } }); 要实现对一个native层函数的Hook,最重要的就是找到该函数的首地址.">
+	<meta property="og:locale" content="zh_cn">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2021-11-25T00:00:00+00:00">
+		<meta property="article:modified_time" content="2021-11-25T00:00:00+00:00">
+		<meta property="article:tag" content="Frida">
+		<meta property="og:image" content="https://xialuohun.top/posts/android/android-hook/frida/frida-native%E5%B1%82hook/images/NativeHook%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C1.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://xialuohun.top/posts/android/android-hook/frida/frida-native%E5%B1%82hook/images/NativeHook%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C1.png">
+  <meta name="twitter:title" content="Frida-Native层Hook">
+  <meta name="twitter:description" content="概述1 2 3 4 5 6 7 8 9 10 11 12 13 //在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr, callbacks) Interceptor.attach(addr, { onEnter(args) { //在函数调用前产生的回调,在这个函数中可以处理函数参数的相关内容. //被Hook的函数参数内容是以数组的方式存储在args中. }, onLeave(retval) { //在被Hook的目标函数执行完成后执行的函数. //被Hook的函数返回值用retval变量来表示. } }); 要实现对一个native层函数的Hook,最重要的就是找到该函数的首地址."><meta name="application-name" content="夏洛魂">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#f6f8fa" data-dark="#151b23" content="#f6f8fa"><meta name="msapplication-TileColor" content="#2d89ef"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FF7359"><link rel="canonical" type="text/html" href="https://xialuohun.top/posts/android/android-hook/frida/frida-native%E5%B1%82hook/" title="Frida-Native层Hook   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://xialuohun.top/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kali%E9%85%8D%E7%BD%AE/" title="Kali配置" /><link rel="next" type="text/html" href="https://xialuohun.top/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" title="Frida-Java层Hook" /><link rel="stylesheet" href="/css/unocss.min.css"><link rel="stylesheet" href="/css/main.min.css"><link rel="stylesheet" href="/css/pages/posts.min.css"><link rel="stylesheet" href="/css/custom.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><link rel="preload" href="/js/main.min.js" as="script"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Frida-Native层Hook",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/xialuohun.top\/posts\/android\/android-hook\/frida\/frida-native%E5%B1%82hook\/"
+    },"image": [{
+              "@type": "ImageObject",
+              "url": "https:\/\/xialuohun.top\/posts\/android\/android-hook\/frida\/frida-native%E5%B1%82hook\/images\/NativeHook%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C1.png",
+              "width":  2007 ,
+              "height":  730 
+            }],"genre": "posts","keywords": "Frida","wordcount":  2405 ,
+    "url": "https:\/\/xialuohun.top\/posts\/android\/android-hook\/frida\/frida-native%E5%B1%82hook\/","datePublished": "2021-11-25T00:00:00+00:00","dateModified": "2021-11-25T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "夏洛魂"
+      },"description": ""
+  }
+  </script><script src="/js/head.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="wide"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search">
+            <button type="button" class="search-trigger desktop" aria-label="搜索" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+              搜索
+              <kbd></kbd>
+            </button>
+          </li>
+          <li class="menu-item delimiter"></li><li class="menu-item theme-switch-item">
+          <button type="button" class="theme-switch" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div><button type="button" class="search-trigger mobile" aria-label="搜索"><i class="fa-solid fa-search" aria-hidden="true"></i></button><button type="button" class="theme-switch" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+      <button type="button" class="menu-toggle" id="menu-toggle-mobile" aria-controls="menu-mobile" aria-expanded="false" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item"><a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"><div class="details collection-details open">
+      <div class="details-summary collection-summary">
+        <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+        <span class="collection-name" title="合集">Frida Android</span>
+        <span class="collection-count">6</span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div>
+      <div class="details-content collection-content">
+        <nav>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" title="Frida-Java层Hook">Frida-Java层Hook</a></li><li class="collection-item"><span class="active" title="Frida-Native层Hook">Frida-Native层Hook</span></li><li class="collection-item"><a href="/posts/android/android-hook/frida/frida%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E4%B8%8Erpc/" title="Frida主动调用与RPC">Frida主动调用与RPC</a></li><li class="collection-item"><a href="/posts/android/android-hook/frida/frida-hook%E5%A4%A7%E5%85%A8/" title="Frida Hook大全">Frida Hook大全</a></li><li class="collection-item"><a href="/posts/android/android-hook/frida/frida%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/" title="Frida源码编译">Frida源码编译</a></li><li class="collection-item"><a href="/posts/android/android-hook/frida/objection%E4%BD%BF%E7%94%A8/" title="Objection使用">Objection使用</a></li></ul>
+          <div class="collection-nav-simple"><a href="/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" class="collection-nav-item" rel="prev" title="Frida-Java层Hook"><i class="fa-solid fa-angle-left" aria-hidden="true"></i></a><span class="text-secondary">2/6</span><a href="/posts/android/android-hook/frida/frida%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E4%B8%8Erpc/" class="collection-nav-item" rel="next" title="Frida主动调用与RPC"><i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+        </nav>
+      </div>
+    </div><div class="details related-details open">
+      <div class="details-summary related-summary">
+        <i class="fa-solid fa-fire fa-fade text-danger" aria-hidden="true"></i>
+        <span class="related-title">相关内容</span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div>
+      <div class="details-content related-content">
+        <ul class="related-list"><li class="related-item">
+              <a href="/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" title="Frida-Java层Hook">Frida-Java层Hook</a></li><li class="related-item">
+              <a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" title="ELF文件格式">ELF文件格式</a></li><li class="related-item">
+              <a href="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/" title="NDK进阶">NDK进阶</a></li></ul>
+      </div>
+    </div></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Frida-Native层Hook</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://xialuohun.top" title="作者" target="_blank" rel="author external nofollow noopener noreferrer" class="author"><img class="avatar" src='/images/Luo.png' alt="夏洛魂" height="16" width="16">&nbsp;夏洛魂</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/android-frida/" class="post-category" title="分类 - Android Frida"><i class="fa-regular fa-folder" aria-hidden="true"></i> Android Frida</a> 和 <a href="/collections/frida-android/" class="post-collection" title="合集 - Frida Android"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Frida Android</a></span></div><div class="post-meta-line"><span title="发布于 2021-11-25 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2021-11-25">2021-11-25</time></span>&nbsp;<span title="2405 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2500 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"></div>
+      </div><template data-toc><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#native层函数导出">Native层函数导出</a>
+      <ul>
+        <li><a href="#测试apk">测试Apk</a></li>
+        <li><a href="#hook示例">Hook示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#native层函数未导出">Native层函数未导出</a>
+      <ul>
+        <li><a href="#动态注册的函数">动态注册的函数</a></li>
+        <li><a href="#测试apk-1">测试Apk</a></li>
+        <li><a href="#hook示例-1">Hook示例</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></template><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 class="heading-element" id="概述"><span>概述</span>
+  <a href="#%e6%a6%82%e8%bf%b0" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">//在Frida脚本中实现native层Hook的API函数是Interceptor.attach(addr, callbacks)
+</span></span></span><span class="line"><span class="cl"><span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">onEnter</span><span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//在函数调用前产生的回调,在这个函数中可以处理函数参数的相关内容.
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//被Hook的函数参数内容是以数组的方式存储在args中.
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">onLeave</span><span class="p">(</span><span class="nx">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//在被Hook的目标函数执行完成后执行的函数.
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//被Hook的函数返回值用retval变量来表示.
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>要实现对一个native层函数的Hook,最重要的就是找到该函数的首地址.</p>
+<h2 class="heading-element" id="native层函数导出"><span>Native层函数导出</span>
+  <a href="#native%e5%b1%82%e5%87%bd%e6%95%b0%e5%af%bc%e5%87%ba" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>如果是导出函数,可以通过下述API函数获得相应函数的首地址.</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">//当第一个参数为null时,会在内存加载的所有模块中搜索导出符号名.
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//未找到相应的导出符号名时,会抛出一个异常.
+</span></span></span><span class="line"><span class="cl"><span class="nx">Module</span><span class="p">.</span><span class="nx">getExportByName</span><span class="p">(</span><span class="nx">moduleName</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">exportName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//未找到相应的导出符号名时,会直接返回一个null值.
+</span></span></span><span class="line"><span class="cl"><span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="nx">moduleName</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">exportName</span><span class="p">)</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><h3 class="heading-element" id="测试apk"><span>测试Apk</span>
+  <a href="#%e6%b5%8b%e8%af%95apk" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p>java代码:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.example.luonative</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">androidx.appcompat.app.AppCompatActivity</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">android.os.Bundle</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">android.util.Log</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">android.widget.TextView</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.example.luonative.databinding.ActivityMainBinding</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MainActivity</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">AppCompatActivity</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Used to load the &#39;luonative&#39; library on application startup.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">loadLibrary</span><span class="p">(</span><span class="s">&#34;luonative&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ActivityMainBinding</span><span class="w"> </span><span class="n">binding</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onCreate</span><span class="p">(</span><span class="n">Bundle</span><span class="w"> </span><span class="n">savedInstanceState</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ActivityMainBinding</span><span class="p">.</span><span class="na">inflate</span><span class="p">(</span><span class="n">getLayoutInflater</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">setContentView</span><span class="p">(</span><span class="n">binding</span><span class="p">.</span><span class="na">getRoot</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Example of a call to a native method</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">TextView</span><span class="w"> </span><span class="n">tv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">binding</span><span class="p">.</span><span class="na">sampleText</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">tv</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="n">stringFromJNI</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">1000</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&#34;LuoHun&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">stringFromJNI</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">native</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">stringFromJNI</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>native代码:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//libluonative.so
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;jni.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//JNI函数的命名规则:Java_PackageName_ClassName_MethodName
+</span></span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="n">JNIEXPORT</span> <span class="n">jstring</span> <span class="n">JNICALL</span>
+</span></span><span class="line"><span class="cl"><span class="n">Java_com_example_luonative_MainActivity_stringFromJNI</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">jobject</span> <span class="cm">/* this */</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">hello</span> <span class="o">=</span> <span class="s">&#34;Hello from C++&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="n">hello</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><h3 class="heading-element" id="hook示例"><span>Hook示例</span>
+  <a href="#hook%e7%a4%ba%e4%be%8b" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p>本例以Hook libluonative.so库中的Java_com_example_luonative_MainActivity_stringFromJNI函数为例.</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_native</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">addr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">getExportByName</span><span class="p">(</span><span class="s2">&#34;libluonative.so&#34;</span><span class="p">,</span> <span class="s2">&#34;Java_com_example_luonative_MainActivity_stringFromJNI&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;jnienv pointer =&gt; &#34;</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;jobj pointer =&gt; &#34;</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//获取当前线程的JNIEnv结构
+</span></span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">getEnv</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//打印日志
+</span></span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;retval is =&gt; &#34;</span><span class="p">,</span> <span class="nx">env</span><span class="p">.</span><span class="nx">getStringUtfChars</span><span class="p">(</span><span class="nx">retval</span><span class="p">,</span> <span class="mi">0</span><span class="p">).</span><span class="nx">readCString</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//构造一个新字符串
+</span></span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">jstrings</span> <span class="o">=</span> <span class="nx">env</span><span class="p">.</span><span class="nx">newStringUtf</span><span class="p">(</span><span class="s2">&#34;Hello XiaLuoHun&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//替换返回值
+</span></span></span><span class="line"><span class="cl">            <span class="nx">retval</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">jstrings</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hook_native</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">setImmediate</span><span class="p">(</span><span class="nx">main</span><span class="p">)</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><h2 class="heading-element" id="native层函数未导出"><span>Native层函数未导出</span>
+  <a href="#native%e5%b1%82%e5%87%bd%e6%95%b0%e6%9c%aa%e5%af%bc%e5%87%ba" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>在每次App重新运行后native函数加载的绝对地址是会变化的,唯一不变的是函数相对于所在模块基地址的偏移,因此我们可以在获取模块的基地址后加上固定的偏移地址获取相应函数的地址.Frida通过以下API来获取函数的绝对地址.</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">//获取对应模块的基地址
+</span></span></span><span class="line"><span class="cl"><span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Module</span><span class="p">.</span><span class="nx">getBaseAddress</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//传入固定的偏移offset,获取最后的函数绝对地址
+</span></span></span><span class="line"><span class="cl"><span class="nx">add</span><span class="p">(</span><span class="nx">offset</span><span class="p">)</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><h3 class="heading-element" id="动态注册的函数"><span>动态注册的函数</span>
+  <a href="#%e5%8a%a8%e6%80%81%e6%b3%a8%e5%86%8c%e7%9a%84%e5%87%bd%e6%95%b0" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p>为了介绍上述获取函数地址的方式,下面先介绍一下动态注册的JNI函数.</p>
+<p><strong>静态注册的JNI函数</strong>:可以通过一定的命名方式从Java层找到对应native层函数名.</p>
+<p><strong>动态注册的JNI函数</strong>:在native层实现的函数名称不定,并且不一定要求相应函数是导出类型.</p>
+<p>只需调用以下API函数就可以完成动态注册.</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">jint</span><span class="w"> </span><span class="nf">RegisterNatives</span><span class="p">(</span><span class="n">jclass</span><span class="w"> </span><span class="n">clazz</span><span class="p">,</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="n">JNINativeMethod</span><span class="o">*</span><span class="w"> </span><span class="n">methods</span><span class="p">,</span><span class="n">jint</span><span class="w"> </span><span class="n">nMethods</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//第一个参数clazz, native函数所在的类,可通过FindClass这个JNI函数获取(将类名的&#34;.&#34;符号换成&#34;/&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">//第二个参数methods, 是一个数组,其中包含函数的一些签名信息以及对应在native层的函数指针</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">//</span><span class="n">第三个参数nMethods</span><span class="p">,</span><span class="w"> </span><span class="n">是methods数组的数量</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><h3 class="heading-element" id="测试apk-1"><span>测试Apk</span>
+  <a href="#%e6%b5%8b%e8%af%95apk-1" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p>java代码:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.example.luonative</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">androidx.appcompat.app.AppCompatActivity</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">android.os.Bundle</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">android.util.Log</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">android.widget.TextView</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">com.example.luonative.databinding.ActivityMainBinding</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MainActivity</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">AppCompatActivity</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Used to load the &#39;luonative&#39; library on application startup.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">loadLibrary</span><span class="p">(</span><span class="s">&#34;luonative&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ActivityMainBinding</span><span class="w"> </span><span class="n">binding</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onCreate</span><span class="p">(</span><span class="n">Bundle</span><span class="w"> </span><span class="n">savedInstanceState</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ActivityMainBinding</span><span class="p">.</span><span class="na">inflate</span><span class="p">(</span><span class="n">getLayoutInflater</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">setContentView</span><span class="p">(</span><span class="n">binding</span><span class="p">.</span><span class="na">getRoot</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Example of a call to a native method</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">TextView</span><span class="w"> </span><span class="n">tv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">binding</span><span class="p">.</span><span class="na">sampleText</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">tv</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="n">stringFromJNI</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">1000</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&#34;LuoHun&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">stringFromJNI</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">native</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">stringFromJNI</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>native代码:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//libluonative.so
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;jni.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">jstring</span> <span class="n">JNICALL</span> <span class="nf">LuoDynamicNative</span><span class="p">(</span>   <span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">jobject</span> <span class="cm">/* this */</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">hello</span> <span class="o">=</span> <span class="s">&#34;Hello from C++ LuoHun&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="n">hello</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">JNIEXPORT</span> <span class="n">jint</span> <span class="nf">JNI_OnLoad</span><span class="p">(</span><span class="n">JavaVM</span><span class="o">*</span> <span class="n">vm</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">reserved</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="o">-&gt;</span><span class="n">GetEnv</span><span class="p">((</span><span class="kt">void</span><span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">env</span><span class="p">,</span> <span class="n">JNI_VERSION_1_6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">JNINativeMethod</span> <span class="n">methods</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;stringFromJNI&#34;</span><span class="p">,</span> <span class="s">&#34;()Ljava/lang/String;&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">LuoDynamicNative</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">env</span><span class="o">-&gt;</span><span class="n">RegisterNatives</span><span class="p">(</span><span class="n">env</span><span class="o">-&gt;</span><span class="n">FindClass</span><span class="p">(</span><span class="s">&#34;com/example/luonative/MainActivity&#34;</span><span class="p">),</span> <span class="n">methods</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">JNI_VERSION_1_6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><h3 class="heading-element" id="hook示例-1"><span>Hook示例</span>
+  <a href="#hook%e7%a4%ba%e4%be%8b-1" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p>上述apk编译运行后,使用Objection遍历libluonative.so模块的导出函数,会发现再也找不到stringFromJNI()字符串相关的函数了.此时就可以通过先找模块基址,再根据偏移获取函数绝对地址.那么函数的偏移如何获取呢? 通过Hook实现动态注册的函数RegisterNatives()来获取动态注册后的LuoDynamicNative()函数地址.</p>
+<p>这里介绍一个项目frida_hook_libart,其仓库地址为https://github.com/lasting-yang/frida_hook_libart.这个项目中包含着对一些JNI函数和art相关函数的Frida Hook脚本,这里要使用的Hook脚本是hook_RegisterNatives.js</p>
+<p>在本案例中,RegisterNatives()函数是在JNI_OnLoad()函数中完成的,即模块一加载就会自动运行的函数,因此为了能够顺利地在RegisterNatives()函数未被调用前Hook到,就需要使用Frida在注入时,选择spwan模式运行.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/android/android-hook/frida/frida-native%E5%B1%82hook/images/NativeHook%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C1.png" title="NativeHook动态注册1" data-thumbnail="/posts/android/android-hook/frida/frida-native%E5%B1%82hook/images/NativeHook%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C1.png" data-sub-html="<h2>NativeHook动态注册1</h2>"><img loading="lazy" src='/posts/android/android-hook/frida/frida-native%E5%B1%82hook/images/NativeHook%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C1.png' alt="NativeHook动态注册1" height="730" width="2007"></a></p>
+<p>从上图中可以看到LuoDynamicNative()函数相对于libluonative.so模块的偏移为0xf11c</p>
+<p>Hook动态注册的LuoDynamicNative()函数的脚本如下:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_native</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">libluonative_addr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libluonative.so&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;libluonative_addr is =&gt; &#34;</span><span class="p">,</span> <span class="nx">libluonative_addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">stringFromJNI</span> <span class="o">=</span> <span class="nx">libluonative_addr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0xf11c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;stringFromJNI address is =&gt; &#34;</span><span class="p">,</span> <span class="nx">stringFromJNI</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">stringFromJNI</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;jnienv pointer =&gt; &#34;</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;jobj pointer =&gt; &#34;</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//获取当前线程的JNIEnv结构
+</span></span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">getEnv</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//打印日志
+</span></span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;retval is =&gt; &#34;</span><span class="p">,</span> <span class="nx">env</span><span class="p">.</span><span class="nx">getStringUtfChars</span><span class="p">(</span><span class="nx">retval</span><span class="p">,</span> <span class="mi">0</span><span class="p">).</span><span class="nx">readCString</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//构造一个新字符串
+</span></span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">jstrings</span> <span class="o">=</span> <span class="nx">env</span><span class="p">.</span><span class="nx">newStringUtf</span><span class="p">(</span><span class="s2">&#34;Hello XiaLuoHun&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//替换返回值
+</span></span></span><span class="line"><span class="cl">            <span class="nx">retval</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">jstrings</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hook_native</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">setImmediate</span><span class="p">(</span><span class="nx">main</span><span class="p">)</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><div class="details admonition note open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">虽然每次重新运行App时,函数的偏移地址是不会改变的,但是这是建立在App未被重新编译的基础上.如果在一次运行后App代码发生修改,并重新在AndroidStudio中编译运行,那么新的App函数的偏移地址是会发生改变的,此时应重新使用hook_RegisterNatives.js脚本获取相应函数的新偏移值并修改Hook脚本,然后再进行注入.</div>
+    </div>
+</div>
+</div><hr class="awesome-hr" />
+    <h2 id="see-also">相关内容</h2>
+    <ul><li>
+          <a href="/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" title="Frida-Java层Hook">Frida-Java层Hook</a></li><li>
+          <a href="/posts/android/android%E5%9F%BA%E7%A1%80/elf%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" title="ELF文件格式">ELF文件格式</a></li><li>
+          <a href="/posts/android/android%E5%9F%BA%E7%A1%80/ndk%E8%BF%9B%E9%98%B6/" title="NDK进阶">NDK进阶</a></li></ul><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2021-11-25 00:00:00">更新于 2021-11-25&nbsp;</span>
+      </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"></div><div class="post-info-share">
+          <span></span>
+        </div></div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/frida/" class="post-tag" title="标签 - Frida">Frida</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/android/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kali%E9%85%8D%E7%BD%AE/" class="post-nav-item" rel="prev" title="Kali配置"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Kali配置</a><a href="/posts/android/android-hook/frida/frida-java%E5%B1%82hook/" class="post-nav-item" rel="next" title="Frida-Java层Hook">Frida-Java层Hook<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc animate__animated animate__fadeIn animate__faster" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" closedby="any">
+      <button type="button" class="toc-close-btn" aria-label="Close Table of Contents"><i class="fa-solid fa-xmark fa-lg" aria-hidden="true"></i></button>
+      <div class="toc">
+        <h2 class="toc-title" id="toc-dialog-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://xialuohun.top" target="_blank" rel="external nofollow noopener noreferrer">夏洛魂</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><button type="button" class="fixed-button back-to-top animate__faster hidden" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i><svg viewBox="0 0 100 100">
+              <circle class="bg" cx="50" cy="50" r="50"></circle>
+              <circle class="progress" cx="50" cy="50" r="50"></circle>
+            </svg></button><button type="button" id="toc-drawer-button" class="fixed-button toc-drawer-button hidden" aria-label="目录" aria-controls="toc-dialog" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button></div><div id="mask"></div><dialog id="search-dialog" class="search-dialog" aria-label="搜索" closedby="any">
+      <div class="search-modal">
+        <div class="search-modal-header">
+          <span class="search-delimiter"></span>
+          <button type="button" class="search-close-btn" aria-label="Close Search Dialog"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="search-source-footer">
+          <div class="search-shortcuts">
+            <span class="search-shortcut">
+              <kbd><i class="lucide-arrow-up" aria-hidden="true"></i></kbd>
+              <kbd><i class="lucide-arrow-down" aria-hidden="true"></i></kbd>
+              切换
+            </span>
+            <span class="search-shortcut">
+              <kbd><i class="lucide-corner-down-left" aria-hidden="true"></i></kbd>
+              选择
+            </span>
+            <span class="search-shortcut">
+              <kbd>ESC</kbd>
+              关闭
+            </span>
+          </div><span class="search-engine">搜索引擎 <a href="https://fusejs.io/" target="_blank" rel="external nofollow noopener noreferrer">Fuse.js</a></span></div>
+      </div>
+    </dialog><div class="reading-progress-bar" style="left: 0;top: 0;--fi-bg-progress: #0076ff;--fi-bg-progress-dark: #fff;"></div><noscript>
+    <div class="noscript-warning bg-danger text-white text-base font-bold fixed text-center inset-x-0 bottom-0 w-full z-fixed">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete-js/index.production.js" defer></script><script src="/js/lib/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/js/lib/lightgallery.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script src="/js/config/efc678bded0582c46d008b8b675134ed.min.js" defer></script><script src="/js/lib/file-tree.min.js" defer></script><script src="/js/main.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

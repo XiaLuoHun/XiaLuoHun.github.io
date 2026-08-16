@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>X64Dbg之SearchAndReplaceMem   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
+<meta name="description" content="在编写x64Dbg插件时用到以下两个函数,有坑!
+1 2 SCRIPT_EXPORT duint FindMem(duint start, duint size, const char* pattern); SCRIPT_EXPORT bool SearchAndReplaceMem(duint start, duint size, const char* searchpattern, const char* replacepattern); 首先SearchAndReplaceMem只会在start开始的size大小范围内只替换一次,所以要结合FindMem来完成全部的替换.
+"><meta name="keywords" content='x64Dbg'>
+	<meta itemprop="name" content="x64Dbg之SearchAndReplaceMem">
+	<meta itemprop="description" content="在编写x64Dbg插件时用到以下两个函数,有坑!
+1 2 SCRIPT_EXPORT duint FindMem(duint start, duint size, const char* pattern); SCRIPT_EXPORT bool SearchAndReplaceMem(duint start, duint size, const char* searchpattern, const char* replacepattern); 首先SearchAndReplaceMem只会在start开始的size大小范围内只替换一次,所以要结合FindMem来完成全部的替换.">
+	<meta itemprop="datePublished" content="2024-06-20T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2024-06-20T00:00:00+00:00">
+	<meta itemprop="wordCount" content="302">
+	<meta itemprop="image" content="https://xialuohun.top/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/images/%E9%94%99%E8%AF%AF1.png">
+	<meta itemprop="keywords" content="x64Dbg"><meta property="og:url" content="https://xialuohun.top/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/">
+	<meta property="og:site_name" content="夏洛魂的个人博客">
+	<meta property="og:title" content="x64Dbg之SearchAndReplaceMem">
+	<meta property="og:description" content="在编写x64Dbg插件时用到以下两个函数,有坑!
+1 2 SCRIPT_EXPORT duint FindMem(duint start, duint size, const char* pattern); SCRIPT_EXPORT bool SearchAndReplaceMem(duint start, duint size, const char* searchpattern, const char* replacepattern); 首先SearchAndReplaceMem只会在start开始的size大小范围内只替换一次,所以要结合FindMem来完成全部的替换.">
+	<meta property="og:locale" content="zh_cn">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2024-06-20T00:00:00+00:00">
+		<meta property="article:modified_time" content="2024-06-20T00:00:00+00:00">
+		<meta property="article:tag" content="x64Dbg">
+		<meta property="og:image" content="https://xialuohun.top/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/images/%E9%94%99%E8%AF%AF1.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://xialuohun.top/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/images/%E9%94%99%E8%AF%AF1.png">
+  <meta name="twitter:title" content="x64Dbg之SearchAndReplaceMem">
+  <meta name="twitter:description" content="在编写x64Dbg插件时用到以下两个函数,有坑!
+1 2 SCRIPT_EXPORT duint FindMem(duint start, duint size, const char* pattern); SCRIPT_EXPORT bool SearchAndReplaceMem(duint start, duint size, const char* searchpattern, const char* replacepattern); 首先SearchAndReplaceMem只会在start开始的size大小范围内只替换一次,所以要结合FindMem来完成全部的替换."><meta name="application-name" content="夏洛魂">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#f6f8fa" data-dark="#151b23" content="#f6f8fa"><meta name="msapplication-TileColor" content="#2d89ef"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FF7359"><link rel="canonical" type="text/html" href="https://xialuohun.top/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/" title="x64Dbg之SearchAndReplaceMem   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://xialuohun.top/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" title="x64Dbg-命令详解" /><link rel="next" type="text/html" href="https://xialuohun.top/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" title="进入Unidbg的世界" /><link rel="stylesheet" href="/css/unocss.min.css"><link rel="stylesheet" href="/css/main.min.css"><link rel="stylesheet" href="/css/pages/posts.min.css"><link rel="stylesheet" href="/css/custom.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><link rel="preload" href="/js/main.min.js" as="script"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "x64Dbg之SearchAndReplaceMem",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/xialuohun.top\/posts\/x64dbg\/x64dbg%E4%B9%8Bsearchandreplacemem\/"
+    },"image": [{
+              "@type": "ImageObject",
+              "url": "https:\/\/xialuohun.top\/posts\/x64dbg\/x64dbg%E4%B9%8Bsearchandreplacemem\/images\/%E9%94%99%E8%AF%AF1.png",
+              "width":  1128 ,
+              "height":  676 
+            }],"genre": "posts","keywords": "x64Dbg","wordcount":  302 ,
+    "url": "https:\/\/xialuohun.top\/posts\/x64dbg\/x64dbg%E4%B9%8Bsearchandreplacemem\/","datePublished": "2024-06-20T00:00:00+00:00","dateModified": "2024-06-20T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "夏洛魂"
+      },"description": ""
+  }
+  </script><script src="/js/head.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="wide"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search">
+            <button type="button" class="search-trigger desktop" aria-label="搜索" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+              搜索
+              <kbd></kbd>
+            </button>
+          </li>
+          <li class="menu-item delimiter"></li><li class="menu-item theme-switch-item">
+          <button type="button" class="theme-switch" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div><button type="button" class="search-trigger mobile" aria-label="搜索"><i class="fa-solid fa-search" aria-hidden="true"></i></button><button type="button" class="theme-switch" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+      <button type="button" class="menu-toggle" id="menu-toggle-mobile" aria-controls="menu-mobile" aria-expanded="false" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item"><a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"><div class="details collection-details open">
+      <div class="details-summary collection-summary">
+        <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+        <span class="collection-name" title="合集">x64Dbg</span>
+        <span class="collection-count">2</span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div>
+      <div class="details-content collection-content">
+        <nav>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" title="X64Dbg-命令详解">X64Dbg-命令详解</a></li><li class="collection-item"><span class="active" title="X64Dbg之SearchAndReplaceMem">X64Dbg之SearchAndReplaceMem</span></li></ul>
+          <div class="collection-nav-simple"><a href="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" class="collection-nav-item" rel="prev" title="X64Dbg-命令详解"><i class="fa-solid fa-angle-left" aria-hidden="true"></i></a><span class="text-secondary">2/2</span><i class="fa-solid fa-angle-right collection-nav-item text-secondary" aria-hidden="true"></i></div>
+        </nav>
+      </div>
+    </div><div class="details related-details open">
+      <div class="details-summary related-summary">
+        <i class="fa-solid fa-fire fa-fade text-danger" aria-hidden="true"></i>
+        <span class="related-title">相关内容</span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div>
+      <div class="details-content related-content">
+        <ul class="related-list"><li class="related-item">
+              <a href="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" title="X64Dbg-命令详解">X64Dbg-命令详解</a></li></ul>
+      </div>
+    </div></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>X64Dbg之SearchAndReplaceMem</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://xialuohun.top" title="作者" target="_blank" rel="author external nofollow noopener noreferrer" class="author"><img class="avatar" src='/images/Luo.png' alt="夏洛魂" height="16" width="16">&nbsp;夏洛魂</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/x64dbg/" class="post-category" title="分类 - x64Dbg"><i class="fa-regular fa-folder" aria-hidden="true"></i> x64Dbg</a> 和 <a href="/collections/x64dbg/" class="post-collection" title="合集 - x64Dbg"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> x64Dbg</a></span></div><div class="post-meta-line"><span title="发布于 2024-06-20 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-06-20">2024-06-20</time></span>&nbsp;<span title="302 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 400 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
+    </div><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><p>在编写x64Dbg插件时用到以下两个函数,有坑!</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">SCRIPT_EXPORT</span> <span class="n">duint</span> <span class="nf">FindMem</span><span class="p">(</span><span class="n">duint</span> <span class="n">start</span><span class="p">,</span> <span class="n">duint</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pattern</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SCRIPT_EXPORT</span> <span class="kt">bool</span> <span class="nf">SearchAndReplaceMem</span><span class="p">(</span><span class="n">duint</span> <span class="n">start</span><span class="p">,</span> <span class="n">duint</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">searchpattern</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">replacepattern</span><span class="p">);</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>首先SearchAndReplaceMem只会在start开始的size大小范围内只替换一次,所以要结合FindMem来完成全部的替换.</p>
+<p>当FindMem查找的地址范围过大时,第二次查找会失败(示例中的Size为0x0000000040000000),出现下述错误.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/images/%E9%94%99%E8%AF%AF1.png" title="错误1" data-thumbnail="/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/images/%E9%94%99%E8%AF%AF1.png" data-sub-html="<h2>错误1</h2>"><img loading="lazy" src='/posts/x64dbg/x64dbg%E4%B9%8Bsearchandreplacemem/images/%E9%94%99%E8%AF%AF1.png' alt="错误1" height="676" width="1128"></a></p>
+<p>正确的写法如下:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">DWORD</span> <span class="n">WINAPI</span> <span class="nf">workThreadProc</span><span class="p">(</span><span class="n">_In_</span> <span class="n">LPVOID</span> <span class="n">lpParameter</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">duint</span> <span class="n">dSelDisasmAddr</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Gui</span><span class="o">::</span><span class="n">Disassembly</span><span class="o">::</span><span class="n">SelectionGetStart</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">duint</span> <span class="n">dSelBase</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Memory</span><span class="o">::</span><span class="n">GetBase</span><span class="p">(</span><span class="n">dSelDisasmAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">duint</span> <span class="n">dSelSize</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Memory</span><span class="o">::</span><span class="n">GetSize</span><span class="p">(</span><span class="n">dSelDisasmAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">searchpattern</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;48656C6C6F205869614C756F48756E2100&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">replacepattern</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;48656C6C6F20576F726C642100&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">duint</span> <span class="n">nSearchpatternLen</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">searchpattern</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">duint</span> <span class="n">dStartAddr</span> <span class="o">=</span> <span class="n">dSelBase</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">do</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">duint</span> <span class="n">dAddr</span> <span class="o">=</span> <span class="n">Script</span><span class="o">::</span><span class="n">Pattern</span><span class="o">::</span><span class="n">FindMem</span><span class="p">(</span><span class="n">dStartAddr</span><span class="p">,</span> <span class="n">dSelSize</span> <span class="o">+</span> <span class="n">dSelBase</span> <span class="o">-</span> <span class="n">dStartAddr</span><span class="p">,</span> <span class="n">searchpattern</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">dAddr</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="n">dAddr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">dStartAddr</span> <span class="o">=</span> <span class="n">dAddr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">Script</span><span class="o">::</span><span class="n">Pattern</span><span class="o">::</span><span class="n">SearchAndReplaceMem</span><span class="p">(</span><span class="n">dAddr</span><span class="p">,</span> <span class="n">nSearchpatternLen</span><span class="p">,</span> <span class="n">searchpattern</span><span class="p">,</span> <span class="n">replacepattern</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">Sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">::</span><span class="n">MessageBox</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="s">&#34;Done&#34;</span><span class="p">,</span> <span class="s">&#34;replaceMemory&#34;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div></div><hr class="awesome-hr" />
+    <h2 id="see-also">相关内容</h2>
+    <ul><li>
+          <a href="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" title="X64Dbg-命令详解">X64Dbg-命令详解</a></li></ul><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-06-20 00:00:00">更新于 2024-06-20&nbsp;</span>
+      </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"></div><div class="post-info-share">
+          <span></span>
+        </div></div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/x64dbg/" class="post-tag" title="标签 - x64Dbg">x64Dbg</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/x64dbg/x64dbg-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" class="post-nav-item" rel="prev" title="X64Dbg-命令详解"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>X64Dbg-命令详解</a><a href="/posts/android/unidbg/01%E8%BF%9B%E5%85%A5unidbg%E7%9A%84%E4%B8%96%E7%95%8C/" class="post-nav-item" rel="next" title="进入Unidbg的世界">进入Unidbg的世界<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc animate__animated animate__fadeIn animate__faster" id="toc-auto" aria-label="目录"></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://xialuohun.top" target="_blank" rel="external nofollow noopener noreferrer">夏洛魂</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><button type="button" class="fixed-button back-to-top animate__faster hidden" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i><svg viewBox="0 0 100 100">
+              <circle class="bg" cx="50" cy="50" r="50"></circle>
+              <circle class="progress" cx="50" cy="50" r="50"></circle>
+            </svg></button></div><div id="mask"></div><dialog id="search-dialog" class="search-dialog" aria-label="搜索" closedby="any">
+      <div class="search-modal">
+        <div class="search-modal-header">
+          <span class="search-delimiter"></span>
+          <button type="button" class="search-close-btn" aria-label="Close Search Dialog"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="search-source-footer">
+          <div class="search-shortcuts">
+            <span class="search-shortcut">
+              <kbd><i class="lucide-arrow-up" aria-hidden="true"></i></kbd>
+              <kbd><i class="lucide-arrow-down" aria-hidden="true"></i></kbd>
+              切换
+            </span>
+            <span class="search-shortcut">
+              <kbd><i class="lucide-corner-down-left" aria-hidden="true"></i></kbd>
+              选择
+            </span>
+            <span class="search-shortcut">
+              <kbd>ESC</kbd>
+              关闭
+            </span>
+          </div><span class="search-engine">搜索引擎 <a href="https://fusejs.io/" target="_blank" rel="external nofollow noopener noreferrer">Fuse.js</a></span></div>
+      </div>
+    </dialog><div class="reading-progress-bar" style="left: 0;top: 0;--fi-bg-progress: #0076ff;--fi-bg-progress-dark: #fff;"></div><noscript>
+    <div class="noscript-warning bg-danger text-white text-base font-bold fixed text-center inset-x-0 bottom-0 w-full z-fixed">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete-js/index.production.js" defer></script><script src="/js/lib/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/js/lib/lightgallery.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script src="/js/config/da2cb960e00c95f2fdd9681763eaea07.min.js" defer></script><script src="/js/lib/file-tree.min.js" defer></script><script src="/js/main.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

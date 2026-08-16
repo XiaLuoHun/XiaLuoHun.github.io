@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>.NET程序hook的另一种优雅实现-C&#43;&#43;/CLI   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
+<meta name="description" content="概述在正式开始之前,我们需要先了解以下几个概念:
+"><meta name="keywords" content='Windows'>
+	<meta itemprop="name" content=".NET程序hook的另一种优雅实现-C&#43;&#43;/CLI">
+	<meta itemprop="description" content="概述在正式开始之前,我们需要先了解以下几个概念:">
+	<meta itemprop="datePublished" content="2023-05-08T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2023-05-08T00:00:00+00:00">
+	<meta itemprop="wordCount" content="1750">
+	<meta itemprop="image" content="https://xialuohun.top/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/Hook%E7%BB%93%E6%9E%9C.png">
+	<meta itemprop="keywords" content="Windows"><meta property="og:url" content="https://xialuohun.top/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/">
+	<meta property="og:site_name" content="夏洛魂的个人博客">
+	<meta property="og:title" content=".NET程序hook的另一种优雅实现-C&#43;&#43;/CLI">
+	<meta property="og:description" content="概述在正式开始之前,我们需要先了解以下几个概念:">
+	<meta property="og:locale" content="zh_cn">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2023-05-08T00:00:00+00:00">
+		<meta property="article:modified_time" content="2023-05-08T00:00:00+00:00">
+		<meta property="article:tag" content="Windows">
+		<meta property="og:image" content="https://xialuohun.top/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/Hook%E7%BB%93%E6%9E%9C.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://xialuohun.top/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/Hook%E7%BB%93%E6%9E%9C.png">
+  <meta name="twitter:title" content=".NET程序hook的另一种优雅实现-C&#43;&#43;/CLI">
+  <meta name="twitter:description" content="概述在正式开始之前,我们需要先了解以下几个概念:"><meta name="application-name" content="夏洛魂">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#f6f8fa" data-dark="#151b23" content="#f6f8fa"><meta name="msapplication-TileColor" content="#2d89ef"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FF7359"><link rel="canonical" type="text/html" href="https://xialuohun.top/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/" title=".NET程序hook的另一种优雅实现-C&#43;&#43;/CLI   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://xialuohun.top/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bbcf/" title="OLLVM研究之BCF" /><link rel="next" type="text/html" href="https://xialuohun.top/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" title="Android-DexVMP快速分析" /><link rel="stylesheet" href="/css/unocss.min.css"><link rel="stylesheet" href="/css/main.min.css"><link rel="stylesheet" href="/css/pages/posts.min.css"><link rel="stylesheet" href="/css/custom.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><link rel="preload" href="/js/main.min.js" as="script"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": ".NET程序hook的另一种优雅实现-C++/CLI",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/xialuohun.top\/posts\/windows%E7%9B%B8%E5%85%B3\/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0\/"
+    },"image": [{
+              "@type": "ImageObject",
+              "url": "https:\/\/xialuohun.top\/posts\/windows%E7%9B%B8%E5%85%B3\/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0\/images\/Hook%E7%BB%93%E6%9E%9C.png",
+              "width":  1478 ,
+              "height":  535 
+            }],"genre": "posts","keywords": "Windows","wordcount":  1750 ,
+    "url": "https:\/\/xialuohun.top\/posts\/windows%E7%9B%B8%E5%85%B3\/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0\/","datePublished": "2023-05-08T00:00:00+00:00","dateModified": "2023-05-08T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "夏洛魂"
+      },"description": ""
+  }
+  </script><script src="/js/head.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="wide"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search">
+            <button type="button" class="search-trigger desktop" aria-label="搜索" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+              搜索
+              <kbd></kbd>
+            </button>
+          </li>
+          <li class="menu-item delimiter"></li><li class="menu-item theme-switch-item">
+          <button type="button" class="theme-switch" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div><button type="button" class="search-trigger mobile" aria-label="搜索"><i class="fa-solid fa-search" aria-hidden="true"></i></button><button type="button" class="theme-switch" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+      <button type="button" class="menu-toggle" id="menu-toggle-mobile" aria-controls="menu-mobile" aria-expanded="false" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item"><a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"><div class="details collection-details open">
+      <div class="details-summary collection-summary">
+        <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+        <span class="collection-name" title="合集">Win逆向</span>
+        <span class="collection-count">9</span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div>
+      <div class="details-content collection-content">
+        <nav>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" title="STL库学习">STL库学习</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" title="Windows进程注入技术">Windows进程注入技术</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量">DEFCON议题解读｜Dll劫持新思路——修改环境变量</a></li><li class="collection-item"><span class="active" title=".NET程序hook的另一种优雅实现-C&#43;&#43;/CLI">.NET程序hook的另一种优雅实现-C&#43;&#43;/CLI</span></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/fridawindows/" title="Frida-Windows">Frida-Windows</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/qt6%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80%E5%AF%BB%E6%89%BE/" title="Qt6-信号与槽函数地址寻找">Qt6-信号与槽函数地址寻找</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/" title="Black Hat议题解读 | 进程注入-基于Windows线程池的隐蔽注入技术剖析">Black Hat议题解读 | 进程注入-基于Windows线程池的隐蔽注入技术剖析</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/windbg-preview-ttd%E8%B0%83%E8%AF%95%E8%AF%A6%E8%A7%A3/" title="WinDbg Preview TTD调试详解">WinDbg Preview TTD调试详解</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/x86-hook%E6%8E%A2%E7%B4%A2%E4%B8%8E%E6%94%B9%E9%80%A0-%E6%94%AF%E6%8C%81%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A/" title="X86 Hook探索与改造-支持自定义调用约定">X86 Hook探索与改造-支持自定义调用约定</a></li></ul>
+          <div class="collection-nav-simple"><a href="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" class="collection-nav-item" rel="prev" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量"><i class="fa-solid fa-angle-left" aria-hidden="true"></i></a><span class="text-secondary">4/9</span><a href="/posts/windows%E7%9B%B8%E5%85%B3/fridawindows/" class="collection-nav-item" rel="next" title="Frida-Windows"><i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+        </nav>
+      </div>
+    </div><div class="details related-details open">
+      <div class="details-summary related-summary">
+        <i class="fa-solid fa-fire fa-fade text-danger" aria-hidden="true"></i>
+        <span class="related-title">相关内容</span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div>
+      <div class="details-content related-content">
+        <ul class="related-list"><li class="related-item">
+              <a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" title="Android脱壳核心原理">Android脱壳核心原理</a></li><li class="related-item">
+              <a href="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量">DEFCON议题解读｜Dll劫持新思路——修改环境变量</a></li><li class="related-item">
+              <a href="/posts/android/android%E6%8A%93%E5%8C%85/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/" title="网络通讯协议分析">网络通讯协议分析</a></li></ul>
+      </div>
+    </div></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>.NET程序hook的另一种优雅实现-C&#43;&#43;/CLI</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://xialuohun.top" title="作者" target="_blank" rel="author external nofollow noopener noreferrer" class="author"><img class="avatar" src='/images/Luo.png' alt="夏洛魂" height="16" width="16">&nbsp;夏洛魂</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder" aria-hidden="true"></i> Win相关</a> 和 <a href="/collections/win%E9%80%86%E5%90%91/" class="post-collection" title="合集 - Win逆向"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Win逆向</a></span></div><div class="post-meta-line"><span title="发布于 2023-05-08 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2023-05-08">2023-05-08</time></span>&nbsp;<span title="1750 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1800 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"></div>
+      </div><template data-toc><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#目标程序">目标程序</a></li>
+    <li><a href="#hook代码">Hook代码</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav></template><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 class="heading-element" id="概述"><span>概述</span>
+  <a href="#%e6%a6%82%e8%bf%b0" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>在正式开始之前,我们需要先了解以下几个概念:</p>
+<ul>
+<li>
+<p>CLI(Common Language Infrastructure,通用语言框架):提供了一套可执行代码和它所运行需要的虚拟执行环境的规范.</p>
+</li>
+<li>
+<p>CLR(Common Language Runtime,公共语言运行时):和Java虚拟机一样也是一个运行时环境,负责资源管理(内存分配和垃圾收集),并保证应用和底层操作系统之间必要的分离.可以说微软的.NET基础CLR是CLI的一个实例.</p>
+</li>
+<li>
+<p>C++ /CLI:实现了C<ins>和.NET的无缝连接,可以使用C</ins>和C#混合的方式来完成应用程序代码的编写.</p>
+</li>
+<li>
+<p>.NET程序编译运行流程:将源代码编译为微软中间语言MSIL,运行的时候即时编译为本地机器语言,同时.NET代码运行时有一个CLR环境来管理程序.</p>
+</li>
+</ul>
+<p>对于Hook来说,首先关键的一步就是确定目标函数的地址,而.NET程序的Native函数地址是运行的时候即时编译的,函数地址不确定.但幸运的是我们可以通过C#的<code>RuntimeMethodHandle.GetFunctionPointer()</code>函数来获取编译后的Native函数地址,另外需要注意一点的就是在.NET中,假设函数没有被直接或间接使用,那函数就不会被编译.因此在使用上述接口获取编译后的Native函数地址之前,我们还需要使用C#中的<code>System::Runtime::CompilerServices::RuntimeHelpers::PrepareMethod()</code>函数来进行函数的编译.</p>
+<p>通过上述描述,我们可以很轻易就想到用C++来完成Hook代码的编写,用C#来完成.NET程序函数编译地址的确定.</p>
+<h2 class="heading-element" id="目标程序"><span>目标程序</span>
+  <a href="#%e7%9b%ae%e6%a0%87%e7%a8%8b%e5%ba%8f" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>假设我们要Hook的目标C#窗体应用程序如下:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">CLuoHun</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="n">Form1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">InitializeComponent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="k">void</span> <span class="n">btnStatic_Click</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">TstStaticFunc</span><span class="p">(</span><span class="s">&#34;TstStaticFunc&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="k">void</span> <span class="n">btnInstance_Click</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">TstInstanceFunc</span><span class="p">(</span><span class="s">&#34;TstInstanceFunc&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="k">void</span> <span class="n">btnGeneric_Click</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">TstGenericFunc</span><span class="p">(</span><span class="s">&#34;TstGenericFunc&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//静态方法</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">static</span> <span class="k">void</span> <span class="n">TstStaticFunc</span><span class="p">(</span><span class="n">String</span> <span class="n">strMsg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">strMsg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//实例方法</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="k">void</span> <span class="n">TstInstanceFunc</span><span class="p">(</span><span class="n">String</span> <span class="n">strMsg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">strMsg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//泛型方法</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="k">void</span> <span class="n">TstGenericFunc</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">strMsg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">strMsg</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>后面我们以静态方法TstStaticFunc、实例方法TstInstanceFunc以及泛型方法TstGenericFunc为例来展开讲解C++ /CLI Hook代码的编写.</p>
+<h2 class="heading-element" id="hook代码"><span>Hook代码</span>
+  <a href="#hook%e4%bb%a3%e7%a0%81" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><ol>
+<li>创建一个C++ Dll项目,启用CLR支持</li>
+</ol>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/%E5%90%AF%E7%94%A8CLR%E6%94%AF%E6%8C%81.png" title="启用CLR支持" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/%E5%90%AF%E7%94%A8CLR%E6%94%AF%E6%8C%81.png" data-sub-html="<h2>启用CLR支持</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/%E5%90%AF%E7%94%A8CLR%E6%94%AF%E6%8C%81.png' alt="启用CLR支持" height="755" width="1351"></a></p>
+<ol start="2">
+<li>修改编译选项</li>
+</ol>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/%E4%BF%AE%E6%94%B9%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9.png" title="修改编译选项" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/%E4%BF%AE%E6%94%B9%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9.png" data-sub-html="<h2>修改编译选项</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/%E4%BF%AE%E6%94%B9%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9.png' alt="修改编译选项" height="797" width="1400"></a></p>
+<p>在配置属性下C/C++的命令行中添加/Zc:twoPhase-</p>
+<ol start="3">
+<li>Dll的Hook代码如下:</li>
+</ol>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#using &lt;mscorlib.dll&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;msclr\marshal_cppstd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">System</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">Reflection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">System</span><span class="o">::</span><span class="n">Runtime</span><span class="o">::</span><span class="n">InteropServices</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">msclr</span><span class="o">::</span><span class="n">interop</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">  
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Detours/include/LuoDetours.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;OutputDebugString/OutDebuf.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">__clrcall</span> <span class="nf">MyStaticFunc</span><span class="p">(</span><span class="n">String</span><span class="o">^</span> <span class="n">strMsg</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//cli的string转c++ char*
+</span></span></span><span class="line"><span class="cl">	<span class="kt">char</span><span class="o">*</span> <span class="n">szMsg</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">Marshal</span><span class="o">::</span><span class="n">StringToHGlobalAnsi</span><span class="p">(</span><span class="n">strMsg</span><span class="p">).</span><span class="n">ToPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">MessageBoxA</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="s">&#34;MyStaticFunc&#34;</span><span class="p">,</span> <span class="n">szMsg</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">__clrcall</span> <span class="nf">MyInstanceFunc</span><span class="p">(</span><span class="n">Object</span><span class="o">%</span> <span class="n">obj</span><span class="p">,</span> <span class="n">String</span><span class="o">^</span> <span class="n">strMsg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//cli的string转c++ char*
+</span></span></span><span class="line"><span class="cl">	<span class="kt">char</span><span class="o">*</span> <span class="n">szMsg</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">Marshal</span><span class="o">::</span><span class="n">StringToHGlobalAnsi</span><span class="p">(</span><span class="n">strMsg</span><span class="p">).</span><span class="n">ToPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">MessageBoxA</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="s">&#34;MyInstanceFunc&#34;</span><span class="p">,</span> <span class="n">szMsg</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">__clrcall</span> <span class="nf">MyGenericFunc</span><span class="p">(</span><span class="n">Object</span><span class="o">%</span> <span class="n">obj</span><span class="p">,</span> <span class="n">String</span><span class="o">^</span> <span class="n">strMsg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//cli的string转c++ char*
+</span></span></span><span class="line"><span class="cl">	<span class="kt">char</span><span class="o">*</span> <span class="n">szMsg</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">Marshal</span><span class="o">::</span><span class="n">StringToHGlobalAnsi</span><span class="p">(</span><span class="n">strMsg</span><span class="p">).</span><span class="n">ToPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">MessageBoxA</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="s">&#34;MyGenericFunc&#34;</span><span class="p">,</span> <span class="n">szMsg</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">DWORD</span> <span class="n">WINAPI</span> <span class="nf">ThreadProc</span><span class="p">(</span><span class="n">LPVOID</span> <span class="n">lpThreadParameter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//①反射找到函数
+</span></span></span><span class="line"><span class="cl">	<span class="n">Type</span><span class="o">^</span> <span class="n">type</span> <span class="o">=</span> <span class="n">Type</span><span class="o">::</span><span class="n">GetType</span><span class="p">(</span><span class="s">&#34;CLuoHun.Form1, CLuoHun&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//静态方法 public static void TstStaticFunc(String strMsg)
+</span></span></span><span class="line"><span class="cl">	<span class="n">MethodInfo</span><span class="o">^</span> <span class="n">staticMethod</span> <span class="o">=</span> <span class="n">type</span><span class="o">-&gt;</span><span class="n">GetMethod</span><span class="p">(</span><span class="s">&#34;TstStaticFunc&#34;</span><span class="p">,</span> <span class="n">BindingFlags</span><span class="o">::</span><span class="n">Public</span> <span class="o">|</span> <span class="n">BindingFlags</span><span class="o">::</span><span class="n">Static</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//实例方法 private void TstInstanceFunc(String strMsg)
+</span></span></span><span class="line"><span class="cl">	<span class="n">MethodInfo</span><span class="o">^</span> <span class="n">instanceMethod</span> <span class="o">=</span> <span class="n">type</span><span class="o">-&gt;</span><span class="n">GetMethod</span><span class="p">(</span><span class="s">&#34;TstInstanceFunc&#34;</span><span class="p">,</span> <span class="n">BindingFlags</span><span class="o">::</span><span class="n">NonPublic</span> <span class="o">|</span> <span class="n">BindingFlags</span><span class="o">::</span><span class="n">Instance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//泛型方法 private void TstGenericFunc&lt;T&gt;(T strMsg)
+</span></span></span><span class="line"><span class="cl">	<span class="n">MethodInfo</span><span class="o">^</span> <span class="n">genericMethodPre</span> <span class="o">=</span> <span class="n">type</span><span class="o">-&gt;</span><span class="n">GetMethod</span><span class="p">(</span><span class="s">&#34;TstGenericFunc&#34;</span><span class="p">,</span> <span class="n">BindingFlags</span><span class="o">::</span><span class="n">NonPublic</span> <span class="o">|</span> <span class="n">BindingFlags</span><span class="o">::</span><span class="n">Instance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">MethodInfo</span><span class="o">^</span> <span class="n">genericMethod</span> <span class="o">=</span> <span class="n">genericMethodPre</span><span class="o">-&gt;</span><span class="n">MakeGenericMethod</span><span class="p">(</span><span class="n">String</span><span class="o">::</span><span class="k">typeid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//②JIT 编译函数
+</span></span></span><span class="line"><span class="cl">	<span class="n">System</span><span class="o">::</span><span class="n">Runtime</span><span class="o">::</span><span class="n">CompilerServices</span><span class="o">::</span><span class="n">RuntimeHelpers</span><span class="o">::</span><span class="n">PrepareMethod</span><span class="p">(</span><span class="n">staticMethod</span><span class="o">-&gt;</span><span class="n">MethodHandle</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">System</span><span class="o">::</span><span class="n">Runtime</span><span class="o">::</span><span class="n">CompilerServices</span><span class="o">::</span><span class="n">RuntimeHelpers</span><span class="o">::</span><span class="n">PrepareMethod</span><span class="p">(</span><span class="n">instanceMethod</span><span class="o">-&gt;</span><span class="n">MethodHandle</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">System</span><span class="o">::</span><span class="n">Runtime</span><span class="o">::</span><span class="n">CompilerServices</span><span class="o">::</span><span class="n">RuntimeHelpers</span><span class="o">::</span><span class="n">PrepareMethod</span><span class="p">(</span><span class="n">genericMethod</span><span class="o">-&gt;</span><span class="n">MethodHandle</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//③获取函数地址
+</span></span></span><span class="line"><span class="cl">	<span class="kt">void</span><span class="o">*</span> <span class="n">staticMethodAddr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">staticMethod</span><span class="o">-&gt;</span><span class="n">MethodHandle</span><span class="p">.</span><span class="n">GetFunctionPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span><span class="o">*</span> <span class="n">instanceMethodAddr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">instanceMethod</span><span class="o">-&gt;</span><span class="n">MethodHandle</span><span class="p">.</span><span class="n">GetFunctionPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span><span class="o">*</span> <span class="n">genericMethodAddr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">genericMethod</span><span class="o">-&gt;</span><span class="n">MethodHandle</span><span class="p">.</span><span class="n">GetFunctionPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//DbgPrintf(&#34;TstStaticFunc address: 0x%x&#34;, staticMethodAddr);
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//DbgPrintf(&#34;TstInstanceFunc address: 0x%x&#34;, instanceMethodAddr);
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//DbgPrintf(&#34;TstGenericFunc address: 0x%x&#34;, genericMethodAddr);
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//④Hook
+</span></span></span><span class="line"><span class="cl">    <span class="n">AddHook</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="n">PVOID</span><span class="o">&amp;</span><span class="p">)</span><span class="n">staticMethodAddr</span><span class="p">,</span> <span class="n">MyStaticFunc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">AddHook</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="n">PVOID</span><span class="o">&amp;</span><span class="p">)</span><span class="n">instanceMethodAddr</span><span class="p">,</span> <span class="n">MyInstanceFunc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">AddHook</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="n">PVOID</span><span class="o">&amp;</span><span class="p">)</span><span class="n">genericMethodAddr</span><span class="p">,</span> <span class="n">MyGenericFunc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//#pragma unmanaged
+</span></span></span><span class="line"><span class="cl"><span class="cp">#pragma managed(push, off) </span><span class="c1">//编译为native代码
+</span></span></span><span class="line"><span class="cl"><span class="n">BOOL</span> <span class="n">APIENTRY</span> <span class="nf">DllMain</span><span class="p">(</span> <span class="n">HMODULE</span> <span class="n">hModule</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">DWORD</span>  <span class="n">dwReason</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">LPVOID</span> <span class="n">lpReserved</span>
+</span></span><span class="line"><span class="cl">                     <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">dwReason</span> <span class="o">==</span> <span class="n">DLL_PROCESS_ATTACH</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">DisableThreadLibraryCalls</span><span class="p">(</span><span class="n">hModule</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="o">::</span><span class="n">CreateThread</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">ThreadProc</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">dwReason</span> <span class="o">==</span> <span class="n">DLL_PROCESS_DETACH</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#pragma managed(pop)</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button><button type="button" class="code-expand-btn" aria-label="展开或折叠代码块"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></button>
+</div>
+</div><div class="details admonition note open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content"><ul>
+<li>
+<p>对于Dll工程来说,需要使用pragma指令将DllMain函数编译为native代码</p>
+</li>
+<li>
+<p>Hook函数的调用约定为__clrcall</p>
+</li>
+<li>
+<p>对于实例函数的Hook,要多写一个Object参数</p>
+</li>
+<li>
+<p>对于泛型方法,要调用MethodInfo.MakeGenericMethod函数为其提供具体的类型参数</p>
+</li>
+</ul>
+</div>
+    </div>
+</div>
+<ol start="4">
+<li>将上述代码编写的Dll注入到目标C#程序中即可实现指定函数的Hook</li>
+</ol>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/Hook%E7%BB%93%E6%9E%9C.png" title="Hook结果" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/Hook%E7%BB%93%E6%9E%9C.png" data-sub-html="<h2>Hook结果</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/images/Hook%E7%BB%93%E6%9E%9C.png' alt="Hook结果" height="535" width="1478"></a></p>
+<h2 class="heading-element" id="总结"><span>总结</span>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>对.NET程序的Hook,当然也可以通过C#这种高级语言来完成,但是异常麻烦.C++ /CLI通过将托管环境和Native环境整合在一起,允许开发者在编写托管代码的同时,仍能直接访问Native代码,借助于C++操作底层代码的强大特性,我们可以很轻易的完成Hook操作.</p>
+<h2 class="heading-element" id="参考链接"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p><a href="https://zh.wikipedia.org/wiki/C%2B%2B/CLI" target="_blank" rel="external nofollow noopener noreferrer">C++/CLI<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1120293" target="_blank" rel="external nofollow noopener noreferrer">托管C++、C++/CLI、CLR<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p><a href="https://learn.microsoft.com/zh-cn/cpp/preprocessor/managed-unmanaged?view=msvc-170" target="_blank" rel="external nofollow noopener noreferrer">managed 和 unmanaged pragma<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p><a href="https://blog.csdn.net/xfgryujk/article/details/79053312" target="_blank" rel="external nofollow noopener noreferrer">C++/CLI实现inline hook .NET程序<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p><a href="https://mp.weixin.qq.com/s/zon4XQ_c240ujtjLPcLZng" target="_blank" rel="external nofollow noopener noreferrer">AMSI 绕过之.Net API Hook<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+</div><hr class="awesome-hr" />
+    <h2 id="see-also">相关内容</h2>
+    <ul><li>
+          <a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android%E8%84%B1%E5%A3%B3%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" title="Android脱壳核心原理">Android脱壳核心原理</a></li><li>
+          <a href="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量">DEFCON议题解读｜Dll劫持新思路——修改环境变量</a></li><li>
+          <a href="/posts/android/android%E6%8A%93%E5%8C%85/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/" title="网络通讯协议分析">网络通讯协议分析</a></li></ul><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2023-05-08 00:00:00">更新于 2023-05-08&nbsp;</span>
+      </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"></div><div class="post-info-share">
+          <span></span>
+        </div></div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/windows/" class="post-tag" title="标签 - Windows">Windows</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/llvm/ollvm%E7%A0%94%E7%A9%B6%E4%B9%8Bbcf/" class="post-nav-item" rel="prev" title="OLLVM研究之BCF"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>OLLVM研究之BCF</a><a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" class="post-nav-item" rel="next" title="Android-DexVMP快速分析">Android-DexVMP快速分析<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc animate__animated animate__fadeIn animate__faster" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" closedby="any">
+      <button type="button" class="toc-close-btn" aria-label="Close Table of Contents"><i class="fa-solid fa-xmark fa-lg" aria-hidden="true"></i></button>
+      <div class="toc">
+        <h2 class="toc-title" id="toc-dialog-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://xialuohun.top" target="_blank" rel="external nofollow noopener noreferrer">夏洛魂</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><button type="button" class="fixed-button back-to-top animate__faster hidden" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i><svg viewBox="0 0 100 100">
+              <circle class="bg" cx="50" cy="50" r="50"></circle>
+              <circle class="progress" cx="50" cy="50" r="50"></circle>
+            </svg></button><button type="button" id="toc-drawer-button" class="fixed-button toc-drawer-button hidden" aria-label="目录" aria-controls="toc-dialog" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button></div><div id="mask"></div><dialog id="search-dialog" class="search-dialog" aria-label="搜索" closedby="any">
+      <div class="search-modal">
+        <div class="search-modal-header">
+          <span class="search-delimiter"></span>
+          <button type="button" class="search-close-btn" aria-label="Close Search Dialog"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="search-source-footer">
+          <div class="search-shortcuts">
+            <span class="search-shortcut">
+              <kbd><i class="lucide-arrow-up" aria-hidden="true"></i></kbd>
+              <kbd><i class="lucide-arrow-down" aria-hidden="true"></i></kbd>
+              切换
+            </span>
+            <span class="search-shortcut">
+              <kbd><i class="lucide-corner-down-left" aria-hidden="true"></i></kbd>
+              选择
+            </span>
+            <span class="search-shortcut">
+              <kbd>ESC</kbd>
+              关闭
+            </span>
+          </div><span class="search-engine">搜索引擎 <a href="https://fusejs.io/" target="_blank" rel="external nofollow noopener noreferrer">Fuse.js</a></span></div>
+      </div>
+    </dialog><div class="reading-progress-bar" style="left: 0;top: 0;--fi-bg-progress: #0076ff;--fi-bg-progress-dark: #fff;"></div><noscript>
+    <div class="noscript-warning bg-danger text-white text-base font-bold fixed text-center inset-x-0 bottom-0 w-full z-fixed">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete-js/index.production.js" defer></script><script src="/js/lib/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/js/lib/lightgallery.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script src="/js/config/2091a7b664339ec7fb2bb4386c3f2553.min.js" defer></script><script src="/js/lib/file-tree.min.js" defer></script><script src="/js/main.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

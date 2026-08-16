@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Black Hat议题解读 | 进程注入-基于Windows线程池的隐蔽注入技术剖析   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
+<meta name="description" content="个人博客"><meta name="keywords" content='Windows'>
+	<meta itemprop="name" content="Black Hat议题解读 | 进程注入-基于Windows线程池的隐蔽注入技术剖析">
+	<meta itemprop="description" content="个人博客">
+	<meta itemprop="datePublished" content="2025-03-12T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2025-03-12T00:00:00+00:00">
+	<meta itemprop="wordCount" content="7946">
+	<meta itemprop="image" content="https://xialuohun.top/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocJobNotification.png">
+	<meta itemprop="keywords" content="Windows"><meta property="og:url" content="https://xialuohun.top/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/">
+	<meta property="og:site_name" content="夏洛魂的个人博客">
+	<meta property="og:title" content="Black Hat议题解读 | 进程注入-基于Windows线程池的隐蔽注入技术剖析">
+	<meta property="og:description" content="个人博客">
+	<meta property="og:locale" content="zh_cn">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2025-03-12T00:00:00+00:00">
+		<meta property="article:modified_time" content="2025-03-12T00:00:00+00:00">
+		<meta property="article:tag" content="Windows">
+		<meta property="og:image" content="https://xialuohun.top/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocJobNotification.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://xialuohun.top/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocJobNotification.png">
+  <meta name="twitter:title" content="Black Hat议题解读 | 进程注入-基于Windows线程池的隐蔽注入技术剖析">
+  <meta name="twitter:description" content="个人博客"><meta name="application-name" content="夏洛魂">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#f6f8fa" data-dark="#151b23" content="#f6f8fa"><meta name="msapplication-TileColor" content="#2d89ef"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FF7359"><link rel="canonical" type="text/html" href="https://xialuohun.top/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/" title="Black Hat议题解读 | 进程注入-基于Windows线程池的隐蔽注入技术剖析   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://xialuohun.top/posts/linux-pwn/linux%E4%B8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%89%8B%E6%B3%95%E8%B5%8F%E6%9E%90/" title="Linux下漏洞利用手法赏析" /><link rel="next" type="text/html" href="https://xialuohun.top/posts/ida/ida9-rsa-keygen/" title="IDA9-RSA KeyGen" /><link rel="stylesheet" href="/css/unocss.min.css"><link rel="stylesheet" href="/css/main.min.css"><link rel="stylesheet" href="/css/pages/posts.min.css"><link rel="stylesheet" href="/css/custom.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><link rel="preload" href="/js/main.min.js" as="script"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Black Hat议题解读 | 进程注入-基于Windows线程池的隐蔽注入技术剖析",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/xialuohun.top\/posts\/windows%E7%9B%B8%E5%85%B3\/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90\/"
+    },"image": [{
+              "@type": "ImageObject",
+              "url": "https:\/\/xialuohun.top\/posts\/windows%E7%9B%B8%E5%85%B3\/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90\/images\/IDA_TpAllocJobNotification.png",
+              "width":  1734 ,
+              "height":  1100 
+            }],"genre": "posts","keywords": "Windows","wordcount":  7946 ,
+    "url": "https:\/\/xialuohun.top\/posts\/windows%E7%9B%B8%E5%85%B3\/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90\/","datePublished": "2025-03-12T00:00:00+00:00","dateModified": "2025-03-12T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "夏洛魂"
+      },"description": ""
+  }
+  </script><script src="/js/head.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="wide"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search">
+            <button type="button" class="search-trigger desktop" aria-label="搜索" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+              搜索
+              <kbd></kbd>
+            </button>
+          </li>
+          <li class="menu-item delimiter"></li><li class="menu-item theme-switch-item">
+          <button type="button" class="theme-switch" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div><button type="button" class="search-trigger mobile" aria-label="搜索"><i class="fa-solid fa-search" aria-hidden="true"></i></button><button type="button" class="theme-switch" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+      <button type="button" class="menu-toggle" id="menu-toggle-mobile" aria-controls="menu-mobile" aria-expanded="false" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item"><a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"><div class="details collection-details open">
+      <div class="details-summary collection-summary">
+        <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+        <span class="collection-name" title="合集">Win逆向</span>
+        <span class="collection-count">9</span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div>
+      <div class="details-content collection-content">
+        <nav>
+          <ul class="collection-list"><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/stl%E5%BA%93%E5%AD%A6%E4%B9%A0/" title="STL库学习">STL库学习</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/windows%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" title="Windows进程注入技术">Windows进程注入技术</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量">DEFCON议题解读｜Dll劫持新思路——修改环境变量</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/" title=".NET程序hook的另一种优雅实现-C&#43;&#43;/CLI">.NET程序hook的另一种优雅实现-C&#43;&#43;/CLI</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/fridawindows/" title="Frida-Windows">Frida-Windows</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/qt6%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80%E5%AF%BB%E6%89%BE/" title="Qt6-信号与槽函数地址寻找">Qt6-信号与槽函数地址寻找</a></li><li class="collection-item"><span class="active" title="Black Hat议题解读 | 进程注入-基于Windows线程池的隐蔽注入技术剖析">Black Hat议题解读 | 进程注入-基于Windows线程池的隐蔽注入技术剖析</span></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/windbg-preview-ttd%E8%B0%83%E8%AF%95%E8%AF%A6%E8%A7%A3/" title="WinDbg Preview TTD调试详解">WinDbg Preview TTD调试详解</a></li><li class="collection-item"><a href="/posts/windows%E7%9B%B8%E5%85%B3/x86-hook%E6%8E%A2%E7%B4%A2%E4%B8%8E%E6%94%B9%E9%80%A0-%E6%94%AF%E6%8C%81%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A/" title="X86 Hook探索与改造-支持自定义调用约定">X86 Hook探索与改造-支持自定义调用约定</a></li></ul>
+          <div class="collection-nav-simple"><a href="/posts/windows%E7%9B%B8%E5%85%B3/qt6%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80%E5%AF%BB%E6%89%BE/" class="collection-nav-item" rel="prev" title="Qt6-信号与槽函数地址寻找"><i class="fa-solid fa-angle-left" aria-hidden="true"></i></a><span class="text-secondary">7/9</span><a href="/posts/windows%E7%9B%B8%E5%85%B3/windbg-preview-ttd%E8%B0%83%E8%AF%95%E8%AF%A6%E8%A7%A3/" class="collection-nav-item" rel="next" title="WinDbg Preview TTD调试详解"><i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+        </nav>
+      </div>
+    </div><div class="details related-details open">
+      <div class="details-summary related-summary">
+        <i class="fa-solid fa-fire fa-fade text-danger" aria-hidden="true"></i>
+        <span class="related-title">相关内容</span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div>
+      <div class="details-content related-content">
+        <ul class="related-list"><li class="related-item">
+              <a href="/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/" title=".NET程序hook的另一种优雅实现-C&#43;&#43;/CLI">.NET程序hook的另一种优雅实现-C&#43;&#43;/CLI</a></li><li class="related-item">
+              <a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" title="Android-DexVMP快速分析">Android-DexVMP快速分析</a></li><li class="related-item">
+              <a href="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量">DEFCON议题解读｜Dll劫持新思路——修改环境变量</a></li></ul>
+      </div>
+    </div></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Black Hat议题解读 | 进程注入-基于Windows线程池的隐蔽注入技术剖析</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://xialuohun.top" title="作者" target="_blank" rel="author external nofollow noopener noreferrer" class="author"><img class="avatar" src='/images/Luo.png' alt="夏洛魂" height="16" width="16">&nbsp;夏洛魂</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/win%E7%9B%B8%E5%85%B3/" class="post-category" title="分类 - Win相关"><i class="fa-regular fa-folder" aria-hidden="true"></i> Win相关</a> 和 <a href="/collections/win%E9%80%86%E5%90%91/" class="post-collection" title="合集 - Win逆向"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Win逆向</a></span></div><div class="post-meta-line"><span title="发布于 2025-03-12 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2025-03-12">2025-03-12</time></span>&nbsp;<span title="7946 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 8000 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 16 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"></div>
+      </div><template data-toc><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#进程注入">进程注入</a></li>
+    <li><a href="#edr检测方法">EDR检测方法</a></li>
+    <li><a href="#windows线程池架构">Windows线程池架构</a></li>
+    <li><a href="#攻击工人工厂">攻击工人工厂</a>
+      <ul>
+        <li><a href="#线程池注入变体1覆写工人工厂启动例程startroutine">线程池注入变体1:覆写工人工厂启动例程(StartRoutine)</a></li>
+      </ul>
+    </li>
+    <li><a href="#攻击线程池">攻击线程池</a>
+      <ul>
+        <li><a href="#工作项">工作项</a></li>
+        <li><a href="#队列">队列</a></li>
+        <li><a href="#线程池注入变体2tp_work">线程池注入变体2:TP_WORK</a></li>
+        <li><a href="#线程池注入变体3tp_io">线程池注入变体3:TP_IO</a></li>
+        <li><a href="#线程池注入变体4tp_wait">线程池注入变体4:TP_WAIT</a></li>
+        <li><a href="#线程池注入变体5tp_job">线程池注入变体5:TP_JOB</a></li>
+        <li><a href="#线程池注入变体6tp_alpc">线程池注入变体6:TP_ALPC</a></li>
+        <li><a href="#线程池注入变体7tp_direct">线程池注入变体7:TP_DIRECT</a></li>
+        <li><a href="#线程池注入变体8tp_timer">线程池注入变体8:TP_TIMER</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav></template><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><h2 class="heading-element" id="概述"><span>概述</span>
+  <a href="#%e6%a6%82%e8%bf%b0" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>在2023年12月份的Black Hat大会上, 安全研究人员Alon Leviev通过对Windows用户模式线程池内部结构的研究,演示了攻击者如何接管线程池,并将Windows线程池支持的的工作项插入系统中的任意进程,并由此提出了基于Windows线程池的8种变体新进程注入技术,下面就其中涉及的技术点展开介绍.</p>
+<h2 class="heading-element" id="进程注入"><span>进程注入</span>
+  <a href="#%e8%bf%9b%e7%a8%8b%e6%b3%a8%e5%85%a5" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p><code>进程注入</code>作为一种在目标进程中执行任意代码的规避技术,通常由下述<code>3个基础原语构成的链式组合</code>实现.</p>
+<ul>
+<li><strong>内存分配原语</strong>:用于在目标进程内分配可写/可执行的内存区域.</li>
+<li><strong>代码写入原语</strong>:负责将恶意代码(如ShellCode)写入已分配的内存空间.</li>
+<li><strong>执行触发原语</strong>:通过线程操控、回调函数劫持等方式,触发恶意代码执行.</li>
+</ul>
+<p>最基本的注入是使用<code>VirtualAllocEX</code>进行分配,使用<code>WriteProcessMemory</code>进行写入,使用<code>CreateRemoteThread</code>进行执行.这种技术称之为<code>CreateRemoteThread 注入</code>,非常简单且功能强大,但它有一个缺点:会被所有EDR检测到.</p>
+<h2 class="heading-element" id="edr检测方法"><span>EDR检测方法</span>
+  <a href="#edr%e6%a3%80%e6%b5%8b%e6%96%b9%e6%b3%95" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>经实验验证,针对进程注入攻击中涉及的底层操作原语,EDR的检测机制呈现如下特征:</p>
+<p>当前主流EDR产品的检测逻辑<code>高度聚焦于执行阶段的行为特征(执行触发原语)</code>,而常规形态的<code>内存分配与代码写入原语未被纳入有效检测范围</code>.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/EDR%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95.png" title="EDR检测方法" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/EDR%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95.png" data-sub-html="<h2>EDR检测方法</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/EDR%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95.png' alt="EDR检测方法" height="631" width="1443"></a></p>
+<p>基于上述发现,进行下述思考:</p>
+<ul>
+<li>如果我们构建<code>仅依赖内存分配与代码写入原语</code>的执行触发机制,会产生何种效果?</li>
+<li>如果<code>执行触发原语</code>由合法行为触发(如向无害文件写入数据),又会产生何种影响?</li>
+</ul>
+<p><mark class="mark-default">上述两种进程注入攻击模式的演变,将使注入攻击的检测难度显著提升!</mark></p>
+<h2 class="heading-element" id="windows线程池架构"><span>Windows线程池架构</span>
+  <a href="#windows%e7%ba%bf%e7%a8%8b%e6%b1%a0%e6%9e%b6%e6%9e%84" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>线程池主要由以下内容组成:</p>
+<ol>
+<li>3个独立的<mark class="mark-default">工作队列(Work Queues)</mark>,每个队列处理不同类型的工作项.
+<ul>
+<li><strong>普通任务队列</strong>:通过<code>SubmitThreadpoolWork</code>提交的常规异步任务.</li>
+<li><strong>定时器队列</strong>:通过<code>CreateThreadpoolTimer</code>管理周期性或延迟任务.</li>
+<li><strong>I/O完成队列</strong>:与I/O完成端口绑定,处理异步I/O操作.</li>
+</ul>
+</li>
+<li><mark class="mark-default">工作线程(Worker Threads)</mark>,负责从不同队列中取出工作项并执行.</li>
+<li><mark class="mark-default">工作线程工人工厂(Worker Factory)</mark>,负责管理工作线程的创建、调度以及生命周期.</li>
+</ol>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%9E%B6%E6%9E%84.png" title="线程池架构" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%9E%B6%E6%9E%84.png" data-sub-html="<h2>线程池架构</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%9E%B6%E6%9E%84.png' alt="线程池架构" height="778" width="1379"></a></p>
+<h2 class="heading-element" id="攻击工人工厂"><span>攻击工人工厂</span>
+  <a href="#%e6%94%bb%e5%87%bb%e5%b7%a5%e4%ba%ba%e5%b7%a5%e5%8e%82" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>工人工厂是一个Windows对象,负责管理线程池中的工作线程.它通过监控活动或阻塞的工作线程来管理工作线程,并根据监控结果创建或终止工作线程.工人工厂<code>不执行任何工作项的调度或执行</code>,它的作用是<code>确保有足够数量的工人线程</code>。</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E5%B7%A5%E4%BA%BA%E5%B7%A5%E5%8E%82.png" title="工人工厂" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E5%B7%A5%E4%BA%BA%E5%B7%A5%E5%8E%82.png" data-sub-html="<h2>工人工厂</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E5%B7%A5%E4%BA%BA%E5%B7%A5%E5%8E%82.png' alt="工人工厂" height="560" width="1346"></a></p>
+<p>内核提供了7个系统调用，用于与工人工厂对象交互：</p>
+<ul>
+<li>NtCreateWorkerFactory</li>
+<li>NtShutdownWorkerFactory</li>
+<li>NtQueryInformationWorkerFactory</li>
+<li>NtSetInformationWorkerFactory</li>
+<li>NtWorkerFactoryWorkerReady</li>
+<li>NtWaitForWorkViaWorkerFactory</li>
+<li>NtReleaseWorkerFactoryWorker</li>
+</ul>
+<h3 class="heading-element" id="线程池注入变体1覆写工人工厂启动例程startroutine"><span>线程池注入变体1:覆写工人工厂启动例程(StartRoutine)</span>
+  <a href="#%e7%ba%bf%e7%a8%8b%e6%b1%a0%e6%b3%a8%e5%85%a5%e5%8f%98%e4%bd%931%e8%a6%86%e5%86%99%e5%b7%a5%e4%ba%ba%e5%b7%a5%e5%8e%82%e5%90%af%e5%8a%a8%e4%be%8b%e7%a8%8bstartroutine" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p>NtCreateWorkerFactory函数用来创建工人工厂,其声明如下:</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/NtCreateWorkerFactory.png" title="NtCreateWorkerFactory" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/NtCreateWorkerFactory.png" data-sub-html="<h2>NtCreateWorkerFactory</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/NtCreateWorkerFactory.png' alt="NtCreateWorkerFactory" height="756" width="1656"></a></p>
+<p><code>StartRoutine</code>在工人工厂创建时被赋值,是工人线程的入口,通常该例程充当线程池调度器,负责执行和释放工作项.</p>
+<div class="alert alert-tip"><p class="alert-title"><i class="octicon-light-bulb-16 me-2" aria-hidden="true"></i>提示</p><p><code>StartRoutine</code>如果被恶意代码地址覆写,当新的工作线程被创建时,就会执行恶意代码.</p></div><p><mark class="mark-default">那么如何获取目标进程工人工厂中的StartRoutine地址?</mark></p>
+<ol>
+<li>
+<p>使用<code>DuplicateHandle</code>来访问属于目标进程的工人工厂.(所有进程默认有一个线程池,因此也默认有一个工人工厂)</p>
+</li>
+<li>
+<p>调用<code>NtQueryWorkerFactoryInformation</code>来获取工人工厂信息.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/NtQueryWorkerFactoryInformation.png" title="NtQueryWorkerFactoryInformation" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/NtQueryWorkerFactoryInformation.png" data-sub-html="<h2>NtQueryWorkerFactoryInformation</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/NtQueryWorkerFactoryInformation.png' alt="NtQueryWorkerFactoryInformation" height="439" width="1653"></a></p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/QUERY_WORKERFACTORYINFOCLASS.png" title="QUERY_WORKERFACTORYINFOCLASS" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/QUERY_WORKERFACTORYINFOCLASS.png" data-sub-html="<h2>QUERY_WORKERFACTORYINFOCLASS</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/QUERY_WORKERFACTORYINFOCLASS.png' alt="QUERY_WORKERFACTORYINFOCLASS" height="281" width="1617"></a></p>
+</li>
+<li>
+<p>工人工厂信息中包含了<code>StartRoutine</code>地址.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/WORKER_FACTORY_BASIC_INFORMATION.png" title="WORKER_FACTORY_BASIC_INFORMATION" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/WORKER_FACTORY_BASIC_INFORMATION.png" data-sub-html="<h2>WORKER_FACTORY_BASIC_INFORMATION</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/WORKER_FACTORY_BASIC_INFORMATION.png' alt="WORKER_FACTORY_BASIC_INFORMATION" height="393" width="1616"></a></p>
+</li>
+</ol>
+<p>有了目标进程工人工厂中的<code>StartRoutine</code>地址,我们就可以使用恶意Shellcode进行覆写.</p>
+<p><mark class="mark-default"><code>StartRoutine</code>肯定会在一时刻被执行,但我们如何主动触发?</mark></p>
+<ol>
+<li>
+<p>获取当前工人工厂线程数并将其加1.</p>
+</li>
+<li>
+<p>调用<code>NtSetInformationWorkerFactory</code>进行工人工厂最小线程数设置.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/NtSetInformationWorkerFactory.png" title="NtSetInformationWorkerFactory" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/NtSetInformationWorkerFactory.png" data-sub-html="<h2>NtSetInformationWorkerFactory</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/NtSetInformationWorkerFactory.png' alt="NtSetInformationWorkerFactory" height="382" width="1652"></a></p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/WorkerFactoryThreadMinimum.png" title="WorkerFactoryThreadMinimum" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/WorkerFactoryThreadMinimum.png" data-sub-html="<h2>WorkerFactoryThreadMinimum</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/WorkerFactoryThreadMinimum.png' alt="WorkerFactoryThreadMinimum" height="845" width="1396"></a></p>
+</li>
+</ol>
+<p>将最小工作线程数设置为当前运行线程数+1,会导致创建一个新的工作线程,这意味着<code>StartRoutine</code>已被执行.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C.png" title="线程执行" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C.png" data-sub-html="<h2>线程执行</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C.png' alt="线程执行" height="504" width="1066"></a></p>
+<h2 class="heading-element" id="攻击线程池"><span>攻击线程池</span>
+  <a href="#%e6%94%bb%e5%87%bb%e7%ba%bf%e7%a8%8b%e6%b1%a0" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>当<code>工作项</code>被正确插入到<code>工作队列</code>时,就会被<code>工作线程</code>执行.因此在线程池攻击中,重点关注<code>工作项是如何插入到工作队列</code>中的!</p>
+<h3 class="heading-element" id="工作项"><span>工作项</span>
+  <a href="#%e5%b7%a5%e4%bd%9c%e9%a1%b9" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p>Windows线程池支持的<code>工作项</code>类型分为3类:</p>
+<ul>
+<li><code>常规工作项</code>: 通过队列API调用立即加入队列.</li>
+<li><code>异步工作项</code>: 在特定操作(如写入文件)完成时,被加入队列,随后由工作线程处理.</li>
+<li><code>定时器工作项</code>: 通过队列API调用立即加入队列,但需等待关联的定时器到期后才会被触发执行.</li>
+</ul>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%B1%BB%E5%9E%8B.png" title="工作项类型" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%B1%BB%E5%9E%8B.png" data-sub-html="<h2>工作项类型</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%B1%BB%E5%9E%8B.png' alt="工作项类型" height="634" width="1541"></a></p>
+<h3 class="heading-element" id="队列"><span>队列</span>
+  <a href="#%e9%98%9f%e5%88%97" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p>针对3种不同类型的工作项,线程池中对应存在3种队列:</p>
+<ul>
+<li><code>普通任务队列</code>: 常规工作项会加入其中,该队列位于主线程结构(<code>TP_POOL</code>)种.</li>
+<li><code>I/O完成队列</code>: 异步工作项会加入其中,该队列是一个Windows对象.</li>
+<li><code>定时器队列</code>: 定时器工作项会加入其中,该队列同样位于主线程结构(<code>TP_POOL</code>)内.</li>
+</ul>
+<p><strong>主线程池结构(如任务队列和定时器队列)位于用户模式下的进程内存地址空间中,可以通过内存写入原语对其队列进行修改.</strong></p>
+<p><strong>I/O完成队列是Windows内核对象,其作用是为已完成的I/O操作提供队列支持.当I/O操作完成时,相关通知会被插入该队列.</strong></p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IO%E5%AE%8C%E6%88%90%E9%98%9F%E5%88%97.png" title="IO完成队列" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IO%E5%AE%8C%E6%88%90%E9%98%9F%E5%88%97.png" data-sub-html="<h2>IO完成队列</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IO%E5%AE%8C%E6%88%90%E9%98%9F%E5%88%97.png' alt="IO完成队列" height="391" width="1188"></a></p>
+<p>可通过下述系统调用与I/O完成队列进行交互.</p>
+<ul>
+<li>NtCreateIoCompletion</li>
+<li>NtOpenIoCompletion</li>
+<li>NtQueryIoCompletion</li>
+<li>NtQueryIoCompletionEx</li>
+<li>NtSetIoCompletion</li>
+<li>NtSetIoCompletionEx</li>
+<li>NtRemoveIoCompletion</li>
+<li>NtRemoveIoCompletionEx</li>
+</ul>
+<div class="alert alert-note"><p class="alert-title"><i class="octicon-info-16 me-2" aria-hidden="true"></i>注意</p><p>微软将I/O完成队列称为I/O完成端口.该对象本质上是一个内核队列,因此为了避免混淆,我们将其称为I/O完成队列.</p></div><h3 class="heading-element" id="线程池注入变体2tp_work"><span>线程池注入变体2:TP_WORK</span>
+  <a href="#%e7%ba%bf%e7%a8%8b%e6%b1%a0%e6%b3%a8%e5%85%a5%e5%8f%98%e4%bd%932tp_work" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p><code>常规工作项-TP_WORK</code>的调用代码如下:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;windows.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">VOID</span> <span class="n">CALLBACK</span> <span class="nf">ThreadpoolWork</span><span class="p">(</span><span class="n">PTP_CALLBACK_INSTANCE</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">PVOID</span> <span class="n">Context</span><span class="p">,</span> <span class="n">PTP_WORK</span> <span class="n">Work</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;ThreadpoolWork Enter</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//创建一个工作项
+</span></span></span><span class="line"><span class="cl">	<span class="n">PTP_WORK</span> <span class="n">pWork</span> <span class="o">=</span> <span class="n">CreateThreadpoolWork</span><span class="p">(</span><span class="n">ThreadpoolWork</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//向线程池提交一个请求
+</span></span></span><span class="line"><span class="cl">	<span class="n">SubmitThreadpoolWork</span><span class="p">(</span><span class="n">pWork</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">	<span class="c1">//等待完成
+</span></span></span><span class="line"><span class="cl">	<span class="n">WaitForThreadpoolWorkCallbacks</span><span class="p">(</span><span class="n">pWork</span><span class="p">,</span> <span class="n">FALSE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 释放工作项内存
+</span></span></span><span class="line"><span class="cl">	<span class="n">CloseThreadpoolWork</span><span class="p">(</span><span class="n">pWork</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>通过跟进<code>kernel32::CreateThreadpoolWork-&gt;ntdll::TpAllocWork</code>函数,可得到<code>TP_WORK</code>结构如下:</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocWork.png" title="IDA_TpAllocWork" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocWork.png" data-sub-html="<h2>IDA_TpAllocWork</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocWork.png' alt="IDA_TpAllocWork" height="907" width="1215"></a></p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TP_WORK.png" title="TP_WORK" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TP_WORK.png" data-sub-html="<h2>TP_WORK</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TP_WORK.png' alt="TP_WORK" height="470" width="1283"></a></p>
+<p>负责提交<code>TP_WORK</code>的API为<code>SubmitThreadpoolWork</code>,通过跟进<code>kernel32::SubmitThreadpoolWork-&gt;ntdll::TpPostWork-&gt;ntdll::TppWorkPost-&gt;ntdll::TpPostTask</code>,可定位常规工作项向任务队列(双向链表)插入的核心代码.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpPostTask.png" title="IDA_TpPostTask" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpPostTask.png" data-sub-html="<h2>IDA_TpPostTask</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpPostTask.png' alt="IDA_TpPostTask" height="970" width="1606"></a></p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TpPostTask.png" title="TpPostTask" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TpPostTask.png" data-sub-html="<h2>TpPostTask</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TpPostTask.png' alt="TpPostTask" height="346" width="1283"></a></p>
+<p>TpPool是目标进程的线程池结构,可通过调用<code>NtQueryInformationWorkerFactory</code>获取目标进程工人工厂信息中的<code>StartParameter</code>得到,<code>StartParameter</code>本质上是一个指向<code>TP_POOL结构体的指针</code>.</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">_WORKER_FACTORY_BASIC_INFORMATION</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LARGE_INTEGER</span> <span class="n">Timeout</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LARGE_INTEGER</span> <span class="n">RetryTimeout</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LARGE_INTEGER</span> <span class="n">IdleTimeout</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BOOLEAN</span> <span class="n">Paused</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BOOLEAN</span> <span class="n">TimerSet</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BOOLEAN</span> <span class="n">QueuedToExWorker</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BOOLEAN</span> <span class="n">MayCreate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BOOLEAN</span> <span class="n">CreateInProgress</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BOOLEAN</span> <span class="n">InsertedIntoQueue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BOOLEAN</span> <span class="n">Shutdown</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ULONG</span> <span class="n">BindingCount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ULONG</span> <span class="n">ThreadMinimum</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ULONG</span> <span class="n">ThreadMaximum</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ULONG</span> <span class="n">PendingWorkerCount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ULONG</span> <span class="n">WaitingWorkerCount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ULONG</span> <span class="n">TotalWorkerCount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ULONG</span> <span class="n">ReleaseCount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LONGLONG</span> <span class="n">InfiniteWaitGoal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PVOID</span> <span class="n">StartRoutine</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PVOID</span> <span class="n">StartParameter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">HANDLE</span> <span class="n">ProcessId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SIZE_T</span> <span class="n">StackReserve</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SIZE_T</span> <span class="n">StackCommit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">NTSTATUS</span> <span class="n">LastThreadCreationStatus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">WORKER_FACTORY_BASIC_INFORMATION</span><span class="p">,</span> <span class="o">*</span> <span class="n">PWORKER_FACTORY_BASIC_INFORMATION</span><span class="p">;</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>至此,得到了<code>TP_WORK</code>被插入任务队列的全部信息.</p>
+<p><mark class="mark-default">线程池注入变体2:<code>TP_WORK</code></mark> 流程如下:</p>
+<ol>
+<li>
+<p>调用<code>DuplicateHandle</code>复制目标进程<code>TpWorkerFactory</code>句柄.</p>
+</li>
+<li>
+<p>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将Shellcode写入目标进程地址空间.</p>
+</li>
+<li>
+<p>创建和Shellcode相关联的TP_WORK结构.</p>
+<ul>
+<li>
+<p>调用<code>NtQueryInformationWorkerFactory</code>获取工人工厂信息.</p>
+</li>
+<li>
+<p>调用<code>ReadProcessMemory</code>读取工人工厂信息中的StartParameter参数(即目标进程的线程池结构TpPool).</p>
+</li>
+<li>
+<p>调用<code>CreateThreadpoolWork</code>创建一个和Shellcode相关联的TP_WORK结构.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>修改TP_WORK结构,和目标进程线程池结构进行关联.</p>
+</li>
+<li>
+<p>将常规工作项加入到目标线程池-常规任务队列,进而被工作线程执行Shellcode.</p>
+<ul>
+<li>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将<code>修改后的TP_WORK结构</code>写入目标进程地址空间.</li>
+<li>调用<code>WriteProcessMemory</code>修改目标进程线程池-常规任务队列结构入口,指向上述伪造的TP_WORK结构.</li>
+</ul>
+</li>
+</ol>
+<h3 class="heading-element" id="线程池注入变体3tp_io"><span>线程池注入变体3:TP_IO</span>
+  <a href="#%e7%ba%bf%e7%a8%8b%e6%b1%a0%e6%b3%a8%e5%85%a5%e5%8f%98%e4%bd%933tp_io" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p><code>异步工作项-TP_IO</code>调用代码如下:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;windows.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">VOID</span> <span class="n">CALLBACK</span> <span class="nf">IoCallback</span><span class="p">(</span><span class="n">PTP_CALLBACK_INSTANCE</span> <span class="n">instance</span><span class="p">,</span> <span class="n">PVOID</span> <span class="n">context</span><span class="p">,</span> <span class="n">PVOID</span> <span class="n">overlapped</span><span class="p">,</span> <span class="n">ULONG</span> <span class="n">ioResult</span><span class="p">,</span> <span class="n">ULONG_PTR</span> <span class="n">numberOfBytesTransferred</span><span class="p">,</span> <span class="n">PTP_IO</span> <span class="n">io</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">switch</span> <span class="p">(</span><span class="n">ioResult</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nl">NO_ERROR</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;文件写入完成</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">HANDLE</span> <span class="n">hFile</span> <span class="o">=</span> <span class="n">CreateFile</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&#34;luohun.txt&#34;</span><span class="p">),</span> <span class="n">GENERIC_WRITE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">OPEN_ALWAYS</span><span class="p">,</span> <span class="n">FILE_ATTRIBUTE_NORMAL</span> <span class="o">|</span> <span class="n">FILE_FLAG_OVERLAPPED</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">hFile</span> <span class="o">==</span> <span class="n">INVALID_HANDLE_VALUE</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;create file failed, errcode:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">GetLastError</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">PTP_IO</span> <span class="n">ptpIo</span> <span class="o">=</span> <span class="n">CreateThreadpoolIo</span><span class="p">(</span><span class="n">hFile</span><span class="p">,</span> <span class="n">IoCallback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">StartThreadpoolIo</span><span class="p">(</span><span class="n">ptpIo</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">buffer</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;hello world&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">DWORD</span> <span class="n">writeCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">OVERLAPPED</span> <span class="n">ol</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">	<span class="n">WriteFile</span><span class="p">(</span><span class="n">hFile</span><span class="p">,</span> <span class="p">(</span><span class="n">LPCVOID</span><span class="p">)</span><span class="n">buffer</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">writeCount</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ol</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">CloseHandle</span><span class="p">(</span><span class="n">hFile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">CloseThreadpoolIo</span><span class="p">(</span><span class="n">ptpIo</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>通过跟进<code>kernel32::CreateThreadpoolIo-&gt;ntdll::TpAllocIoCompletion</code>函数,可得到<code>TP_IO</code>结构如下:</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TP_IO.png" title="IDA_TP_IO" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TP_IO.png" data-sub-html="<h2>IDA_TP_IO</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TP_IO.png' alt="IDA_TP_IO" height="952" width="1480"></a></p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TP_IO.png" title="TP_IO" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TP_IO.png" data-sub-html="<h2>TP_IO</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TP_IO.png' alt="TP_IO" height="522" width="1285"></a></p>
+<p>继续跟进<code>ntdll::TpAllocIoCompletion-&gt;ntdll::TpBindFileToDirect</code>,该函数将文件完成队列设置为线程池的I/O完成队列,并将文件完成键设置为直接结构.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpBindFileToDirect.png" title="IDA_TpBindFileToDirect" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpBindFileToDirect.png" data-sub-html="<h2>IDA_TpBindFileToDirect</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpBindFileToDirect.png' alt="IDA_TpBindFileToDirect" height="850" width="1204"></a></p>
+<p>用于启动异步I/O操作的API为<code>StartThreadpoolIo</code>,它告诉线程池监视指定的I/O对象,并在I/O操作完成时调用回调函数.</p>
+<p>通过跟进<code>kernel32::StartThreadpoolIo-&gt;ntdll::TpStartAsyncIoOperation</code>,可定位启动异步I/O操作的核心代码.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpStartAsyncIoOperation.png" title="IDA_TpStartAsyncIoOperation" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpStartAsyncIoOperation.png" data-sub-html="<h2>IDA_TpStartAsyncIoOperation</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpStartAsyncIoOperation.png' alt="IDA_TpStartAsyncIoOperation" height="699" width="1345"></a></p>
+<p>上述函数调用后,对文件进行任何的操作(如调用WriteFile)都会导致完成键进行I/O完成队列.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TpBindFileToDirect_WriteFile.png" title="TpBindFileToDirect_WriteFile" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TpBindFileToDirect_WriteFile.png" data-sub-html="<h2>TpBindFileToDirect_WriteFile</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/TpBindFileToDirect_WriteFile.png' alt="TpBindFileToDirect_WriteFile" height="451" width="1016"></a></p>
+<p><mark class="mark-default">线程池注入变体3:<code>TP_IO</code></mark> 流程如下:</p>
+<ol>
+<li>
+<p>调用<code>DuplicateHandle</code>复制目标进程<code>IoCompletion</code>句柄.</p>
+</li>
+<li>
+<p>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将Shellcode写入目标进程地址空间.</p>
+</li>
+<li>
+<p>创建和<code>文件对象</code>以及<code>Shellcode</code>相关联的<code>TP_IO结构</code>.</p>
+<ul>
+<li>
+<p>调用<code>CreateFile</code>创建一个文件对象.</p>
+</li>
+<li>
+<p>调用<code>CreateThreadpoolIo</code>创建一个和上述文件对象以及Shellcode相关联的TP_IO结构.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>将<code>文件对象</code>与<code>目标进程I/O完成队列</code>相关联.</p>
+<ul>
+<li>
+<p>修改<code>TP_IO结构字段</code>,模拟<code>StartThreadpoolIo</code>操作.</p>
+</li>
+<li>
+<p>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将<code>修改后的TP_IO结构</code>写入目标进程地址空间.</p>
+</li>
+<li>
+<p>调用<code>ZwSetInformationFile</code>将上述文件句柄与目标进程I/O完成队列相关联.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>调用<code>WriteFile</code>,触发入队操作,进而被工作线程执行Shellcode.</p>
+</li>
+</ol>
+<h3 class="heading-element" id="线程池注入变体4tp_wait"><span>线程池注入变体4:TP_WAIT</span>
+  <a href="#%e7%ba%bf%e7%a8%8b%e6%b1%a0%e6%b3%a8%e5%85%a5%e5%8f%98%e4%bd%934tp_wait" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p><code>异步工作项-TP_WAIT</code>调用代码如下:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;windows.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">VOID</span> <span class="n">CALLBACK</span> <span class="nf">WaitCallback</span><span class="p">(</span><span class="n">PTP_CALLBACK_INSTANCE</span> <span class="n">instance</span><span class="p">,</span> <span class="n">PVOID</span> <span class="n">context</span><span class="p">,</span> <span class="n">PTP_WAIT</span> <span class="n">wait</span><span class="p">,</span> <span class="n">TP_WAIT_RESULT</span> <span class="n">waitResult</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;WaitCallback Enter</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">HANDLE</span> <span class="n">hEvent</span> <span class="o">=</span> <span class="n">CreateEvent</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">FALSE</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//超时时间设置为NULL,表示一直等待下去
+</span></span></span><span class="line"><span class="cl">	<span class="n">PTP_WAIT</span> <span class="n">pWait</span> <span class="o">=</span> <span class="n">CreateThreadpoolWait</span><span class="p">(</span><span class="n">WaitCallback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//立即执行
+</span></span></span><span class="line"><span class="cl">	<span class="n">ULARGE_INTEGER</span> <span class="n">ulRelativeStartTime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ulRelativeStartTime</span><span class="p">.</span><span class="n">QuadPart</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">FILETIME</span> <span class="n">ftRelativeStartTime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ftRelativeStartTime</span><span class="p">.</span><span class="n">dwHighDateTime</span> <span class="o">=</span> <span class="n">ulRelativeStartTime</span><span class="p">.</span><span class="n">HighPart</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ftRelativeStartTime</span><span class="p">.</span><span class="n">dwLowDateTime</span> <span class="o">=</span> <span class="n">ulRelativeStartTime</span><span class="p">.</span><span class="n">LowPart</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">SetThreadpoolWait</span><span class="p">(</span><span class="n">pWait</span><span class="p">,</span> <span class="n">hEvent</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ftRelativeStartTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//等候五秒再触发
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//ULARGE_INTEGER ulRelativeStartTime;
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//ulRelativeStartTime.QuadPart = (LONGLONG)-(50000000);
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//FILETIME ftRelativeStartTime;
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//ftRelativeStartTime.dwHighDateTime = ulRelativeStartTime.HighPart;
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//ftRelativeStartTime.dwLowDateTime = ulRelativeStartTime.LowPart;
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//SetThreadpoolWait(pWait, hEvent, &amp;ftRelativeStartTime);
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//超时时间为NULL，表示一直等待下去，直到事件触发
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//SetThreadpoolWait(pWait, hEvent, NULL);
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">SetEvent</span><span class="p">(</span><span class="n">hEvent</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">CloseThreadpoolWait</span><span class="p">(</span><span class="n">pWait</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>通过跟进<code>kernel32::CreateThreadpoolWait-&gt;ntdll::TpAllocWait</code>函数,可得到<code>TP_WAIT</code>结构如下:</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocWait.png" title="IDA_TpAllocWait" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocWait.png" data-sub-html="<h2>IDA_TpAllocWait</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocWait.png' alt="IDA_TpAllocWait" height="974" width="1340"></a></p>
+<p>通过跟进<code>kernel32::SetThreadpoolWait-&gt;ntdll::TpSetWait-&gt;ntdll::TpSetWaitEx-&gt;ntdll::TppSetupNextWait-&gt;ntdll::ZwAssociateWaitCompletionPacket</code>,可定位<code>TP_WAIT结构</code>与<code>系统I/O完成队列</code>相关联的核心操作</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppSetupNextWait.png" title="IDA_TppSetupNextWait" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppSetupNextWait.png" data-sub-html="<h2>IDA_TppSetupNextWait</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppSetupNextWait.png' alt="IDA_TppSetupNextWait" height="974" width="1344"></a></p>
+<p><mark class="mark-default">线程池注入变体4:<code>TP_WAIT</code></mark> 流程如下:</p>
+<ol>
+<li>
+<p>调用<code>DuplicateHandle</code>复制目标进程<code>IoCompletion</code>句柄.</p>
+</li>
+<li>
+<p>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将Shellcode写入目标进程地址空间.</p>
+</li>
+<li>
+<p>调用<code>CreateThreadpoolWait</code>创建一个和Shellcode相关联的TP_WAIT结构.</p>
+</li>
+<li>
+<p>将<code>事件句柄</code>与<code>目标进程I/O完成队列</code>相关联.</p>
+<ul>
+<li>
+<p>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将<code>上述TP_WAIT结构</code>写入目标进程地址空间.</p>
+</li>
+<li>
+<p>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将<code>上述TP_WAIT中的TP_DIRECT结构</code>写入目标进程地址空间.</p>
+</li>
+<li>
+<p>调用<code>CreateEvent</code>创建一个事件.</p>
+</li>
+<li>
+<p>调用<code>ZwAssociateWaitCompletionPacket</code>将上述事件句柄与目标进程I/O完成队列相关联.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>调用<code>SetEvent</code>发送信号,触发入队操作,进而被工作线程执行Shellcode.</p>
+</li>
+</ol>
+<h3 class="heading-element" id="线程池注入变体5tp_job"><span>线程池注入变体5:TP_JOB</span>
+  <a href="#%e7%ba%bf%e7%a8%8b%e6%b1%a0%e6%b3%a8%e5%85%a5%e5%8f%98%e4%bd%935tp_job" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocJobNotification.png" title="IDA_TpAllocJobNotification" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocJobNotification.png" data-sub-html="<h2>IDA_TpAllocJobNotification</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocJobNotification.png' alt="IDA_TpAllocJobNotification" height="1100" width="1734"></a></p>
+<p><mark class="mark-default">线程池注入变体5:<code>TP_JOB</code></mark> 流程如下:</p>
+<ol>
+<li>
+<p>调用<code>DuplicateHandle</code>复制目标进程<code>IoCompletion</code>句柄.</p>
+</li>
+<li>
+<p>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将Shellcode写入目标进程地址空间.</p>
+</li>
+<li>
+<p>创建和<code>JOB对象</code>以及<code>Shellcode</code>相关联的<code>TP_JOB结构</code>.</p>
+<ul>
+<li>
+<p>调用<code>CreateJobObject</code>创建一个JOB对象.</p>
+</li>
+<li>
+<p>调用<code>TpAllocJobNotification</code>创建一个上述JOB对象以及Shellcode相关联的TP_JOB结构.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>将<code>JOB对象</code>与<code>目标进程I/O完成队列</code>相关联.</p>
+<ul>
+<li>
+<p>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将<code>上述TP_JOB结构</code>写入目标进程地址空间.</p>
+</li>
+<li>
+<p>调用<code>SetInformationJobObject</code>,将上述JOB对象与目标进程I/O完成队列相关联.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>调用<code>AssignProcessToJobObject</code>将JOB对象与当前进程相关联,触发入队操作,进而被工作线程执行Shellcode.</p>
+</li>
+</ol>
+<h3 class="heading-element" id="线程池注入变体6tp_alpc"><span>线程池注入变体6:TP_ALPC</span>
+  <a href="#%e7%ba%bf%e7%a8%8b%e6%b1%a0%e6%b3%a8%e5%85%a5%e5%8f%98%e4%bd%936tp_alpc" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppAllocAlpcCompletion.png" title="IDA_TppAllocAlpcCompletion" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppAllocAlpcCompletion.png" data-sub-html="<h2>IDA_TppAllocAlpcCompletion</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppAllocAlpcCompletion.png' alt="IDA_TppAllocAlpcCompletion" height="1217" width="1761"></a></p>
+<p><mark class="mark-default">线程池注入变体6:<code>TP_ALPC</code></mark> 流程如下:</p>
+<ol>
+<li>
+<p>调用<code>DuplicateHandle</code>复制目标进程<code>IoCompletion</code>句柄.</p>
+</li>
+<li>
+<p>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将Shellcode写入目标进程地址空间.</p>
+</li>
+<li>
+<p>调用<code>NtAlpcCreatePort</code>以及<code>TpAllocAlpcCompletion</code>创建一个和Shellcode相关联的TP_ALPC结构.</p>
+</li>
+<li>
+<p>将<code>APLC端口</code>与<code>目标进程I/O完成队列</code>相关联.</p>
+<ul>
+<li>
+<p>调用<code>NtAlpcCreatePort</code>创建一个APLC端口.</p>
+</li>
+<li>
+<p>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将<code>上述TP_ALPC结构</code>写入目标进程地址空间.</p>
+</li>
+<li>
+<p>调用<code>NtAlpcSetInformation</code>将上述APLC端口与目标进程I/O完成队列相关联.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>调用<code>NtAlpcConnectPort</code>连接ALPC端口,触发入队操作,进而被工作线程执行Shellcode.</p>
+</li>
+</ol>
+<h3 class="heading-element" id="线程池注入变体7tp_direct"><span>线程池注入变体7:TP_DIRECT</span>
+  <a href="#%e7%ba%bf%e7%a8%8b%e6%b1%a0%e6%b3%a8%e5%85%a5%e5%8f%98%e4%bd%937tp_direct" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p><code>异步工作项</code>排队进入<code>I/O完成队列</code>的核心是其中的<code>TP_DIRECT结构</code>,因此我们可以直接注入<code>恶意TP_DIRECT结构</code>,无需Windows对象进行代理,然后调用系统<code>NtSetIoCompletion</code>完成入队操作.</p>
+<p><mark class="mark-default">线程池注入变体7:<code>TP_DIRECT</code></mark> 流程如下:</p>
+<ol>
+<li>调用<code>DuplicateHandle</code>复制目标进程<code>IoCompletion</code>句柄.</li>
+<li>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将Shellcode写入目标进程地址空间.</li>
+<li>创建<code>恶意TP_DIRECT结构</code>与上述Shellcode相关联.</li>
+<li>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将<code>上述TP_DIRECT结构</code>写入目标进程地址空间.</li>
+<li>调用<code>ZwSetIoCompletion</code>完成入队,触发Shellcode执行.</li>
+</ol>
+<h3 class="heading-element" id="线程池注入变体8tp_timer"><span>线程池注入变体8:TP_TIMER</span>
+  <a href="#%e7%ba%bf%e7%a8%8b%e6%b1%a0%e6%b3%a8%e5%85%a5%e5%8f%98%e4%bd%938tp_timer" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p><code>定时器工作项-TP_TIMER</code>的调用代码如下:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;windows.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">VOID</span> <span class="n">NTAPI</span> <span class="nf">PoolTimerProc</span><span class="p">(</span><span class="n">PTP_CALLBACK_INSTANCE</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">PVOID</span> <span class="n">Context</span><span class="p">,</span> <span class="n">PTP_TIMER</span> <span class="n">Timer</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;PoolTimerProc Enter</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">PTP_TIMER</span> <span class="n">pTimer</span> <span class="o">=</span> <span class="n">CreateThreadpoolTimer</span><span class="p">(</span><span class="n">PoolTimerProc</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">FILETIME</span> <span class="n">dueTime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">GetSystemTimeAsFileTime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dueTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//msPeriod 定时器的触发周期,以毫秒为单位. 为0表示只触发一次,单位为毫秒.
+</span></span></span><span class="line"><span class="cl">	<span class="n">DWORD</span> <span class="n">msPeriod</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">SetThreadpoolTimer</span><span class="p">(</span><span class="n">pTimer</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dueTime</span><span class="p">,</span> <span class="n">msPeriod</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">CloseThreadpoolTimer</span><span class="p">(</span><span class="n">pTimer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>通过跟进<code>kernel32::CreateThreadpoolTimer-&gt;ntdll::TpAllocTimer</code>函数,可得到<code>TP_TIMER</code>结构如下:</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocTimer.png" title="IDA_TpAllocTimer" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocTimer.png" data-sub-html="<h2>IDA_TpAllocTimer</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TpAllocTimer.png' alt="IDA_TpAllocTimer" height="950" width="1339"></a></p>
+<p>通过跟进<code>kernel32::SetThreadpoolTimer-&gt;ntdll::TpSetTimer-&gt;ntdll::TpSetTimerEx-&gt;ntdll::TppSetTimer-&gt;ntdll::TppEnqueueTimer</code>,可定位到TP_TIMER结构向定时器队列插入的核心代码.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppEnqueueTimer.png" title="IDA_TppEnqueueTimer" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppEnqueueTimer.png" data-sub-html="<h2>IDA_TppEnqueueTimer</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppEnqueueTimer.png' alt="IDA_TppEnqueueTimer" height="673" width="1376"></a></p>
+<p>TppEnqueueTimer函数将<code>TP_TIMER的WindowStart链接</code>插入<code>定时器队列的WindowStart字段</code>,将<code>WindowEnd链接</code>插入<code>队列的WindowEnd字段</code>.</p>
+<p>通过跟进<code>kernel32::SetThreadpoolTimer-&gt;ntdll::TpSetTimer-&gt;ntdll::TpSetTimerEx-&gt;ntdll::TppSetTimer-&gt;ntdll::TppUpdateSubQueueTimer</code>,可定位到对定时器队列中的定时器进行配置代码.</p>
+<p><a class="lightgallery" target="_blank" href="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppUpdateSubQueueTimer.png" title="IDA_TppUpdateSubQueueTimer" data-thumbnail="/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppUpdateSubQueueTimer.png" data-sub-html="<h2>IDA_TppUpdateSubQueueTimer</h2>"><img loading="lazy" src='/posts/windows%E7%9B%B8%E5%85%B3/%E8%BF%9B%E7%A8%8B%E6%B3%A8%E5%85%A5-%E5%9F%BA%E4%BA%8Ewindows%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%9A%90%E8%94%BD%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF%E5%89%96%E6%9E%90/images/IDA_TppUpdateSubQueueTimer.png' alt="IDA_TppUpdateSubQueueTimer" height="973" width="1338"></a></p>
+<p>上述两个操作过后, 一旦定时器过期,就会执行定时器工作项中的回调.</p>
+<p><mark class="mark-default">线程池注入变体8:<code>TP_TIMER</code></mark> 流程如下:</p>
+<ol>
+<li>调用<code>DuplicateHandle</code>复制目标进程<code>TpWorkerFactory以及IRTimer</code>句柄.</li>
+<li>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将Shellcode写入目标进程地址空间.</li>
+<li>调用<code>CreateThreadpoolTimer</code>创建和Shellcode相关联的TP_TIMER结构.</li>
+<li>调用<code>VirtualAllocEx</code>以及<code>WriteProcessMemory</code>将<code>修改后的TP_TIMER结构</code>写入目标进程地址空间.</li>
+<li>调用<code>WriteProcessMemory</code>修改目标进程定时器队列使其指向上述伪造的TP_TIMER结构.</li>
+<li>调用<code>NtSetTimer2</code>,使队列的定时对象过期,触发入队操作,进而被工作线程执行Shellcode.</li>
+</ol>
+<h2 class="heading-element" id="总结"><span>总结</span>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>PoolParty技术并非传统意义上的漏洞利用,而是对Windows合法组件-用户态线程池的滥用.其本质是通过逆向工程揭示了Windows线程池内部的工作队列(普通任务队列、I/O完成队列、定时器队列)与工人工厂的交互机制,并篡改其核心逻辑:</p>
+<ul>
+<li><strong>工人工厂劫持</strong>:通过系统调用<code>NtQueryWorkerFactoryInformation</code>,获取了目标进程-工人工厂的启动例程地址并调用<code>WriteProcessMemory</code>进行覆写,将原本用于管理线程的合法代码替换为恶意Shellcode,然后调用<code>NtSetInformationWorkerFactory</code>设置目标进程的工人工厂最小线程数为当前线程数加1,强制新增线程,进而执行恶意Shellcode.</li>
+<li><strong>工作项伪造</strong>:通过插入伪造的线程池工作项(如TP_WORK、TP_IO、TP_WAIT、&hellip;),将恶意Shellcode嵌入到Windows系统预设的异步任务流程,利用线程池自身的调度机制触发Shellcode执行.</li>
+</ul>
+<p><mark class="mark-default">上述技术突破了传统进程注入对<code>CreateRemoteThread </code>等<code>显示执行触发原语</code>的依赖,将恶意代码的执行逻辑嫁接到了Windows线程池的底层调度体系中,使攻击行为内化到操作系统自身的线程管理中.</mark></p>
+<h2 class="heading-element" id="参考链接"><span>参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p><a href="https://github.com/SafeBreach-Labs/PoolParty" target="_blank" rel="external nofollow noopener noreferrer">PoolParty Github<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p><a href="https://www.safebreach.com/blog/process-injection-using-windows-thread-pools/" target="_blank" rel="external nofollow noopener noreferrer">永生难忘的线程池派对:使用Windows线程池的新进程注入技术<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p><a href="https://gist.github.com/mgeeky/556dd8062cf4683458627e95c6e22626" target="_blank" rel="external nofollow noopener noreferrer">Thread Execution via NtCreateWorkerFactory<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p><a href="https://learn.microsoft.com/zh-cn/windows/win32/procthread/thread-pool-api" target="_blank" rel="external nofollow noopener noreferrer">Windows 线程池API<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p><a href="https://learn.microsoft.com/zh-cn/windows/win32/procthread/using-the-thread-pool-functions" target="_blank" rel="external nofollow noopener noreferrer">Windows 线程池函数调用<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p><a href="https://www.cnblogs.com/TechNomad/p/17713080.html" target="_blank" rel="external nofollow noopener noreferrer">Win32编程之线程池<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p></div><hr class="awesome-hr" />
+    <h2 id="see-also">相关内容</h2>
+    <ul><li>
+          <a href="/posts/windows%E7%9B%B8%E5%85%B3/net%E7%A8%8B%E5%BA%8Fhook%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0/" title=".NET程序hook的另一种优雅实现-C&#43;&#43;/CLI">.NET程序hook的另一种优雅实现-C&#43;&#43;/CLI</a></li><li>
+          <a href="/posts/android/android%E5%A3%B3%E4%B8%96%E7%95%8C/android-dexvmp%E5%BF%AB%E9%80%9F%E5%88%86%E6%9E%90/" title="Android-DexVMP快速分析">Android-DexVMP快速分析</a></li><li>
+          <a href="/posts/windows%E7%9B%B8%E5%85%B3/dll%E5%8A%AB%E6%8C%81%E6%96%B0%E6%80%9D%E8%B7%AF-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="DEFCON议题解读｜Dll劫持新思路——修改环境变量">DEFCON议题解读｜Dll劫持新思路——修改环境变量</a></li></ul><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2025-03-12 00:00:00">更新于 2025-03-12&nbsp;</span>
+      </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"></div><div class="post-info-share">
+          <span></span>
+        </div></div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/windows/" class="post-tag" title="标签 - Windows">Windows</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/linux-pwn/linux%E4%B8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%89%8B%E6%B3%95%E8%B5%8F%E6%9E%90/" class="post-nav-item" rel="prev" title="Linux下漏洞利用手法赏析"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Linux下漏洞利用手法赏析</a><a href="/posts/ida/ida9-rsa-keygen/" class="post-nav-item" rel="next" title="IDA9-RSA KeyGen">IDA9-RSA KeyGen<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc animate__animated animate__fadeIn animate__faster" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" closedby="any">
+      <button type="button" class="toc-close-btn" aria-label="Close Table of Contents"><i class="fa-solid fa-xmark fa-lg" aria-hidden="true"></i></button>
+      <div class="toc">
+        <h2 class="toc-title" id="toc-dialog-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://xialuohun.top" target="_blank" rel="external nofollow noopener noreferrer">夏洛魂</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><button type="button" class="fixed-button back-to-top animate__faster hidden" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i><svg viewBox="0 0 100 100">
+              <circle class="bg" cx="50" cy="50" r="50"></circle>
+              <circle class="progress" cx="50" cy="50" r="50"></circle>
+            </svg></button><button type="button" id="toc-drawer-button" class="fixed-button toc-drawer-button hidden" aria-label="目录" aria-controls="toc-dialog" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button></div><div id="mask"></div><dialog id="search-dialog" class="search-dialog" aria-label="搜索" closedby="any">
+      <div class="search-modal">
+        <div class="search-modal-header">
+          <span class="search-delimiter"></span>
+          <button type="button" class="search-close-btn" aria-label="Close Search Dialog"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="search-source-footer">
+          <div class="search-shortcuts">
+            <span class="search-shortcut">
+              <kbd><i class="lucide-arrow-up" aria-hidden="true"></i></kbd>
+              <kbd><i class="lucide-arrow-down" aria-hidden="true"></i></kbd>
+              切换
+            </span>
+            <span class="search-shortcut">
+              <kbd><i class="lucide-corner-down-left" aria-hidden="true"></i></kbd>
+              选择
+            </span>
+            <span class="search-shortcut">
+              <kbd>ESC</kbd>
+              关闭
+            </span>
+          </div><span class="search-engine">搜索引擎 <a href="https://fusejs.io/" target="_blank" rel="external nofollow noopener noreferrer">Fuse.js</a></span></div>
+      </div>
+    </dialog><div class="reading-progress-bar" style="left: 0;top: 0;--fi-bg-progress: #0076ff;--fi-bg-progress-dark: #fff;"></div><noscript>
+    <div class="noscript-warning bg-danger text-white text-base font-bold fixed text-center inset-x-0 bottom-0 w-full z-fixed">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><script src="/lib/autocomplete-js/index.production.js" defer></script><script src="/js/lib/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/js/lib/lightgallery.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script src="/js/config/888916d8220d73263681f637f05c51c6.min.js" defer></script><script src="/js/lib/file-tree.min.js" defer></script><script src="/js/main.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

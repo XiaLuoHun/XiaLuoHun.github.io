@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>扩展 Shortcodes   夏洛魂的个人博客</title><meta name="author" content="夏洛魂">
+<meta name="description" content="LoveIt 主题在 Hugo 内置的 shortcode 的基础上提供多个扩展的 Shortcode.
+"><meta name="keywords" content='Markdown'>
+	<meta itemprop="name" content="扩展 Shortcodes">
+	<meta itemprop="description" content="LoveIt 主题在 Hugo 内置的 shortcode 的基础上提供多个扩展的 Shortcode.">
+	<meta itemprop="datePublished" content="2022-06-06T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2022-06-06T00:00:00+00:00">
+	<meta itemprop="wordCount" content="2460">
+	<meta itemprop="image" content="https://xialuohun.top/posts/markdown/%E6%89%A9%E5%B1%95-shortcodes/images/featured-image.jpg">
+	<meta itemprop="keywords" content="Markdown"><meta property="og:url" content="https://xialuohun.top/posts/markdown/%E6%89%A9%E5%B1%95-shortcodes/">
+	<meta property="og:site_name" content="夏洛魂的个人博客">
+	<meta property="og:title" content="扩展 Shortcodes">
+	<meta property="og:description" content="LoveIt 主题在 Hugo 内置的 shortcode 的基础上提供多个扩展的 Shortcode.">
+	<meta property="og:locale" content="zh_cn">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2022-06-06T00:00:00+00:00">
+		<meta property="article:modified_time" content="2022-06-06T00:00:00+00:00">
+		<meta property="article:tag" content="Markdown">
+		<meta property="og:image" content="https://xialuohun.top/posts/markdown/%E6%89%A9%E5%B1%95-shortcodes/images/featured-image.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://xialuohun.top/posts/markdown/%E6%89%A9%E5%B1%95-shortcodes/images/featured-image.jpg">
+  <meta name="twitter:title" content="扩展 Shortcodes">
+  <meta name="twitter:description" content="LoveIt 主题在 Hugo 内置的 shortcode 的基础上提供多个扩展的 Shortcode."><meta name="application-name" content="夏洛魂">
+<meta name="apple-mobile-web-app-title" content="夏洛魂"><meta name="theme-color" data-light="#f6f8fa" data-dark="#151b23" content="#f6f8fa"><meta name="msapplication-TileColor" content="#2d89ef"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FF7359"><link rel="canonical" type="text/html" href="https://xialuohun.top/posts/markdown/%E6%89%A9%E5%B1%95-shortcodes/" title="扩展 Shortcodes   夏洛魂的个人博客" /><link rel="prev" type="text/html" href="https://xialuohun.top/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/" title="AES" /><link rel="next" type="text/html" href="https://xialuohun.top/posts/markdown/mermaid-shortcode/" title="Mermaid Shortcode" /><link rel="stylesheet" href="/css/unocss.min.css"><link rel="stylesheet" href="/css/main.min.css"><link rel="stylesheet" href="/css/pages/posts.min.css"><link rel="stylesheet" href="/css/custom.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><link rel="preload" href="/js/main.min.js" as="script"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "扩展 Shortcodes",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/xialuohun.top\/posts\/markdown\/%E6%89%A9%E5%B1%95-shortcodes\/"
+    },"image": [{
+              "@type": "ImageObject",
+              "url": "https:\/\/xialuohun.top\/posts\/markdown\/%E6%89%A9%E5%B1%95-shortcodes\/images\/featured-image.jpg",
+              "width":  1280 ,
+              "height":  720 
+            }],"genre": "posts","keywords": "Markdown","wordcount":  2460 ,
+    "url": "https:\/\/xialuohun.top\/posts\/markdown\/%E6%89%A9%E5%B1%95-shortcodes\/","datePublished": "2022-06-06T00:00:00+00:00","dateModified": "2022-06-06T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "夏洛魂"
+      },"description": ""
+  }
+  </script><script src="/js/head.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="wide"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item delimiter"></li><li class="menu-item search">
+            <button type="button" class="search-trigger desktop" aria-label="搜索" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+              搜索
+              <kbd></kbd>
+            </button>
+          </li>
+          <li class="menu-item delimiter"></li><li class="menu-item theme-switch-item">
+          <button type="button" class="theme-switch" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="夏洛魂的个人博客" class="header-title-link"><span class="header-title-text">夏洛魂</span></a><span class="header-subtitle"></span></div><button type="button" class="search-trigger mobile" aria-label="搜索"><i class="fa-solid fa-search" aria-hidden="true"></i></button><button type="button" class="theme-switch" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></button>
+      <button type="button" class="menu-toggle" id="menu-toggle-mobile" aria-controls="menu-mobile" aria-expanded="false" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/excalidraw/">在线绘图</a></li><li class="menu-item"><a class="menu-link" href="/about/">关于作者</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"><div class="details collection-details open">
+      <div class="details-summary collection-summary">
+        <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+        <span class="collection-name" title="合集">Markdown</span>
+        <span class="collection-count">2</span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div>
+      <div class="details-content collection-content">
+        <nav>
+          <ul class="collection-list"><li class="collection-item"><span class="active" title="扩展 Shortcodes">扩展 Shortcodes</span></li><li class="collection-item"><a href="/posts/markdown/mermaid-shortcode/" title="Mermaid Shortcode">Mermaid Shortcode</a></li></ul>
+          <div class="collection-nav-simple"><i class="fa-solid fa-angle-left collection-nav-item text-secondary" aria-hidden="true"></i><span class="text-secondary">1/2</span><a href="/posts/markdown/mermaid-shortcode/" class="collection-nav-item" rel="next" title="Mermaid Shortcode"><i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+        </nav>
+      </div>
+    </div></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>扩展 Shortcodes</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://xialuohun.top" title="作者" target="_blank" rel="author external nofollow noopener noreferrer" class="author"><img class="avatar" src='/images/Luo.png' alt="夏洛魂" height="16" width="16">&nbsp;夏洛魂</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/markdown/" class="post-category" title="分类 - Markdown"><i class="fa-regular fa-folder" aria-hidden="true"></i> Markdown</a> 和 <a href="/collections/markdown/" class="post-collection" title="合集 - Markdown"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Markdown</a></span></div><div class="post-meta-line"><span title="发布于 2022-06-06 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2022-06-06">2022-06-06</time></span>&nbsp;<span title="2460 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2500 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
+    </div><div class="featured-image"><img loading="eager" src='/posts/markdown/%E6%89%A9%E5%B1%95-shortcodes/images/featured-image.jpg' sizes="(max-width: 679.9px) 100vw, (max-width: 959.9px) 80vw, (max-width: 1439.9px) 56vw, 800px" alt="/posts/markdown/%E6%89%A9%E5%B1%95-shortcodes/images/featured-image.jpg" height="720" width="1280"></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"></div>
+      </div><template data-toc><nav id="TableOfContents">
+  <ul>
+    <li><a href="#style">style</a></li>
+    <li><a href="#link">link</a></li>
+    <li><a href="#admonition">admonition</a></li>
+    <li><a href="#typeit">typeit</a>
+      <ul>
+        <li><a href="#简单内容">简单内容</a></li>
+        <li><a href="#代码内容">代码内容</a></li>
+        <li><a href="#分组内容">分组内容</a></li>
+      </ul>
+    </li>
+    <li><a href="#script">script</a></li>
+    <li><a href="#自定义属性">自定义属性</a></li>
+    <li><a href="#警示">警示</a></li>
+    <li><a href="#标记文本">标记文本</a></li>
+  </ul>
+</nav></template><div class="content" id="content" data-end-flag="「依旧是、江涛如许，雨帆烟笛！」"><p><strong>LoveIt</strong> 主题在 Hugo 内置的 shortcode 的基础上提供多个扩展的 Shortcode.</p>
+<h2 class="heading-element" id="style"><span>style</span>
+  <a href="#style" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><div class="details admonition note open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">Hugo <strong>extended</strong> 版本对于 <code>style</code> shortcode 是必需的.</div>
+    </div>
+</div>
+<p><code>style</code> shortcode 用来在你的文章中插入自定义样式.</p>
+<p><code>style</code> shortcode 有两个位置参数.</p>
+<p>第一个参数是自定义样式的内容. 它支持 <a href="https://sass-lang.com/documentation/style-rules/declarations#nesting" target="_blank" rel="external nofollow noopener noreferrer"><i class="fab fa-sass fa-fw" aria-hidden="true"></i>&nbsp;SASS<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 中的嵌套语法,
+并且 <code>&amp;</code> 指代这个父元素.</p>
+<p>第二个参数是包裹你要更改样式的内容的 HTML 标签, 默认值是 <code>div</code>.</p>
+<p>一个 <code>style</code> 示例:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{&lt; style &#34;text-align:right; strong{color:#00b1ff;}&#34; &gt;}}
+</span></span><span class="line"><span class="cl">This is a **right-aligned** paragraph.
+</span></span><span class="line"><span class="cl">{{&lt; /style &gt;}}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下:</p>
+<div id="id-1">This is a <strong>right-aligned</strong> paragraph.</div>
+<h2 class="heading-element" id="link"><span>link</span>
+  <a href="#link" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p><code>link</code> shortcode 有以下命名参数:</p>
+<ul>
+<li>
+<p><strong>href</strong> <em>[必需]</em>（<strong>第一个</strong>位置参数）</p>
+<p>链接的目标。</p>
+</li>
+<li>
+<p><strong>content</strong> <em>[可选]</em>（<strong>第二个</strong>位置参数）</p>
+<p>链接的内容，默认值是 <strong>href</strong> 参数的值。</p>
+<p><em>支持 Markdown 或者 HTML 格式。</em></p>
+</li>
+<li>
+<p><strong>title</strong> <em>[可选]</em>（<strong>第三个</strong>位置参数）</p>
+<p>HTML <code>a</code> 标签 的 <code>title</code> 属性，当悬停在链接上会显示的提示。</p>
+</li>
+<li>
+<p><strong>card</strong> <em>[可选]</em>（<strong>第四个</strong>位置参数</p>
+<p>是否显示为卡片式链接，默认值 <code>false</code>。</p>
+</li>
+<li>
+<p><strong>card-icon</strong> <em>[可选]</em> (<strong>第五个</strong>位置参数)</p>
+<p>卡片式链接的图标，支持图片链接和 Font Awesome 图标。设置为 <code>true</code>，自动从链接获取缩略图。</p>
+</li>
+<li>
+<p><strong>download</strong> <em>[可选]</em></p>
+<p>HTML <code>a</code> 标签 的 <code>download</code> 属性。</p>
+</li>
+<li>
+<p><strong>class</strong> <em>[可选]</em></p>
+<p>HTML <code>a</code> 标签 的 <code>class</code> 属性。</p>
+</li>
+<li>
+<p><strong>rel</strong> <em>[可选]</em></p>
+<p>HTML <code>a</code> 标签 的 <code>rel</code> 补充属性。</p>
+</li>
+<li>
+<p><strong>external-icon</strong> <em>[可选]</em></p>
+<p>是否自动显示外链图标。</p>
+</li>
+<li>
+<p><strong>noreferrer</strong> <em>[可选]</em></p>
+<p><code>rel</code> 属性是否添加 <code>noreferrer</code>, 默认：<code>true</code>。</p>
+</li>
+</ul>
+<p>一个 <code>link</code> 示例:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{{&lt; link &#34;https://xialuohun.top&#34; &gt;}}
+</span></span><span class="line"><span class="cl">或者
+</span></span><span class="line"><span class="cl">{{&lt; link href=&#34;https://xialuohun.top &gt;}}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{{&lt; link &#34;https://xialuohun.top&#34; &gt;}}
+</span></span><span class="line"><span class="cl">或者
+</span></span><span class="line"><span class="cl">{{&lt; link href=&#34;https://xialuohun.top&#34; &gt;}}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{{&lt; link &#34;https://xialuohun.top&#34; xialuohun &gt;}}
+</span></span><span class="line"><span class="cl">或者
+</span></span><span class="line"><span class="cl">{{&lt; link href=&#34;https://xialuohun.top&#34; content=xialuohun &gt;}}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下:</p>
+<ul>
+<li><a href="https://xialuohun.top" target="_blank" rel="external nofollow noopener noreferrer">https://xialuohun.top<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://xialuohun.top" target="_blank" rel="external nofollow noopener noreferrer">https://xialuohun.top<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://xialuohun.top" target="_blank" rel="external nofollow noopener noreferrer">XiaLuoHun<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>一个带有标题的 <code>link</code> 示例:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{{&lt; link &#34;https://xialuohun.top&#34; &#34;&#34; &#34;XiaLuoHun&#34; &gt;}}
+</span></span><span class="line"><span class="cl">或者
+</span></span><span class="line"><span class="cl">{{&lt; link href=&#34;https://xialuohun.top&#34; content=&#34;&#34; title=&#34;XiaLuoHun&#34; &gt;}}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下 (将鼠标悬停在链接上，会有一行提示):</p>
+<a href="https://xialuohun.top" title="XiaLuoHun" target="_blank" rel="external nofollow noopener noreferrer">https://xialuohun.top<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
+<p>一个卡片式 <code>link</code> 示例：</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go-html-template" data-lang="go-html-template"><span class="line"><span class="cl"><span class="cp">{{</span><span class="err">&lt;</span><span class="w"> </span><span class="nx">link</span><span class="w"> </span><span class="s">&#34;https://xialuohun.top&#34;</span><span class="w"> </span><span class="s">&#34;XiaLuoHun&#34;</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="w"> </span><span class="k">true</span><span class="w"> </span><span class="s">&#34;/images/Luo.png&#34;</span><span class="w"> </span><span class="err">&gt;</span><span class="cp">}}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下：</p>
+<a href="https://xialuohun.top" target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop"></span>
+  <span class="cl-content">
+    <span class="cl-text">
+      <span class="cl-title">XiaLuoHun</span>
+      <span class="cl-meta">
+        <svg class="cl-icon-link" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M574 665.4c-3.1-3.1-8.2-3.1-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8c-3.1-3.1-8.2-3.1-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zM832.6 191.4c-84.6-84.6-221.5-84.6-306 0L410.3 307.6c-3.1 3.1-3.1 8.2 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6c-3.1 3.1-3.1 8.2 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1z" fill="#a9a9b3"></path><path d="M610.1 372.3c-3.1-3.1-8.2-3.1-11.3 0L372.3 598.7c-3.1 3.1-3.1 8.2 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z" fill="#a9a9b3"></path></svg>
+        <span class="cl-url">xialuohun.top</span>
+      </span>
+    </span><img src="/images/Luo.png" alt="card image" class="cl-shortcut-image"></span></a>
+<h2 class="heading-element" id="admonition"><span>admonition</span>
+  <a href="#admonition" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p><code>admonition</code> shortcode 支持 <strong>12</strong> 种 帮助你在页面中插入提示的横幅.</p>
+<p><em>支持 Markdown 或者 HTML 格式.</em></p>
+<div class="details admonition note open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>注意</strong> 横幅</div>
+    </div>
+</div>
+<div class="details admonition abstract open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-clipboard-list" aria-hidden="true"></i>摘要<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>摘要</strong> 横幅</div>
+    </div>
+</div>
+<div class="details admonition info open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-circle-info" aria-hidden="true"></i>信息<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>信息</strong> 横幅</div>
+    </div>
+</div>
+<div class="details admonition tip open">
+    <div class="details-summary admonition-title"><i class="icon fa-regular fa-lightbulb" aria-hidden="true"></i>技巧<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>技巧</strong> 横幅</div>
+    </div>
+</div>
+<div class="details admonition success open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-check" aria-hidden="true"></i>成功<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>成功</strong> 横幅</div>
+    </div>
+</div>
+<div class="details admonition question open">
+    <div class="details-summary admonition-title"><i class="icon fa-regular fa-circle-question" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>问题</strong> 横幅</div>
+    </div>
+</div>
+<div class="details admonition warning open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-exclamation-triangle" aria-hidden="true"></i>警告<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>警告</strong> 横幅</div>
+    </div>
+</div>
+<div class="details admonition failure open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-xmark" aria-hidden="true"></i>失败<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>失败</strong> 横幅</div>
+    </div>
+</div>
+<div class="details admonition danger open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-bolt" aria-hidden="true"></i>危险<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>危险</strong> 横幅</div>
+    </div>
+</div>
+<div class="details admonition bug open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-bug" aria-hidden="true"></i>Bug<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>Bug</strong> 横幅</div>
+    </div>
+</div>
+<div class="details admonition example open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-list-ul" aria-hidden="true"></i>示例<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>示例</strong> 横幅</div>
+    </div>
+</div>
+<div class="details admonition quote open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-quote-right" aria-hidden="true"></i>引用<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>引用</strong> 横幅</div>
+    </div>
+</div>
+<p><code>admonition</code> shortcode 有以下命名参数:</p>
+<ul>
+<li>
+<p><strong>type</strong> <em>[必需]</em> (<strong>第一个</strong>位置参数)</p>
+<p><code>admonition</code> 横幅的类型, 默认值是 <code>note</code>.</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//参数如下
+</span></span><span class="line"><span class="cl">note abstract info tip success question warning failure danger bug example quote </span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div></li>
+<li>
+<p><strong>title</strong> <em>[可选]</em> (<strong>第二个</strong>位置参数)</p>
+<p><code>admonition</code> 横幅的标题, 默认值是 <strong>type</strong> 参数的值.</p>
+</li>
+<li>
+<p><strong>open</strong> <em>[可选]</em> (<strong>第三个</strong>位置参数)</p>
+<p>横幅内容是否默认展开, 默认值是 <code>true</code>.</p>
+</li>
+</ul>
+<p>一个 <code>admonition</code> 示例:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{{&lt; admonition type=tip title=&#34;This is a tip&#34; open=false &gt;}}
+</span></span><span class="line"><span class="cl">一个 <span class="gs">**技巧**</span> 横幅
+</span></span><span class="line"><span class="cl">{{&lt; /admonition &gt;}}
+</span></span><span class="line"><span class="cl">或者
+</span></span><span class="line"><span class="cl">{{&lt; admonition tip &#34;This is a tip&#34; false &gt;}}
+</span></span><span class="line"><span class="cl">一个 <span class="gs">**技巧**</span> 横幅
+</span></span><span class="line"><span class="cl">{{&lt; /admonition &gt;}}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下:</p>
+<div class="details admonition tip">
+    <div class="details-summary admonition-title"><i class="icon fa-regular fa-lightbulb" aria-hidden="true"></i>This is a tip<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">一个 <strong>技巧</strong> 横幅</div>
+    </div>
+</div>
+<h2 class="heading-element" id="typeit"><span>typeit</span>
+  <a href="#typeit" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p><code>typeit</code> shortcode 基于 <a href="https://typeitjs.com/" target="_blank" rel="external nofollow noopener noreferrer">TypeIt<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 提供了打字动画.</p>
+<p>只需将你需要打字动画的内容插入 <code>typeit</code> shortcode 中即可.</p>
+<h3 class="heading-element" id="简单内容"><span>简单内容</span>
+  <a href="#%e7%ae%80%e5%8d%95%e5%86%85%e5%ae%b9" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p>允许使用 <code>Markdown</code> 格式的简单内容, 并且 <strong>不包含</strong> 富文本的块内容, 例如图像等等&hellip;</p>
+<p>一个 <code>typeit</code> 示例:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{{&lt; typeit &gt;}}
+</span></span><span class="line"><span class="cl">这一个带有基于 [<span class="nt">TypeIt</span>](<span class="na">https://typeitjs.com/</span>) 的 <span class="gs">**打字动画**</span> 的 <span class="ge">*段落*</span>...
+</span></span><span class="line"><span class="cl">{{&lt; /typeit &gt;}}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下:</p>
+<div class="typeit"><div ></div><template><pre>这一个带有基于 <a href="https://typeitjs.com/" target="_blank" rel="external nofollow noopener noreferrer">TypeIt<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的 <strong>打字动画</strong> 的 <em>段落</em>&hellip;</pre></template>
+</div>
+<p>另外, 你也可以自定义 <strong>HTML 标签</strong>.</p>
+<p>一个带有 <code>h4</code> 标签的 <code>typeit</code> 示例:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{{&lt; typeit tag=h4 &gt;}}
+</span></span><span class="line"><span class="cl">这一个带有基于 [<span class="nt">TypeIt</span>](<span class="na">https://typeitjs.com/</span>) 的 <span class="gs">**打字动画**</span> 的 <span class="ge">*段落*</span>...
+</span></span><span class="line"><span class="cl">{{&lt; /typeit &gt;}}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下:</p>
+<div class="typeit"><h4 ></h4><template><pre>这一个带有基于 <a href="https://typeitjs.com/" target="_blank" rel="external nofollow noopener noreferrer">TypeIt<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的 <strong>打字动画</strong> 的 <em>段落</em>&hellip;</pre></template>
+</div>
+<h3 class="heading-element" id="代码内容"><span>代码内容</span>
+  <a href="#%e4%bb%a3%e7%a0%81%e5%86%85%e5%ae%b9" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p>代码内容也是允许的, 并且通过使用参数 <code>code</code> 指定语言类型可以实习语法高亮.</p>
+<p>一个带有 <code>code</code> 参数的 <code>typeit</code> 示例:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{{&lt; typeit code=java &gt;}}
+</span></span><span class="line"><span class="cl">public class HelloWorld {
+</span></span><span class="line"><span class="cl">    public static void main(String []args) {
+</span></span><span class="line"><span class="cl">        System.out.println(&#34;Hello World&#34;);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">{{&lt; /typeit &gt;}}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下:</p>
+<div class="typeit"><div class="highlight"></div><template><pre><span class="chroma"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">HelloWorld</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="o">[]</span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Hello World&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></span></pre></template>
+</div>
+<h3 class="heading-element" id="分组内容"><span>分组内容</span>
+  <a href="#%e5%88%86%e7%bb%84%e5%86%85%e5%ae%b9" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h3><p>默认情况下, 所有打字动画都是同时开始的.
+但是有时你可能需要按顺序开始一组 <code>typeit</code> 内容的打字动画.</p>
+<p>一组具有相同 <code>group</code> 参数值的 <code>typeit</code> 内容将按顺序开始打字动画.</p>
+<p>一个带有 <code>group</code> 参数的 <code>typeit</code> 示例:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{{&lt; typeit group=paragraph &gt;}}
+</span></span><span class="line"><span class="cl"><span class="gs">**首先**</span>, 这个段落开始
+</span></span><span class="line"><span class="cl">{{&lt; /typeit &gt;}}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{{&lt; typeit group=paragraph &gt;}}
+</span></span><span class="line"><span class="cl"><span class="gs">**然后**</span>, 这个段落开始
+</span></span><span class="line"><span class="cl">{{&lt; /typeit &gt;}}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下:</p>
+<div class="typeit" data-group="paragraph"><div ></div><template><pre><strong>首先</strong>, 这个段落开始</pre></template>
+</div>
+<div class="typeit" data-group="paragraph"><div ></div><template><pre><strong>然后</strong>, 这个段落开始</pre></template>
+</div>
+<h2 class="heading-element" id="script"><span>script</span>
+  <a href="#script" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p><code>script</code> shortcode 用来在你的文章中插入 <strong><i class="fab fa-js fa-fw" aria-hidden="true"></i>&nbsp;Javascript</strong> 脚本.</p>
+<div class="details admonition note open">
+    <div class="details-summary admonition-title"><i class="icon fa-solid fa-pencil-alt" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></div><div class="details-content">
+      <div class="admonition-content">脚本内容可以保证在所有的第三方库加载之后按顺序执行.
+所以你可以自由地使用第三方库.</div>
+    </div>
+</div>
+<p>一个 <code>script</code> 示例:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{{&lt; script &gt;}}
+</span></span><span class="line"><span class="cl">console.log(&#39;Hello XiaLuoHun!&#39;);
+</span></span><span class="line"><span class="cl">{{&lt; /script &gt;}}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>你可以在开发者工具的控制台中看到输出.</p>
+
+<h2 class="heading-element" id="自定义属性"><span>自定义属性</span>
+  <a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e5%b1%9e%e6%80%a7" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>前提是你设置了 <code>goldmark.parser.attribute.block</code> 为 <code>true</code>。</p>
+<p>Hugo 支持向 Markdown 块添加属性（例如 CSS 类），例如 表格、列表、段落等。</p>
+<p>语法:</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">some Markdown content
+</span></span><span class="line"><span class="cl">{<span class="ni">#id</span> .class1 .class2 key1=&#34;value1&#34; key2=&#34;value2&#34;}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>在大多数情况下，将属性列表放置在标记元素下方。对于标题和围栏代码块，将属性列表放在右侧。</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th style="text-align: left">标记元素</th>
+            <th style="text-align: left">属性放置的位置</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left">blockquote</td>
+            <td style="text-align: left">底部</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">fenced code block</td>
+            <td style="text-align: left">右侧</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">heading</td>
+            <td style="text-align: left">右侧</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">horizontal rule</td>
+            <td style="text-align: left">底部</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">image</td>
+            <td style="text-align: left">底部</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">list</td>
+            <td style="text-align: left">底部</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">paragraph</td>
+            <td style="text-align: left">底部</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">table</td>
+            <td style="text-align: left">底部</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>例子:</p>
+<p>带有 CSS 类的分割线：</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">{.awesome-hr}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出如下所示:</p>
+<hr class="awesome-hr">
+<p>带有 CSS 类的块引用：</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">foo\
+</span></span></span><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">bar
+</span></span></span><span class="line"><span class="cl">{<span class="ni">#test</span>-id .text-danger}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出如下所示：</p>
+<blockquote>
+<p id="test-id" class="text-danger">foo<br>
+bar</p>
+</blockquote>
+<p>目前有一些限制：对于表格，你目前只能将其应用于完整表格，而对于列表，仅适用于 <code>ul</code>/<code>ol</code> 节点，例如：</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl"><span class="k">*</span> 水果
+</span></span><span class="line"><span class="cl">  <span class="k">*</span> 苹果
+</span></span><span class="line"><span class="cl">  <span class="k">*</span> 橙子
+</span></span><span class="line"><span class="cl">  <span class="k">*</span> 香蕉
+</span></span><span class="line"><span class="cl">  {.text-success}
+</span></span><span class="line"><span class="cl"><span class="k">*</span> 乳制品
+</span></span><span class="line"><span class="cl">  <span class="k">*</span> 牛奶
+</span></span><span class="line"><span class="cl">  <span class="k">*</span> 奶酪
+</span></span><span class="line"><span class="cl">  {.text-warning}
+</span></span><span class="line"><span class="cl">{.text-primary}</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出如下所示：</p>
+<ul>
+<li>水果
+<ul class="text-success">
+<li>苹果</li>
+<li>橙子</li>
+<li>香蕉</li>
+</ul>
+</li>
+<li>乳制品
+<ul class="text-warning">
+<li>牛奶</li>
+<li>奶酪</li>
+</ul>
+</li>
+</ul>
+<p>给代码块添加 <code>title</code> 属性，例如：</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">``<span class="sb">`js {title=&#34;Luo.js&#34;}
+</span></span></span><span class="line"><span class="cl"><span class="sb">console.log(&#39;hello XiaLuoHun!&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="sb">`</span>``</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下：</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true" title="Luo.js"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hello XiaLuoHun!&#39;</span><span class="p">);</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><h2 class="heading-element" id="警示"><span>警示</span>
+  <a href="#%e8%ad%a6%e7%a4%ba" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p>警示也被称为callouts或admonitions,是用于强调关键信息的引用块。以下是所有五种类型的示例：</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true" data-open="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="2" style="--fi-max-shown-lines:50;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">[!NOTE]
+</span></span></span><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">突出显示用户应考虑的信息，即使只是浏览也应考虑。
+</span></span></span><span class="line"><span class="cl"><span class="k">
+</span></span></span><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">[!TIP]
+</span></span></span><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">可选信息，可帮助用户取得更大的成功。
+</span></span></span><span class="line"><span class="cl"><span class="k">
+</span></span></span><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">[!IMPORTANT]
+</span></span></span><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">用户成功所需的关键信息。
+</span></span></span><span class="line"><span class="cl"><span class="k">
+</span></span></span><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">[!WARNING]
+</span></span></span><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">由于存在潜在风险，需要用户立即关注的关键内容。
+</span></span></span><span class="line"><span class="cl"><span class="k">
+</span></span></span><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">[!CAUTION]
+</span></span></span><span class="line"><span class="cl">&gt; 操作的潜在负面后果。</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>它们的显示方式如下：</p>
+<div class="alert alert-note"><p class="alert-title"><i class="octicon-info-16 me-2" aria-hidden="true"></i>注意</p><p>突出显示用户应考虑的信息，即使只是浏览也应考虑。</p></div><div class="alert alert-tip"><p class="alert-title"><i class="octicon-light-bulb-16 me-2" aria-hidden="true"></i>提示</p><p>可选信息，可帮助用户取得更大的成功。</p></div><div class="alert alert-important"><p class="alert-title"><i class="octicon-report-16 me-2" aria-hidden="true"></i>重要</p><p>用户成功所需的关键信息。</p></div><div class="alert alert-warning"><p class="alert-title"><i class="octicon-alert-16 me-2" aria-hidden="true"></i>警告</p><p>由于存在潜在风险，需要用户立即关注的关键内容。</p></div><div class="alert alert-caution"><p class="alert-title"><i class="octicon-stop-16 me-2" aria-hidden="true"></i>小心</p><p>操作的潜在负面后果。</p></div><h2 class="heading-element" id="标记文本"><span>标记文本</span>
+  <a href="#%e6%a0%87%e8%ae%b0%e6%96%87%e6%9c%ac" class="heading-mark"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>
+</h2><p><code>Hugo</code>支持一种<code>标记文本</code> Markdown扩展语法：</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">==个人博客== https://xialuohun.top/</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下：</p>
+<p><mark class="mark-default">个人博客</mark> <a href="https://xialuohun.top/">https://xialuohun.top/</a></p>
+<p>扩展的标记文本语法支持<strong>6</strong>种类型的标记文本。</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">==Primary==[primary]
+</span></span><span class="line"><span class="cl">==Secondary==[secondary]
+</span></span><span class="line"><span class="cl">==Success==[success]
+</span></span><span class="line"><span class="cl">==Info==[info]
+</span></span><span class="line"><span class="cl">==Warning==[warning]
+</span></span><span class="line"><span class="cl">==Danger==[danger]</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下：</p>
+<p><mark class="mark-primary">Primary</mark>
+<mark class="mark-secondary">Secondary</mark>
+<mark class="mark-success">Success</mark>
+<mark class="mark-info">Info</mark>
+<mark class="mark-warning">Warning</mark>
+<mark class="mark-danger">Danger</mark></p>
+<p>除非你自定义标记文本，否则任何不支持的类型都会默认为<code>default</code>类型。</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">==这是一个带有粉色的自定义类型。==[pink]</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>在你的项目目录<code>assets/css/_custom.scss</code>中添加以下 CSS 来自定义标记文本：</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true" title="_custom.scss"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.mark-pink</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">--fi-mark-background-color</span><span class="o">:</span> <span class="no">pink</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div><p>呈现的输出效果如下：</p>
+<p><mark class="mark-pink">这是一个带有粉色的自定义类型。</mark></p>
+<p>输出的 HTML 看起来像这样：</p>
+<div class="code-block highlight" data-mode="mac" data-copyable="true"><div class="chroma">
+<div class="code-wrapper" data-max="50" data-line-digit="1" style="--fi-max-shown-lines:50;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;mark class=&#34;mark-pink&#34;&gt;这是一个带有粉色的自定义类型。&lt;/mark&gt;</span></span></code></pre></td></tr></table></div><button type="button" class="copy-icon-btn" aria-label="复制到剪贴板" title="复制到剪贴板" data-copied-text="已复制"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></button>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2022-06-06 00:00:00">更新于 2022-06-06&nbsp;</span>
+      </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"></div><div class="post-info-share">
+          <span></span>
+        </div></div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/markdown/" class="post-tag" title="标签 - Markdown">Markdown</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/aes/" class="post-nav-item" rel="prev" title="AES"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>AES</a><a href="/posts/markdown/mermaid-shortcode/" class="post-nav-item" rel="next" title="Mermaid Shortcode">Mermaid Shortcode<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc animate__animated animate__fadeIn animate__faster" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" closedby="any">
+      <button type="button" class="toc-close-btn" aria-label="Close Table of Contents"><i class="fa-solid fa-xmark fa-lg" aria-hidden="true"></i></button>
+      <div class="toc">
+        <h2 class="toc-title" id="toc-dialog-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://xialuohun.top" target="_blank" rel="external nofollow noopener noreferrer">夏洛魂</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><button type="button" class="fixed-button back-to-top animate__faster hidden" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i><svg viewBox="0 0 100 100">
+              <circle class="bg" cx="50" cy="50" r="50"></circle>
+              <circle class="progress" cx="50" cy="50" r="50"></circle>
+            </svg></button><button type="button" id="toc-drawer-button" class="fixed-button toc-drawer-button hidden" aria-label="目录" aria-controls="toc-dialog" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button></div><div id="mask"></div><dialog id="search-dialog" class="search-dialog" aria-label="搜索" closedby="any">
+      <div class="search-modal">
+        <div class="search-modal-header">
+          <span class="search-delimiter"></span>
+          <button type="button" class="search-close-btn" aria-label="Close Search Dialog"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="search-source-footer">
+          <div class="search-shortcuts">
+            <span class="search-shortcut">
+              <kbd><i class="lucide-arrow-up" aria-hidden="true"></i></kbd>
+              <kbd><i class="lucide-arrow-down" aria-hidden="true"></i></kbd>
+              切换
+            </span>
+            <span class="search-shortcut">
+              <kbd><i class="lucide-corner-down-left" aria-hidden="true"></i></kbd>
+              选择
+            </span>
+            <span class="search-shortcut">
+              <kbd>ESC</kbd>
+              关闭
+            </span>
+          </div><span class="search-engine">搜索引擎 <a href="https://fusejs.io/" target="_blank" rel="external nofollow noopener noreferrer">Fuse.js</a></span></div>
+      </div>
+    </dialog><div class="reading-progress-bar" style="left: 0;top: 0;--fi-bg-progress: #0076ff;--fi-bg-progress-dark: #fff;"></div><noscript>
+    <div class="noscript-warning bg-danger text-white text-base font-bold fixed text-center inset-x-0 bottom-0 w-full z-fixed">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/pace/themes/purple/pace-theme-minimal.css"><link rel="stylesheet" href="/css/pages/f57dd3d4d7918242f91f7ea96a4a6fd7.min.css"><script src="/lib/autocomplete-js/index.production.js" defer></script><script src="/js/lib/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/js/lib/lightgallery.min.js" defer></script><script src="/lib/typeit/index.umd.js" defer></script><script src="/js/lib/typeit.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script src="/js/config/f57dd3d4d7918242f91f7ea96a4a6fd7.min.js" defer></script><script src="/js/lib/file-tree.min.js" defer></script><script src="/js/main.min.js" defer></script><script src="/js/custom.min.js" defer></script><script src="/js/pages/f57dd3d4d7918242f91f7ea96a4a6fd7.min.js" defer></script></body>
+</html>
